@@ -5,9 +5,6 @@ import { Arrow } from "./Arrow.tsx";
 const meta = {
   title: 'components/Elements/Arrow',
   component: Arrow,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
 }
 
@@ -16,6 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    label: 'Arrow',
+    primary: true,
   }
 }
