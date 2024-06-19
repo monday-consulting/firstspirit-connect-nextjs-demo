@@ -1,5 +1,16 @@
-function FavouriteProduct() {
-  return()
+import React from "react";
+
+interface FavouriteProductProps {
+  label: string;
+  primary?: boolean;
 }
 
-export default FavouriteProduct;
+export const FavouriteProduct = ({
+  label,
+  primary = true,
+}: FavouriteProductProps) => {
+  const mode = primary ? 'storybook-favouriteproduct--primary' : 'storybook-favouriteproduct--secondary';
+  return(
+    <h1>{ label }</h1>
+  );
+};

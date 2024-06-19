@@ -1,5 +1,14 @@
-function Button() {
-  return()
+interface ButtonProps {
+  label: string;
+  primary?: boolean;
 }
 
-export default Button;
+export const Button = ({
+  label,
+  primary = true,
+}: ButtonProps) => {
+  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+  return(
+    <h1>{ label }</h1>
+  )
+}

@@ -1,21 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import { LanguageSwitch } from "./LanguageSwitch.tsx";
+import { Logo } from "./Logo.tsx";
 
 const meta = {
-  title: 'components/AppLayout/LanguageSwitch',
-  component: LanguageSwitch,
-  parameters: {
-    layout: 'centered',
-  },
+  title: 'components/AppLayout/Logo',
+  component: Logo,
   tags: ['autodocs'],
-}
+} satisfies Meta<typeof Logo>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    label: 'LanguageSwitch',
+    label: 'Logo',
+    primary: true,
   }
 }

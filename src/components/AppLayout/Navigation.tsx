@@ -1,5 +1,14 @@
-function Navigation() {
- return() 
+interface NavigationProps {
+  label: string;
+  primary?: boolean;
 }
 
-export default Navigation;
+export const Navigation = ({
+  label,
+  primary = true,
+}: NavigationProps) => {
+  const mode = primary ? 'storybook-navigation--primary' : 'storybook-navigation--secondary';
+  return(
+    <h1>{ label }</h1>
+  )
+}

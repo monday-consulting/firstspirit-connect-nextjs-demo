@@ -1,0 +1,18 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { FeaturedProductItem } from "./FeaturedProductItem.tsx";
+
+const meta = {
+  title: 'components/Elements/FeaturedProductItem',
+  components: FeaturedProductItem,
+  tags: ['autodocs'],
+} satisfies Meta<typeof FeaturedProductItem>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+  args: {
+    label: 'FeaturedProductItem',
+    primary: true,
+  }
+}

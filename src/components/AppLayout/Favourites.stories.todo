@@ -1,21 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import { FavouriteProduct } from "./FavouriteProduct.tsx";
+import { Favourites } from "./Favourites.tsx";
 
 const meta = {
-  title: 'components/AppLayout/FavouriteProduct',
-  component: FavouriteProduct,
-  parameters: {
-    layout: 'centered',
-  },
+  title: 'components/AppLayout/Favourites',
+  component: Favourites,
   tags: ['autodocs'],
-}
+} satisfies Meta<typeof Favourites>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    label: 'FavouriteProduct',
-  }
-}
+  },
+};
