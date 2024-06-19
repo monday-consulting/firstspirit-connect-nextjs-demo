@@ -1,21 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import { NotificationNumber } from "./NotificationNumber.tsx";
 
 const meta = {
   title: 'components/Elements/NotificationNumber',
-  components: NotificationNumber,
-  parameters: {
-    layout: 'centered',
-  },
+  component: NotificationNumber,
   tags: ['autodocs'],
-}
+} satisfies Meta<typeof NotificationNumber>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    label: 'NotificationNumber',
+    primary: true,
+    amount: 1,
   }
 }
