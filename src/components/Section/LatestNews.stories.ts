@@ -1,21 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import { LatestNews } from "./LatestNews.tsx";
 
 const meta = {
   title: 'components/Section/LatestNews',
   component: LatestNews,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
-}
+} satisfies Meta<typeof LatestNews>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    label: 'LatestNews',
+    primary: true,
+    data: {
+      st_headline: 'LatestNews',
+      st_newstag: {
+        type: 'type',
+        key: 'key',
+        value: 'value',
+      },
+    },
   }
 }
