@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.3.2",
+    "fsxa-api": "^10.22.2",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
