@@ -4,35 +4,75 @@ import Questionmark from "./Elements/Questionmark";
 import hljs from "highlight.js/lib/core";
 import json from "highlight.js/lib/languages/json";
 import Cross from "./Elements/Cross";
+import { useContent } from "./composables/content";
+import { useNavigationData } from "./composables/navigation";
 
 interface DevProps {
+    currentDataMock: Object;
+    currentPageMock: Object;
     content: unknown;
     componentName?: string;
 }
 
-const DevComponent = ({ content, componentName }: DevProps) => {
+const DevComponent = ({
+    content,
+    componentName,
+    currentDataMock,
+    currentPageMock,
+}: DevProps) => {
+    const { activeNavigationItem } = useNavigationData();
+    console.log(activeNavigationItem);
+
+    const {
+        findCachedProductsByRoute,
+        findCachedPageByRoute,
+        findCachedDatasetByRoute,
+    } = useContent();
+
     const [devComponentVisible, setDevComponentVisible] = useState(false);
     const [activeItem, setActiveItem] = useState<
         "content" | "dataset" | "products" | "currentPage"
     >("content");
+
+    const route = decodeURIComponent(location.pathname);
+    console.log("Route: ", route);
+
+    const products = useMemo(() => {
+        return findCachedProductsByRoute(route);
+    }, [route, findCachedProductsByRoute]);
+
+    // Memoized value for currentPage
+    const currentPage = useMemo(() => {
+        return { currentPageMock };
+        //return findCachedPageByRoute(route);
+    }, [route, findCachedPageByRoute]);
+
+    // Memoized value for currentDataset
+    const currentDataset = useMemo(() => {
+        return { currentDataMock };
+        //return findCachedDatasetByRoute(route)
+    }, [route, findCachedDatasetByRoute]);
+
+    // Computed value for isContentProjection
+    const isContentProjection = useMemo(() => {
+        return activeNavigationItem?.seoRouteRegex !== null;
+    }, [activeNavigationItem]);
 
     // meomorize the variable for the actual content based on the active item
     const devContent = useMemo(() => {
         switch (activeItem) {
             case "content":
                 return content;
-            // this cases are not implemented yet in the vue component
-            // case 'products':
-            //   return products;
-            // case 'currentPage':
-            //   return currentPage;
-            // case 'dataset':
-            //   return currentDataset;
+            case "products":
+                return products;
+            case "currentPage":
+                return currentPage;
+            case "dataset":
+                return currentDataset;
             default:
                 return content;
         }
     }, [activeItem, content]);
-
     hljs.registerLanguage("json", json);
 
     const highlightedDevContent = useMemo(() => {
@@ -86,6 +126,31 @@ const DevComponent = ({ content, componentName }: DevProps) => {
                                 onClick={() => setActiveItem("content")}
                             >
                                 {componentName} Data
+                            </button>
+
+                            {isContentProjection && (
+                                <button
+                                    className={`rounded-t p-2 font-bold capitalize text-white ${activeItem === "dataset" ? "bg-gray-800" : "bg-gray-600"}`}
+                                    onClick={() => setActiveItem("dataset")}
+                                >
+                                    Current Dataset
+                                </button>
+                            )}
+
+                            {!isContentProjection && (
+                                <button
+                                    className={`rounded-t p-2 font-bold capitalize text-white ${activeItem === "products" ? "bg-gray-800" : "bg-gray-600"}`}
+                                    onClick={() => setActiveItem("products")}
+                                >
+                                    Products
+                                </button>
+                            )}
+
+                            <button
+                                className={`rounded-t p-2 font-bold capitalize text-white ${activeItem === "currentPage" ? "bg-gray-800" : "bg-gray-600"}`}
+                                onClick={() => setActiveItem("currentPage")}
+                            >
+                                Current Page
                             </button>
                         </div>
 
