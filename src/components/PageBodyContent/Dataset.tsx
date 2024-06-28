@@ -7,7 +7,7 @@ interface DatasetProps {
     content: Dataset;
 }
 
-const Dataset: React.FC<DatasetProps> = ({ content }) => {
+const Dataset = ({ content }: DatasetProps) => {
     const { $isPreviewMode } = useNextApp();
 
     const datasetComponent = useMemo(() => {
