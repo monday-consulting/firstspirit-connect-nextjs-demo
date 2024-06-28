@@ -1,10 +1,11 @@
 import React, { useMemo } from "react";
-import { Section, Dataset, Content2Section, Page } from "fsxa-api";
+import { Section, Dataset, Content2Section, Page, DataEntries } from "fsxa-api";
 import { useDev } from "./composables/showDev";
 import DevComponent from "./Dev";
 
 interface UnknownProps {
     content?: Section | Dataset | Content2Section | Page;
+    data?: DataEntries;
 }
 
 const Unknown = ({ content }: UnknownProps) => {
