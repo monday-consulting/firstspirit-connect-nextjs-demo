@@ -11,6 +11,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@netlify/plugin-nextjs": "^5.3.2",
     "fsxa-api": "^10.22.2",
     "highlight.js": "^11.9.0",
