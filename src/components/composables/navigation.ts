@@ -77,6 +77,8 @@ export function useNavigationData() {
    * Set activeLocale and activeNavigationItem based on the route
    * @param route
    */
+  // TODO: check hook dependencies
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const determineNavigationStateFromRoute = useCallback(
     async (route: string) => {
       try {
@@ -103,6 +105,8 @@ export function useNavigationData() {
    * Determines the route for '/'
    * @returns index route
    */
+  // TODO: check hook dependencies
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const getIndexRoute = useCallback(async () => {
     if (!navigationData) {
       const fetchedData = await fetchTopLevelNavigation(

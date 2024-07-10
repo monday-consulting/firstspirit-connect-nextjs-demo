@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
-import { Dataset } from "fsxa-api";
+import type { Dataset as FsxaDataset } from "fsxa-api";
 import Unknown from "../Unknown";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
 interface DatasetProps {
-  content: Dataset;
+  content: FsxaDataset;
 }
 
 const Dataset = ({ content }: DatasetProps) => {

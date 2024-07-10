@@ -1,11 +1,11 @@
 import type React from "react";
 import { useMemo } from "react";
-import { Content2Section } from "fsxa-api";
+import type { Content2Section as FsxaContent2Section } from "fsxa-api";
 import Unknown from "../Unknown";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
 interface Content2SectionProps {
-  content: Content2Section;
+  content: FsxaContent2Section;
 }
 
 const Content2Section: React.FC<Content2SectionProps> = ({ content }) => {

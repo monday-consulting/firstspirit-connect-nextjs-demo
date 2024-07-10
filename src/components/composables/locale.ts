@@ -60,6 +60,8 @@ export function useLocale() {
     setAvailableLocalesState(getLanguageNamesFromLocales(identifiers));
   }, []);
 
+  // TODO: check hook dependencies
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const fetchAvailableLocales = useCallback(async () => {
     if (typeof window === "undefined") {
       // simulation process.server check

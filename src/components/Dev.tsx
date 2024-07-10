@@ -8,8 +8,8 @@ import { useContent } from "./composables/content";
 import { useNavigationData } from "./composables/navigation";
 
 interface DevProps {
-  currentDataMock?: Object;
-  currentPageMock?: Object;
+  currentDataMock?: unknown;
+  currentPageMock?: unknown;
   content: unknown;
   componentName?: string;
 }

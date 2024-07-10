@@ -34,6 +34,7 @@ const FeaturedProductItem = ({ product, imageSource }: ProductCardProps) => {
             hover ? "bg-black/75" : "bg-black/50"
           }`}
           onMouseOver={handleMouseOver}
+          onFocus={handleMouseOver}
           onMouseLeave={handleMouseLeave}
         >
           <h3 className="mt-4 border-b-2 font-black text-2xl text-yellow-500">
