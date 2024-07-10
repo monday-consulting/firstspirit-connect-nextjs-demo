@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Linebreak from "./Linebreak.tsx";
+import { Standard } from "./Standard.tsx";
 
 const meta = {
-  title: 'components/Elements/Linebreak',
-  components: Linebreak,
+  title: 'components/PageLayout/Standard',
+  component: Standard,
   tags: ['autodocs'],
-} satisfies Meta<typeof Linebreak>;
+} satisfies Meta<typeof Standard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -13,5 +13,6 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     primary: true,
+    path: 'Standard',
   }
 }
