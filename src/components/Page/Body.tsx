@@ -1,5 +1,5 @@
 function Body() {
-  return()
+  return null
 }
 
 export default Body;

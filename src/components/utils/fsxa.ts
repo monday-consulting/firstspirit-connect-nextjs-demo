@@ -1,8 +1,8 @@
-import { FSXAApi, NavigationData, NavigationItem } from "fsxa-api";
+import type { FSXAApi, NavigationData, NavigationItem } from "fsxa-api";
 
 interface Props {
-    fsxaApi: FSXAApi;
-    route: string;
+  fsxaApi: FSXAApi;
+  route: string;
 }
 /**
  * Get the corresponding navigation item to the provided route from the navigation service.
@@ -13,38 +13,37 @@ interface Props {
  * @returns Navigation Item
  */
 export const fetchNavigationItemFromRoute = async ({
-    fsxaApi,
-    route,
+  fsxaApi,
+  route,
 }: Props): Promise<NavigationItem> => {
-    try {
-        let data: NavigationData | null = null;
+  try {
+    let data: NavigationData | null = null;
 
-        data = await fsxaApi.fetchNavigation({
-            initialPath: route,
-            locale: "",
-        });
+    data = await fsxaApi.fetchNavigation({
+      initialPath: route,
+      locale: "",
+    });
 
-        if (!data) {
-            throw new Error("No navigation data found");
-        }
-
-        // If any of the following lines throw an error, the Navigation Service is probably broken?
-        const seoRouteId =
-            data.seoRouteMap[route === "/" ? data.pages.index : route];
-        if (!seoRouteId) {
-            throw new Error("No matching route found");
-        }
-
-        const item = data.idMap[seoRouteId];
-        if (!item) {
-            throw new Error("No navigation item found");
-        }
-
-        return item;
-    } catch (error) {
-        console.error("Error fetching navigation item from route:", error);
-        throw error;
+    if (!data) {
+      throw new Error("No navigation data found");
     }
+
+    // If any of the following lines throw an error, the Navigation Service is probably broken?
+    const seoRouteId = data.seoRouteMap[route === "/" ? data.pages.index : route];
+    if (!seoRouteId) {
+      throw new Error("No matching route found");
+    }
+
+    const item = data.idMap[seoRouteId];
+    if (!item) {
+      throw new Error("No navigation item found");
+    }
+
+    return item;
+  } catch (error) {
+    console.error("Error fetching navigation item from route:", error);
+    throw error;
+  }
 };
 
 /**
@@ -54,9 +53,9 @@ export const fetchNavigationItemFromRoute = async ({
  * @returns Navigation Data
  */
 export const fetchTopLevelNavigation = (fsxaApi: FSXAApi, locale: string) => {
-    return fsxaApi.fetchNavigation({
-        locale,
-    });
+  return fsxaApi.fetchNavigation({
+    locale,
+  });
 };
 
 /**
@@ -65,26 +64,24 @@ export const fetchTopLevelNavigation = (fsxaApi: FSXAApi, locale: string) => {
  * @throws Error if locale cannot be extracted from navigation item
  * @returns Locale
  */
-export const getLocaleFromNavigationItem = (
-    navigationItem: NavigationItem
-): string => {
-    const contentReference = navigationItem?.contentReference;
+export const getLocaleFromNavigationItem = (navigationItem: NavigationItem): string => {
+  const contentReference = navigationItem?.contentReference;
 
-    if (!contentReference) {
-        throw new Error("No valid contentReference found");
-    }
+  if (!contentReference) {
+    throw new Error("No valid contentReference found");
+  }
 
-    const splitted = contentReference.split(".");
+  const splitted = contentReference.split(".");
 
-    if (splitted.length < 2) {
-        throw new Error("No valid contentReference found");
-    }
+  if (splitted.length < 2) {
+    throw new Error("No valid contentReference found");
+  }
 
-    const locale = splitted.pop();
+  const locale = splitted.pop();
 
-    if (!locale) {
-        throw new Error("No locale found");
-    }
+  if (!locale) {
+    throw new Error("No locale found");
+  }
 
-    return locale;
+  return locale;
 };

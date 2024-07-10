@@ -15,7 +15,8 @@
     "build:next": "next build",
     "build:sb": "storybook build",
     "start:next": "next start",
-    "lint": "next lint"
+    "lint": "biome lint --write ./",
+    "format": "biome format --write ./"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.5.1",
@@ -26,6 +27,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@chromatic-com/storybook": "^1.6.1",
     "@storybook/addon-essentials": "^8.2.1",
     "@storybook/addon-interactions": "^8.2.1",
