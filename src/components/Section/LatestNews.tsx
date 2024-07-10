@@ -1,5 +1,25 @@
-function LatestNews() {
-  return()
+interface News {
+  st_headline: string;
+  st_newstag: {
+    type: string;
+    key: string;
+    value: string;
+  };
+};
+
+interface LatestNewsProps {
+  primary?: boolean;
+  data: News;
 }
 
-export default LatestNews;
+export const LatestNews = ({
+  primary = true,
+  data,
+}: LatestNewsProps) => {
+  const mode = primary ? 'storybook-latestnews--primary' : 'storybook-latestnews--secondary';
+  return(
+    <div>
+      <h2>{ data.st_headline }</h2>
+    </div>
+  );
+};
