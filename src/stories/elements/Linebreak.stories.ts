@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import {Linebreak} from "@/components/elements/Linebreak";
+import { Linebreak } from "@/components/elements/Linebreak";
 
 const meta = {
   title: "components/Elements/Linebreak",

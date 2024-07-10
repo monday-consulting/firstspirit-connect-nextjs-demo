@@ -15,7 +15,7 @@ export const Primary: Story = {
     primary: true,
     data: {
       lt_button_text: "Button",
-      lt_product_link: {route: "route"},
+      lt_product_link: { route: "route" },
       lt_internal: {
         referenceId: "ID",
       },
