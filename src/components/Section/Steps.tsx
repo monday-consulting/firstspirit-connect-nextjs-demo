@@ -1,5 +1,6 @@
+// TODO: create component
 function Steps() {
-  return()
+  return null;
 }
 
 export default Steps;

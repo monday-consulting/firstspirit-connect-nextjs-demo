@@ -1,5 +1,6 @@
+// TODO: crate component
 function FeaturedProducts() {
-  return()
+  return null;
 }
 
 export default FeaturedProducts;

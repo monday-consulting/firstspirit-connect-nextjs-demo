@@ -1,5 +1,6 @@
+// TODO: create component
 function TextImage() {
-  return()
+  return null;
 }
 
 export default TextImage;

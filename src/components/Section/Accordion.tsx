@@ -1,5 +1,6 @@
+// TODO: crate component
 function Accordion() {
-  return()
+  return null;
 }
 
 export default Accordion;

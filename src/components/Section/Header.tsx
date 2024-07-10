@@ -15,7 +15,7 @@ const Header: React.FC<Props> = ({ data }) => {
   const devStyle = "h-8 border-b";
 
   const opacity = useMemo(() => {
-    const bgOpacity: string = data["pt_bgOpacity"]?.["key"];
+    const bgOpacity: string = data.pt_bgOpacity?.key ?? "";
     switch (bgOpacity) {
       case "20":
         return "bg-opacity-20";

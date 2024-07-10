@@ -1,5 +1,6 @@
+// TODO: crate component
 function RichTextElement() {
-  return()
+  return null;
 }
 
 export default RichTextElement;

@@ -1,5 +1,6 @@
+// TODO: crate component
 function Link() {
-  return()
+  return null;
 }
 
 export default Link;

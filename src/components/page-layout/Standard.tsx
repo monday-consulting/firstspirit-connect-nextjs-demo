@@ -8,7 +8,7 @@ interface StandardProps {
 export const Standard = ({ primary = true, path }: StandardProps) => {
   const mode = primary ? "storybook-standard--primary" : "storybook-standard--secondary";
   //TODO define page of type Page
-  ``; //TODO (below) add SectionHeader and PageBody
+  //TODO (below) add SectionHeader and PageBody
   return (
     <>
       <div data-testid="standardPageLayout">

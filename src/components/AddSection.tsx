@@ -17,6 +17,7 @@ const AddSection = ({ bodyName }: AddSectionProps) => {
   return (
     <section className="py-4">
       <button
+        type="button"
         className="group container relative mx-auto flex h-32 items-center justify-center border border-fs-button-bg border-dashed hover:bg-gray-50"
         onClick={handleCreateSection}
       >

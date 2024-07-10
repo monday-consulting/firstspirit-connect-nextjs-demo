@@ -1,5 +1,6 @@
+// TODO: create component
 function Stage() {
-  return()
+  return null;
 }
 
 export default Stage;

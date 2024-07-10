@@ -1,5 +1,6 @@
+// TODO: crate component
 function LikeButton() {
-  return()
+  return null;
 }
 
 export default LikeButton;

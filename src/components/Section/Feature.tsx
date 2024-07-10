@@ -1,5 +1,6 @@
+// TODO: crate component
 function Feature() {
-  return()
+  return null;
 }
 
 export default Feature;

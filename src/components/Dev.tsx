@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import "./styles.css";
 import Questionmark from "./elements/Questionmark";
 import hljs from "highlight.js/lib/core";
@@ -36,13 +36,13 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
   const currentPage = useMemo(() => {
     return { currentPageMock };
     //return findCachedPageByRoute(route);
-  }, [route, findCachedPageByRoute]);
+  }, [currentPageMock]);
 
   // Memoized value for currentDataset
-  const currentDataset = useMemo(() => {
+  const currentDataset = () => {
     return { currentDataMock };
     //return findCachedDatasetByRoute(route)
-  }, [route, findCachedDatasetByRoute]);
+  };
 
   // Computed value for isContentProjection
   const isContentProjection = useMemo(() => {
@@ -50,7 +50,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
   }, [activeNavigationItem]);
 
   // meomorize the variable for the actual content based on the active item
-  const devContent = useMemo(() => {
+  const devContent = () => {
     switch (activeItem) {
       case "content":
         return content;
@@ -63,18 +63,19 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
       default:
         return content;
     }
-  }, [activeItem, content]);
+  };
   hljs.registerLanguage("json", json);
 
-  const highlightedDevContent = useMemo(() => {
+  const highlightedDevContent = () => {
     const stringifiedDevContent = JSON.stringify(devContent, null, 2);
     return hljs.highlight("json", stringifiedDevContent).value;
-  }, [devContent]);
+  };
 
   return (
     <div className={`absolute top-0 right-0 z-20 bg-white ${devComponentVisible ? "z-40" : ""}`}>
       <div>
         <button
+          type="button"
           className="flex items-center p-2 text-gray-800 hover:text-yellow-500"
           onClick={() => setDevComponentVisible(!devComponentVisible)}
         >
@@ -98,6 +99,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
                 </p>
               </div>
               <button
+                type="button"
                 className="ml-auto h-10 w-10 rounded-full p-2 hover:bg-gray-200"
                 onClick={() => setDevComponentVisible(false)}
               >
@@ -107,6 +109,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
 
             <div className="mx-4 mt-4 rounded-t text-gray-800 text-sm">
               <button
+                type="button"
                 className={`rounded-t p-2 font-bold text-white capitalize ${activeItem === "content" ? "bg-gray-800" : "bg-gray-600"}`}
                 onClick={() => setActiveItem("content")}
               >
@@ -115,6 +118,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
 
               {isContentProjection && (
                 <button
+                  type="button"
                   className={`rounded-t p-2 font-bold text-white capitalize ${activeItem === "dataset" ? "bg-gray-800" : "bg-gray-600"}`}
                   onClick={() => setActiveItem("dataset")}
                 >
@@ -124,6 +128,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
 
               {!isContentProjection && (
                 <button
+                  type="button"
                   className={`rounded-t p-2 font-bold text-white capitalize ${activeItem === "products" ? "bg-gray-800" : "bg-gray-600"}`}
                   onClick={() => setActiveItem("products")}
                 >
@@ -132,6 +137,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
               )}
 
               <button
+                type="button"
                 className={`rounded-t p-2 font-bold text-white capitalize ${activeItem === "currentPage" ? "bg-gray-800" : "bg-gray-600"}`}
                 onClick={() => setActiveItem("currentPage")}
               >
@@ -142,6 +148,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
             <div className="mx-4 mb-4 flex-1 overflow-scroll rounded-b rounded-tr bg-gray-800 p-4 text-sm text-white leading-7">
               <pre>
                 <code
+                  // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
                   dangerouslySetInnerHTML={{
                     __html: highlightedDevContent,
                   }}
@@ -150,7 +157,8 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
             </div>
           </div>
 
-          <div
+          <button
+            type="button"
             className="fixed inset-0 z-10 bg-black bg-opacity-50"
             onClick={() => setDevComponentVisible(false)}
           />

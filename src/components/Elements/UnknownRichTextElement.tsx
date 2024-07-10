@@ -1,5 +1,6 @@
+// TODO: crate component
 function UnknownRichTextElement() {
-  return()
+  return null;
 }
 
 export default UnknownRichTextElement;

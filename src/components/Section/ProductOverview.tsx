@@ -1,5 +1,6 @@
+// TODO: crate component
 function ProductOverview() {
-  return()
+  return null;
 }
 
 export default ProductOverview;

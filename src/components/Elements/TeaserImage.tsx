@@ -1,5 +1,6 @@
+// TODO: crate component
 function TeaserImage() {
-  return()
+  return null;
 }
 
 export default TeaserImage;

@@ -14,11 +14,11 @@ const Unknown = ({ content }: UnknownProps) => {
   const componentType = useMemo(() => {
     switch (content?.type) {
       case "Section":
-        return "Section " + content.sectionType;
+        return `Section ${content.sectionType}`;
       case "Content2Section":
-        return "Content2Section " + content.sectionType;
+        return `Content2Section ${content.sectionType}`;
       case "Dataset":
-        return "Dataset " + content.schema + " " + content.template;
+        return `Dataset ${content.schema} ${content.template}`;
       default:
         return content?.name;
     }

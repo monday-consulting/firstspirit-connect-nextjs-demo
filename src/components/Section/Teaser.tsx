@@ -1,5 +1,6 @@
+// TODO: crate component
 function Teaser() {
-  return()
+  return null;
 }
 
 export default Teaser;

@@ -1,5 +1,6 @@
+// TODO: crate component
 function StepsItem() {
-  return()
+  return null;
 }
 
 export default StepsItem;

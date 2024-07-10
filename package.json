@@ -19,6 +19,7 @@
     "format": "biome format --write ./"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@netlify/plugin-nextjs": "^5.5.1",
     "fsxa-api": "^10.22.2",
     "highlight.js": "^11.10.0",

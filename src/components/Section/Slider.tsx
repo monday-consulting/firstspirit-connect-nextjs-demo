@@ -1,5 +1,6 @@
+// TODO: crate component
 function Slider() {
-  return()
+  return null;
 }
 
 export default Slider;
