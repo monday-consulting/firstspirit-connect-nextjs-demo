@@ -21,7 +21,6 @@ const DevComponent = ({
     currentPageMock,
 }: DevProps) => {
     const { activeNavigationItem } = useNavigationData();
-    console.log(activeNavigationItem);
 
     const {
         findCachedProductsByRoute,
