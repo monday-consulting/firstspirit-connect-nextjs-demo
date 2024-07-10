@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { LatestNews } from "@/components/section/LatestNews.jsx";
+import { LatestNews } from "@/components/section/LatestNews";
 
 const meta = {
   title: "components/Section/LatestNews",
