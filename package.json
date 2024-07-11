@@ -11,6 +11,7 @@
     "pnpm": "9.5.0"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev:next": "next dev",
     "dev:sb": "storybook dev -p 6006",
     "build:next": "next build",
