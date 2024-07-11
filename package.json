@@ -16,6 +16,7 @@
     "build:next": "next build",
     "build:sb": "storybook build",
     "start:next": "next start",
+    "check-ts": "tsc --noEmit",
     "lint": "biome lint --write ./",
     "format": "biome format --write ./",
     "prepare": "husky",
