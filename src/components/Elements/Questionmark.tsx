@@ -18,4 +18,4 @@ const Questionmark = () => {
   );
 };
 
-export default Questionmark;
+export { Questionmark };

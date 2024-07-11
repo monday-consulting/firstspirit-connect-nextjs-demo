@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
 import "./styles.css";
-import Questionmark from "./elements/Questionmark";
+import { Questionmark } from "./elements/Questionmark";
 import hljs from "highlight.js/lib/core";
 import json from "highlight.js/lib/languages/json";
-import Cross from "./elements/Cross";
+import { Cross } from "./elements/Cross";
 import { useContent } from "./composables/content";
 import { useNavigationData } from "./composables/navigation";
 

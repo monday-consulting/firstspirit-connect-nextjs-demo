@@ -18,4 +18,4 @@ const Cross = () => {
   );
 };
 
-export default Cross;
+export { Cross };

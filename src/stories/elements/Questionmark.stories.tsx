@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Questionmark from "@/components/elements/Questionmark";
+import { Questionmark } from "@/components/elements/Questionmark";
 
 const meta: Meta<typeof Questionmark> = {
   title: "components/Elements/Questionmark",
