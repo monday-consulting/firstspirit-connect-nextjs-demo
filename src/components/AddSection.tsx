@@ -29,4 +29,4 @@ const AddSection = ({ bodyName }: AddSectionProps) => {
   );
 };
 
-export default AddSection;
+export { AddSection };

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Unknown from "@/components/Unknown";
+import { Unknown } from "@/components/Unknown";
 
 const meta: Meta<typeof Unknown> = {
   title: "components/Unknown",
