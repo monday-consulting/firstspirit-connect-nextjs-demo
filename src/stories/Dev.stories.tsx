@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Dev from "@/components/Dev";
+import { DevComponent } from "@/components/Dev";
 
-const meta: Meta<typeof Dev> = {
+const meta: Meta<typeof DevComponent> = {
   title: "Components/Dev",
-  component: Dev,
+  component: DevComponent,
   parameters: {
     layout: "centered",
   },

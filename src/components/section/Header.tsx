@@ -1,7 +1,7 @@
 import type React from "react";
 import { useMemo } from "react";
 import type { DataEntries } from "fsxa-api";
-import DevComponent from "../Dev";
+import { DevComponent } from "../Dev";
 import { useDev } from "../composables/showDev";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
