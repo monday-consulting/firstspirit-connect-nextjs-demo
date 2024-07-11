@@ -11,11 +11,13 @@
     "pnpm": "9.5.0"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev:next": "next dev",
     "dev:sb": "storybook dev -p 6006",
     "build:next": "next build",
     "build:sb": "storybook build",
     "start:next": "next start",
+    "check-ts": "tsc --noEmit",
     "lint": "biome lint --write ./",
     "format": "biome format --write ./",
     "prepare": "husky",
