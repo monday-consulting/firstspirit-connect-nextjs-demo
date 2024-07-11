@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import type { Dataset as FsxaDataset } from "fsxa-api";
-import Unknown from "../Unknown";
+import { Unknown } from "../Unknown";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
 interface DatasetProps {

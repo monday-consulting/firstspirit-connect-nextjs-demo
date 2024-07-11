@@ -168,4 +168,4 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
   );
 };
 
-export default DevComponent;
+export { DevComponent };

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import type { Section as FsxaSection } from "fsxa-api";
-import Unknown from "../Unknown";
+import { Unknown } from "../Unknown";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
 interface SectionProps {

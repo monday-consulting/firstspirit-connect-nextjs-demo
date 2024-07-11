@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import type { Section, Dataset, Content2Section, Page, DataEntries } from "fsxa-api";
 import { useDev } from "./composables/showDev";
-import DevComponent from "./Dev";
+import { DevComponent } from "./Dev";
 
 interface UnknownProps {
   content?: Section | Dataset | Content2Section | Page;
@@ -32,4 +32,4 @@ const Unknown = ({ content }: UnknownProps) => {
   );
 };
 
-export default Unknown;
+export { Unknown };
