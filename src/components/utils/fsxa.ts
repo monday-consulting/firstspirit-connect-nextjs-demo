@@ -1,7 +1,8 @@
-import type { FSXAApi, NavigationData, NavigationItem } from "fsxa-api";
+import type { FetchNavigationParams, FSXAApi, NavigationData, NavigationItem } from "fsxa-api";
 
 interface Props {
-  fsxaApi: FSXAApi;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    fsxaApi: any;
   route: string;
 }
 /**
@@ -52,7 +53,8 @@ export const fetchNavigationItemFromRoute = async ({
  * @param locale Locale
  * @returns Navigation Data
  */
-export const fetchTopLevelNavigation = (fsxaApi: FSXAApi, locale: string) => {
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export  const fetchTopLevelNavigation = (fsxaApi: any, locale: string) => {
   return fsxaApi.fetchNavigation({
     locale,
   });
