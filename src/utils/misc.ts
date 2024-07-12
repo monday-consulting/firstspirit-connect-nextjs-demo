@@ -1,4 +1,4 @@
-import type { LocaleType } from "../composables/locale";
+import type { LocaleType } from "../components/composables/locale";
 
 export function getLanguageNamesFromLocales(identifiers: string[]): LocaleType[] {
   const locales: LocaleType[] = [];

@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { getAvailableLocales } from "fsxa-api";
-import { getLanguageNamesFromLocales } from "../utils/misc";
+import { getLanguageNamesFromLocales } from "../../utils/misc";
 
 type LocaleConfig = {
   defaultLocale: string;

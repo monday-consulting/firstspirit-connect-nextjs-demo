@@ -5,7 +5,7 @@ import {
   fetchNavigationItemFromRoute,
   fetchTopLevelNavigation,
   getLocaleFromNavigationItem,
-} from "../utils/fsxa";
+} from "../../utils/fsxa";
 import { useLocale } from "./locale";
 
 const { $createContentApi } = useNextApp();
