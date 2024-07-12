@@ -28,4 +28,4 @@ const Dataset = ({ content }: DatasetProps) => {
   );
 };
 
-export default Dataset;
+export { Dataset };

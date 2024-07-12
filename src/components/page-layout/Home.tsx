@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import { Page } from "fsxa-api";
 
 interface HomeProps {
@@ -18,7 +19,7 @@ export const Home = ({ primary = true, path }: HomeProps) => {
 
   //TODO (below) two PageBody tags
   return (
-    <div data-testid="homePageLayout">
+    <div data-testid="homePageLayout" className={cn(mode)}>
       <h1>{path}</h1>
     </div>
   );

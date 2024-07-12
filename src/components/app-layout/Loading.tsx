@@ -1,3 +1,5 @@
+import { cn } from "@/utils/cn";
+
 interface LoadingProps {
   primary?: boolean;
 }
@@ -5,7 +7,7 @@ interface LoadingProps {
 export const Loading = ({ primary = true }: LoadingProps) => {
   const mode = primary ? "storybook-loading--primary" : "storybook-loading--secondary";
   return (
-    <div className="absolute inset-0 z-40 flex items-center justify-center bg-white">
+    <div className={cn(mode, "absolute inset-0 z-40 flex items-center justify-center bg-white")}>
       <div role="status">
         <svg
           aria-hidden="true"

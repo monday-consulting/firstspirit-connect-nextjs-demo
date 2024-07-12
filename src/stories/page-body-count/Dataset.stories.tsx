@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Dataset from "@/components/page-body-count/Dataset";
+import { Dataset } from "@/components/page-body-count/Dataset";
 
 const meta: Meta<typeof Dataset> = {
   title: "components/PageBodyContent/Dataset",
