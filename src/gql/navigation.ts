@@ -2,13 +2,15 @@ import { query } from "@netlify/connect-client";
 import { graphql } from "../netlify-connect/graphql";
 
 const navigation = graphql(`
-  query allFsNavigationQuery($locale: String!) {
-    allFirstSpiritNavigationData(filter: {_locale: {eq: $locale}}) {
-      nodes {
-        pages {
-          index
-        }
-        id
+  query fsNavigationQuery($locale: String!) {
+    firstSpiritNavigationData(_locale: {eq: $locale}) {
+      idList {
+        seoRoute
+        label
+        fsNavItemId
+      }
+      structure {
+        fsStructureItemId
       }
     }
   }
@@ -16,5 +18,5 @@ const navigation = graphql(`
 
 export const getNavigation = async (locale: string) => {
   const res = await query(navigation, { variables: { locale } });
-  return res.allFirstSpiritNavigationData.nodes;
+  return res.firstSpiritNavigationData;
 };
