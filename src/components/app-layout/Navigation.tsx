@@ -29,6 +29,7 @@ const favorites: Favorite[] = [];
 
 const Navigation = ({ navStructure }: NavigationProps) => {
   const t = useTranslations();
+
   return (
     <div className="flex items-center justify-between px-8 py-4">
       <div className="flex items-center gap-8">
