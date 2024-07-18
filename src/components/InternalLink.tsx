@@ -1,5 +1,7 @@
+// TODO: create component
+
 function InternalLink() {
- return() 
+  return null;
 }
 
 export default InternalLink;
