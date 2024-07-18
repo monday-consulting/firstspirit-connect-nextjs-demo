@@ -3,6 +3,7 @@ import logo from "@/assets/smart_living_logo.webp";
 import Link from "next/link";
 import { LuGlobe, LuHeart } from "react-icons/lu";
 import { locales } from "@/i18n";
+import { useTranslations } from "next-intl";
 
 export type NavigationRoute = {
   fsNavItemId: string;
@@ -27,6 +28,7 @@ export type Favorite = {
 const favorites: Favorite[] = [];
 
 const Navigation = ({ navStructure }: NavigationProps) => {
+  const t = useTranslations();
   return (
     <div className="flex items-center justify-between px-8 py-4">
       <div className="flex items-center gap-8">
@@ -37,16 +39,16 @@ const Navigation = ({ navStructure }: NavigationProps) => {
           </Link>
         ))}
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-6">
         <div className="group relative">
           <LuHeart size={20} className="cursor-pointer" />
           <div className="-right-2 absolute hidden w-72 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
-            <h3 className="font-bold">Liste aller Favoriten</h3>
+            <h3 className="font-bold">{t("i18n.favListTitle")}</h3>
             <ul>
               {favorites.length > 0 ? (
                 favorites.map((favorite) => <li key={favorite.title}>{favorite.title}</li>)
               ) : (
-                <p>No favorites</p>
+                <p>{t("i18n.favListEmpty")}</p>
               )}
             </ul>
           </div>

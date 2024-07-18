@@ -13,7 +13,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev:next": "next dev",
-    "dev:sb": "storybook dev -p 6006",
+    "dev:sb": "storybook dev -p 6006 --no-open",
     "build:next": "next build",
     "build:sb": "storybook build",
     "start:next": "next start",

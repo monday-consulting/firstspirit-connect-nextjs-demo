@@ -1,5 +1,6 @@
 {
-  "global": {
-    "test": "Hello World!"
+  "i18n": {
+    "favListTitle": "List of all favorites",
+    "favListEmpty": "No favorites saved"
   }
 }
