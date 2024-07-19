@@ -1,11 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import {
-    type PageBody,
-    PageBodyContent,
-    type Dataset,
-    type Section,
-    type Content2Section,
-} from "fsxa-api"; // Adjust the import to match your file structure
+import type { PageBody, Dataset, Section, Content2Section } from "fsxa-api";
 
 import Body from "@/components/page/Body";
 
