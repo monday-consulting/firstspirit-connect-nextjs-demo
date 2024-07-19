@@ -7,6 +7,8 @@ import {
   getLocaleFromNavigationItem,
 } from "../../utils/fsxa";
 import { useLocale } from "./locale";
+import { createSharedPathnamesNavigation } from "next-intl/navigation";
+import { locales } from "@/i18n";
 
 const { $createContentApi } = useNextApp();
 const fsxaApi = $createContentApi();
@@ -140,3 +142,7 @@ export function useNavigationData() {
     cachedNavigationData,
   };
 }
+
+export const { Link, redirect, usePathname, useRouter } = createSharedPathnamesNavigation({
+  locales,
+});
