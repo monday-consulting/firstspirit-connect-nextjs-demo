@@ -1,9 +1,11 @@
+"use client";
 import Image from "next/image";
 import logo from "@/assets/smart_living_logo.webp";
 import Link from "next/link";
-import { LuGlobe, LuHeart } from "react-icons/lu";
+import { LuGlobe, LuHeart, LuMenu, LuX } from "react-icons/lu";
 import { locales } from "@/i18n";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export type NavigationRoute = {
   fsNavItemId: string;
@@ -28,16 +30,39 @@ export type Favorite = {
 const favorites: Favorite[] = [];
 
 const Navigation = ({ navStructure }: NavigationProps) => {
+  const [mobileNavActive, setMobileNavActive] = useState(false);
   const t = useTranslations();
+
+  const toggleMobileNav = () => {
+    setMobileNavActive(!mobileNavActive);
+  };
+
   return (
-    <div className="flex items-center justify-between px-8 py-4">
+    <nav className="flex items-center justify-between px-8 py-4">
       <div className="flex items-center gap-8">
         <Image src={logo} alt="Logo" className="mr-4" height={40} />
-        {navStructure.structure.map((navItem) => (
-          <Link key={navItem.fsNavItemId} href={navItem.seoRoute || "#"}>
-            {navItem.label}
-          </Link>
-        ))}
+        <div className="hidden gap-8 md:flex">
+          {navStructure.structure.map((navItem) => (
+            <div key={navItem.fsNavItemId} className="group relative">
+              <Link href={navItem.seoRoute || "#"} className="hover:text-gray-400">
+                {navItem.label}
+              </Link>
+              {navItem.children && (
+                <div className="absolute left-0 hidden w-72 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
+                  {navItem.children.map((item) => (
+                    <Link
+                      href={item.seoRoute || "#"}
+                      key={item.fsNavItemId}
+                      className="hover:underline"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
       <div className="flex gap-6">
         <div className="group relative">
@@ -64,8 +89,42 @@ const Navigation = ({ navStructure }: NavigationProps) => {
             </Link>
           </div>
         </div>
+        <button type="button" className="flex md:hidden" onClick={toggleMobileNav}>
+          {mobileNavActive ? (
+            <LuX size={20} className="z-10 cursor-pointer" />
+          ) : (
+            <LuMenu size={20} className="z-10 cursor-pointer" />
+          )}
+        </button>
       </div>
-    </div>
+      {mobileNavActive && (
+        <div className="absolute top-0 right-0 bottom-0 flex w-4/5 flex-col gap-8 bg-white px-10 py-[41.5px] shadow-lg">
+          {navStructure.structure.map((navItem) => (
+            <div key={navItem.fsNavItemId}>
+              <Link
+                href={navItem.seoRoute || "#"}
+                className="font-bold text-gray-400 uppercase hover:text-black"
+              >
+                {navItem.label}
+              </Link>
+              {navItem.children && (
+                <div className="flex flex-col gap-2">
+                  {navItem.children.map((item) => (
+                    <Link
+                      href={item.seoRoute || "#"}
+                      key={item.fsNavItemId}
+                      className="hover:underline"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </nav>
   );
 };
 
