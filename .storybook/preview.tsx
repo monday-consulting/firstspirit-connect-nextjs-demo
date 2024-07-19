@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react";
-import "../src/app/globals.css";
+import "../src/assets/styles/globals.css";
 import React from "react";
 import { IntlProvider } from "use-intl";
 import messages from "../messages/de_DE.json";

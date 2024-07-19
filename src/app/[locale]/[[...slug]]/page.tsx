@@ -1,26 +1,20 @@
-import { mockNavigationData } from "@/stories/mocks/mockNavigationData";
+import { getPageContentById } from "@/gql/pageContent";
 
-type Props = {
-  params: {
-    locale: string;
-    slug: string;
-  };
-};
+const SlugPage = async () => {
+  const pageContent = await getPageContentById("10f3e2ca-b451-5ab0-b83b-eba3034c55ea");
+  console.log(pageContent?.pageBodies?.map((item) => item?.children));
 
-// TODO: use real API
-// const navigationData = await getNavigation(locale);
-const navigationData = mockNavigationData;
-
-const Page = async ({ params }: Props) => {
-  const { locale, slug } = params;
-
-  // Example rendering based on the fetched navigation data
   return (
-    <div>
-      <h1>{`Locale: ${locale}`}</h1>
-      <h2>{`Slug: ${slug}`}</h2>
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      {/* {pageContent && (
+        <ul>
+          {pageContent.pageBodies?.map((body) => (
+            <li key={body?.children}>{body?.children}</li>
+          ))}
+        </ul>
+      )} */}
+    </main>
   );
 };
 
-export default Page;
+export default SlugPage;
