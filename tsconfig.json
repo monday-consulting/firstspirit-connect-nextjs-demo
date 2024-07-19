@@ -15,6 +15,10 @@
     "plugins": [
       {
         "name": "next"
+      },
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": ".connect/schema.graphql"
       }
     ],
     "paths": {
