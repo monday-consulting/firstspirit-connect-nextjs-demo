@@ -2,15 +2,12 @@
 import { useState } from "react";
 
 interface AccordionItemProps {
-  primary?: boolean;
   data: {
     st_title: string; //data supposed to be type AccordionItem
   };
 }
 
-export const AccordionItem = ({ primary = true, data }: AccordionItemProps) => {
-  const mode = primary ? "storybook-accordionitem--primary" : "storybook-accordionitem--secondary";
-
+export const AccordionItem = ({ data }: AccordionItemProps) => {
   //TODO define data of type AccordionItem
   const [open, setOpen] = useState(false);
   const style = () => {
