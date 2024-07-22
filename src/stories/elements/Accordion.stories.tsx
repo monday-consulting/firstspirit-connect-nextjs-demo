@@ -10,10 +10,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    data: {
-      st_title: "Accordion",
-    },
+    title: "Accordion title",
+    content:
+      "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
   },
 };

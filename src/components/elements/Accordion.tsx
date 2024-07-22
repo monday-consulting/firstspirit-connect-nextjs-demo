@@ -1,50 +1,43 @@
-// import type { AccordionItem } from "../../../types";
-import { useState } from "react";
-import { LuChevronDown, LuChevronUp } from "react-icons/lu";
-interface AccordionProps {
-  primary?: boolean;
-  data: {
-    st_title: string;
-  };
-}
+import { cn } from "@/utils/cn";
+import { type ReactNode, useState } from "react";
+import { LuChevronDown } from "react-icons/lu";
 
-export const Accordion = ({ primary = true, data }: AccordionProps) => {
-  const mode = primary ? "storybook-accordion--primary" : "storybook-accordion--secondary";
+export type AccordionProps = {
+  title: string;
+  content: ReactNode | string;
+};
 
-  //TODO define data of type Accordion
+export const Accordion = ({ title, content }: AccordionProps) => {
   const [open, setOpen] = useState(false);
-  const style = () => {
-    return open ? { maxHeight: "364px" } : {};
-  };
   const toggle = () => {
-    console.log(open);
     setOpen(!open);
   };
 
   return (
-    <>
-      <div className="w-full p-1">
-        <div className="rounded-2xl border-2 border-text bg-white bg-opacity-60 px-8 py-7 shadow-10xl">
-          <div className="flex cursor-pointer p-2">
-            <button
-              type="button"
-              className="grow text-left font-semibold text-lg text-text leading-normal"
-              onClick={toggle}
-            >
-              {data.st_title}
-            </button>
-            <button type="button" onClick={toggle}>
-              {open ? <LuChevronUp /> : <LuChevronDown />}
-            </button>
-          </div>
-          <div
-            className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200 ease-in-out"
-            style={open ? { maxHeight: "364px" } : {}}
+    <div className="w-full p-1">
+      <div className="rounded-2xl border-2 border-text bg-white bg-opacity-60 px-8 py-7 shadow-10xl">
+        <div className="flex cursor-pointer p-2 text-text">
+          <button
+            type="button"
+            className="grow text-left font-semibold text-lg text-text leading-normal"
+            onClick={toggle}
           >
-            <p>{data.st_title}</p>
-          </div>
+            {title}
+          </button>
+          <button type="button" onClick={toggle}>
+            <LuChevronDown
+              size={25}
+              className={cn("transition-transform duration-200", open && "rotate-180")}
+            />
+          </button>
+        </div>
+        <div
+          className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200"
+          style={open ? { maxHeight: "364px" } : {}}
+        >
+          {content}
         </div>
       </div>
-    </>
-  ); //TODO (above) insert ElementRichText instead of p tag
+    </div>
+  );
 };

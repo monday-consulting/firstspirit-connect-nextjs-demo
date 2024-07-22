@@ -13,39 +13,29 @@ const meta: Meta<typeof FAQSection> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    data: {
-      st_accordion: [
-        {
-          data: {
-            st_content: [
-              {
-                type: "text",
-                content: "Example text content",
-                data: {},
-              },
-              {
-                type: "paragraph",
-                content: "Example paragraph content",
-                data: {},
-              },
-            ],
-            st_title: "Example Accordion 1",
-          },
-          id: "accordion-1",
-          previewId: "preview-accordion-1",
-        },
-      ],
-      st_headline: "Example Headline",
-      st_info: [
-        {
-          type: "block",
-          content: "Example block content",
-          data: {},
-        },
-      ],
-      st_subline: "Example Subline",
-    },
+    headline: "Häufig gestellte Fragen",
+    entries: [
+      {
+        title: "Accordion one",
+        content:
+          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+      },
+      {
+        title: "Accordion two",
+        content:
+          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+      },
+      {
+        title: "Accordion three",
+        content: (
+          <p>
+            This is <strong>HTML</strong>!
+          </p>
+        ),
+      },
+    ],
+    claim: "Was Sie schon immer wissen wollten - Antworten auf die häufigsten Fragen",
   },
 };
