@@ -10,7 +10,7 @@ export const mockNavigationData: NavigationStructure = {
         {
           seoRoute: "/unsere-lösungen/sicherheit-zu-hause/",
           label: "Unsere Lösungen",
-          fsNavItemId: "6b56db03-a99b-45ad-8b71-79ff4530cb59",
+          fsNavItemId: "6b56db03-a99b-45ad-8b71-79ff4530cb58",
         },
         {
           seoRoute: "/unsere-lösungen/wußten-sie-schon/",
@@ -22,7 +22,7 @@ export const mockNavigationData: NavigationStructure = {
     {
       seoRoute: "/produkte/",
       label: "Produkte",
-      fsNavItemId: "6b56db03-a99b-45ad-8b71-79ff4530cb59",
+      fsNavItemId: "6b56db03-a99b-45ad-8b71-79ff4530cb57",
       children: [
         {
           seoRoute: "/produkte/security/",
@@ -56,7 +56,7 @@ export const mockNavigationData: NavigationStructure = {
     {
       seoRoute: "/über-uns/",
       label: "Über uns",
-      fsNavItemId: "6b56db03-a99b-45ad-8b71-79ff4530cb59",
+      fsNavItemId: "6b56db03-a99b-45ad-8b71-79ff4530cb56",
     },
   ],
 };
