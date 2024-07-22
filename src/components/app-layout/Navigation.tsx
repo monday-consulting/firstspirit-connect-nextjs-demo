@@ -6,6 +6,9 @@ import { LuGlobe, LuHeart, LuMenu, LuX } from "react-icons/lu";
 import { locales } from "@/i18n";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import useFavorites from "@/utils/hooks/useFavorites";
+import { FavoriteTeaser } from "../elements/FavoriteTeaser";
+import { fa } from "@faker-js/faker";
 
 export type NavigationRoute = {
   fsNavItemId: string;
@@ -27,10 +30,9 @@ export type Favorite = {
   href: string;
 };
 
-const favorites: Favorite[] = [];
-
 const Navigation = ({ navStructure }: NavigationProps) => {
   const [mobileNavActive, setMobileNavActive] = useState(false);
+  const [favorites] = useFavorites();
   const t = useTranslations();
 
   const toggleMobileNav = () => {
@@ -69,15 +71,17 @@ const Navigation = ({ navStructure }: NavigationProps) => {
       <div className="flex gap-6">
         <div className="group relative">
           <LuHeart size={20} className="cursor-pointer" />
-          <div className="-right-2 absolute hidden w-72 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
+          <div className="-right-2 absolute hidden w-96 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
             <h3 className="font-bold">{t("i18n.favListTitle")}</h3>
-            <ul>
-              {favorites.length > 0 ? (
-                favorites.map((favorite) => <li key={favorite.title}>{favorite.title}</li>)
+            <div className="flex flex-col gap-2">
+              {favorites.list && favorites.list.length > 0 ? (
+                favorites.list.map((favorite) => (
+                  <FavoriteTeaser key={favorite.id} title={favorite.title} image={favorite.image} />
+                ))
               ) : (
                 <p>{t("i18n.favListEmpty")}</p>
               )}
-            </ul>
+            </div>
           </div>
         </div>
         <div className="group">

@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Navigation } from "@/components/app-layout/Navigation";
 import { mockNavigationData } from "@/stories/mocks/mockNavigationData";
+import { FavoriteListProvider } from "@/utils/contexts/favorites";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,10 +31,12 @@ const RootLayout = async ({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
-          <Navigation navStructure={mockNavigationData} />
-          {children}
-        </NextIntlClientProvider>
+        <FavoriteListProvider>
+          <NextIntlClientProvider messages={messages}>
+            <Navigation navStructure={mockNavigationData} />
+            {children}
+          </NextIntlClientProvider>
+        </FavoriteListProvider>
       </body>
     </html>
   );
