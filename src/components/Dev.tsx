@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import "./styles.css";
-import { Questionmark } from "./elements/Questionmark";
+import { LuShieldQuestion } from "react-icons/lu";
 import hljs from "highlight.js/lib/core";
 import json from "highlight.js/lib/languages/json";
 import { Cross } from "./elements/Cross";
@@ -24,6 +24,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
   const [activeItem, setActiveItem] = useState<"content" | "dataset" | "products" | "currentPage">(
     "content"
   );
+  console.log(activeItem);
 
   const route = decodeURIComponent(location.pathname);
   console.log("Route: ", route);
@@ -32,17 +33,15 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
     return findCachedProductsByRoute(route);
   }, [route, findCachedProductsByRoute]);
 
-  // Memoized value for currentPage
   const currentPage = useMemo(() => {
-    return { currentPageMock };
-    //return findCachedPageByRoute(route);
-  }, [currentPageMock]);
+    console.log(currentPageMock);
+    return currentPageMock || findCachedPageByRoute(route);
+  }, [route, currentPageMock, findCachedPageByRoute]);
 
-  // Memoized value for currentDataset
-  const currentDataset = () => {
-    return { currentDataMock };
-    //return findCachedDatasetByRoute(route)
-  };
+  const currentDataset = useMemo(() => {
+    console.log(currentDataMock);
+    return currentDataMock || findCachedDatasetByRoute(route);
+  }, [route, currentDataMock, findCachedDatasetByRoute]);
 
   // Computed value for isContentProjection
   const isContentProjection = useMemo(() => {
@@ -50,26 +49,29 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
   }, [activeNavigationItem]);
 
   // meomorize the variable for the actual content based on the active item
-  const devContent = () => {
+  const devContent = useMemo(() => {
     switch (activeItem) {
       case "content":
         return content;
       case "products":
         return products;
       case "currentPage":
+        console.log("iam here");
+        console.log(currentPage);
+
         return currentPage;
       case "dataset":
         return currentDataset;
       default:
         return content;
     }
-  };
+  }, [activeItem, content, products, currentPage, currentDataset]);
   hljs.registerLanguage("json", json);
 
-  const highlightedDevContent = () => {
+  const highlightedDevContent = useMemo(() => {
     const stringifiedDevContent = JSON.stringify(devContent, null, 2);
-    return hljs.highlight("json", stringifiedDevContent).value;
-  };
+    return hljs.highlight(stringifiedDevContent, { language: "json" }).value;
+  }, [devContent]);
 
   return (
     <div className={`absolute top-0 right-0 z-20 bg-white ${devComponentVisible ? "z-40" : ""}`}>
@@ -79,7 +81,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
           className="flex items-center p-2 text-gray-800 hover:text-yellow-500"
           onClick={() => setDevComponentVisible(!devComponentVisible)}
         >
-          <Questionmark />
+          <LuShieldQuestion />
         </button>
       </div>
 
