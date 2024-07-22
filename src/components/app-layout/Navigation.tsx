@@ -2,13 +2,13 @@
 import Image from "next/image";
 import logo from "@/assets/smart_living_logo.webp";
 import { Link } from "@/components/composables/navigation";
-import { LuGlobe, LuHeart, LuMenu, LuX } from "react-icons/lu";
+import { LuGlobe, LuMenu, LuX } from "react-icons/lu";
 import { locales } from "@/i18n";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import useFavorites from "@/utils/hooks/useFavorites";
 import { FavoriteTeaser } from "../elements/FavoriteTeaser";
-import { fa } from "@faker-js/faker";
+import { VscHeart } from "react-icons/vsc";
 
 export type NavigationRoute = {
   fsNavItemId: string;
@@ -70,7 +70,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
       </div>
       <div className="flex gap-6">
         <div className="group relative">
-          <LuHeart size={20} className="cursor-pointer" />
+          <VscHeart size={20} className="cursor-pointer" />
           <div className="-right-2 absolute hidden w-96 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
             <h3 className="font-bold">{t("i18n.favListTitle")}</h3>
             <div className="flex flex-col gap-2">
