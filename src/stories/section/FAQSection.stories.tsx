@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import FAQSection from "@/components/section/FAQSection";
+import Link from "next/link";
 
 const meta: Meta<typeof FAQSection> = {
   title: "components/Section/FAQSection",
@@ -37,5 +38,13 @@ export const Default: Story = {
       },
     ],
     claim: "Was Sie schon immer wissen wollten - Antworten auf die häufigsten Fragen",
+    subline: (
+      <p>
+        Still have questions{" "}
+        <a className="text-blue-700 underline" href="/">
+          Contact us
+        </a>
+      </p>
+    ),
   },
 };
