@@ -20,6 +20,7 @@
     "check-ts": "tsc --noEmit",
     "lint": "biome lint --write ./",
     "format": "biome format --write ./",
+    "check": "pnpm format && pnpm lint && pnpm check-ts",
     "prepare": "husky",
     "commitlint": "commitlint --edit"
   },
