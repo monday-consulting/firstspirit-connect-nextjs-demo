@@ -10,14 +10,12 @@ interface News {
 }
 
 interface LatestNewsProps {
-  primary?: boolean;
   data: News;
 }
 
-export const LatestNews = ({ primary = true, data }: LatestNewsProps) => {
-  const mode = primary ? "storybook-latestnews--primary" : "storybook-latestnews--secondary";
+export const LatestNews = ({ data }: LatestNewsProps) => {
   return (
-    <div className={cn(mode)}>
+    <div>
       <h2>{data.st_headline}</h2>
     </div>
   );

@@ -2,13 +2,10 @@ import { cn } from "@/utils/cn";
 import { Page } from "fsxa-api";
 
 interface HomeProps {
-  primary?: boolean;
   path: string;
 }
 
-export const Home = ({ primary = true, path }: HomeProps) => {
-  const mode = primary ? "storybook-home--primary" : "storybook-home--secondary";
-
+export const Home = ({ path }: HomeProps) => {
   //TODO define variable page of type Page
   //const top = () => {
   //  return page.children.find((pagebody) => pagebody.name === 'top')!
@@ -19,7 +16,7 @@ export const Home = ({ primary = true, path }: HomeProps) => {
 
   //TODO (below) two PageBody tags
   return (
-    <div data-testid="homePageLayout" className={cn(mode)}>
+    <div data-testid="homePageLayout">
       <h1>{path}</h1>
     </div>
   );

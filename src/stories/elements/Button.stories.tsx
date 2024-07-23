@@ -12,7 +12,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    primary: true,
     data: {
       lt_button_text: "Button",
       lt_product_link: { route: "route" },
