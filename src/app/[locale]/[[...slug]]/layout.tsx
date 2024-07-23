@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/assets/styles/globals.css";
-import { getNavigation } from "@/gql/navigation";
+import { getNavigationStructure } from "@/gql/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Navigation } from "@/components/app-layout/Navigation";
+import { Navigation, type NavigationStructure } from "@/components/app-layout/Navigation";
 import { mockNavigationData } from "@/stories/mocks/mockNavigationData";
 import { FavoriteListProvider } from "@/utils/contexts/favorites";
 
@@ -24,16 +24,34 @@ const RootLayout = async ({
   params: { locale: string };
 }>) => {
   const messages = await getMessages();
-
-  // TODO: use real navigation data
-  // const navigationData = await getNavigation(locale);
+  const structure = await getNavigationStructure(locale);
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <FavoriteListProvider>
           <NextIntlClientProvider messages={messages}>
-            <Navigation navStructure={mockNavigationData} />
+            <Navigation
+              navStructure={
+                {
+                  structure: structure?.map((layerA) => ({
+                    fsNavItemId: layerA?.navigationItem.fsNavItemId,
+                    label: layerA?.navigationItem.label,
+                    seoRoute: layerA?.navigationItem.seoRoute,
+                    children: layerA?.structureChildren.map((layerB) => ({
+                      fsNavItemId: layerB?.navigationItem.fsNavItemId,
+                      label: layerB?.navigationItem.label,
+                      seoRoute: layerB?.navigationItem.seoRoute,
+                      children: layerB?.structureChildren.map((layerC) => ({
+                        fsNavItemId: layerC?.navigationItem.fsNavItemId,
+                        label: layerC?.navigationItem.label,
+                        seoRoute: layerC?.navigationItem.seoRoute,
+                      })),
+                    })),
+                  })),
+                } as NavigationStructure
+              }
+            />
             {children}
           </NextIntlClientProvider>
         </FavoriteListProvider>

@@ -51,7 +51,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
               <Link href={navItem.seoRoute || "#"} className="hover:text-gray-400">
                 {navItem.label}
               </Link>
-              {navItem.children && (
+              {navItem.children && navItem.children.length > 0 && (
                 <div className="absolute left-0 hidden w-72 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
                   {navItem.children.map((item) => (
                     <Link

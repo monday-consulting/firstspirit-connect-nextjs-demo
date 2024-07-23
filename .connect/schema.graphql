@@ -638,6 +638,7 @@ type FirstSpiritSeoRouteList {
 type FirstSpiritStructureItem {
   fsStructureItemId: String!
   structureChildren: [FirstSpiritStructureItem]!
+  navigationItem: FirstSpiritNavigationItem!
 }
 
 """"""
@@ -715,6 +716,7 @@ input FirstSpiritStructureItemFilterListInput {
 input FirstSpiritStructureItemFilterInput {
   fsStructureItemId: StringQueryOperatorInput
   structureChildren: FirstSpiritStructureItemFilterInput
+  navigationItem: FirstSpiritNavigationItemFilterInput
 }
 
 """"""
@@ -854,6 +856,7 @@ input FirstSpiritSeoRouteListFieldSelector {
 input FirstSpiritStructureItemFieldSelector {
   fsStructureItemId: FieldSelectorEnum
   structureChildren: FirstSpiritStructureItemFieldSelector
+  navigationItem: FirstSpiritNavigationItemFieldSelector
 }
 
 """"""
@@ -951,6 +954,7 @@ input FirstSpiritSeoRouteListSortInput {
 input FirstSpiritStructureItemSortInput {
   fsStructureItemId: SortOrderEnum
   structureChildren: FirstSpiritStructureItemSortInput
+  navigationItem: FirstSpiritNavigationItemSortInput
 }
 
 """"""
