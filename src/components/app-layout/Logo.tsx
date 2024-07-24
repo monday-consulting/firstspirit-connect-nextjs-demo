@@ -1,9 +1,7 @@
 interface LogoProps {
   label: string;
-  primary?: boolean;
 }
 
-export const Logo = ({ label, primary = true }: LogoProps) => {
-  const mode = primary ? "storybook-logo--primary" : "storybook-logo--secondary";
+export const Logo = ({ label }: LogoProps) => {
   return <h1>{label}</h1>;
 };

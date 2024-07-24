@@ -1,12 +1,10 @@
 import { Page } from "fsxa-api";
 
 interface StandardProps {
-  primary?: boolean;
   path: string;
 }
 
-export const Standard = ({ primary = true, path }: StandardProps) => {
-  const mode = primary ? "storybook-standard--primary" : "storybook-standard--secondary";
+export const Standard = ({ path }: StandardProps) => {
   //TODO define page of type Page
   //TODO (below) add SectionHeader and PageBody
   return (

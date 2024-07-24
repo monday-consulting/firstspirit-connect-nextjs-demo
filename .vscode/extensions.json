@@ -1,3 +1,8 @@
 {
-  "recommendations": ["pflannery.vscode-versionlens", "gruntfuggly.todo-tree", "biomejs.biome"]
+  "recommendations": [
+    "pflannery.vscode-versionlens",
+    "gruntfuggly.todo-tree",
+    "biomejs.biome",
+    "graphql.vscode-graphql-syntax"
+  ]
 }
