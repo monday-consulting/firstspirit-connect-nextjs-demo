@@ -15,12 +15,16 @@ export const Default: Story = {
     copyrightText: "CopyrightText",
     legalLinks: [
       {
-        name: "Home",
-        route: "Home",
+        name: "News",
+        route: "/news",
       },
       {
-        name: "Landing",
-        route: "Landing",
+        name: "Produkte",
+        route: "/produkte",
+      },
+      {
+        name: "Legal",
+        route: "/legal",
       },
     ],
   },

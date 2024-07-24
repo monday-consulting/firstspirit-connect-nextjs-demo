@@ -19,7 +19,7 @@ const Footer = ({ copyrightText, legalLinks }: FooterProps) => {
         <Link href="/" className="mb-4">
           <Image src={logo} alt="Logo" height={40} />
         </Link>
-        <div className="space-x-2 md:text-right" data-testid="legal-links">
+        <div className="flex gap-8 md:text-right" data-testid="legal-links">
           {legalLinks.map((link) => (
             <Link className="hover:underline" key={link.name} href={link.route}>
               {link.name}
