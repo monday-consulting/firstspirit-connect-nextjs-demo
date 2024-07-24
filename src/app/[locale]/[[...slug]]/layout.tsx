@@ -27,7 +27,7 @@ const RootLayout = async ({
   const structure = await getNavigationStructure(locale);
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
         <FavoriteListProvider>
           <NextIntlClientProvider messages={messages}>
