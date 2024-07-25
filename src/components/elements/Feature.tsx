@@ -15,6 +15,7 @@ export interface FeaturesContent {
   };
   title: string | ReactNode;
   text: string | ReactNode;
+  id: string;
 }
 
 interface FeatureProps {
