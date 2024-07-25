@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { Arrow } from "./Arrow";
 
 //this type is used in section/features
-export interface Features {
+export interface FeaturesContent {
   link: {
     href: string;
     linkText: string;
@@ -18,7 +18,7 @@ export interface Features {
 }
 
 interface FeatureProps {
-  data: Features;
+  data: FeaturesContent;
 }
 
 const Feature = ({ data }: FeatureProps) => {
