@@ -4512,6 +4512,14 @@ export type introspection = {
             ofType: { kind: "SCALAR"; name: "String"; ofType: null };
           };
         };
+        navigationItem: {
+          name: "navigationItem";
+          type: {
+            kind: "NON_NULL";
+            name: never;
+            ofType: { kind: "OBJECT"; name: "FirstSpiritNavigationItem"; ofType: null };
+          };
+        };
         structureChildren: {
           name: "structureChildren";
           type: {
@@ -4545,6 +4553,15 @@ export type introspection = {
           };
           defaultValue: null;
         },
+        {
+          name: "navigationItem";
+          type: {
+            kind: "INPUT_OBJECT";
+            name: "FirstSpiritNavigationItemFieldSelector";
+            ofType: null;
+          };
+          defaultValue: null;
+        },
       ];
     };
     FirstSpiritStructureItemFilterInput: {
@@ -4560,6 +4577,15 @@ export type introspection = {
         {
           name: "structureChildren";
           type: { kind: "INPUT_OBJECT"; name: "FirstSpiritStructureItemFilterInput"; ofType: null };
+          defaultValue: null;
+        },
+        {
+          name: "navigationItem";
+          type: {
+            kind: "INPUT_OBJECT";
+            name: "FirstSpiritNavigationItemFilterInput";
+            ofType: null;
+          };
           defaultValue: null;
         },
       ];
@@ -4589,6 +4615,11 @@ export type introspection = {
         {
           name: "structureChildren";
           type: { kind: "INPUT_OBJECT"; name: "FirstSpiritStructureItemSortInput"; ofType: null };
+          defaultValue: null;
+        },
+        {
+          name: "navigationItem";
+          type: { kind: "INPUT_OBJECT"; name: "FirstSpiritNavigationItemSortInput"; ofType: null };
           defaultValue: null;
         },
       ];
