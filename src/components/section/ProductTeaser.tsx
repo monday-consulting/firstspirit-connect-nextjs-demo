@@ -4,7 +4,7 @@ import ProductOverview from "./ProductOverview";
 import type { ProductOverviewItemProps } from "./ProductOverviewItem";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 
-interface ProductTeaserProps {
+export interface ProductTeaserProps {
   category: {
     type: string;
     key: string;

@@ -1,7 +1,7 @@
 import type React from "react";
 import ProductOverviewItem, { type ProductOverviewItemProps } from "./ProductOverviewItem";
 
-interface ProductListProps {
+export interface ProductListProps {
   category: {
     type: string;
     key: string;
