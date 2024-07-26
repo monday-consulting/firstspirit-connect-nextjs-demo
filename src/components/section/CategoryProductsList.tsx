@@ -1,3 +1,5 @@
+"use client";
+
 import type React from "react";
 import ProductTeaser from "../elements/ProductTeaser";
 import type { Dataset, ProductTeaserProps } from "../elements/ProductTeaser";

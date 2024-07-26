@@ -25,7 +25,7 @@ const getProductLink = (categoryProduct: ProductCategoryTeaserProps["categoryPro
   return categoryProduct.category_link.href;
 };
 
-const ProductTeaser = ({ categoryProduct }: ProductCategoryTeaserProps) => {
+const ProductCategoryTeaser = ({ categoryProduct }: ProductCategoryTeaserProps) => {
   const textContent = categoryProduct.text.map((item) => item.content).join(" ");
   const productLink = getProductLink(categoryProduct);
 
@@ -55,4 +55,4 @@ const ProductTeaser = ({ categoryProduct }: ProductCategoryTeaserProps) => {
   );
 };
 
-export default ProductTeaser;
+export default ProductCategoryTeaser;

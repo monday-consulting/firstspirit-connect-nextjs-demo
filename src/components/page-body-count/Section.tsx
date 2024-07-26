@@ -1,5 +1,5 @@
 import type { Section as FsxaSection } from "fsxa-api";
-import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
+import ProductCategoryTeaser from "../section/ProductCategoryTeaser";
 import { getProductLink } from "@/utils/links";
 
 interface SectionProps {
@@ -19,10 +19,11 @@ const Section = ({ content }: SectionProps) => {
             categoryProduct={{
               category: content.data.st_category.value,
               headline: content.data.st_headline,
-              link: {
-                label: content.data.st_category_link.data.lt_text,
+              category_link: {
+                linkText: content.data.st_category_link.data.lt_text,
                 href: getProductLink("TODO"),
               },
+              text: [],
             }}
           />
         );
