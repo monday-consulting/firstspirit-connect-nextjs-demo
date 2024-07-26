@@ -1,14 +1,14 @@
-import { StepsItem } from "../elements/StepsItem";
-import type Step from "../elements/StepsItem";
+import RichTextElement, { type RichTextElementProps } from "../elements/RichTextElement";
+import { StepsItem, type StepsItemProps } from "../elements/StepsItem";
 
-interface StepsProps {
+export type StepsSectionProps = {
   subline: string;
   headline: string;
-  text: string;
-  steps: Step[];
-}
+  richtext?: RichTextElementProps;
+  stepsItems: StepsItemProps[];
+};
 
-const Steps = ({ subline, headline, text, steps }: StepsProps) => {
+const StepsSection = ({ subline, headline, stepsItems, richtext }: StepsSectionProps) => {
   return (
     <section className="py-14">
       <div className="container mx-auto px-4 text-center">
@@ -19,15 +19,20 @@ const Steps = ({ subline, headline, text, steps }: StepsProps) => {
           <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
             {headline}
           </h2>
-          <p className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">{text}</p>
+          {richtext && (
+            <p className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
+              <RichTextElement {...richtext} />
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap px-4 text-left">
-          {steps.map((step) => (
-            <StepsItem data={step} key={step.id} />
+          {stepsItems.map((item) => (
+            <StepsItem key={item.id} {...item} />
           ))}
         </div>
       </div>
     </section>
   );
 };
-export { Steps };
+
+export { StepsSection };
