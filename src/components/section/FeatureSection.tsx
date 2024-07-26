@@ -1,13 +1,13 @@
 import { Feature } from "@/components/elements/Feature";
-import type { FeaturesContent } from "@/components/elements/Feature";
+import type { FeatureProps } from "@/components/elements/Feature";
 
-interface FeaturesProps {
+interface FeatureSectionProps {
   headline: string;
   text: string;
-  features: FeaturesContent[];
+  features: FeatureProps[];
 }
 
-const Features = ({ headline, text, features }: FeaturesProps) => {
+const FeatureSection = ({ headline, text, features }: FeatureSectionProps) => {
   return (
     <section className="py-14">
       <div className="container mx-auto px-4 text-center">
@@ -17,11 +17,11 @@ const Features = ({ headline, text, features }: FeaturesProps) => {
         <p className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">{text}</p>
         <div className="-m-8 flex flex-wrap text-left">
           {features.map((feature) => (
-            <Feature data={feature} key={feature.id} />
+            <Feature {...feature} key={feature.id} />
           ))}
         </div>
       </div>
     </section>
   );
 };
-export { Features };
+export { FeatureSection };

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Features } from "@/components/section/Features";
+import { FeatureSection } from "@/components/section/FeatureSection";
 
-const meta: Meta<typeof Features> = {
-  title: "components/Section/Features",
-  component: Features,
+const meta: Meta<typeof FeatureSection> = {
+  title: "components/Section/FeatureSection",
+  component: FeatureSection,
   tags: ["autodocs"],
 };
 
@@ -13,11 +13,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     headline: "Headline",
-    text: "Text",
+    text: "Test",
     features: [
       {
         link: {
-          href: "Home",
+          href: "#",
           linkText: "Home",
         },
         image: {
@@ -30,7 +30,7 @@ export const Default: Story = {
       },
       {
         link: {
-          href: "Home",
+          href: "#",
           linkText: "Home",
         },
         image: {
