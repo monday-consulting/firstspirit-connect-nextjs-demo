@@ -45,7 +45,10 @@ const ProductTeaser = ({ categoryProduct }: ProductCategoryTeaserProps) => {
               cta={{ href: productLink, linkText: categoryProduct.category_link.linkText }}
             />
           </div>
-          <CategoryProductsList category={categoryProductsListData} />
+          <CategoryProductsList
+            category={categoryProductsListData}
+            categoryId={categoryProduct.category.key}
+          />
         </div>
       </div>
     </div>

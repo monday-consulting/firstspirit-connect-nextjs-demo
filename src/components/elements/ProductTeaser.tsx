@@ -14,10 +14,9 @@ export interface Section {
   displayName?: string;
   previewId: string;
   sectionType: string;
-  //TODO: change any type to ... ?
   data: {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    [key: string]: any;
+    // TODO: update types
+    [key: string]: unknown;
   };
   displayed?: boolean;
   lifespan?: {
