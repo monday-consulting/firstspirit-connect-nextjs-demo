@@ -3,19 +3,13 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import Link from "next/link";
 
-interface ContentItem {
-  content: string;
-  data: string;
-  type: string;
-}
-
 export interface RichTextElementProps {
-  content: ContentItem[];
+  content: RichTextElementProps[] | string;
   data: string;
   type: string;
 }
 
-const convertToMarkdown = (content: ContentItem[]): string => {
+const convertToMarkdown = (content: RichTextElementProps[]): string => {
   return content
     .map((item) => {
       switch (item.type) {
@@ -39,7 +33,7 @@ const convertToMarkdown = (content: ContentItem[]): string => {
 };
 
 const RichTextElement = ({ content }: RichTextElementProps) => {
-  const markdownContent = convertToMarkdown(content);
+  const markdownContent = typeof content === "string" ? content : convertToMarkdown(content);
 
   return (
     <div>

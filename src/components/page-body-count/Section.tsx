@@ -1,23 +1,32 @@
-import React, { useMemo } from "react";
 import type { Section as FsxaSection } from "fsxa-api";
-import { Unknown } from "../Unknown";
-import { useNextApp } from "../tests/testutils/nextMocks";
+import ProductCategoryTeaser from "../section/ProductCategoryTeaser";
+import { getProductLink } from "@/utils/links";
 
 interface SectionProps {
   content: FsxaSection;
 }
 
 const Section = ({ content }: SectionProps) => {
-  const { $isPreviewMode } = useNextApp();
-
-  const sectionComponent = useMemo(() => {
+  const SectionComponent = () => {
     switch (content.sectionType) {
       case "smartliving.product_overview":
         return "SectionProductOverview";
       case "text_image":
         return "SectionTextImage";
       case "product_category_teaser":
-        return "SectionProductCategoryTeaser";
+        return (
+          <ProductCategoryTeaser
+            categoryProduct={{
+              category: content.data.st_category.value,
+              headline: content.data.st_headline,
+              category_link: {
+                linkText: content.data.st_category_link.data.lt_text,
+                href: getProductLink("TODO"),
+              },
+              text: [],
+            }}
+          />
+        );
       case "steps":
         return "SectionSteps";
       case "accordion":
@@ -39,19 +48,15 @@ const Section = ({ content }: SectionProps) => {
       default:
         return undefined;
     }
-  }, [content.sectionType]);
+  };
 
   return (
     <div data-testid="section">
-      {sectionComponent ? (
-        <div
-          data-preview-id={content.previewId?.split(".")[0] !== "" ? content.previewId : undefined}
-        >
-          {sectionComponent}
-        </div>
-      ) : (
-        $isPreviewMode && !sectionComponent && <Unknown content={content} data={content.data} />
-      )}
+      <div
+        data-preview-id={content.previewId?.split(".")[0] !== "" ? content.previewId : undefined}
+      >
+        {<SectionComponent />}
+      </div>
     </div>
   );
 };
