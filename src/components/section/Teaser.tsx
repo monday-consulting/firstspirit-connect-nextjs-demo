@@ -8,7 +8,7 @@ export interface TeaserProps {
     src: string;
     alt: string;
   };
-  text: ReactNode | string;
+  text: string;
   cta?: {
     href: string;
     linkText: string;
@@ -18,12 +18,12 @@ export interface TeaserProps {
 
 const Teaser = ({ headline, image, text, cta, imageLeft }: TeaserProps) => {
   return (
-    <section className="bg-white py-14">
+    <section className="py-14">
       <div className="container mx-auto px-4">
         {!imageLeft && (
           <>
             <div className="-mx-4 flex flex-wrap items-center">
-              <div className="mt-8 px-4 text-left sm:w-full md:w-1/2">
+              <div className="mt-8 px-4 text-left sm:w-full">
                 {headline && (
                   <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
                     {headline}
