@@ -1,10 +1,17 @@
 import { Home } from "@/components/page-layout/Home";
 import { StandardLayout } from "@/components/page-layout/StandardLayout";
-import { getPageContentById } from "@/gql/pageContent";
+import { getPageContentByRoute } from "@/gql/pageContent";
+import { defaultLocale } from "@/i18n";
 import type { PageBody } from "fsxa-api";
 
-const SlugPage = async () => {
-  const pageContent = await getPageContentById("10f3e2ca-b451-5ab0-b83b-eba3034c55ea");
+const SlugPage = async ({ params }: { params: { slug: string[]; locale: string } }) => {
+  const route = params.slug
+    ? `/${params.slug.join("/")}/`
+    : params.locale === defaultLocale
+      ? "/startseite/"
+      : "homepage";
+
+  const pageContent = await getPageContentByRoute(params.locale, route);
   const pageBodies = pageContent?.pageBodies?.map((item) => item) as PageBody[];
 
   return (
