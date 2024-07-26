@@ -10,13 +10,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const StepsItemDefault: Story = {
   args: {
-    data: {
-      title: "Title",
-      text: "Text",
-      index: 1,
-      id: "1",
-    },
+    title: "Title",
+    text: "Lorem ipsum",
+    index: 1,
+    id: "1",
   },
 };
