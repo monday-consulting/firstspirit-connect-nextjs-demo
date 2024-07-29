@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useMemo } from "react";
 import "./styles.css";
 import { LuShieldQuestion } from "react-icons/lu";

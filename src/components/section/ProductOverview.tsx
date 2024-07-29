@@ -1,6 +1,7 @@
-// TODO: crate component
-function ProductOverview() {
-  return null;
-}
+// import React from "react";
 
-export default ProductOverview;
+// const ProductOverview = () => {
+//   return <div>ProductOverview</div>;
+// };
+
+// export default ProductOverview;
