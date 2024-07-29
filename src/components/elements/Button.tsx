@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 
-interface Button {
+export interface Button {
   lt_button_text: string;
   lt_product_link?: { route: string };
   lt_internal?: {
