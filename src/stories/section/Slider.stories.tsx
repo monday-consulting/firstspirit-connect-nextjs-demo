@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    data: [
+    slides: [
       {
         button: {
           lt_button_text: "Button1",

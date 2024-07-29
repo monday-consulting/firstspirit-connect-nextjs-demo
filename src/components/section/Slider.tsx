@@ -1,12 +1,12 @@
-import { DevComponent } from "../Dev";
-import { Button, type ButtonT } from "../elements/Button";
+"use client";
+
+import { Button, type ButtonProps } from "../elements/Button";
 import Image from "next/image";
-import { useNextApp } from "../tests/testutils/nextMocks";
-import { useDev } from "../composables/showDev";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
 export interface SliderSlide {
-  button: ButtonT;
+  button: ButtonProps;
   description: string;
   picture: {
     src: string;
@@ -16,76 +16,49 @@ export interface SliderSlide {
 }
 
 export interface SliderProps {
-  data: SliderSlide[];
+  slides: SliderSlide[];
 }
 
-const Slider = ({ data }: SliderProps) => {
-  const showDev = useDev();
-  const $isPreviousMode = useNextApp();
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const activeSlide = data[activeImageIndex];
+const Slider = ({ slides }: SliderProps) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeSlide, setActiveSlide] = useState<SliderSlide>(slides[activeIndex]);
 
-  function nextSlide() {
-    setActiveImageIndex((activeImageIndex + 1) % data.length);
-  }
-  function prevSlide() {
-    setActiveImageIndex((activeImageIndex - 1 + data.length) % data.length);
-  }
+  useEffect(() => {
+    setActiveSlide(slides[activeIndex]);
+  }, [activeIndex, slides]);
+
+  const nextSlide = () => {
+    setActiveIndex((activeIndex + 1) % slides.length);
+  };
+  const prevSlide = () => {
+    setActiveIndex((activeIndex - 1 + slides.length) % slides.length);
+  };
 
   return (
     <div>
       <div className="group relative">
-        {showDev && $isPreviousMode && (
-          <div className="hidden group-hover:block">
-            <DevComponent content={data} />
-          </div>
-        )}
         {activeSlide && (
           <div className="relative text-white">
-            <div className="sliderButtonContainer left-0">
-              <button className="sliderButton pr-8" onClick={prevSlide}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <title>previous</title>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 19.5L8.25 12l7.5-7.5"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="sliderButtonContainer right-0">
-              <button className="sliderButton pl-8" onClick={nextSlide}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <title>next</title>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black to-transparent p-6 md:p-16">
+            <button
+              type="button"
+              className="-translate-y-8 absolute top-1/2 left-2 z-10 text-white"
+              onClick={prevSlide}
+            >
+              <LuChevronLeft size={44} className="drop-shadow-lg" />
+            </button>
+            <button
+              type="button"
+              className="-translate-y-8 absolute top-1/2 right-2 z-10 text-white"
+              onClick={nextSlide}
+            >
+              <LuChevronRight size={44} className="drop-shadow-lg" />
+            </button>
+            <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black to-transparent p-16 md:p-20">
               <div className="flex max-w-xl flex-col space-y-4 md:py-10">
                 <h1 className="font-black text-4xl md:text-6xl">{activeSlide.title}</h1>
                 <p>{activeSlide.description}</p>
                 <div>
-                  <Button data={activeSlide.button} />
+                  <Button {...activeSlide.button} />
                 </div>
               </div>
             </div>
