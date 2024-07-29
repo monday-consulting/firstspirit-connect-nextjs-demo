@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 
-export interface Button {
+export interface ButtonT {
   lt_button_text: string;
   lt_product_link?: { route: string };
   lt_internal?: {
@@ -8,7 +8,7 @@ export interface Button {
   };
 }
 interface ButtonProps {
-  data: Button;
+  data: ButtonT;
 }
 
 const Button = ({ data }: ButtonProps) => {
