@@ -14,12 +14,11 @@ const config: CodegenConfig = {
       },
     },
   ],
-  documents: "src/gql/**/*.ts",
+  documents: "src/gql/documents/**/*.ts",
   generates: {
-    "src/gql/generated/types.ts": {
+    "src/gql/generated/": {
+      preset: "client",
       plugins: [
-        "typescript",
-        "typescript-operations",
         {
           add: {
             content: "// @ts-nocheck",

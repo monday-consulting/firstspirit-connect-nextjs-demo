@@ -1,7 +1,7 @@
-import { query } from "@netlify/connect-client";
-import { graphql } from "../netlify-connect/graphql";
+import { client } from "../client";
+import { graphql } from "../generated";
 
-const pageContentByRoute = graphql(`
+const pageContentDocument = graphql(`
   query pageByRoute($locale: String!, $route: String!) {
     firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {
       layout
@@ -15,6 +15,6 @@ const pageContentByRoute = graphql(`
 `);
 
 export const getPageContentByRoute = async (locale: string, route: string) => {
-  const res = await query(pageContentByRoute, { variables: { locale, route } });
+  const res = await client.request(pageContentDocument, { locale, route });
   return res.firstSpiritPage;
 };

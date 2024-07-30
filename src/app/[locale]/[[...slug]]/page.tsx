@@ -1,6 +1,6 @@
 import { Home } from "@/components/page-layout/Home";
 import { StandardLayout } from "@/components/page-layout/StandardLayout";
-import { getPageContentByRoute } from "@/gql/pageContent";
+import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import { defaultLocale } from "@/i18n";
 import type { PageBody } from "fsxa-api";
 
