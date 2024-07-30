@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -7,26 +6,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-
-function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, query: string, variables?: TVariables) {
-  return async (): Promise<TData> => {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      ...requestInit,
-      body: JSON.stringify({ query, variables }),
-    });
-
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0];
-
-      throw new Error(message);
-    }
-
-    return json.data;
-  }
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -1592,85 +1571,3 @@ export type PageByRouteQueryVariables = Exact<{
 
 
 export type PageByRouteQuery = { __typename?: 'Query', firstSpiritPage?: { __typename?: 'FirstSpiritPage', layout: string, name: string, id: string, pageBodies?: Array<{ __typename?: 'FirstSpiritPageBody', children?: Array<any | null> | null } | null> | null } | null };
-
-
-
-export const FsNavigationQueryDocument = `
-    query fsNavigationQuery($locale: String!) {
-  firstSpiritNavigationData(_locale: {eq: $locale}) {
-    structure {
-      navigationItem {
-        label
-        seoRoute
-        fsNavItemId
-        page {
-          id
-        }
-      }
-      structureChildren {
-        navigationItem {
-          label
-          seoRoute
-          fsNavItemId
-          page {
-            id
-          }
-        }
-        structureChildren {
-          navigationItem {
-            fsNavItemId
-            label
-            seoRoute
-            page {
-              id
-            }
-          }
-        }
-      }
-    }
-  }
-}
-    `;
-
-export const useFsNavigationQueryQuery = <
-      TData = FsNavigationQueryQuery,
-      TError = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables: FsNavigationQueryQueryVariables,
-      options?: UseQueryOptions<FsNavigationQueryQuery, TError, TData>
-    ) => {
-    
-    return useQuery<FsNavigationQueryQuery, TError, TData>(
-      ['fsNavigationQuery', variables],
-      fetcher<FsNavigationQueryQuery, FsNavigationQueryQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, FsNavigationQueryDocument, variables),
-      options
-    )};
-
-export const PageByRouteDocument = `
-    query pageByRoute($locale: String!, $route: String!) {
-  firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {
-    layout
-    name
-    id
-    pageBodies {
-      children
-    }
-  }
-}
-    `;
-
-export const usePageByRouteQuery = <
-      TData = PageByRouteQuery,
-      TError = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables: PageByRouteQueryVariables,
-      options?: UseQueryOptions<PageByRouteQuery, TError, TData>
-    ) => {
-    
-    return useQuery<PageByRouteQuery, TError, TData>(
-      ['pageByRoute', variables],
-      fetcher<PageByRouteQuery, PageByRouteQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, PageByRouteDocument, variables),
-      options
-    )};
