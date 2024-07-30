@@ -42,11 +42,13 @@ const InterestingFacts = ({
         )}
         {text && <p className="text-gray-300">{text}</p>}
       </div>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         {counters.map((counter) => (
           <div key={counter.id}>
             <div className="font-bold text-4xl text-yellow-500">{counter.number}</div>
-            <div className="max-w-[100px] border-t-2 text-gray-300">{counter.text}</div>
+            <div className="max-w-[100px] break-words border-t-2 text-gray-300 md:max-w-[200px]">
+              {counter.text}
+            </div>
           </div>
         ))}
       </div>
