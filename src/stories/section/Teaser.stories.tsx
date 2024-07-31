@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    imageLeft: true,
+    imageStart: true,
     headline: "Headline",
     image: {
       src: "https://placehold.co/600x400",

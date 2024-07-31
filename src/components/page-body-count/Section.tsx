@@ -14,16 +14,23 @@ const Section = ({ content }: SectionProps) => {
       case "text_image":
         return "SectionTextImage";
       case "product_category_teaser":
+        console.log("HIER: ", content);
         return (
           <ProductCategoryTeaser
             categoryProduct={{
-              category: content.data.st_category.value,
+              category: {
+                type: content.data.st_category.type,
+                value: content.data.st_category.value,
+                key: content.data.st_category.key,
+                // TODO: Fetch products
+                products: [],
+              },
               headline: content.data.st_headline,
               category_link: {
                 linkText: content.data.st_category_link.data.lt_text,
                 href: getProductLink("TODO"),
               },
-              text: [],
+              text: content.data.st_text[0].content,
             }}
           />
         );
@@ -50,15 +57,7 @@ const Section = ({ content }: SectionProps) => {
     }
   };
 
-  return (
-    <div data-testid="section">
-      <div
-        data-preview-id={content.previewId?.split(".")[0] !== "" ? content.previewId : undefined}
-      >
-        {<SectionComponent />}
-      </div>
-    </div>
-  );
+  return <div className="my-4">{<SectionComponent />}</div>;
 };
 
 export default Section;

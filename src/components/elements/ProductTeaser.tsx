@@ -58,7 +58,7 @@ export interface ProductData {
 
 const ProductTeaser = ({ data, route }: ProductTeaserProps) => {
   return (
-    <div className="m-2 flex h-fit max-w-[400px] flex-col gap-5 border-2 border-gray-200 bg-white p-6">
+    <div className="flex h-fit max-w-[400px] flex-col gap-5 bg-white p-6">
       <Link href={route}>
         <Image
           src={data.image.src}

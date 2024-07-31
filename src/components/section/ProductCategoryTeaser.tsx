@@ -34,20 +34,21 @@ const ProductCategoryTeaser = ({ categoryProduct }: ProductCategoryTeaserProps) 
   };
 
   return (
-    <div className="radius-for-skewed bg-gray-100 py-20">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 gap-20">
-          <div className="m-auto">
-            <Teaser
-              headline={categoryProduct.headline}
-              text={textContent}
-              imageLeft={false}
-              cta={{ href: productLink, linkText: categoryProduct.category_link.linkText }}
-            />
-          </div>
-          <CategoryProductsList
-            category={categoryProductsListData}
-            categoryId={categoryProduct.category.key}
+    <div className="bg-lightGray py-16">
+      <div className="container mx-auto">
+        <div className="m-auto">
+          <Teaser
+            headline={categoryProduct.headline}
+            claim={categoryProduct.category.value}
+            text={textContent}
+            imageStart={false}
+            cta={{ href: productLink, linkText: categoryProduct.category_link.linkText }}
+            imageReplaceContent={
+              <CategoryProductsList
+                category={categoryProductsListData}
+                categoryId={categoryProduct.category.key}
+              />
+            }
           />
         </div>
       </div>
