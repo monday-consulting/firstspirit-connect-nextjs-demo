@@ -63,6 +63,6 @@ const pageBodyExample: PageBody = {
 
 export const Primary: Story = {
   args: {
-    pageBody: pageBodyExample,
+    // pageBody: [pageBodyExample],
   },
 };

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/assets/styles/globals.css";
-import { getNavigationStructure } from "@/gql/navigation";
+import { getNavigationStructure } from "@/gql/documents/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Navigation, type NavigationStructure } from "@/components/app-layout/Navigation";
