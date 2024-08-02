@@ -4,7 +4,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { Arrow } from "../elements/Arrow";
 
-export interface ProductData {
+interface ProductOverviewItemProps {
   image: {
     src: string;
     alt: string;
@@ -13,14 +13,17 @@ export interface ProductData {
   name: string;
   price: number;
   id: string;
-}
-
-interface ProductOverviewItemProps {
-  data: ProductData;
   route?: string;
 }
 
-const ProductOverviewItem = ({ data, route }: ProductOverviewItemProps) => {
+const ProductOverviewItem = ({
+  image,
+  categories,
+  name,
+  price,
+  id,
+  route,
+}: ProductOverviewItemProps) => {
   const [active, setActive] = useState<boolean>(false);
 
   function toggleState() {
@@ -32,32 +35,26 @@ const ProductOverviewItem = ({ data, route }: ProductOverviewItemProps) => {
       <div className="mb-24 w-full px-3">
         <div className="mb-9 w-full overflow-hidden rounded-2xl">
           <Link href={route}>
-            {data.image && (
-              <Image
-                src={data.image.src}
-                alt={data.image.alt}
-                className="w-full"
-                width={400}
-                height={400}
-              />
+            {image && (
+              <Image src={image.src} alt={image.alt} className="w-full" width={400} height={400} />
             )}
           </Link>
         </div>
       </div>
       <div>
         <div className="text-center">
-          {data.categories.map((category) => (
+          {categories.map((category) => (
             <p key={category} className="m-2 inline font-medium text-gray-400 text-sm">
               {category}
             </p>
           ))}
           <Link href={route}>
             <h3 className="my-4 font-heading font-medium text-xl leading-8 hover:underline">
-              {data.name}
+              {name}
             </h3>
           </Link>
           <p className="font-heading font-medium text-gray-900 text-xl tracking-tighter">
-            {data.price}€
+            {price}€
           </p>
         </div>
         <div className="flex flex-wrap items-center text-center text-xl leading-3">
