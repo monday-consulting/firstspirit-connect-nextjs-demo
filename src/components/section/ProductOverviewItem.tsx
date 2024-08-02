@@ -12,6 +12,7 @@ export interface ProductData {
   categories: string[];
   name: string;
   price: number;
+  id: string;
 }
 
 interface ProductOverviewItemProps {
