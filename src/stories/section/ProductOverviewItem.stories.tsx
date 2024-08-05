@@ -19,7 +19,7 @@ export const Default: Story = {
     categories: ["Category 1", "Category 2", "Category 3"],
     name: "Product",
     price: 23,
-    route: "Product",
+    route: "#",
     id: "123",
   },
 };

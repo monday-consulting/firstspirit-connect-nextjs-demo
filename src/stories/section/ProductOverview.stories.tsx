@@ -22,7 +22,7 @@ export const Default: Story = {
         name: "Product 1",
         price: 25,
         id: "product 1",
-        route: "Product 1",
+        route: "#",
       },
       {
         image: {
@@ -33,7 +33,51 @@ export const Default: Story = {
         name: "Product 2",
         price: 50,
         id: "product 2",
-        route: "Product 2",
+        route: "#",
+      },
+      {
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt Text",
+        },
+        categories: ["Category 1", "Category 2"],
+        name: "Product 1",
+        price: 25,
+        id: "product 1",
+        route: "#",
+      },
+      {
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt Text",
+        },
+        categories: ["Category 4"],
+        name: "Product 2",
+        price: 50,
+        id: "product 2",
+        route: "#",
+      },
+      {
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt Text",
+        },
+        categories: ["Category 1", "Category 2"],
+        name: "Product 1",
+        price: 25,
+        id: "product 1",
+        route: "#",
+      },
+      {
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt Text",
+        },
+        categories: ["Category 4"],
+        name: "Product 2",
+        price: 50,
+        id: "product 2",
+        route: "#",
       },
     ],
   },

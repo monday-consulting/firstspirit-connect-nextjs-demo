@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useState } from "react";
 import { Arrow } from "../elements/Arrow";
+import useFavorites from "@/utils/hooks/useFavorites";
 
 export interface ProductOverviewItemProps {
   image: {
@@ -24,20 +24,26 @@ const ProductOverviewItem = ({
   route,
   id,
 }: ProductOverviewItemProps) => {
-  const [active, setActive] = useState<boolean>(false);
+  const [favorites, isFavorite] = useFavorites();
 
-  function toggleState() {
-    setActive((current) => !current);
-  }
+  const handleFavoriteState = () => {
+    if (!isFavorite(id)) {
+      favorites.addEntry({
+        id,
+        title: name,
+        image,
+      });
+    } else {
+      favorites.deleteEntry(id);
+    }
+  };
 
   return (
-    <div>
-      <div className="mb-24 w-full px-3">
-        <div className="mb-9 w-full overflow-hidden rounded-2xl">
+    <div className="max-w-[380px]">
+      <div className="mb-12 w-full">
+        <div className="w-full overflow-hidden rounded-2xl">
           <Link href={route}>
-            {image && (
-              <Image src={image.src} alt={image.alt} className="w-full" width={400} height={400} />
-            )}
+            <Image src={image.src} alt={image.alt} className="w-full" width={400} height={400} />
           </Link>
         </div>
       </div>
@@ -53,28 +59,19 @@ const ProductOverviewItem = ({
               {name}
             </h3>
           </Link>
-          <p className="font-heading font-medium text-gray-900 text-xl tracking-tighter">
-            {price}€
-          </p>
+          <p className="font-heading font-medium text-text text-xl">{price} €</p>
         </div>
-        <div className="flex flex-wrap items-center text-center text-xl leading-3">
-          <div className="w-1/2 xl:w-2/12">
-            <button
-              type="button"
-              onClick={toggleState}
-              className="ml-auto cursor-pointer text-gray-400 hover:text-gray-500 xl:mx-auto 2xl:mr-0"
-            >
-              {!active && <FaRegHeart fill="currentColor" />}
-              {active && <FaHeart fill="currentColor" />}
-            </button>
-          </div>
-          <div className="w-1/2 xl:w-9/12">
-            <div className="lg:mx-auto lg:max-w-max xl:mr-0">
-              <Link href={route} className="py-px text-gray-400">
-                <Arrow />
-              </Link>
-            </div>
-          </div>
+        <div className="mx-4 flex justify-between text-xl">
+          <button
+            type="button"
+            onClick={handleFavoriteState}
+            className="text-textLight hover:text-text"
+          >
+            {isFavorite(id) ? <FaHeart fill="currentColor" /> : <FaRegHeart fill="currentColor" />}
+          </button>
+          <Link href={route} className="text-textLight hover:text-text">
+            <Arrow />
+          </Link>
         </div>
       </div>
     </div>
