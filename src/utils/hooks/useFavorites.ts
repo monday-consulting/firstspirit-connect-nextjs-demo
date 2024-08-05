@@ -10,8 +10,8 @@ const useFavorites = () => {
     favorites?.rehydrateContext();
   }, [favorites]);
 
-  const isFavorite = (product: Product): boolean => {
-    return favorites?.entryIsFavorite(product) ?? false;
+  const isFavorite = (productId: string): boolean => {
+    return favorites?.entryIsFavorite(productId) ?? false;
   };
 
   return [favorites, isFavorite] as const;
