@@ -12,15 +12,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    data: {
-      image: {
-        src: "https://placehold.co/600x400",
-        alt: "Alt Text",
-      },
-      categories: ["Category 1", "Category 2", "Category 3"],
-      name: "Product",
-      price: 23,
+    image: {
+      src: "https://placehold.co/600x400",
+      alt: "Alt Text",
     },
+    categories: ["Category 1", "Category 2", "Category 3"],
+    name: "Product",
+    price: 23,
     route: "Product",
+    id: "123",
   },
 };

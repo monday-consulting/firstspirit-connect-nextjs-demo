@@ -9,23 +9,19 @@ interface Content2SectionProps {
 }
 
 const Content2Section: React.FC<Content2SectionProps> = ({ content }) => {
-  const { $isPreviewMode } = useNextApp();
-
   const content2SectionComponent = useMemo(() => {
     switch (content.sectionType) {
       default:
         return undefined;
     }
   }, [content.sectionType]);
-  console.log($isPreviewMode, content2SectionComponent);
 
   return (
     <div data-testid="content2section">
       {content2SectionComponent ? (
         <>{content2SectionComponent}</>
       ) : (
-        $isPreviewMode &&
-        !content2SectionComponent && <Unknown content={content} data={content.data} />
+        <Unknown content={content} data={content.data} />
       )}
     </div>
   );
