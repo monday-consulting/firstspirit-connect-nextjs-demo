@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { cn } from "@/utils/cn";
 
 export interface TeaserProps {
   headline: string;
@@ -8,7 +9,7 @@ export interface TeaserProps {
     src: string;
     alt: string;
   };
-  text: ReactNode | string;
+  text: string;
   cta?: {
     href: string;
     linkText: string;
@@ -18,12 +19,12 @@ export interface TeaserProps {
 
 const Teaser = ({ headline, image, text, cta, imageLeft }: TeaserProps) => {
   return (
-    <section className="bg-white py-14">
+    <section className="py-14">
       <div className="container mx-auto px-4">
         {!imageLeft && (
           <>
-            <div className="-mx-4 flex flex-wrap items-center">
-              <div className="mt-8 px-4 text-left sm:w-full md:w-1/2">
+            <div className="flex items-center">
+              <div className={cn("mt-8 px-4 text-left sm:w-full", image && "md:w-1/2")}>
                 {headline && (
                   <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
                     {headline}
@@ -58,7 +59,7 @@ const Teaser = ({ headline, image, text, cta, imageLeft }: TeaserProps) => {
         )}
         {imageLeft && (
           <>
-            <div className="-mx-4 flex flex-wrap items-center">
+            <div className="flex items-center">
               {image && (
                 <div className="px-4 sm:w-full md:w-1/2">
                   <Image
