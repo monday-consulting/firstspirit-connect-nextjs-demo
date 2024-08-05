@@ -3,34 +3,35 @@ import { Teaser } from "./Teaser";
 import CategoryProductsList from "./CategoryProductsList";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import type { Dataset } from "../elements/ProductTeaser";
+import { getProductLink } from "@/utils/links";
 
 export interface ProductCategoryTeaserProps {
-  categoryProduct: {
-    category: {
-      type: string;
-      key: string;
-      value: string;
-      products: Dataset[];
-    };
-    category_link: {
-      href: string;
-      linkText: string;
-    };
-    headline: string;
-    text: RichTextElementProps[];
+  category: {
+    type: string;
+    key: string;
+    value: string;
+    products: Dataset[];
   };
+  category_link: {
+    href: string;
+    linkText: string;
+  };
+  headline: string;
+  text: RichTextElementProps[];
+  teaserTextStart?: boolean;
 }
 
-const getProductLink = (categoryProduct: ProductCategoryTeaserProps["categoryProduct"]) => {
-  return categoryProduct.category_link.href;
-};
-
-const ProductCategoryTeaser = ({ categoryProduct }: ProductCategoryTeaserProps) => {
-  const textContent = categoryProduct.text.map((item) => item.content).join(" ");
-  const productLink = getProductLink(categoryProduct);
+const ProductCategoryTeaser = ({
+  category,
+  category_link,
+  headline,
+  text,
+  teaserTextStart: teaserTextLeft = true,
+}: ProductCategoryTeaserProps) => {
+  const textContent = text.map((item) => item.content).join(" ");
 
   const categoryProductsListData = {
-    data: categoryProduct.category.products,
+    data: category.products,
   };
 
   return (
@@ -38,16 +39,13 @@ const ProductCategoryTeaser = ({ categoryProduct }: ProductCategoryTeaserProps) 
       <div className="container mx-auto">
         <div className="m-auto">
           <Teaser
-            headline={categoryProduct.headline}
-            claim={categoryProduct.category.value}
+            headline={headline}
+            claim={category.value}
             text={textContent}
-            imageStart={false}
-            cta={{ href: productLink, linkText: categoryProduct.category_link.linkText }}
+            imageStart={teaserTextLeft}
+            cta={{ href: category_link.href, linkText: category_link.linkText }}
             imageReplaceContent={
-              <CategoryProductsList
-                category={categoryProductsListData}
-                categoryId={categoryProduct.category.key}
-              />
+              <CategoryProductsList category={categoryProductsListData} categoryId={category.key} />
             }
           />
         </div>

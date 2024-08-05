@@ -9,6 +9,8 @@ const pageContentDocument = graphql(`
       id
       pageBodies {
         children
+        name
+        previewId
       }
     }
   }
