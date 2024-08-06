@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { Arrow } from "../elements/Arrow";
 import useFavorites from "@/utils/hooks/useFavorites";
+import { LuArrowRight } from "react-icons/lu";
 
 export interface ProductOverviewItemProps {
   image: {
@@ -70,7 +70,7 @@ const ProductOverviewItem = ({
             {isFavorite(id) ? <FaHeart fill="currentColor" /> : <FaRegHeart fill="currentColor" />}
           </button>
           <Link href={route} className="text-textLighter hover:text-text">
-            <Arrow />
+            <LuArrowRight />
           </Link>
         </div>
       </div>

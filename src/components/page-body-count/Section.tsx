@@ -3,6 +3,8 @@ import ProductCategoryTeaser from "../section/ProductCategoryTeaser";
 import { getProductLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
+import { FeatureSection } from "../section/FeatureSection";
+import { FeatureProps } from "../elements/Feature";
 
 export interface SectionProps {
   content: FsxaSection;
@@ -55,7 +57,27 @@ const Section = ({ content }: SectionProps) => {
           />
         );
       case "features":
-        return "SectionFeatures";
+        return (
+          <FeatureSection
+            headline={content.data.st_headline}
+            text={content.data.st_text}
+            // TODO: Typesafety missing
+            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            features={content.data.st_features.map((feature: any) => ({
+              link: {
+                href: feature.data.st_link.data.lt_link,
+                label: feature.data.st_link.data.lt_text,
+              },
+              image: {
+                src: feature.data.st_image.resolutions.ORIGINAL.url,
+                alt: feature.data.st_image_alt_text,
+              },
+              title: feature.data.st_title,
+              text: feature.data.st_text,
+              id: feature.id,
+            }))}
+          />
+        );
       case "interesting_facts":
         return "SectionInterestingFacts";
       case "products.category_products":

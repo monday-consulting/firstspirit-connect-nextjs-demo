@@ -35,8 +35,6 @@ const convertToMarkdown = (content: RichTextElementProps[]): string => {
 const RichTextElement = ({ content }: RichTextElementProps) => {
   const markdownContent = typeof content === "string" ? content : convertToMarkdown(content);
 
-  console.log(content);
-
   return (
     <div>
       <ReactMarkdown
