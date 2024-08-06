@@ -1,14 +1,13 @@
 import type { Section as FsxaSection } from "fsxa-api";
 import ProductCategoryTeaser from "../section/ProductCategoryTeaser";
 import { getProductLink } from "@/utils/links";
+import { Stage } from "../section/Stage";
 
 export interface SectionProps {
   content: FsxaSection;
 }
 
 const Section = ({ content }: SectionProps) => {
-  console.log("CONTENT: ", content);
-
   const SectionComponent = () => {
     switch (content.sectionType) {
       case "smartliving.product_overview":
@@ -39,7 +38,21 @@ const Section = ({ content }: SectionProps) => {
       case "accordion":
         return "SectionAccordion";
       case "stage":
-        return "SectionStage";
+        return (
+          <Stage
+            headline={content.data.st_headline}
+            subline={content.data.st_subheadline}
+            image={{
+              src: content.data.st_image.resolutions.ORIGINAL.url,
+              alt: content.data.st_image.description,
+            }}
+            // TODO: resolve lt_link reference
+            cta={{
+              label: content.data.st_cta.data.lt_text,
+              href: content.data.st_cta.data.lt_link,
+            }}
+          />
+        );
       case "features":
         return "SectionFeatures";
       case "interesting_facts":
