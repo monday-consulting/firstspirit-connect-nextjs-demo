@@ -16,16 +16,8 @@ const SlugPage = async ({ params }: { params: { slug: string[]; locale: string }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {page?.layout === "home" && (
-        <>
-          <Home path="test" />
-        </>
-      )}
-      {page?.layout === "standard" && (
-        <>
-          <StandardLayout pageBodies={pageBodies} />
-        </>
-      )}
+      {page?.layout === "homepage" && <Home pageBodies={pageBodies} />}
+      {page?.layout === "standard" && <StandardLayout pageBodies={pageBodies} />}
     </main>
   );
 };

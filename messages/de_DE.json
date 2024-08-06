@@ -1,7 +1,10 @@
 {
-  "i18n": {
-    "favListTitle": "Liste aller Favoriten",
-    "favListEmpty": "Keine Favoriten gespeichert"
+  "routes": {
+    "home": "/startseite/"
+  },
+  "favorites": {
+    "listTitle": "Liste aller Favoriten",
+    "listEmpty": "Keine Favoriten gespeichert"
   },
   "products": {
     "resultCountText": "Produkte gefunden"

@@ -7,6 +7,8 @@ export interface SectionProps {
 }
 
 const Section = ({ content }: SectionProps) => {
+  console.log("CONTENT: ", content);
+
   const SectionComponent = () => {
     switch (content.sectionType) {
       case "smartliving.product_overview":

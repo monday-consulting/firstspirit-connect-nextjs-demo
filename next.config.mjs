@@ -3,6 +3,22 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  trailingSlash: true,
+  async redirects() {
+    return [
+      {
+        source: "/de_DE/",
+        destination: "/de_DE/startseite/",
+        permanent: true,
+      },
+      {
+        source: "/en_GB/",
+        destination: "/en_GB/homepage/",
+        permanent: true,
+      },
+    ];
+  },
+};
 
 export default withNextIntl(nextConfig);
