@@ -17,7 +17,7 @@ const pageContentDocument = graphql(`
 `);
 
 export const getPageContentByRoute = async (locale: string, route: string) => {
-  console.log(`Fetch page content from: {locale: ${locale}, route: ${route}}`)
+  console.log(`Fetch page content from: {locale: ${locale}, route: ${route}}`);
   const res = await client.request(pageContentDocument, { locale, route });
   return res.firstSpiritPage;
 };

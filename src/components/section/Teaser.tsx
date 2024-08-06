@@ -47,15 +47,17 @@ const Teaser = ({
                 {headline}
               </h2>
             )}
-            {text && typeof text !== "string" ? (
-              <div className="mb-5 text-textLight">
-                {text.map((item, index) => (
-                  <RichTextElement key={`richtext-item-${index}`} {...item} />
-                ))}
-              </div>
-            ) : (
-              <p>{text}</p>
-            )}
+            <div className="mb-5 text-textLight">
+              {text && typeof text !== "string" ? (
+                <>
+                  {text.map((item, index) => (
+                    <RichTextElement key={`richtext-item-${index}`} {...item} />
+                  ))}
+                </>
+              ) : (
+                <>{text}</>
+              )}
+            </div>
             <div className="mt-12 flex flex-wrap">
               {cta && (
                 <Link href={cta.href}>

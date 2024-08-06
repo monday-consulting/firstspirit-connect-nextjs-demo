@@ -30,15 +30,17 @@ const Feature = ({ link, image, title, text }: FeatureProps) => {
         <h3 className="font-semibold text-text text-xl group-hover/feature:underline md:text-2xl">
           {title}
         </h3>
-        {text && typeof text !== "string" ? (
-          <p className="font-medium text-coolGray-500">
-            {text.map((item, index) => (
-              <RichTextElement key={`richtext-item-${index}`} {...item} />
-            ))}
-          </p>
-        ) : (
-          <p>{text}</p>
-        )}
+        <div className="font-medium text-coolGray-500">
+          {text && typeof text !== "string" ? (
+            <>
+              {text.map((item, index) => (
+                <RichTextElement key={`richtext-item-${index}`} {...item} />
+              ))}
+            </>
+          ) : (
+            <>{text}</>
+          )}
+        </div>
         <p className="flex items-center gap-2 text-text">
           <span>{link.label}</span>
           <span>

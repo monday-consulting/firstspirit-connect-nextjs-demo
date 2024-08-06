@@ -19,9 +19,13 @@ const FAQSection = ({ headline, entries, claim, subline }: FAQSectionProps) => {
           {headline}
         </h2>
         <div className="-m-1 mb-11 flex flex-wrap text-left">
-          {entries.map((entry) => (
-            <Accordion key={entry.title} title={entry.title} content={entry.content} />
-          ))}
+          {entries && entries.length > 0 && (
+            <>
+              {entries.map((entry) => (
+                <Accordion key={entry.title} title={entry.title} content={entry.content} />
+              ))}
+            </>
+          )}
         </div>
         {subline && (
           <div>

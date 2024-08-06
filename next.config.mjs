@@ -20,8 +20,8 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["partnerprod-media.e-spirit.cloud"]
-  }
+    domains: ["partnerprod-media.e-spirit.cloud"],
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -4,7 +4,7 @@ import { getProductLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
 import { FeatureSection } from "../section/FeatureSection";
-import { FeatureProps } from "../elements/Feature";
+import FAQSection from "../section/FAQSection";
 
 export interface SectionProps {
   content: FsxaSection;
@@ -39,7 +39,17 @@ const Section = ({ content }: SectionProps) => {
       case "steps":
         return "SectionSteps";
       case "accordion":
-        return "SectionAccordion";
+        return (
+          <FAQSection
+            headline={content.data.st_headline}
+            subline={content.data.st_subline}
+            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            entries={content.data.st_accordion.map((entry: any) => ({
+              title: entry.data.st_title,
+              content: entry.data.st_content,
+            }))}
+          />
+        );
       case "stage":
         return (
           <Stage

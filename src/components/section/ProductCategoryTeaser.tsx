@@ -3,7 +3,6 @@ import { Teaser } from "./Teaser";
 import CategoryProductsList from "./CategoryProductsList";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import type { Dataset } from "../elements/ProductTeaser";
-import { getProductLink } from "@/utils/links";
 
 export interface ProductCategoryTeaserProps {
   category: {
