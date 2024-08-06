@@ -2,6 +2,7 @@ import type { Section as FsxaSection } from "fsxa-api";
 import ProductCategoryTeaser from "../section/ProductCategoryTeaser";
 import { getProductLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
+import { Teaser } from "../section/Teaser";
 
 export interface SectionProps {
   content: FsxaSection;
@@ -44,12 +45,12 @@ const Section = ({ content }: SectionProps) => {
             subline={content.data.st_subheadline}
             image={{
               src: content.data.st_image.resolutions.ORIGINAL.url,
-              alt: content.data.st_image.description,
+              alt: content.data.st_image_alt_text,
             }}
             // TODO: resolve lt_link reference
             cta={{
-              label: content.data.st_cta.data.lt_text,
-              href: content.data.st_cta.data.lt_link,
+              label: content.data.st_cta?.data.lt_text,
+              href: content.data.st_cta?.data.lt_link,
             }}
           />
         );
@@ -62,7 +63,24 @@ const Section = ({ content }: SectionProps) => {
       case "smartliving.product":
         return "SectionProduct";
       case "teaser":
-        return "SectionTeaser";
+        return (
+          <Teaser
+            headline={content.data.st_headline}
+            claim={content.data.st_subhealine}
+            text={content.data.st_text}
+            imageStart={content.data.st_layout.key === "text-image"}
+            image={{
+              src: content.data.st_image.resolutions.ORIGINAL.url,
+              alt: content.data.st_image_alt_text,
+            }}
+            cta={
+              content.data.st_cta && {
+                label: content.data.st_cta.data.lt_text,
+                href: content.data.st_cta.data.lt_link,
+              }
+            }
+          />
+        );
       case "featured_products":
         return "SectionFeaturedProducts";
       default:

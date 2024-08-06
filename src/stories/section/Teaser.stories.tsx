@@ -21,7 +21,7 @@ export const Default: Story = {
     text: "Textd wdawd wad awdjaklwj dlkawjdkl jawkldjaw lkdjalwökjdklaöwjdkajwlk ödjwakl djlkawjd lkwajdkl wajkdjwa kldjöklaw jdklwjd klwajdkl waj",
     cta: {
       href: "Home",
-      linkText: "Home",
+      label: "Home",
     },
   },
 };

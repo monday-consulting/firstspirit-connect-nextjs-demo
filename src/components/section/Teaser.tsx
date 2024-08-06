@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
+import type { RichTextElementProps } from "../elements/RichTextElement";
+import RichTextElement from "../elements/RichTextElement";
 
 export interface TeaserProps {
   headline: string;
@@ -11,12 +13,12 @@ export interface TeaserProps {
     alt: string;
   };
   imageReplaceContent?: ReactNode;
-  text: string;
+  text: RichTextElementProps[] | string;
   cta?: {
     href: string;
-    linkText: string;
+    label: string;
   };
-  imageStart: boolean;
+  imageStart?: boolean;
 }
 
 const Teaser = ({
@@ -26,7 +28,7 @@ const Teaser = ({
   imageReplaceContent,
   text,
   cta,
-  imageStart,
+  imageStart = true,
 }: TeaserProps) => {
   return (
     <section className="py-14">
@@ -45,13 +47,21 @@ const Teaser = ({
                 {headline}
               </h2>
             )}
-            {text && <div className="mb-5 text-textLight">{text}</div>}
+            {text && typeof text !== "string" ? (
+              <div className="mb-5 text-textLight">
+                {text.map((item, index) => (
+                  <RichTextElement key={`richtext-item-${index}`} {...item} />
+                ))}
+              </div>
+            ) : (
+              <p>{text}</p>
+            )}
             <div className="mt-12 flex flex-wrap">
               {cta && (
                 <Link href={cta.href}>
                   <div className="w-full py-1 md:mr-4 md:w-auto md:py-0">
                     <span className="inline-block w-full rounded-md bg-secondary px-7 py-5 text-center font-medium text-base text-white leading-4 hover:brightness-90 md:text-lg">
-                      {cta.linkText}
+                      {cta.label}
                     </span>
                   </div>
                 </Link>

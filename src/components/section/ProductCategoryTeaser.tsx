@@ -43,7 +43,7 @@ const ProductCategoryTeaser = ({
             claim={category.value}
             text={textContent}
             imageStart={teaserTextLeft}
-            cta={{ href: category_link.href, linkText: category_link.linkText }}
+            cta={{ href: category_link.href, label: category_link.linkText }}
             imageReplaceContent={
               <CategoryProductsList category={categoryProductsListData} categoryId={category.key} />
             }
