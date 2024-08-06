@@ -2,5 +2,8 @@
   "i18n": {
     "favListTitle": "Liste aller Favoriten",
     "favListEmpty": "Keine Favoriten gespeichert"
+  },
+  "products": {
+    "resultCountText": "Produkte gefunden"
   }
 }
