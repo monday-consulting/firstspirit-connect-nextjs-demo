@@ -14,7 +14,7 @@ export const Default: Story = {
   args: {
     link: {
       href: "#",
-      linkText: "Home",
+      label: "Home",
     },
     image: {
       src: "https://placehold.co/600x400",

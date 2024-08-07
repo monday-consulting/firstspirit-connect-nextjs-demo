@@ -20,9 +20,9 @@ const StepsSection = ({ subline, headline, stepsItems, richtext }: StepsSectionP
             {headline}
           </h2>
           {richtext && (
-            <p className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
+            <div className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
               <RichTextElement {...richtext} />
-            </p>
+            </div>
           )}
         </div>
         <div className="flex flex-wrap px-4 text-left">

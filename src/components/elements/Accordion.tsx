@@ -1,10 +1,14 @@
+"use client";
+
 import { cn } from "@/utils/cn";
 import { type ReactNode, useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
+import type { RichTextElementProps } from "./RichTextElement";
+import RichTextElement from "./RichTextElement";
 
 export type AccordionProps = {
   title: string;
-  content: ReactNode | string;
+  content: RichTextElementProps[] | string;
 };
 
 export const Accordion = ({ title, content }: AccordionProps) => {
@@ -35,7 +39,15 @@ export const Accordion = ({ title, content }: AccordionProps) => {
           className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200"
           style={open ? { maxHeight: "364px" } : {}}
         >
-          {content}
+          {content && typeof content !== "string" ? (
+            <>
+              {content.map((item, index) => (
+                <RichTextElement key={`richtext-item-${index}`} {...item} />
+              ))}
+            </>
+          ) : (
+            <>{content}</>
+          )}
         </div>
       </div>
     </div>

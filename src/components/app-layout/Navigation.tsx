@@ -42,7 +42,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
   return (
     <nav className="flex items-center justify-between px-8 py-4">
       <div className="flex items-center gap-8">
-        <Link href="/">
+        <Link href={t("routes.home")}>
           <Image src={logo} alt="Logo" className="mr-4" height={40} />
         </Link>
         <div className="hidden gap-8 md:flex">
@@ -72,14 +72,14 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         <div className="group relative">
           <VscHeart size={20} className="cursor-pointer" />
           <div className="-right-2 absolute hidden w-96 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
-            <h3 className="font-bold">{t("i18n.favListTitle")}</h3>
+            <h3 className="font-bold">{t("favorites.listTitle")}</h3>
             <div className="flex flex-col gap-2">
               {favorites.list && favorites.list.length > 0 ? (
                 favorites.list.map((favorite) => (
                   <FavoriteTeaser key={favorite.id} title={favorite.title} image={favorite.image} />
                 ))
               ) : (
-                <p>{t("i18n.favListEmpty")}</p>
+                <p>{t("favorites.listEmpty")}</p>
               )}
             </div>
           </div>

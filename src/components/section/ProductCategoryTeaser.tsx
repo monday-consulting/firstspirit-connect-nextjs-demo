@@ -5,49 +5,47 @@ import type { RichTextElementProps } from "../elements/RichTextElement";
 import type { Dataset } from "../elements/ProductTeaser";
 
 export interface ProductCategoryTeaserProps {
-  categoryProduct: {
-    category: {
-      type: string;
-      key: string;
-      value: string;
-      products: Dataset[];
-    };
-    category_link: {
-      href: string;
-      linkText: string;
-    };
-    headline: string;
-    text: RichTextElementProps[];
+  category: {
+    type: string;
+    key: string;
+    value: string;
+    products: Dataset[];
   };
+  category_link: {
+    href: string;
+    linkText: string;
+  };
+  headline: string;
+  text: RichTextElementProps[];
+  teaserTextStart?: boolean;
 }
 
-const getProductLink = (categoryProduct: ProductCategoryTeaserProps["categoryProduct"]) => {
-  return categoryProduct.category_link.href;
-};
-
-const ProductCategoryTeaser = ({ categoryProduct }: ProductCategoryTeaserProps) => {
-  const textContent = categoryProduct.text.map((item) => item.content).join(" ");
-  const productLink = getProductLink(categoryProduct);
+const ProductCategoryTeaser = ({
+  category,
+  category_link,
+  headline,
+  text,
+  teaserTextStart: teaserTextLeft = true,
+}: ProductCategoryTeaserProps) => {
+  const textContent = text.map((item) => item.content).join(" ");
 
   const categoryProductsListData = {
-    data: categoryProduct.category.products,
+    data: category.products,
   };
 
   return (
-    <div className="radius-for-skewed bg-gray-100 py-20">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 gap-20">
-          <div className="m-auto">
-            <Teaser
-              headline={categoryProduct.headline}
-              text={textContent}
-              imageLeft={false}
-              cta={{ href: productLink, linkText: categoryProduct.category_link.linkText }}
-            />
-          </div>
-          <CategoryProductsList
-            category={categoryProductsListData}
-            categoryId={categoryProduct.category.key}
+    <div className="bg-lightGray py-16">
+      <div className="container mx-auto">
+        <div className="m-auto">
+          <Teaser
+            headline={headline}
+            claim={category.value}
+            text={textContent}
+            imageStart={teaserTextLeft}
+            cta={{ href: category_link.href, label: category_link.linkText }}
+            imageReplaceContent={
+              <CategoryProductsList category={categoryProductsListData} categoryId={category.key} />
+            }
           />
         </div>
       </div>
