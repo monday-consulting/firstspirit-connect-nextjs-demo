@@ -1,16 +1,18 @@
 import React from "react";
-import type { PageBodyContent } from "fsxa-api";
 import { Dataset } from "../page-body-count/Dataset";
 import Content2Section from "../page-body-count/Content2Section";
-import Section from "../page-body-count/Section";
+import { Section } from "../page-body-count/Section";
 import { Unknown } from "../Unknown";
+import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 
-interface BodyProps {
-  content: PageBodyContent[];
+export interface BodyProps {
+  content?: FirstSpiritPageBody[];
 }
 
 const Body = ({ content }: BodyProps) => {
-  const getComponentFromPageBody = (pageBodyContent: PageBodyContent) => {
+  // TODO: Missing type definitions
+  // biome-ignore lint/suspicious/noExplicitAny: We don't have enough type definitions in FS
+  const getComponentFromPageBody = (pageBodyContent: any) => {
     switch (pageBodyContent.type) {
       case "Dataset":
         return <Dataset content={pageBodyContent} />;
@@ -25,8 +27,12 @@ const Body = ({ content }: BodyProps) => {
 
   return (
     <div>
-      {content.map((pageBodyContent) => (
-        <div key={pageBodyContent.type}>{getComponentFromPageBody(pageBodyContent)}</div>
+      {content?.map((pageBodyContent) => (
+        <div key={pageBodyContent.previewId}>
+          {pageBodyContent.children?.map((item) => (
+            <div key={item.id}>{getComponentFromPageBody(item)}</div>
+          ))}
+        </div>
       ))}
     </div>
   );

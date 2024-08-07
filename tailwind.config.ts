@@ -8,6 +8,8 @@ const config: Config = {
         primary: "#b51f7d",
         secondary: "#01395a",
         text: "#4b5563",
+        textLight: "#556987",
+        textLighter: "#9ca3af",
         lightGray: "#e9eaeb",
       },
     },

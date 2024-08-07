@@ -18,7 +18,7 @@ export const Default: Story = {
       {
         link: {
           href: "#",
-          linkText: "Home",
+          label: "Home",
         },
         image: {
           src: "https://placehold.co/600x400",
@@ -31,7 +31,7 @@ export const Default: Story = {
       {
         link: {
           href: "#",
-          linkText: "Home",
+          label: "Home",
         },
         image: {
           src: "https://placehold.co/600x400",

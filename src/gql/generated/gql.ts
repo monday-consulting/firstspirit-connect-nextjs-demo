@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query fsNavigationQuery($locale:String!) {\n    firstSpiritNavigationData(_locale: {eq: $locale}) {\n      structure {\n        navigationItem {\n          label\n          seoRoute\n          fsNavItemId\n          page {\n            id\n          }\n        }\n        structureChildren {\n          navigationItem {\n            label\n            seoRoute\n            fsNavItemId\n            page {\n              id\n            }\n          }\n          structureChildren {\n            navigationItem {\n              fsNavItemId\n              label\n              seoRoute\n              page {\n                id\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n": types.FsNavigationQueryDocument,
-    "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n      }\n    }\n  }\n": types.PageByRouteDocument,
+    "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n        name\n        previewId\n      }\n    }\n  }\n": types.PageByRouteDocument,
 };
 
 /**
@@ -38,7 +38,7 @@ export function graphql(source: "\n  query fsNavigationQuery($locale:String!) {\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n      }\n    }\n  }\n"): (typeof documents)["\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n        name\n        previewId\n      }\n    }\n  }\n"): (typeof documents)["\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n        name\n        previewId\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
