@@ -59,7 +59,7 @@ const Teaser = ({
               )}
             </div>
             <div className="mt-12 flex flex-wrap">
-              {cta && (
+              {cta?.href && (
                 <Link href={cta.href}>
                   <div className="w-full py-1 md:mr-4 md:w-auto md:py-0">
                     <span className="inline-block w-full rounded-md bg-secondary px-7 py-5 text-center font-medium text-base text-white leading-4 hover:brightness-90 md:text-lg">

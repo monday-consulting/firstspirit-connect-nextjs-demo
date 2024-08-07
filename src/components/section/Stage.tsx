@@ -44,7 +44,7 @@ const Stage = ({ headline, subline, image, cta }: StageProps) => {
             {headline}
           </h2>
           <p className="mb-11 font-medium text-lg text-lightGray leading-normal">{subline}</p>
-          {cta && (
+          {cta?.href && (
             <Link
               href={cta?.href}
               className="inline-flex flex-wrap items-center text-white hover:text-lightGray hover:underline"
