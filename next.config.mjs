@@ -20,7 +20,12 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["partnerprod-media.e-spirit.cloud"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "partnerprod-media.e-spirit.cloud",
+      },
+    ],
   },
 };
 
