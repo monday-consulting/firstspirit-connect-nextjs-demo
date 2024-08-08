@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-interface ProductCardProps {
+export interface FeaturedProductItemProps {
   product: {
     data: {
       tt_teaser_image?: string;
@@ -13,7 +13,7 @@ interface ProductCardProps {
   imageSource?: string;
 }
 
-const FeaturedProductItem = ({ product, imageSource }: ProductCardProps) => {
+const FeaturedProductItem = ({ product, imageSource }: FeaturedProductItemProps) => {
   const [hover, setHover] = useState(false);
 
   const handleMouseOver = () => {
