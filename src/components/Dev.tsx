@@ -2,10 +2,9 @@
 
 import React, { useState, useMemo } from "react";
 import "./styles.css";
-import { LuShieldQuestion } from "react-icons/lu";
+import { LuShieldQuestion, LuX } from "react-icons/lu";
 import hljs from "highlight.js/lib/core";
 import json from "highlight.js/lib/languages/json";
-import { Cross } from "./elements/Cross";
 import { useContent } from "./composables/content";
 import { useNavigationData } from "./composables/navigation";
 
@@ -107,7 +106,7 @@ const DevComponent = ({ content, componentName, currentDataMock, currentPageMock
                 className="ml-auto h-10 w-10 rounded-full p-2 hover:bg-gray-200"
                 onClick={() => setDevComponentVisible(false)}
               >
-                <Cross />
+                <LuX size={24} />
               </button>
             </div>
 
