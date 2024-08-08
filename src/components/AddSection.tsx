@@ -1,4 +1,3 @@
-import React from "react";
 import { createSection } from "./tests/testutils/createSection";
 import type { Section } from "fsxa-api";
 

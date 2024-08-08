@@ -1,10 +1,8 @@
 import { useContext, useEffect } from "react";
-import { type Favorite, FavortiteListContext, type Product } from "@/utils/contexts/favorites";
-import useLocalStorage from "./useLocalStorage";
+import { FavortiteListContext } from "@/utils/contexts/favorites";
 
 const useFavorites = () => {
   const favorites = useContext(FavortiteListContext);
-  const storedList = useLocalStorage<Favorite[]>("storedList", []);
 
   useEffect(() => {
     favorites?.rehydrateContext();

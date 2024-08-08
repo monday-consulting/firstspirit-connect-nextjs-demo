@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import type { Section, Dataset, Content2Section, Page, DataEntries } from "fsxa-api";
 export type UnknownProps = {
   content?: Section | Dataset | Content2Section | Page;

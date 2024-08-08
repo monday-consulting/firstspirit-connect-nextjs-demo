@@ -9,7 +9,7 @@ const SlugPage = async ({ params }: { params: { slug: string[]; locale: string }
     ? `/${params.slug.join("/")}/`
     : params.locale === defaultLocale
       ? "/startseite/"
-      : "homepage";
+      : "/homepage/";
 
   const page = await getPageContentByRoute(params.locale, route);
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];

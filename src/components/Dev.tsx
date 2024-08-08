@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import "./styles.css";
 import { LuShieldQuestion, LuX } from "react-icons/lu";
 import hljs from "highlight.js/lib/core";

@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Accordion, type AccordionProps } from "../elements/Accordion";
 
 export type FAQSectionProps = {

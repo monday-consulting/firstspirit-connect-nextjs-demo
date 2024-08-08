@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import type { Image as fsxaImage } from "fsxa-api";
 import Image from "next/image";
 

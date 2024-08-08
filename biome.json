@@ -25,6 +25,9 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "correctness": {
+        "noUnusedImports": "warn"
+      },
       "recommended": true,
       "suspicious": {
         "noArrayIndexKey": "off"

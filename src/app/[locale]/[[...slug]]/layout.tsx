@@ -5,7 +5,6 @@ import { getNavigationStructure } from "@/gql/documents/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Navigation, type NavigationStructure } from "@/components/app-layout/Navigation";
-import { mockNavigationData } from "@/stories/mocks/mockNavigationData";
 import { FavoriteListProvider } from "@/utils/contexts/favorites";
 
 const inter = Inter({ subsets: ["latin"] });

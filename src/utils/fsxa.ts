@@ -1,4 +1,4 @@
-import type { FetchNavigationParams, FSXAApi, NavigationData, NavigationItem } from "fsxa-api";
+import type { NavigationData, NavigationItem } from "fsxa-api";
 
 export type Props = {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>

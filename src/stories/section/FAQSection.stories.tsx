@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import FAQSection from "@/components/section/FAQSection";
-import Link from "next/link";
 
 const meta: Meta<typeof FAQSection> = {
   title: "components/Section/FAQSection",

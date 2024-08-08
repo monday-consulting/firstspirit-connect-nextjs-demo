@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { type ReactNode, useState } from "react";
+import { useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
 import type { RichTextElementProps } from "./RichTextElement";
 import RichTextElement from "./RichTextElement";

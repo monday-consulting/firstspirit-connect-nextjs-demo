@@ -1,5 +1,3 @@
-import { cn } from "@/utils/cn";
-
 export type News = {
   st_headline: string;
   st_newstag: {

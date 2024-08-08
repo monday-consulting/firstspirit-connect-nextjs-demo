@@ -3,8 +3,6 @@
 import { cn } from "@/utils/cn";
 import type { Product } from "@/utils/contexts/favorites";
 import useFavorites from "@/utils/hooks/useFavorites";
-import { useEffect, useState } from "react";
-import { LuHeart } from "react-icons/lu";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 
 export type FavoriteButtonProps = {

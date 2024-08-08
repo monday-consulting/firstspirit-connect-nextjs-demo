@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { StoryObj } from "@storybook/react";
 import { StepsSection } from "@/components/section/StepsSection";
 import { Underlined } from "../elements/RichTextElement.stories";
 import { StepsItemDefault } from "../elements/StepsItem.stories";

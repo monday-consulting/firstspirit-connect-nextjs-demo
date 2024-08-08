@@ -1,4 +1,3 @@
-import type { PageBody } from "fsxa-api";
 import Body from "../page/Body";
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 

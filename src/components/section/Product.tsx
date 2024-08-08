@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import type { ProductData } from "../elements/ProductTeaser";
 import RichTextElement from "../elements/RichTextElement";
 import { FavoriteButton } from "../elements/FavoriteButton";

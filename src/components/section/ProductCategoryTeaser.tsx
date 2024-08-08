@@ -1,4 +1,3 @@
-import type React from "react";
 import { Teaser } from "./Teaser";
 import CategoryProductsList from "./CategoryProductsList";
 import type { RichTextElementProps } from "../elements/RichTextElement";

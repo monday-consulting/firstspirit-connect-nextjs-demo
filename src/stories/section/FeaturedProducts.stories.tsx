@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import type { StoryObj } from "@storybook/react";
 import { FeaturedProducts } from "@/components/section/FeaturedProducts";
 
 const meta = {
