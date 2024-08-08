@@ -5,9 +5,9 @@ import { Section } from "../page-body-count/Section";
 import { Unknown } from "../Unknown";
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 
-export interface BodyProps {
+export type BodyProps = {
   content?: FirstSpiritPageBody[];
-}
+};
 
 const Body = ({ content }: BodyProps) => {
   // TODO: Missing type definitions

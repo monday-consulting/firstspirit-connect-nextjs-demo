@@ -3,9 +3,9 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 
-interface ClientOnlyProps {
+export type ClientOnlyProps = {
   children: React.ReactNode;
-}
+};
 
 const ClientOnly = ({ children }: ClientOnlyProps) => {
   const [isClient, setIsClient] = useState(false);

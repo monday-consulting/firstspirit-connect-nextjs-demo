@@ -1,6 +1,6 @@
-interface NotificationNumberProps {
+export type NotificationNumberProps = {
   amount: number;
-}
+};
 
 export const NotificationNumber = ({ amount }: NotificationNumberProps) => {
   return (

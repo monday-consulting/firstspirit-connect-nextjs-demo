@@ -6,7 +6,7 @@ import type { RichTextElementProps } from "./RichTextElement";
 import RichTextElement from "./RichTextElement";
 
 //this type is used in section/features
-export interface FeatureProps {
+export type FeatureProps = {
   link: {
     href: string;
     label: string;
@@ -18,7 +18,7 @@ export interface FeatureProps {
   title: string | ReactNode;
   text: RichTextElementProps[] | string;
   id: string;
-}
+};
 
 const Feature = ({ link, image, title, text }: FeatureProps) => {
   return (

@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import RichTextElement from "../elements/RichTextElement";
 
-export interface TeaserProps {
+export type TeaserProps = {
   headline: string;
   claim?: string;
   image?: {
@@ -19,7 +19,7 @@ export interface TeaserProps {
     label: string;
   };
   imageStart?: boolean;
-}
+};
 
 const Teaser = ({
   headline,

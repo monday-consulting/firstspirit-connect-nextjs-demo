@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
-export interface SliderSlide {
+export type SliderSlide = {
   button: ButtonProps;
   description: string;
   picture: {
@@ -13,11 +13,11 @@ export interface SliderSlide {
     alt: string;
   };
   title: string;
-}
+};
 
-export interface SliderProps {
+export type SliderProps = {
   slides: SliderSlide[];
-}
+};
 
 const Slider = ({ slides }: SliderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);

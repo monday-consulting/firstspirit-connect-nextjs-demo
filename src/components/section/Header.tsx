@@ -5,9 +5,9 @@ import { DevComponent } from "../Dev";
 import { useDev } from "../composables/showDev";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
-interface Props {
+export type Props = {
   data: DataEntries;
-}
+};
 
 const Header: React.FC<Props> = ({ data }) => {
   const { showDev } = useDev();

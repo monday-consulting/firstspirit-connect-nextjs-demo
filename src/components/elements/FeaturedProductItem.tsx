@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-export interface FeaturedProductItemProps {
+export type FeaturedProductItemProps = {
   product: {
     data: {
       tt_teaser_image?: string;
@@ -11,7 +11,7 @@ export interface FeaturedProductItemProps {
     route: string;
   };
   imageSource?: string;
-}
+};
 
 const FeaturedProductItem = ({ product, imageSource }: FeaturedProductItemProps) => {
   const [hover, setHover] = useState(false);

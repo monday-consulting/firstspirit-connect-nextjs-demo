@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface InterestingFactsProps {
+export type InterestingFactsProps = {
   backgroundImage?: {
     src: string;
     alt: string;
@@ -13,7 +13,7 @@ interface InterestingFactsProps {
     number: number;
     text: string;
   }[];
-}
+};
 
 const InterestingFacts = ({
   backgroundImage,

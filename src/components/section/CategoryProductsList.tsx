@@ -5,12 +5,12 @@ import ProductTeaser from "../elements/ProductTeaser";
 import type { Dataset, ProductTeaserProps } from "../elements/ProductTeaser";
 import { useEffect, useState } from "react";
 
-export interface CategoryProductListProps {
+export type CategoryProductListProps = {
   category: {
     data: Dataset[];
   };
   categoryId: string;
-}
+};
 
 const splitProducts = (products: Dataset[]) => {
   const column1Items = products.filter((_, index) => index % 2 === 0);

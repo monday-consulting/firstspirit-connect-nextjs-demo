@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import type { Section, Dataset, Content2Section, Page, DataEntries } from "fsxa-api";
-interface UnknownProps {
+export type UnknownProps = {
   content?: Section | Dataset | Content2Section | Page;
   data?: DataEntries;
-}
+};
 
 const Unknown = ({ content }: UnknownProps) => {
   const componentType = useMemo(() => {

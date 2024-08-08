@@ -6,9 +6,9 @@ import { Teaser } from "../section/Teaser";
 import { FeatureSection } from "../section/FeatureSection";
 import FAQSection from "../section/FAQSection";
 
-export interface SectionProps {
+export type SectionProps = {
   content: FsxaSection;
-}
+};
 
 const Section = ({ content }: SectionProps) => {
   const SectionComponent = () => {

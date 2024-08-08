@@ -4,7 +4,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import useFavorites from "@/utils/hooks/useFavorites";
 import { LuArrowRight } from "react-icons/lu";
 
-export interface ProductOverviewItemProps {
+export type ProductOverviewItemProps = {
   image: {
     src: string;
     alt: string;
@@ -14,7 +14,7 @@ export interface ProductOverviewItemProps {
   price: number;
   id: string;
   route: string;
-}
+};
 
 const ProductOverviewItem = ({
   image,

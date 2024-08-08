@@ -1,12 +1,12 @@
 import { useRouter } from "next/navigation";
 
-export interface ButtonProps {
+export type ButtonProps = {
   lt_button_text: string;
   lt_product_link?: { route: string };
   lt_internal?: {
     referenceId: string;
   };
-}
+};
 
 const Button = ({ lt_button_text, lt_product_link, lt_internal }: ButtonProps) => {
   const clickHandler = () => {

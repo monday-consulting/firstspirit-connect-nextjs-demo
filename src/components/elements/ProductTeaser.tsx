@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import type { RichTextElementProps } from "./RichTextElement";
 
-export interface ProductTeaserProps {
+export type ProductTeaserProps = {
   data: ProductData;
   route: string;
-}
+};
 
-export interface Section {
+export type Section = {
   type: "Section";
   id: string;
   name?: string;
@@ -24,9 +24,9 @@ export interface Section {
     end?: Date;
   };
   children: Section[];
-}
+};
 
-export interface Dataset {
+export type Dataset = {
   type: "Dataset";
   id: string;
   previewId: string;
@@ -42,9 +42,9 @@ export interface Dataset {
   };
   remoteProjectId?: string;
   locale: string;
-}
+};
 
-export interface ProductData {
+export type ProductData = {
   categories: Dataset[];
   description: RichTextElementProps[];
   image: {
@@ -54,7 +54,7 @@ export interface ProductData {
   name: string;
   price: string;
   teaserText: string;
-}
+};
 
 const ProductTeaser = ({ data, route }: ProductTeaserProps) => {
   return (

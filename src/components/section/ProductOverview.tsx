@@ -1,9 +1,9 @@
 import { useTranslations } from "use-intl";
 import { ProductOverviewItem, type ProductOverviewItemProps } from "./ProductOverviewItem";
 
-interface ProductOverviewProps {
+export type ProductOverviewProps = {
   products: ProductOverviewItemProps[];
-}
+};
 
 const ProductOverview = ({ products }: ProductOverviewProps) => {
   const t = useTranslations();

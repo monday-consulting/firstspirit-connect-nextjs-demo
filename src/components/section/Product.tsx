@@ -6,9 +6,9 @@ import RichTextElement from "../elements/RichTextElement";
 import { FavoriteButton } from "../elements/FavoriteButton";
 import Image from "next/image";
 
-export interface ProductProps {
+export type ProductProps = {
   data: ProductData;
-}
+};
 
 const Product = ({ data }: ProductProps) => {
   const currentDataset = data;

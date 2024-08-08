@@ -3,11 +3,11 @@ import type { FeatureProps } from "@/components/elements/Feature";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import RichTextElement from "../elements/RichTextElement";
 
-interface FeatureSectionProps {
+export type FeatureSectionProps = {
   headline: string;
   text: RichTextElementProps[] | string;
   features: FeatureProps[];
-}
+};
 
 const FeatureSection = ({ headline, text, features }: FeatureSectionProps) => {
   return (

@@ -1,17 +1,17 @@
 import { cn } from "@/utils/cn";
 
-interface News {
+export type News = {
   st_headline: string;
   st_newstag: {
     type: string;
     key: string;
     value: string;
   };
-}
+};
 
-interface LatestNewsProps {
+export type LatestNewsProps = {
   data: News;
-}
+};
 
 export const LatestNews = ({ data }: LatestNewsProps) => {
   return (

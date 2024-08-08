@@ -4,7 +4,7 @@ import CategoryProductsList from "./CategoryProductsList";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import type { Dataset } from "../elements/ProductTeaser";
 
-export interface ProductCategoryTeaserProps {
+export type ProductCategoryTeaserProps = {
   category: {
     type: string;
     key: string;
@@ -18,7 +18,7 @@ export interface ProductCategoryTeaserProps {
   headline: string;
   text: RichTextElementProps[];
   teaserTextStart?: boolean;
-}
+};
 
 const ProductCategoryTeaser = ({
   category,

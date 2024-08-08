@@ -1,9 +1,9 @@
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 import Body from "../page/Body";
 
-interface HomeProps {
+export type HomeProps = {
   pageBodies: FirstSpiritPageBody[];
-}
+};
 
 export const Home = ({ pageBodies }: HomeProps) => {
   const top = pageBodies?.find((pageBody) => pageBody.name === "top");

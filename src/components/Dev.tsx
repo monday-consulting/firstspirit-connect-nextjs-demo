@@ -8,12 +8,12 @@ import json from "highlight.js/lib/languages/json";
 import { useContent } from "./composables/content";
 import { useNavigationData } from "./composables/navigation";
 
-interface DevProps {
+export type DevProps = {
   currentDataMock?: unknown;
   currentPageMock?: unknown;
   content: unknown;
   componentName?: string;
-}
+};
 
 const DevComponent = ({ content, componentName, currentDataMock, currentPageMock }: DevProps) => {
   const { activeNavigationItem } = useNavigationData();
