@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { FeatureSection } from "@/components/section/FeatureSection";
+import { Features } from "@/components/section/Features";
 
-const meta: Meta<typeof FeatureSection> = {
-  title: "components/Section/FeatureSection",
-  component: FeatureSection,
+const meta: Meta<typeof Features> = {
+  title: "components/Section/Features",
+  component: Features,
   tags: ["autodocs"],
 };
 

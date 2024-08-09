@@ -32,7 +32,7 @@ const Stage = ({ headline, subline, image, cta }: StageProps) => {
   const backgroundImageStyle = { width: "100vw", backgroundImage };
 
   return (
-    <section
+    <div
       className="overflow-hidden bg-black bg-center bg-cover bg-fixed bg-no-repeat py-28"
       style={backgroundImageStyle}
     >
@@ -53,7 +53,7 @@ const Stage = ({ headline, subline, image, cta }: StageProps) => {
           )}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

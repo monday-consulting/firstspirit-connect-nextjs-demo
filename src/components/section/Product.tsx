@@ -52,7 +52,7 @@ const Product = ({ product }: ProductProps) => {
   const combinedRichTextData = richTextData.join(" ");
 
   return (
-    <section
+    <div
       className="overflow-x-hidden py-12 md:py-32"
       data-testid="productSection"
       data-preview-id={currentDataset?.categories.map((item) => item.previewId)}
@@ -107,7 +107,7 @@ const Product = ({ product }: ProductProps) => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

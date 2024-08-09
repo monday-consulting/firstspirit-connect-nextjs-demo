@@ -3,7 +3,7 @@ import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
 import { getProductLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
-import { FeatureSection } from "../section/FeatureSection";
+import { Features } from "../section/Features";
 import { FAQSection } from "../section/FAQSection";
 
 export type SectionProps = {
@@ -68,7 +68,7 @@ const Section = ({ content }: SectionProps) => {
         );
       case "features":
         return (
-          <FeatureSection
+          <Features
             headline={content.data.st_headline}
             text={content.data.st_text}
             // TODO: Typesafety missing
@@ -120,7 +120,7 @@ const Section = ({ content }: SectionProps) => {
     }
   };
 
-  return <div className="my-4">{<SectionComponent />}</div>;
+  return <section className="my-4">{<SectionComponent />}</section>;
 };
 
 export { Section };

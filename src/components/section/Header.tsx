@@ -30,7 +30,7 @@ const Header = ({ data }: HeaderProps) => {
   }, [data]);
 
   return (
-    <section
+    <header
       className={`group relative ${!data.pt_image && showDev && $isPreviewMode ? devStyle : ""}`}
       data-testid="headerSection"
     >
@@ -61,7 +61,7 @@ const Header = ({ data }: HeaderProps) => {
       {showDev && $isPreviewMode && (
         <DevComponent currentDataMock={undefined} currentPageMock={undefined} content={data} />
       )}
-    </section>
+    </header>
   );
 };
 

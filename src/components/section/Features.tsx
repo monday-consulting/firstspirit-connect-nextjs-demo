@@ -3,15 +3,15 @@ import type { FeatureProps } from "@/components/elements/Feature";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import { RichTextElement } from "../elements/RichTextElement";
 
-export type FeatureSectionProps = {
+export type FeaturesProps = {
   headline: string;
   text: RichTextElementProps[] | string;
   features: FeatureProps[];
 };
 
-const FeatureSection = ({ headline, text, features }: FeatureSectionProps) => {
+const Features = ({ headline, text, features }: FeaturesProps) => {
   return (
-    <section className="py-14">
+    <div className="py-14">
       <div className="container mx-auto px-4 text-center">
         <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
           {headline}
@@ -33,7 +33,7 @@ const FeatureSection = ({ headline, text, features }: FeatureSectionProps) => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
-export { FeatureSection };
+export { Features };

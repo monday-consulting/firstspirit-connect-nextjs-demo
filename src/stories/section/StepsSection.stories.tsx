@@ -1,11 +1,11 @@
 import type { StoryObj } from "@storybook/react";
-import { StepsSection } from "@/components/section/StepsSection";
+import { Steps } from "@/components/section/Steps";
 import { Underlined } from "../elements/RichTextElement.stories";
 import { StepsItemDefault } from "../elements/StepsItem.stories";
 
 const meta = {
-  title: "components/Section/StepsSection",
-  component: StepsSection,
+  title: "components/Section/Steps",
+  component: Steps,
   parameters: {
     layout: "centered",
   },

@@ -29,7 +29,7 @@ const Teaser = ({
   imageStart = true,
 }: TeaserProps) => {
   return (
-    <section className="py-14">
+    <div className="py-14">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center gap-8 md:flex-row md:gap-4">
           <div
@@ -82,7 +82,7 @@ const Teaser = ({
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 export { Teaser };

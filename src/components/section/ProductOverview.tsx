@@ -9,7 +9,7 @@ const ProductOverview = ({ products }: ProductOverviewProps) => {
   const t = useTranslations();
 
   return (
-    <section className="bg-white py-24">
+    <div className="bg-white py-24">
       <div className="container mx-auto px-4 text-center">
         {products && (
           <div className="bg-blueGray-100 pt-12 pb-20 2xl:pb-22">
@@ -31,7 +31,7 @@ const ProductOverview = ({ products }: ProductOverviewProps) => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 export { ProductOverview };
