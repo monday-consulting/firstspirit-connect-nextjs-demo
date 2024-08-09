@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { getImageProps } from "next/image";
 import { LuArrowRight } from "react-icons/lu";
+import type { ImageData } from "@/types";
 
 export type StageProps = {
   headline: string;
   subline: string;
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
   cta?: {
     label: string;
     href: string;

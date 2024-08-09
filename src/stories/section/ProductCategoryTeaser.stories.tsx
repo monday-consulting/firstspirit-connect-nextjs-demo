@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ProductCategoryTeaser } from "@/components/section/ProductCategoryTeaser";
-import type { Dataset } from "@/components/elements/ProductTeaser";
+import type { Dataset } from "@/types";
 
 const meta: Meta<typeof ProductCategoryTeaser> = {
   title: "components/section/ProductCategoryTeaser",

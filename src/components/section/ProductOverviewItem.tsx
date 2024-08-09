@@ -3,12 +3,10 @@ import Image from "next/image";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { LuArrowRight } from "react-icons/lu";
+import type { ImageData } from "@/types";
 
 export type ProductOverviewItemProps = {
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
   categories: string[];
   name: string;
   price: number;

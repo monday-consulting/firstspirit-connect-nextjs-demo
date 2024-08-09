@@ -1,7 +1,7 @@
 import { Teaser } from "./Teaser";
 import { CategoryProductsList } from "./CategoryProductsList";
 import type { RichTextElementProps } from "../elements/RichTextElement";
-import type { Dataset } from "../elements/ProductTeaser";
+import type { Dataset } from "@/types";
 
 export type ProductCategoryTeaserProps = {
   category: {

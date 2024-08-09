@@ -4,50 +4,12 @@ import { useMemo } from "react";
 import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
 import { FavoriteButton } from "../elements/FavoriteButton";
 import Image from "next/image";
-
-export type Section = {
-  type: "Section";
-  id: string;
-  name?: string;
-  displayName?: string;
-  previewId: string;
-  sectionType: string;
-  data: {
-    [key: string]: unknown;
-  };
-  displayed?: boolean;
-  lifespan?: {
-    start: Date;
-    end?: Date;
-  };
-  children: Section[];
-};
-
-export type Dataset = {
-  type: "Dataset";
-  id: string;
-  previewId: string;
-  schema: string;
-  entityType: string;
-  template: string;
-  children: Section[];
-  data: Product;
-  route: string;
-  routes: {
-    pageRef: string;
-    route: string;
-  };
-  remoteProjectId?: string;
-  locale: string;
-};
+import type { Dataset, ImageData } from "@/types";
 
 export type Product = {
   categories: Dataset[];
   description: RichTextElementProps[];
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
   name: string;
   price: string;
   teaserText: string;

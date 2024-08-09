@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { LuArrowRight } from "react-icons/lu";
 import type { RichTextElementProps } from "./RichTextElement";
 import { RichTextElement } from "./RichTextElement";
+import type { ImageData } from "@/types";
 
 //this type is used in section/features
 export type FeatureProps = {
@@ -11,10 +12,7 @@ export type FeatureProps = {
     href: string;
     label: string;
   };
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
   title: string | ReactNode;
   text: RichTextElementProps[] | string;
   id: string;

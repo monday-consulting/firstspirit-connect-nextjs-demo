@@ -1,3 +1,4 @@
+import type { ImageData } from "@/types";
 import { getProductLink } from "@/utils/links";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,10 +7,7 @@ export type Product = {
   id: string;
   name: string;
   abstract: string;
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
 };
 
 export type ProductCategoryProps = {

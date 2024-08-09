@@ -2,14 +2,12 @@
 
 import { createContext, type ReactNode, useState } from "react";
 import { useLocalStorage } from "@/utils/hooks/useLocalStorage";
+import type { ImageData } from "@/types";
 
 export type Product = {
   id: string;
   title: string;
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
 };
 
 export type Favorite = Product & {

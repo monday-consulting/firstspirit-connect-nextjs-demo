@@ -1,5 +1,6 @@
 "use client";
 
+import type { ImageData } from "@/types";
 import { Button, type ButtonProps } from "../elements/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -8,10 +9,7 @@ import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 export type SliderSlide = {
   button: ButtonProps;
   description: string;
-  picture: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
   title: string;
 };
 
@@ -64,8 +62,8 @@ const Slider = ({ slides }: SliderProps) => {
             </div>
             <Image
               className="h-96 w-full object-cover md:h-[600px]"
-              src={activeSlide.picture.src}
-              alt={activeSlide.picture.alt}
+              src={activeSlide.image.src}
+              alt={activeSlide.image.alt}
               width={400}
               height={400}
             />

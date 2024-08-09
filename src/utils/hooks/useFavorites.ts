@@ -15,4 +15,4 @@ const useFavorites = () => {
   return [favorites, isFavorite] as const;
 };
 
-export  {useFavorites};
+export { useFavorites };

@@ -1,7 +1,8 @@
 "use client";
+
 import { ProductTeaser } from "../elements/ProductTeaser";
-import type { Dataset, ProductTeaserProps } from "../elements/ProductTeaser";
 import { useEffect, useState } from "react";
+import type { Dataset } from "@/types";
 
 export type CategoryProductListProps = {
   category: {
@@ -55,20 +56,12 @@ const CategoryProductsList = ({ category, categoryId }: CategoryProductListProps
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div className="flex flex-col gap-4">
         {column1Items.map((item) => (
-          <ProductTeaser
-            key={item.id}
-            data={item.data as ProductTeaserProps["data"]}
-            route={item.route}
-          />
+          <ProductTeaser key={item.id} product={item.data} route={item.route} />
         ))}
       </div>
       <div className="mt-20 flex flex-col gap-4">
         {column2Items.map((item) => (
-          <ProductTeaser
-            key={item.id}
-            data={item.data as ProductTeaserProps["data"]}
-            route={item.route}
-          />
+          <ProductTeaser key={item.id} product={item.data} route={item.route} />
         ))}
       </div>
     </div>

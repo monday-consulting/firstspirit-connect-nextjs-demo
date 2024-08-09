@@ -1,10 +1,8 @@
+import type { ImageData } from "@/types";
 import Image from "next/image";
 
 export type InterestingFactsProps = {
-  backgroundImage?: {
-    src: string;
-    alt: string;
-  };
+  backgroundImage?: ImageData;
   tagline: string;
   headline?: string;
   text?: string;

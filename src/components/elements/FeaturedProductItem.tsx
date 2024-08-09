@@ -1,12 +1,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { ImageData } from "@/types";
 
 export type FeaturedProductItemProps = {
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
   name: string;
   abstract: string;
   route: string;

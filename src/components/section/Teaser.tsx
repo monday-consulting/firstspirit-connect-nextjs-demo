@@ -4,14 +4,12 @@ import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import { RichTextElement } from "../elements/RichTextElement";
+import type { ImageData } from "@/types";
 
 export type TeaserProps = {
   headline: string;
   claim?: string;
-  image?: {
-    src: string;
-    alt: string;
-  };
+  image?: ImageData;
   imageReplaceContent?: ReactNode;
   text: RichTextElementProps[] | string;
   cta?: {
