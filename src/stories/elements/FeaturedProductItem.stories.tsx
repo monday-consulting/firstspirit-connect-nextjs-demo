@@ -10,7 +10,7 @@ const meta: Meta<typeof FeaturedProductItem> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     imageSource: "https://placehold.co/600x400",
     product: {

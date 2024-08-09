@@ -67,7 +67,7 @@ const mockProductData: ProductTeaserProps["data"] = {
   teaserText: "This is a sample teaser text for the product.",
 };
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     data: mockProductData,
     route: "https://placehold.co/600x400",

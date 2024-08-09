@@ -159,7 +159,7 @@ const mockProductData: CategoryProductListProps = {
   categoryId: "",
 };
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     category: mockProductData.category,
   },

@@ -60,7 +60,7 @@ const pageBodyExample: PageBody = {
   children: [datasetExample, sectionExample, content2SectionExample],
 };
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     // pageBody: [pageBodyExample],
   },

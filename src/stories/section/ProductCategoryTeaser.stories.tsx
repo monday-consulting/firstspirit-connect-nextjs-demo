@@ -149,7 +149,7 @@ const mockDataset: Dataset[] = [
   },
 ];
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     category: {
       type: "category",

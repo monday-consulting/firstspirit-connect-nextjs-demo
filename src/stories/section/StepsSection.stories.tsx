@@ -15,7 +15,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const StepSectionDefault: Story = {
+export const Default: Story = {
   args: {
     subline: "Subline",
     headline: "Headline",
