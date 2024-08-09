@@ -1,17 +1,64 @@
 "use client";
 
 import { useMemo } from "react";
-import type { ProductData } from "../elements/ProductTeaser";
-import { RichTextElement } from "../elements/RichTextElement";
+import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
 import { FavoriteButton } from "../elements/FavoriteButton";
 import Image from "next/image";
 
-export type ProductProps = {
-  data: ProductData;
+export type Section = {
+  type: "Section";
+  id: string;
+  name?: string;
+  displayName?: string;
+  previewId: string;
+  sectionType: string;
+  data: {
+    [key: string]: unknown;
+  };
+  displayed?: boolean;
+  lifespan?: {
+    start: Date;
+    end?: Date;
+  };
+  children: Section[];
 };
 
-const Product = ({ data }: ProductProps) => {
-  const currentDataset = data;
+export type Dataset = {
+  type: "Dataset";
+  id: string;
+  previewId: string;
+  schema: string;
+  entityType: string;
+  template: string;
+  children: Section[];
+  data: Product;
+  route: string;
+  routes: {
+    pageRef: string;
+    route: string;
+  };
+  remoteProjectId?: string;
+  locale: string;
+};
+
+export type Product = {
+  categories: Dataset[];
+  description: RichTextElementProps[];
+  image: {
+    src: string;
+    alt: string;
+  };
+  name: string;
+  price: string;
+  teaserText: string;
+};
+
+export type ProductProps = {
+  product: Product;
+};
+
+const Product = ({ product }: ProductProps) => {
+  const currentDataset = product;
 
   const categoryNames = useMemo(() => {
     return currentDataset?.categories.flatMap(
@@ -77,7 +124,7 @@ const Product = ({ data }: ProductProps) => {
                   product={{
                     id: favoriteButtonId,
                     title: currentDataset.name,
-                    image: data.image,
+                    image: product.image,
                   }}
                 />
               </div>

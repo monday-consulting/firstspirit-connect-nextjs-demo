@@ -24,7 +24,7 @@ const FeaturedProducts = ({ headline, subline, products }: FeaturedProductsProps
       </div>
       <div className="grid h-4/5 gap-2 sm:grid-cols-2 lg:grid-cols-3 lg:pl-8 2xl:grid-cols-4">
         {products.map((product) => (
-          <FeaturedProductItem key={product.product.data.tt_name} {...product} />
+          <FeaturedProductItem key={product.name} {...product} />
         ))}
       </div>
     </section>

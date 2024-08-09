@@ -15,7 +15,7 @@ export default meta;
 
 type Story = StoryObj<typeof ProductTeaser>;
 
-const mockProductData: ProductTeaserProps["data"] = {
+const mockProductData: ProductTeaserProps["product"] = {
   categories: [
     {
       type: "Dataset",
@@ -69,7 +69,7 @@ const mockProductData: ProductTeaserProps["data"] = {
 
 export const Default: Story = {
   args: {
-    data: mockProductData,
+    product: mockProductData,
     route: "https://placehold.co/600x400",
   },
 };

@@ -19,37 +19,31 @@ export const Default: Story = {
     subline: "This is a subline",
     products: [
       {
-        imageSource: "https://placehold.co/600x400",
-        product: {
-          route: "ExampleRoute",
-          data: {
-            tt_abstract: "ExampleAbstract",
-            tt_name: "ExampleName",
-            tt_teaser_image: "ExmapleTeaserImage",
-          },
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt text",
         },
+        name: "ExampleName",
+        abstract: "ExampleAbstract",
+        route: "#",
       },
       {
-        imageSource: "https://placehold.co/600x400",
-        product: {
-          route: "ExampleRoute",
-          data: {
-            tt_abstract: "ExampleAbstract",
-            tt_name: "ExampleName",
-            tt_teaser_image: "ExmapleTeaserImage",
-          },
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt text",
         },
+        name: "ExampleName",
+        abstract: "ExampleAbstract",
+        route: "#",
       },
       {
-        imageSource: "https://placehold.co/600x400",
-        product: {
-          route: "ExampleRoute",
-          data: {
-            tt_abstract: "ExampleAbstract",
-            tt_name: "ExampleName",
-            tt_teaser_image: "ExmapleTeaserImage",
-          },
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt text",
         },
+        name: "ExampleName",
+        abstract: "ExampleAbstract",
+        route: "#",
       },
     ],
   },
