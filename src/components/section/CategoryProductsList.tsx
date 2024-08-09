@@ -1,5 +1,5 @@
 "use client";
-import ProductTeaser from "../elements/ProductTeaser";
+import { ProductTeaser } from "../elements/ProductTeaser";
 import type { Dataset, ProductTeaserProps } from "../elements/ProductTeaser";
 import { useEffect, useState } from "react";
 
@@ -75,4 +75,4 @@ const CategoryProductsList = ({ category, categoryId }: CategoryProductListProps
   );
 };
 
-export default CategoryProductsList;
+export { CategoryProductsList };

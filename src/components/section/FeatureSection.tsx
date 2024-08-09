@@ -1,7 +1,7 @@
 import { Feature } from "@/components/elements/Feature";
 import type { FeatureProps } from "@/components/elements/Feature";
 import type { RichTextElementProps } from "../elements/RichTextElement";
-import RichTextElement from "../elements/RichTextElement";
+import { RichTextElement } from "../elements/RichTextElement";
 
 export type FeatureSectionProps = {
   headline: string;

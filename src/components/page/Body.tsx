@@ -1,5 +1,5 @@
 import { Dataset } from "../page-body-count/Dataset";
-import Content2Section from "../page-body-count/Content2Section";
+import { Content2Section } from "../page-body-count/Content2Section";
 import { Section } from "../page-body-count/Section";
 import { Unknown } from "../Unknown";
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
@@ -37,4 +37,4 @@ const Body = ({ content }: BodyProps) => {
   );
 };
 
-export default Body;
+export { Body };

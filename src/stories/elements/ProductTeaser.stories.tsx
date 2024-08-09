@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ProductTeaser from "@/components/elements/ProductTeaser";
+import { ProductTeaser } from "@/components/elements/ProductTeaser";
 import type { ProductTeaserProps } from "@/components/elements/ProductTeaser";
 
 const meta: Meta<typeof ProductTeaser> = {

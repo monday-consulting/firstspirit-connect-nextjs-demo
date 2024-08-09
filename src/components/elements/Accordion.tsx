@@ -4,14 +4,14 @@ import { cn } from "@/utils/cn";
 import { useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
 import type { RichTextElementProps } from "./RichTextElement";
-import RichTextElement from "./RichTextElement";
+import { RichTextElement } from "./RichTextElement";
 
 export type AccordionProps = {
   title: string;
   content: RichTextElementProps[] | string;
 };
 
-export const Accordion = ({ title, content }: AccordionProps) => {
+const Accordion = ({ title, content }: AccordionProps) => {
   const [open, setOpen] = useState(false);
   const toggle = () => {
     setOpen(!open);
@@ -53,3 +53,5 @@ export const Accordion = ({ title, content }: AccordionProps) => {
     </div>
   );
 };
+
+export { Accordion };

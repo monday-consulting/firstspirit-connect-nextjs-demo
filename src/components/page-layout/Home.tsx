@@ -1,11 +1,11 @@
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
-import Body from "../page/Body";
+import { Body } from "../page/Body";
 
 export type HomeProps = {
   pageBodies: FirstSpiritPageBody[];
 };
 
-export const Home = ({ pageBodies }: HomeProps) => {
+const Home = ({ pageBodies }: HomeProps) => {
   const top = pageBodies?.find((pageBody) => pageBody.name === "top");
   const content = pageBodies?.find((pageBody) => pageBody.name === "content");
 
@@ -16,3 +16,5 @@ export const Home = ({ pageBodies }: HomeProps) => {
     </div>
   );
 };
+
+export { Home };

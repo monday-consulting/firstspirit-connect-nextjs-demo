@@ -1,5 +1,5 @@
 import type { FeaturedProductItemProps } from "../elements/FeaturedProductItem";
-import FeaturedProductItem from "../elements/FeaturedProductItem";
+import { FeaturedProductItem } from "../elements/FeaturedProductItem";
 
 export type FeaturedProductsProps = {
   headline: string;

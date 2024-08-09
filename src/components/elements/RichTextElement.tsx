@@ -56,4 +56,4 @@ const RichTextElement = ({ content }: RichTextElementProps) => {
   );
 };
 
-export default RichTextElement;
+export { RichTextElement };

@@ -73,4 +73,4 @@ const ProductTeaser = ({ data, route }: ProductTeaserProps) => {
     </div>
   );
 };
-export default ProductTeaser;
+export { ProductTeaser };

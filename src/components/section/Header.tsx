@@ -1,15 +1,14 @@
-import type React from "react";
 import { useMemo } from "react";
 import type { DataEntries } from "fsxa-api";
 import { DevComponent } from "../Dev";
 import { useDev } from "../composables/showDev";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
-export type Props = {
+export type HeaderProps = {
   data: DataEntries;
 };
 
-const Header: React.FC<Props> = ({ data }) => {
+const Header = ({ data }: HeaderProps) => {
   const { showDev } = useDev();
   const { $isPreviewMode } = useNextApp();
   const devStyle = "h-8 border-b";
@@ -66,4 +65,4 @@ const Header: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default Header;
+export { Header };

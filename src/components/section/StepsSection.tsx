@@ -1,4 +1,4 @@
-import RichTextElement, { type RichTextElementProps } from "../elements/RichTextElement";
+import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
 import { StepsItem, type StepsItemProps } from "../elements/StepsItem";
 
 export type StepsSectionProps = {

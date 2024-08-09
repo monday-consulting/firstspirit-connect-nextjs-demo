@@ -6,7 +6,7 @@ import { LuGlobe, LuMenu, LuX } from "react-icons/lu";
 import { locales } from "@/i18n";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import useFavorites from "@/utils/hooks/useFavorites";
+import { useFavorites } from "@/utils/hooks/useFavorites";
 import { FavoriteTeaser } from "../elements/FavoriteTeaser";
 import { VscHeart } from "react-icons/vsc";
 

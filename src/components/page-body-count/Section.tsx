@@ -1,10 +1,10 @@
 import type { Section as FsxaSection } from "fsxa-api";
-import ProductCategoryTeaser from "../section/ProductCategoryTeaser";
+import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
 import { getProductLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
 import { FeatureSection } from "../section/FeatureSection";
-import FAQSection from "../section/FAQSection";
+import { FAQSection } from "../section/FAQSection";
 
 export type SectionProps = {
   content: FsxaSection;

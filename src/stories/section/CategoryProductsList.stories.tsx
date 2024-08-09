@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CategoryProductsList, {
+import {
+  CategoryProductsList,
   type CategoryProductListProps,
 } from "@/components/section/CategoryProductsList";
 

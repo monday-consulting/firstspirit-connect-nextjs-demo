@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import FAQSection from "@/components/section/FAQSection";
+import { FAQSection } from "@/components/section/FAQSection";
 
 const meta: Meta<typeof FAQSection> = {
   title: "components/Section/FAQSection",

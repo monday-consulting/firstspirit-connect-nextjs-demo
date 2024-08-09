@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import type { ProductData } from "../elements/ProductTeaser";
-import RichTextElement from "../elements/RichTextElement";
+import { RichTextElement } from "../elements/RichTextElement";
 import { FavoriteButton } from "../elements/FavoriteButton";
 import Image from "next/image";
 

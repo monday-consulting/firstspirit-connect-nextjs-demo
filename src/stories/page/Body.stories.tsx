@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import type { PageBody, Dataset, Section, Content2Section } from "fsxa-api";
-
-import Body from "@/components/page/Body";
+import { Body } from "@/components/page/Body";
 
 const meta: Meta<typeof Body> = {
   title: "components/Page/Body",

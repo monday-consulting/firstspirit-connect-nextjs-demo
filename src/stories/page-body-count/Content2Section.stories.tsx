@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Content2Section from "@/components/page-body-count/Content2Section";
+import { Content2Section } from "@/components/page-body-count/Content2Section";
 
 const meta: Meta<typeof Content2Section> = {
   title: "components/PageBodyContent/Content2Section",

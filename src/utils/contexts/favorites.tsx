@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, type ReactNode, useState } from "react";
-import useLocalStorage from "@/utils/hooks/useLocalStorage";
+import { useLocalStorage } from "@/utils/hooks/useLocalStorage";
 
 export type Product = {
   id: string;

@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { LuArrowRight } from "react-icons/lu";
 import type { RichTextElementProps } from "./RichTextElement";
-import RichTextElement from "./RichTextElement";
+import { RichTextElement } from "./RichTextElement";
 
 //this type is used in section/features
 export type FeatureProps = {
@@ -51,4 +51,5 @@ const Feature = ({ link, image, title, text }: FeatureProps) => {
     </div>
   );
 };
+
 export { Feature };

@@ -2,7 +2,7 @@ export type NotificationNumberProps = {
   amount: number;
 };
 
-export const NotificationNumber = ({ amount }: NotificationNumberProps) => {
+const NotificationNumber = ({ amount }: NotificationNumberProps) => {
   return (
     <span
       id="wishlistSize"
@@ -12,3 +12,5 @@ export const NotificationNumber = ({ amount }: NotificationNumberProps) => {
     </span>
   );
 };
+
+export { NotificationNumber };

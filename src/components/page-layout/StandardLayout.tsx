@@ -1,4 +1,4 @@
-import Body from "../page/Body";
+import { Body } from "../page/Body";
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 
 export type StandardLayoutProps = {

@@ -34,4 +34,4 @@ const ImageComponent = ({ image, alt, ratio }: ImageProps) => {
   return <Image alt={alt} src={srcSet} width={width} height={height} />;
 };
 
-export default ImageComponent;
+export { ImageComponent };

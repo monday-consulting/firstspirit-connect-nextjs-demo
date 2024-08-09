@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
 import type { RichTextElementProps } from "../elements/RichTextElement";
-import RichTextElement from "../elements/RichTextElement";
+import { RichTextElement } from "../elements/RichTextElement";
 
 export type TeaserProps = {
   headline: string;

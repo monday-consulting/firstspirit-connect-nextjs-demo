@@ -11,10 +11,12 @@ export type LatestNewsProps = {
   data: News;
 };
 
-export const LatestNews = ({ data }: LatestNewsProps) => {
+const LatestNews = ({ data }: LatestNewsProps) => {
   return (
     <div>
       <h2>{data.st_headline}</h2>
     </div>
   );
 };
+
+export { LatestNews };

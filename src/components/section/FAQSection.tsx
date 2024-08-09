@@ -37,4 +37,4 @@ const FAQSection = ({ headline, entries, claim, subline }: FAQSectionProps) => {
   );
 };
 
-export default FAQSection;
+export { FAQSection };

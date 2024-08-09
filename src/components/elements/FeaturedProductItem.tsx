@@ -47,4 +47,4 @@ const FeaturedProductItem = ({ product, imageSource }: FeaturedProductItemProps)
   );
 };
 
-export default FeaturedProductItem;
+export { FeaturedProductItem };
