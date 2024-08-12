@@ -19,13 +19,17 @@ export const Default: Story = {
     entries: [
       {
         title: "Accordion one",
-        content:
-          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        content: {
+          content:
+            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        },
       },
       {
         title: "Accordion two",
-        content:
-          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        content: {
+          content:
+            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        },
       },
     ],
     claim: "Was Sie schon immer wissen wollten - Antworten auf die häufigsten Fragen",

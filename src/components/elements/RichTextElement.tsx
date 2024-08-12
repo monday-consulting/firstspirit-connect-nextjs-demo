@@ -15,21 +15,25 @@ export type RichTextElementProps = {
 const convertToMarkdown = (content: RichTextElementContent[]): string => {
   return content
     .map((item) => {
+      // Handle nested content by calling the function recursively
+      const nestedContent =
+        typeof item.content === "string" ? item.content : convertToMarkdown(item.content);
+
       switch (item.type) {
         case "link":
-          return `<a href=${item.data}>${item.content}</a>`;
+          return `<a href=${item.data}>${nestedContent}</a>`;
         case "linebreak":
-          return `${item.content}</br>`;
+          return `${nestedContent}</br>`;
         case "underline":
-          return `<u>${item.content}</u>`;
+          return `<u>${nestedContent}</u>`;
         case "block":
-          return `<p>${item.content}</p>`;
+          return `<p>${nestedContent}</p>`;
         case "paragraph":
-          return `<p>${item.content}</p>`;
+          return `<p>${nestedContent}</p>`;
         case "list":
-          return `<ul><li>${item.content}</li></ul>`;
+          return `<ul><li>${nestedContent}</li></ul>`;
         default:
-          return item.content;
+          return nestedContent;
       }
     })
     .join(" ");

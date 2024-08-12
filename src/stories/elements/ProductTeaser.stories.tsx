@@ -51,13 +51,15 @@ const mockProductData: ProductTeaserProps["product"] = {
       locale: "en-US",
     },
   ],
-  description: [
-    {
-      content: "Test",
-      data: "test",
-      type: "paragraph",
-    },
-  ],
+  description: {
+    content: [
+      {
+        content: "Test",
+        data: "test",
+        type: "paragraph",
+      },
+    ],
+  },
   image: {
     src: "https://placehold.co/600x400",
     alt: "placeholder",

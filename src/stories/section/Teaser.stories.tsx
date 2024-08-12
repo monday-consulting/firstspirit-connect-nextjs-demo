@@ -19,8 +19,14 @@ export const Default: Story = {
       alt: "Alt Text",
     },
     text: {
-      content:
-        "Textd wdawd wad awdjaklwj dlkawjdkl jawkldjaw lkdjalwökjdklaöwjdkajwlk ödjwakl djlkawjd lkwajdkl wajkdjwa kldjöklaw jdklwjd klwajdkl waj",
+      content: [
+        {
+          content:
+            "Textd wdawd wad awdjaklwj dlkawjdkl jawkldjaw lkdjalwökjdklaöwjdkajwlk ödjwakl djlkawjd lkwajdkl wajkdjwa kldjöklaw jdklwjd klwajdkl waj",
+          data: "test",
+          type: "paragraph",
+        },
+      ],
     },
     cta: {
       href: "Home",

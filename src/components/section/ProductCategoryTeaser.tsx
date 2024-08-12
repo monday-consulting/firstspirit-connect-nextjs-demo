@@ -15,7 +15,7 @@ export type ProductCategoryTeaserProps = {
     linkText: string;
   };
   headline: string;
-  text: RichTextElementProps[];
+  text: RichTextElementProps;
   teaserTextStart?: boolean;
 };
 
@@ -26,8 +26,6 @@ const ProductCategoryTeaser = ({
   text,
   teaserTextStart: teaserTextLeft = true,
 }: ProductCategoryTeaserProps) => {
-  const textContent = text.map((item) => item.content).join(" ");
-
   const categoryProductsListData = {
     data: category.products,
   };
@@ -39,7 +37,7 @@ const ProductCategoryTeaser = ({
           <Teaser
             headline={headline}
             claim={category.value}
-            text={textContent}
+            text={text}
             imageStart={teaserTextLeft}
             cta={{ href: category_link.href, label: category_link.linkText }}
             imageReplaceContent={

@@ -3,8 +3,8 @@ import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
 import { getProductLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
-import { Features } from "../section/Features";
 import { FAQSection } from "../section/FAQSection";
+import { Features } from "../section/Features";
 
 export type SectionProps = {
   content: FsxaSection;
@@ -32,7 +32,7 @@ const Section = ({ content }: SectionProps) => {
               href: getProductLink("TODO"),
             }}
             headline={content.data.st_headline}
-            text={content.data.st_text[0].content}
+            text={{ content: content.data.st_text }}
             teaserTextStart={content.data.st_text_alignment.identifier === "left"}
           />
         );
@@ -43,10 +43,10 @@ const Section = ({ content }: SectionProps) => {
           <FAQSection
             headline={content.data.st_headline}
             subline={content.data.st_subline}
-            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            // biome-ignore lint/suspicious/noExplicitAny: No type definitions
             entries={content.data.st_accordion.map((entry: any) => ({
               title: entry.data.st_title,
-              content: entry.data.st_content,
+              content: { content: entry.data.st_content },
             }))}
           />
         );
@@ -70,7 +70,7 @@ const Section = ({ content }: SectionProps) => {
         return (
           <Features
             headline={content.data.st_headline}
-            text={content.data.st_text}
+            text={{ content: content.data.st_text }}
             // TODO: Typesafety missing
             // biome-ignore lint/suspicious/noExplicitAny: <explanation>
             features={content.data.st_features.map((feature: any) => ({
@@ -83,7 +83,7 @@ const Section = ({ content }: SectionProps) => {
                 alt: feature.data.st_image_alt_text,
               },
               title: feature.data.st_title,
-              text: feature.data.st_text,
+              text: { content: feature.data.st_text },
               id: feature.id,
             }))}
           />
@@ -99,7 +99,7 @@ const Section = ({ content }: SectionProps) => {
           <Teaser
             headline={content.data.st_headline}
             claim={content.data.st_subhealine}
-            text={content.data.st_text}
+            text={{ content: content.data.st_text }}
             imageStart={content.data.st_layout.key === "text-image"}
             image={{
               src: content.data.st_image.resolutions.ORIGINAL.url,
