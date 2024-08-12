@@ -5,7 +5,7 @@ export type TextImageLayout = "text-image" | "image-text";
 
 export type TextImageProps = {
   headline: string;
-  subheadline: string;
+  subheadline: RichTextElementProps;
   text: RichTextElementProps;
   twoColumn: boolean;
   layout: TextImageLayout;
@@ -31,9 +31,9 @@ const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: Te
               </h2>
             )}
             {subheadline && (
-              <p className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
-                {subheadline}
-              </p>
+              <div className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
+                <RichTextElement {...subheadline} />
+              </div>
             )}
           </div>
           <div className="flex flex-col sm:flex-row">
@@ -44,11 +44,13 @@ const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: Te
                 <Image src={image.src} alt={image.alt} width={400} height={200} />
               </div>
             )}
-            <div
-              className={`${layout === "image-text" ? "order-2" : "order-1"} w-full break-after-column px-4 pb-4 ${twoColumn ? "lg:columns-2 " : "lg:columns-1 "}`}
-            >
-              {text && <RichTextElement {...text} />}
-            </div>
+            {text && (
+              <div
+                className={`${layout === "image-text" ? "order-2" : "order-1"} w-full break-after-column px-4 pb-4 ${twoColumn ? "lg:columns-2 " : "lg:columns-1 "}`}
+              >
+                <RichTextElement {...text} />
+              </div>
+            )}
           </div>
         </div>
       </div>

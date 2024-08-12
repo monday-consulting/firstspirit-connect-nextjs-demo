@@ -6,6 +6,7 @@ import { Teaser } from "../section/Teaser";
 import { FAQSection } from "../section/FAQSection";
 import { Features } from "../section/Features";
 import { Steps } from "../section/Steps";
+import { TextImage } from "../section/TextImage";
 
 export type SectionProps = {
   content: FsxaSection;
@@ -17,7 +18,19 @@ const Section = ({ content }: SectionProps) => {
       case "smartliving.product_overview":
         return "SectionProductOverview";
       case "text_image":
-        return "SectionTextImage";
+        return (
+          <TextImage
+            headline={content.data.st_headline}
+            subheadline={{ content: content.data.st_subheadline }}
+            text={{ content: content.data.st_text }}
+            twoColumn
+            layout={content.data.st_layout.key}
+            image={{
+              src: content.data.st_image.resolutions.ORIGINAL.url,
+              alt: content.data.st_image_alt_text,
+            }}
+          />
+        );
       case "product_category_teaser":
         return (
           <ProductCategoryTeaser
@@ -38,7 +51,6 @@ const Section = ({ content }: SectionProps) => {
           />
         );
       case "steps":
-        console.log("DATA: ", content.data.st_steps[0].data);
         return (
           <Steps
             headline={content.data.st_headline}
@@ -49,7 +61,6 @@ const Section = ({ content }: SectionProps) => {
               text: { content: step.data.st_text },
               index: index + 1,
             }))}
-            // stepsItems={[]}
           />
         );
       case "accordion":
