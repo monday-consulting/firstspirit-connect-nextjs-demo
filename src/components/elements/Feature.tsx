@@ -14,7 +14,7 @@ export type FeatureProps = {
   };
   image: ImageData;
   title: string | ReactNode;
-  text: RichTextElementProps[] | string;
+  text: RichTextElementProps;
   id: string;
 };
 
@@ -29,15 +29,7 @@ const Feature = ({ link, image, title, text }: FeatureProps) => {
           {title}
         </h3>
         <div className="font-medium text-coolGray-500">
-          {text && typeof text !== "string" ? (
-            <>
-              {text.map((item, index) => (
-                <RichTextElement key={`richtext-item-${index}`} {...item} />
-              ))}
-            </>
-          ) : (
-            <>{text}</>
-          )}
+          <RichTextElement {...text} />
         </div>
         <p className="flex items-center gap-2 text-text">
           <span>{link.label}</span>

@@ -8,7 +8,7 @@ import type { Dataset, ImageData } from "@/types";
 
 export type Product = {
   categories: Dataset[];
-  description: RichTextElementProps[];
+  description: RichTextElementProps;
   image: ImageData;
   name: string;
   price: string;
@@ -28,28 +28,7 @@ const Product = ({ product }: ProductProps) => {
     );
   }, [currentDataset]);
 
-  const { richTextTypes, richTextContents, richTextData } = currentDataset.description.reduce(
-    (acc, item) => {
-      acc.richTextTypes.push(item.type);
-      if (typeof item.content === "string") {
-        acc.richTextContents.push(item.content);
-      }
-      acc.richTextData.push(item.data);
-      return acc;
-    },
-    {
-      richTextTypes: [] as string[],
-      richTextContents: [] as string[],
-      richTextData: [] as string[],
-    }
-  );
-
   const favoriteButtonId = currentDataset.categories.map((item) => item.id).join(" ");
-
-  // combine all arrays to string
-  const combinedRichTextType = richTextTypes.join(" ");
-  const combinedRichTextContent = richTextContents.join(" ");
-  const combinedRichTextData = richTextData.join(" ");
 
   return (
     <div
@@ -74,11 +53,7 @@ const Product = ({ product }: ProductProps) => {
               </div>
               <div className="flex items-start py-4">
                 <p className="mb-5 font-medium text-textDark">
-                  <RichTextElement
-                    content={combinedRichTextContent}
-                    data={combinedRichTextData}
-                    type={combinedRichTextType}
-                  />
+                  <RichTextElement {...product.description} />
                 </p>
               </div>
               <div className="w-full px-4">

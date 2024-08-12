@@ -2,13 +2,17 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import Link from "next/link";
 
-export type RichTextElementProps = {
-  content: RichTextElementProps[] | string;
+export type RichTextElementContent = {
+  content: RichTextElementContent[] | string;
   data: string;
   type: string;
 };
 
-const convertToMarkdown = (content: RichTextElementProps[]): string => {
+export type RichTextElementProps = {
+  content: RichTextElementContent[] | string;
+};
+
+const convertToMarkdown = (content: RichTextElementContent[]): string => {
   return content
     .map((item) => {
       switch (item.type) {
@@ -32,27 +36,33 @@ const convertToMarkdown = (content: RichTextElementProps[]): string => {
 };
 
 const RichTextElement = ({ content }: RichTextElementProps) => {
-  const markdownContent = typeof content === "string" ? content : convertToMarkdown(content);
-
   return (
-    <div>
-      <ReactMarkdown
-        //@ts-expect-error: type error but it works as expect
-        rehypePlugins={[rehypeRaw]}
-        components={{
-          a: ({ href, children }) => <Link href={href || "#"}>{children}</Link>,
-          ul: ({ children }) => <ul>{children}</ul>,
-          li: ({ children }) => (
-            <li>
-              <span className="mr-2">&#8226;</span>
-              {children}
-            </li>
-          ),
-        }}
-      >
-        {markdownContent}
-      </ReactMarkdown>
-    </div>
+    <>
+      {typeof content === "string" ? (
+        <>{content}</>
+      ) : (
+        <ReactMarkdown
+          //@ts-expect-error: type error but it works as expect
+          rehypePlugins={[rehypeRaw]}
+          components={{
+            a: ({ href, children }) => (
+              <Link href={href || "#"} className="hover:underline">
+                {children}
+              </Link>
+            ),
+            ul: ({ children }) => <ul>{children}</ul>,
+            li: ({ children }) => (
+              <li>
+                <span className="mr-2">&#8226;</span>
+                {children}
+              </li>
+            ),
+          }}
+        >
+          {convertToMarkdown(content)}
+        </ReactMarkdown>
+      )}
+    </>
   );
 };
 

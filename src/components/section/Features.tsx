@@ -5,7 +5,7 @@ import { RichTextElement } from "../elements/RichTextElement";
 
 export type FeaturesProps = {
   headline: string;
-  text: RichTextElementProps[] | string;
+  text: RichTextElementProps;
   features: FeatureProps[];
 };
 
@@ -17,15 +17,7 @@ const Features = ({ headline, text, features }: FeaturesProps) => {
           {headline}
         </h2>
         <div className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
-          {text && typeof text !== "string" ? (
-            <>
-              {text.map((item, index) => (
-                <RichTextElement key={`richtext-item-${index}`} {...item} />
-              ))}
-            </>
-          ) : (
-            <>{text}</>
-          )}
+          <RichTextElement {...text} />
         </div>
         <div className="-m-8 flex flex-wrap text-left">
           {features.map((feature) => (

@@ -21,7 +21,10 @@ export const Default: Story = {
       alt: "Alt Text",
     },
     title: "Title",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula odio sed diam convallis laoreet. Maecenas porttitor lorem sit amet tempus pharetra.",
+    text: {
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula odio sed diam convallis laoreet. Maecenas porttitor lorem sit amet tempus pharetra.",
+    },
     id: "ID1",
   },
 };

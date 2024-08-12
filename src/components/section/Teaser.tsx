@@ -11,7 +11,7 @@ export type TeaserProps = {
   claim?: string;
   image?: ImageData;
   imageReplaceContent?: ReactNode;
-  text: RichTextElementProps[] | string;
+  text: RichTextElementProps;
   cta?: {
     href: string;
     label: string;
@@ -46,15 +46,7 @@ const Teaser = ({
               </h2>
             )}
             <div className="mb-5 text-textLight">
-              {text && typeof text !== "string" ? (
-                <>
-                  {text.map((item, index) => (
-                    <RichTextElement key={`richtext-item-${index}`} {...item} />
-                  ))}
-                </>
-              ) : (
-                <>{text}</>
-              )}
+              <RichTextElement {...text} />
             </div>
             <div className="mt-12 flex flex-wrap">
               {cta?.href && (

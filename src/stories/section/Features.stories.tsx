@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     headline: "Headline",
-    text: "Test",
+    text: { content: "Test" },
     features: [
       {
         link: {
@@ -25,7 +25,10 @@ export const Default: Story = {
           alt: "Alt Text",
         },
         title: "Title",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui turpis, maximus non commodo ut, fringilla nec libero.",
+        text: {
+          content:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui turpis, maximus non commodo ut, fringilla nec libero.",
+        },
         id: "ID1",
       },
       {
@@ -38,7 +41,10 @@ export const Default: Story = {
           alt: "Alt Text",
         },
         title: "Title",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui turpis, maximus non commodo ut, fringilla nec libero.",
+        text: {
+          content:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui turpis, maximus non commodo ut, fringilla nec libero.",
+        },
         id: "ID2",
       },
     ],

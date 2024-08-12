@@ -8,7 +8,7 @@ import { RichTextElement } from "./RichTextElement";
 
 export type AccordionProps = {
   title: string;
-  content: RichTextElementProps[] | string;
+  content: RichTextElementProps;
 };
 
 const Accordion = ({ title, content }: AccordionProps) => {
@@ -39,15 +39,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
           className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200"
           style={open ? { maxHeight: "364px" } : {}}
         >
-          {content && typeof content !== "string" ? (
-            <>
-              {content.map((item, index) => (
-                <RichTextElement key={`richtext-item-${index}`} {...item} />
-              ))}
-            </>
-          ) : (
-            <>{content}</>
-          )}
+          <RichTextElement {...content} />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 import { defaultLocale } from "@/i18n";
 
-export const revalidate = 300; // Revalidate content every 5 minutes+
+export const revalidate = 300; // Revalidate content every 5 minutes
 
 const SlugPage = async ({ params }: { params: { slug: string[]; locale: string } }) => {
   const route = params.slug

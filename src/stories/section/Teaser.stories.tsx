@@ -18,7 +18,10 @@ export const Default: Story = {
       src: "https://placehold.co/600x400",
       alt: "Alt Text",
     },
-    text: "Textd wdawd wad awdjaklwj dlkawjdkl jawkldjaw lkdjalwökjdklaöwjdkajwlk ödjwakl djlkawjd lkwajdkl wajkdjwa kldjöklaw jdklwjd klwajdkl waj",
+    text: {
+      content:
+        "Textd wdawd wad awdjaklwj dlkawjdkl jawkldjaw lkdjalwökjdklaöwjdkajwlk ödjwakl djlkawjd lkwajdkl wajkdjwa kldjöklaw jdklwjd klwajdkl waj",
+    },
     cta: {
       href: "Home",
       label: "Home",

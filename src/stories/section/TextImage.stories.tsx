@@ -34,8 +34,6 @@ export const Default: Story = {
           type: "block",
         },
       ],
-      data: "",
-      type: "",
     },
     layout: "image-text",
   },

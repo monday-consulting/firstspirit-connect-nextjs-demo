@@ -19,11 +19,7 @@ export const Default: Story = {
   args: {
     subline: "Subline",
     headline: "Headline",
-    richtext: {
-      content: Underlined.args?.content || [],
-      data: "",
-      type: "",
-    },
+    richtext: { content: Underlined.args?.content || [] },
     stepsItems: [StepsItemDefault.args, StepsItemDefault.args, StepsItemDefault.args],
   },
 };
