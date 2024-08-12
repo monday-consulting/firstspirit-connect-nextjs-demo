@@ -1,5 +1,5 @@
 import Image from "next/image";
-import RichTextElement, { type RichTextElementProps } from "../elements/RichTextElement";
+import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
 
 export interface TextImageProps {
   headline: string;

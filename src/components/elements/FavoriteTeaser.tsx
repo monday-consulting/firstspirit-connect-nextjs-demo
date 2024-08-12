@@ -1,13 +1,11 @@
 import { getProductLink } from "@/utils/links";
 import Image from "next/image";
+import type { ImageData } from "@/types";
 import Link from "next/link";
 
 export type FavoriteTeaserProps = {
   title: string;
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
 };
 
 const FavoriteTeaser = ({ title, image }: FavoriteTeaserProps) => {

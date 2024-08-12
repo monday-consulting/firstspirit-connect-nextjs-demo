@@ -1,10 +1,9 @@
-import React from "react";
 import { createSection } from "./tests/testutils/createSection";
 import type { Section } from "fsxa-api";
 
-interface AddSectionProps {
+export type AddSectionProps = {
   bodyName: string;
-}
+};
 
 const AddSection = ({ bodyName }: AddSectionProps) => {
   const handleCreateSection = () => {

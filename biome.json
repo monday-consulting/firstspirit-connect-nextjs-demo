@@ -4,7 +4,7 @@
     "enabled": true
   },
   "files": {
-    "ignore": [".next", "storybook-static", "node_modules"]
+    "ignore": [".next/", "storybook-static/", "node_modules/", "src/gql/generated/"]
   },
   "javascript": {
     "formatter": {
@@ -25,7 +25,13 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "correctness": {
+        "noUnusedImports": "warn"
+      },
       "recommended": true,
+      "suspicious": {
+        "noArrayIndexKey": "off"
+      },
       "nursery": {
         "useSortedClasses": {
           "level": "info",

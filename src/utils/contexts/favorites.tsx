@@ -1,15 +1,13 @@
 "use client";
 
 import { createContext, type ReactNode, useState } from "react";
-import useLocalStorage from "@/utils/hooks/useLocalStorage";
+import { useLocalStorage } from "@/utils/hooks/useLocalStorage";
+import type { ImageData } from "@/types";
 
 export type Product = {
   id: string;
   title: string;
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
 };
 
 export type Favorite = Product & {
@@ -20,8 +18,8 @@ type FavoriteListContext = {
   list: Favorite[] | null;
   getAllEntries: () => Product[];
   addEntry: (newProduct: Product) => void;
-  entryIsFavorite: (product: Product) => boolean;
-  deleteEntry: (oldProduct: Product) => void;
+  entryIsFavorite: (productId: string) => boolean;
+  deleteEntry: (oldProductId: string) => void;
   deleteAllEntries: () => void;
   update: (product: Product, isFavortie: boolean) => void;
   rehydrateContext: () => void;
@@ -49,12 +47,12 @@ const FavoriteListProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const entryIsFavorite = (product: Product): boolean => {
-    return storedList.some((favorite) => favorite.id === product.id);
+  const entryIsFavorite = (productId: string): boolean => {
+    return storedList.some((favorite) => favorite.id === productId);
   };
 
-  const deleteEntry = (oldProduct: Product) => {
-    const newList = list.filter((item) => item.id !== oldProduct.id);
+  const deleteEntry = (oldProductId: string) => {
+    const newList = list.filter((item) => item.id !== oldProductId);
     setList(newList);
     setStoredList(newList);
   };
@@ -68,7 +66,7 @@ const FavoriteListProvider = ({ children }: { children: ReactNode }) => {
     if (isFavorite) {
       addEntry(product);
     } else {
-      deleteEntry(product);
+      deleteEntry(product.id);
     }
   };
 

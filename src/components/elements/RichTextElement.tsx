@@ -1,13 +1,12 @@
-import type React from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import Link from "next/link";
 
-export interface RichTextElementProps {
+export type RichTextElementProps = {
   content: RichTextElementProps[] | string;
   data: string;
   type: string;
-}
+};
 
 const convertToMarkdown = (content: RichTextElementProps[]): string => {
   return content
@@ -57,4 +56,4 @@ const RichTextElement = ({ content }: RichTextElementProps) => {
   );
 };
 
-export default RichTextElement;
+export { RichTextElement };

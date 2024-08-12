@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import type { Dataset as FsxaDataset } from "fsxa-api";
 import { Unknown } from "../Unknown";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
-interface DatasetProps {
+export type DatasetProps = {
   content: FsxaDataset;
-}
+};
 
 const Dataset = ({ content }: DatasetProps) => {
   const { $isPreviewMode } = useNextApp();

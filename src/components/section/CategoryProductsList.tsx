@@ -1,16 +1,15 @@
 "use client";
 
-import type React from "react";
-import ProductTeaser from "../elements/ProductTeaser";
-import type { Dataset, ProductTeaserProps } from "../elements/ProductTeaser";
+import { ProductTeaser } from "../elements/ProductTeaser";
 import { useEffect, useState } from "react";
+import type { Dataset } from "@/types";
 
-export interface CategoryProductListProps {
+export type CategoryProductListProps = {
   category: {
     data: Dataset[];
   };
   categoryId: string;
-}
+};
 
 const splitProducts = (products: Dataset[]) => {
   const column1Items = products.filter((_, index) => index % 2 === 0);
@@ -54,27 +53,19 @@ const CategoryProductsList = ({ category, categoryId }: CategoryProductListProps
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div className="flex flex-col gap-4">
         {column1Items.map((item) => (
-          <ProductTeaser
-            key={item.id}
-            data={item.data as ProductTeaserProps["data"]}
-            route={item.route}
-          />
+          <ProductTeaser key={item.id} product={item.data} route={item.route} />
         ))}
       </div>
       <div className="mt-20 flex flex-col gap-4">
         {column2Items.map((item) => (
-          <ProductTeaser
-            key={item.id}
-            data={item.data as ProductTeaserProps["data"]}
-            route={item.route}
-          />
+          <ProductTeaser key={item.id} product={item.data} route={item.route} />
         ))}
       </div>
     </div>
   );
 };
 
-export default CategoryProductsList;
+export { CategoryProductsList };

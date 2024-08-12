@@ -20,7 +20,7 @@ export const Default: Story = {
           lt_internal: { referenceId: "Button1" },
         },
         description: "Description",
-        picture: {
+        image: {
           src: "https://placehold.co/600x400",
           alt: "Alt Text",
         },
@@ -33,7 +33,7 @@ export const Default: Story = {
           lt_internal: { referenceId: "Button2" },
         },
         description: "Description",
-        picture: {
+        image: {
           src: "http://placehold.co/600x400",
           alt: "Alt Text",
         },

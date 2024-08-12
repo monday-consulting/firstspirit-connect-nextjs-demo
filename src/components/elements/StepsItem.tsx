@@ -1,9 +1,9 @@
-export interface StepsItemProps {
+export type StepsItemProps = {
   title: string;
   text: string;
   index: number;
   id: string;
-}
+};
 
 const StepsItem = ({ title, text, index }: StepsItemProps) => {
   return (

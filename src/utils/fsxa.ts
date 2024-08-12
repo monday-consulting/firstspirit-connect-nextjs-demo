@@ -1,10 +1,10 @@
-import type { FetchNavigationParams, FSXAApi, NavigationData, NavigationItem } from "fsxa-api";
+import type { NavigationData, NavigationItem } from "fsxa-api";
 
-interface Props {
+export type Props = {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   fsxaApi: any;
   route: string;
-}
+};
 /**
  * Get the corresponding navigation item to the provided route from the navigation service.
  * This function is used in middleware to always provide a navigation item for a given route.

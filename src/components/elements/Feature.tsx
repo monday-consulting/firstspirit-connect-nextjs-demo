@@ -1,22 +1,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { Arrow } from "./Arrow";
+import { LuArrowRight } from "react-icons/lu";
+import type { RichTextElementProps } from "./RichTextElement";
+import { RichTextElement } from "./RichTextElement";
+import type { ImageData } from "@/types";
 
 //this type is used in section/features
-export interface FeatureProps {
+export type FeatureProps = {
   link: {
     href: string;
-    linkText: string;
+    label: string;
   };
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
   title: string | ReactNode;
-  text: string | ReactNode;
+  text: RichTextElementProps[] | string;
   id: string;
-}
+};
 
 const Feature = ({ link, image, title, text }: FeatureProps) => {
   return (
@@ -28,13 +28,26 @@ const Feature = ({ link, image, title, text }: FeatureProps) => {
         <h3 className="font-semibold text-text text-xl group-hover/feature:underline md:text-2xl">
           {title}
         </h3>
-        <p className="font-medium text-coolGray-500">{text}</p>
+        <div className="font-medium text-coolGray-500">
+          {text && typeof text !== "string" ? (
+            <>
+              {text.map((item, index) => (
+                <RichTextElement key={`richtext-item-${index}`} {...item} />
+              ))}
+            </>
+          ) : (
+            <>{text}</>
+          )}
+        </div>
         <p className="flex items-center gap-2 text-text">
-          <span>{link.linkText}</span>
-          <Arrow />
+          <span>{link.label}</span>
+          <span>
+            <LuArrowRight />
+          </span>
         </p>
       </Link>
     </div>
   );
 };
+
 export { Feature };

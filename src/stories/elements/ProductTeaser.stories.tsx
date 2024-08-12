@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ProductTeaser from "@/components/elements/ProductTeaser";
+import { ProductTeaser } from "@/components/elements/ProductTeaser";
 import type { ProductTeaserProps } from "@/components/elements/ProductTeaser";
 
 const meta: Meta<typeof ProductTeaser> = {
@@ -15,7 +15,7 @@ export default meta;
 
 type Story = StoryObj<typeof ProductTeaser>;
 
-const mockProductData: ProductTeaserProps["data"] = {
+const mockProductData: ProductTeaserProps["product"] = {
   categories: [
     {
       type: "Dataset",
@@ -67,9 +67,9 @@ const mockProductData: ProductTeaserProps["data"] = {
   teaserText: "This is a sample teaser text for the product.",
 };
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    data: mockProductData,
+    product: mockProductData,
     route: "https://placehold.co/600x400",
   },
 };

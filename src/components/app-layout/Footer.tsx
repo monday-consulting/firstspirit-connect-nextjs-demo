@@ -2,15 +2,15 @@ import Link from "next/link";
 import logo from "@/assets/smart_living_logo.webp";
 import Image from "next/image";
 
-export interface LegalLink {
+export type LegalLink = {
   name: string;
   route: string;
-}
+};
 
-export interface FooterProps {
+export type FooterProps = {
   copyrightText: string;
   legalLinks: LegalLink[];
-}
+};
 
 const Footer = ({ copyrightText, legalLinks }: FooterProps) => {
   return (

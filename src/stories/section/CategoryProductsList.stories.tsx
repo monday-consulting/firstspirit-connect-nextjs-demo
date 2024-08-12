@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CategoryProductsList, {
+import {
+  CategoryProductsList,
   type CategoryProductListProps,
 } from "@/components/section/CategoryProductsList";
 
@@ -158,7 +159,7 @@ const mockProductData: CategoryProductListProps = {
   categoryId: "",
 };
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     category: mockProductData.category,
   },

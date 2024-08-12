@@ -2,9 +2,7 @@
 
 import { cn } from "@/utils/cn";
 import type { Product } from "@/utils/contexts/favorites";
-import useFavorites from "@/utils/hooks/useFavorites";
-import { useEffect, useState } from "react";
-import { LuHeart } from "react-icons/lu";
+import { useFavorites } from "@/utils/hooks/useFavorites";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 
 export type FavoriteButtonProps = {
@@ -13,16 +11,13 @@ export type FavoriteButtonProps = {
 };
 
 const FavoriteButton = ({ product, classNames }: FavoriteButtonProps) => {
-  const [favorites] = useFavorites();
-  const [isActive, setIsActive] = useState(favorites.entryIsFavorite(product));
+  const [favorites, isFavorite] = useFavorites();
 
-  const toggleFavorite = () => {
-    if (favorites.entryIsFavorite(product)) {
-      favorites.deleteEntry(product);
-      setIsActive(false);
-    } else {
+  const handleFavoriteState = () => {
+    if (!isFavorite(product.id)) {
       favorites.addEntry(product);
-      setIsActive(true);
+    } else {
+      favorites.deleteEntry(product.id);
     }
   };
 
@@ -33,9 +28,9 @@ const FavoriteButton = ({ product, classNames }: FavoriteButtonProps) => {
         "flex h-12 w-12 items-center justify-center rounded-sm ring-2 ring-lightGray hover:ring-black",
         classNames
       )}
-      onClick={toggleFavorite}
+      onClick={handleFavoriteState}
     >
-      {isActive ? <VscHeartFilled size={20} /> : <VscHeart size={20} />}
+      {isFavorite(product.id) ? <VscHeartFilled size={20} /> : <VscHeart size={20} />}
     </button>
   );
 };

@@ -1,15 +1,14 @@
-import type React from "react";
 import { useMemo } from "react";
 import type { DataEntries } from "fsxa-api";
 import { DevComponent } from "../Dev";
 import { useDev } from "../composables/showDev";
 import { useNextApp } from "../tests/testutils/nextMocks";
 
-interface Props {
+export type HeaderProps = {
   data: DataEntries;
-}
+};
 
-const Header: React.FC<Props> = ({ data }) => {
+const Header = ({ data }: HeaderProps) => {
   const { showDev } = useDev();
   const { $isPreviewMode } = useNextApp();
   const devStyle = "h-8 border-b";
@@ -31,7 +30,7 @@ const Header: React.FC<Props> = ({ data }) => {
   }, [data]);
 
   return (
-    <section
+    <header
       className={`group relative ${!data.pt_image && showDev && $isPreviewMode ? devStyle : ""}`}
       data-testid="headerSection"
     >
@@ -62,8 +61,8 @@ const Header: React.FC<Props> = ({ data }) => {
       {showDev && $isPreviewMode && (
         <DevComponent currentDataMock={undefined} currentPageMock={undefined} content={data} />
       )}
-    </section>
+    </header>
   );
 };
 
-export default Header;
+export { Header };
