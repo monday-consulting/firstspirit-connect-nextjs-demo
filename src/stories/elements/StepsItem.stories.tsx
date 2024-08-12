@@ -13,8 +13,7 @@ type Story = StoryObj<typeof meta>;
 export const StepsItemDefault: Story = {
   args: {
     title: "Title",
-    text: "Lorem ipsum",
+    text: { content: "Lorem ipsum" },
     index: 1,
-    id: "1",
   },
 };

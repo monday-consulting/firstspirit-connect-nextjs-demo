@@ -4,8 +4,8 @@ import { StepsItem, type StepsItemProps } from "../elements/StepsItem";
 export type StepsProps = {
   subline: string;
   headline: string;
-  richtext?: RichTextElementProps;
   stepsItems: StepsItemProps[];
+  richtext?: RichTextElementProps;
 };
 
 const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
@@ -26,8 +26,8 @@ const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
           )}
         </div>
         <div className="flex flex-wrap px-4 text-left">
-          {stepsItems.map((item) => (
-            <StepsItem key={item.id} {...item} />
+          {stepsItems.map((item, index) => (
+            <StepsItem key={index} {...item} />
           ))}
         </div>
       </div>

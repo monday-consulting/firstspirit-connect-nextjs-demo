@@ -5,6 +5,7 @@ import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
 import { FAQSection } from "../section/FAQSection";
 import { Features } from "../section/Features";
+import { Steps } from "../section/Steps";
 
 export type SectionProps = {
   content: FsxaSection;
@@ -37,7 +38,20 @@ const Section = ({ content }: SectionProps) => {
           />
         );
       case "steps":
-        return "SectionSteps";
+        console.log("DATA: ", content.data.st_steps[0].data);
+        return (
+          <Steps
+            headline={content.data.st_headline}
+            subline={content.data.st_subline}
+            // biome-ignore lint/suspicious/noExplicitAny: No type definitions
+            stepsItems={content.data.st_steps.map((step: any, index: number) => ({
+              title: step.data.st_title,
+              text: { content: step.data.st_text },
+              index: index + 1,
+            }))}
+            // stepsItems={[]}
+          />
+        );
       case "accordion":
         return (
           <FAQSection
@@ -72,7 +86,7 @@ const Section = ({ content }: SectionProps) => {
             headline={content.data.st_headline}
             text={{ content: content.data.st_text }}
             // TODO: Typesafety missing
-            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            // biome-ignore lint/suspicious/noExplicitAny: No type definitions
             features={content.data.st_features.map((feature: any) => ({
               link: {
                 href: feature.data.st_link.data.lt_link,
