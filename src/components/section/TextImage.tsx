@@ -1,19 +1,21 @@
 import Image from "next/image";
 import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
 
-export interface TextImageProps {
+export type TextImageLayout = "text-image" | "image-text";
+
+export type TextImageProps = {
   headline: string;
   subheadline: string;
+  text: RichTextElementProps;
+  twoColumn: boolean;
+  layout: TextImageLayout;
   image?: {
     src: string;
     alt: string;
   };
-  text: RichTextElementProps;
-  twoColumn: boolean;
-  layout: string;
-}
+};
 
-const TextImage = ({ headline, subheadline, image, text, twoColumn, layout }: TextImageProps) => {
+const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: TextImageProps) => {
   if (image) {
     twoColumn = false;
   }
@@ -34,7 +36,7 @@ const TextImage = ({ headline, subheadline, image, text, twoColumn, layout }: Te
               </p>
             )}
           </div>
-          <div className="flex">
+          <div className="flex flex-col sm:flex-row">
             {image && (
               <div
                 className={`${layout === "image-text" ? "order-1" : "order-2"} w-full break-after-column px-4 pb-4`}

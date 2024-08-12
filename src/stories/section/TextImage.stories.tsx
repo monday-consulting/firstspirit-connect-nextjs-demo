@@ -1,4 +1,4 @@
-import { TextImage } from "@/components/section/TextImage";
+import { TextImage, type TextImageLayout } from "@/components/section/TextImage";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
@@ -42,7 +42,7 @@ export const Default: Story = {
   argTypes: {
     layout: {
       control: { type: "select" },
-      options: ["image-text", "text-image"],
+      options: ["image-text", "text-image"] as TextImageLayout[],
     },
   },
 };
