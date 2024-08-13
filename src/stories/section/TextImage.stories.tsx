@@ -14,7 +14,16 @@ export const Default: Story = {
   args: {
     twoColumn: true,
     headline: "Headline",
-    subheadline: "SubHeadline",
+    subheadline: {
+      content: [
+        {
+          content:
+            "Textd wdawd wad awdjaklwj dlkawjdkl jawkldjaw lkdjalwökjdklaöwjdkajwlk ödjwakl djlkawjd lkwajdkl wajkdjwa kldjöklaw jdklwjd klwajdkl waj",
+          data: "test",
+          type: "paragraph",
+        },
+      ],
+    },
     image: {
       src: "https://placehold.co/600x400",
       alt: "Alt Text",
