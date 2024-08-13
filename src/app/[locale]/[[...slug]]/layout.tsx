@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Navigation, type NavigationStructure } from "@/components/app-layout/Navigation";
 import { FavoriteListProvider } from "@/utils/contexts/favorites";
+import { Footer } from "@/components/app-layout/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,6 +53,23 @@ const RootLayout = async ({
               }
             />
             {children}
+            <Footer
+              copyrightText="Legal Text"
+              legalLinks={[
+                {
+                  label: "News",
+                  href: "/news",
+                },
+                {
+                  label: "Produkte",
+                  href: "/produkte",
+                },
+                {
+                  label: "Legal",
+                  href: "/legal",
+                },
+              ]}
+            />
           </NextIntlClientProvider>
         </FavoriteListProvider>
       </body>

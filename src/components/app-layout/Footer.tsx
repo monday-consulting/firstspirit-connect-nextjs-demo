@@ -3,8 +3,8 @@ import logo from "@/assets/smart_living_logo.webp";
 import Image from "next/image";
 
 export type LegalLink = {
-  name: string;
-  route: string;
+  label: string;
+  href: string;
 };
 
 export type FooterProps = {
@@ -21,8 +21,8 @@ const Footer = ({ copyrightText, legalLinks }: FooterProps) => {
         </Link>
         <div className="flex gap-8 md:text-right" data-testid="legal-links">
           {legalLinks.map((link) => (
-            <Link className="hover:underline" key={link.name} href={link.route}>
-              {link.name}
+            <Link className="hover:underline" key={link.label} href={link.href}>
+              {link.label}
             </Link>
           ))}
         </div>
