@@ -7,6 +7,7 @@ import { getMessages } from "next-intl/server";
 import { Navigation, type NavigationStructure } from "@/components/app-layout/Navigation";
 import { FavoriteListProvider } from "@/utils/contexts/favorites";
 import { Footer } from "@/components/app-layout/Footer";
+import { getFooter } from "@/gql/documents/gcaPage";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ const RootLayout = async ({
 }>) => {
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
+  const footer = await getFooter(locale).then((f) => JSON.parse(f?.data));
 
   return (
     <html lang={locale}>
@@ -54,21 +56,12 @@ const RootLayout = async ({
             />
             {children}
             <Footer
-              copyrightText="Legal Text"
-              legalLinks={[
-                {
-                  label: "News",
-                  href: "/news",
-                },
-                {
-                  label: "Produkte",
-                  href: "/produkte",
-                },
-                {
-                  label: "Legal",
-                  href: "/legal",
-                },
-              ]}
+              copyrightText={{ content: footer.gc_copyright }}
+              // biome-ignore lint/suspicious/noExplicitAny: No type definitions
+              legalLinks={footer.gc_links.map((item: any) => ({
+                label: item.data.lt_text,
+                href: "#",
+              }))}
             />
           </NextIntlClientProvider>
         </FavoriteListProvider>

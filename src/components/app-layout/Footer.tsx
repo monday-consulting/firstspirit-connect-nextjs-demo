@@ -1,6 +1,7 @@
 import Link from "next/link";
 import logo from "@/assets/smart_living_logo.webp";
 import Image from "next/image";
+import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
 
 export type LegalLink = {
   label: string;
@@ -8,7 +9,7 @@ export type LegalLink = {
 };
 
 export type FooterProps = {
-  copyrightText: string;
+  copyrightText: RichTextElementProps;
   legalLinks: LegalLink[];
 };
 
@@ -26,8 +27,8 @@ const Footer = ({ copyrightText, legalLinks }: FooterProps) => {
             </Link>
           ))}
         </div>
-        <div className="md:text-center" data-testid="copyright">
-          © {copyrightText}
+        <div className="md:text-center">
+          <RichTextElement {...copyrightText} />
         </div>
       </div>
     </div>

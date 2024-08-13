@@ -12,7 +12,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    copyrightText: "CopyrightText",
+    copyrightText: {
+      content: [
+        {
+          content: "Copyright",
+          data: "test",
+          type: "paragraph",
+        },
+      ],
+    },
     legalLinks: [
       {
         label: "News",
