@@ -17,6 +17,8 @@ export const metadata: Metadata = {
     "Demo project that shows the usage of Netlify Connect with FirstSpirit integration in a Next.js project",
 };
 
+export const revalidate = 300; // Revalidate content every 5 minutes
+
 const RootLayout = async ({
   children,
   params: { locale },

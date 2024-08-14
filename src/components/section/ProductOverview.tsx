@@ -1,3 +1,5 @@
+"use client";
+
 import { useTranslations } from "use-intl";
 import { ProductOverviewItem, type ProductOverviewItemProps } from "./ProductOverviewItem";
 
