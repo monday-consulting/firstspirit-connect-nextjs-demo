@@ -38,7 +38,7 @@ const Section = ({ content }: SectionProps) => {
               type: content.data.st_category.type,
               value: content.data.st_category.value,
               key: content.data.st_category.key,
-              // TODO: Fetch products
+              // TODO: resolve product references
               products: [],
             }}
             category_link={{
@@ -84,7 +84,7 @@ const Section = ({ content }: SectionProps) => {
               src: content.data.st_image.resolutions.ORIGINAL.url,
               alt: content.data.st_image_alt_text,
             }}
-            // TODO: resolve lt_link reference
+            // TODO: resolve lt_link references
             cta={{
               label: content.data.st_cta?.data.lt_text,
               href: content.data.st_cta?.data.lt_link,
@@ -96,7 +96,6 @@ const Section = ({ content }: SectionProps) => {
           <Features
             headline={content.data.st_headline}
             text={{ content: content.data.st_text }}
-            // TODO: Typesafety missing
             // biome-ignore lint/suspicious/noExplicitAny: No type definitions
             features={content.data.st_features.map((feature: any) => ({
               link: {
