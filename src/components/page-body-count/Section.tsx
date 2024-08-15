@@ -1,6 +1,6 @@
 import type { Section as FsxaSection } from "fsxa-api";
 import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
-import { getProductLink } from "@/utils/links";
+import { getCategoryLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
 import { FAQSection } from "../section/FAQSection";
@@ -36,14 +36,14 @@ const Section = ({ content }: SectionProps) => {
           <ProductCategoryTeaser
             category={{
               type: content.data.st_category.type,
-              value: content.data.st_category.value,
-              key: content.data.st_category.key,
+              name: content.data.st_category.value,
+              id: content.data.st_category.key,
               // TODO: Fetch products
               products: [],
             }}
             category_link={{
               linkText: content.data.st_category_link.data.lt_text,
-              href: getProductLink(content.data.st_category.key),
+              href: getCategoryLink(content.data.st_category.key),
             }}
             headline={content.data.st_headline}
             text={{ content: content.data.st_text }}

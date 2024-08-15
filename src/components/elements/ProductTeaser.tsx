@@ -1,26 +1,29 @@
+import type { ImageData } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "../section/Product";
+import { RichTextElement, type RichTextElementProps } from "./RichTextElement";
 
 export type ProductTeaserProps = {
-  product: Product;
+  name: string;
+  description: RichTextElementProps;
   route: string;
+  image: ImageData;
 };
 
-const ProductTeaser = ({ product, route }: ProductTeaserProps) => {
+const ProductTeaser = ({ name, description, route, image }: ProductTeaserProps) => {
   return (
-    <div className="flex h-fit max-w-[400px] flex-col gap-5 bg-white p-6">
+    <div className="flex h-fit max-w-[400px] flex-col gap-5 rounded-md bg-white p-6 shadow-lg">
       <Link href={route}>
         <Image
-          src={product.image.src}
-          alt={product.image.alt}
+          src={image.src}
+          alt={image.alt}
           width={400}
           height={200}
           className="relative overflow-hidden rounded-xl"
         />
-        <h1 className="mt-5 font-bold text-2xl">{product.name}</h1>
+        <h1 className="mt-5 font-bold text-2xl">{name}</h1>
       </Link>
-      <p>{product.teaserText}</p>
+      <RichTextElement {...description} />
     </div>
   );
 };

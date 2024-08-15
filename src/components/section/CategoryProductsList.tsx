@@ -1,60 +1,40 @@
 "use client";
-
-import { ProductTeaser } from "../elements/ProductTeaser";
 import { useEffect, useState } from "react";
-import type { Dataset } from "@/types";
+import { ProductTeaser, type ProductTeaserProps } from "../elements/ProductTeaser";
 
 export type CategoryProductListProps = {
-  category: {
-    data: Dataset[];
-  };
-  categoryId: string;
+  products: ProductTeaserProps[];
 };
 
-const splitProducts = (products: Dataset[]) => {
-  const column1Items = products.filter((_, index) => index % 2 === 0);
-  const column2Items = products.filter((_, index) => index % 2 === 1);
-  return { column1Items, column2Items };
+const splitProducts = (products: ProductTeaserProps[]) => {
+  const col1 = products.filter((_, index) => index % 2 === 0);
+  const col2 = products.filter((_, index) => index % 2 === 1);
+  return { col1, col2 };
 };
 
-const CategoryProductsList = ({ category, categoryId }: CategoryProductListProps) => {
-  const [column1Items, setColumn1Items] = useState<Dataset[]>([]);
-  const [column2Items, setColumn2Items] = useState<Dataset[]>([]);
-  const [pending, setPending] = useState(true);
+const CategoryProductsList = ({ products }: CategoryProductListProps) => {
+  const [columns, setColumns] = useState<{
+    col1: ProductTeaserProps[];
+    col2: ProductTeaserProps[];
+  }>({
+    col1: [],
+    col2: [],
+  });
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setPending(true);
-      try {
-        const products = category.data;
-
-        const { column1Items, column2Items } = splitProducts(products);
-        setColumn1Items(column1Items);
-        setColumn2Items(column2Items);
-      } catch (error) {
-        console.error("Failed to fetch products", error);
-      } finally {
-        setPending(false);
-      }
-    };
-
-    fetchProducts();
-  }, [category.data]);
-
-  if (pending) {
-    return <div>Loading...</div>;
-  }
+    if (products && products.length > 0) setColumns(splitProducts(products));
+  }, [products]);
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div className="flex flex-col gap-4">
-        {column1Items.map((item) => (
-          <ProductTeaser key={item.id} product={item.data} route={item.route} />
+        {columns.col1.map((item, index) => (
+          <ProductTeaser key={index} {...item} />
         ))}
       </div>
       <div className="mt-20 flex flex-col gap-4">
-        {column2Items.map((item) => (
-          <ProductTeaser key={item.id} product={item.data} route={item.route} />
+        {columns.col2.map((item, index) => (
+          <ProductTeaser key={index} {...item} />
         ))}
       </div>
     </div>
