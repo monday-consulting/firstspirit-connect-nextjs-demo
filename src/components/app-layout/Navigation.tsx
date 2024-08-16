@@ -97,14 +97,14 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         </div>
         <button type="button" className="flex md:hidden" onClick={toggleMobileNav}>
           {mobileNavActive ? (
-            <LuX size={20} className="z-10 cursor-pointer" />
+            <LuX size={20} className="z-50 cursor-pointer" />
           ) : (
-            <LuMenu size={20} className="z-10 cursor-pointer" />
+            <LuMenu size={20} className="z-50 cursor-pointer" />
           )}
         </button>
       </div>
       {mobileNavActive && (
-        <div className="absolute top-0 right-0 bottom-0 flex w-4/5 flex-col gap-8 bg-white px-10 py-[41.5px] shadow-lg">
+        <div className="absolute top-0 right-0 bottom-0 z-40 flex w-4/5 flex-col gap-8 bg-white px-10 py-[41.5px] shadow-lg">
           {navStructure.structure.map((navItem) => (
             <div key={navItem.fsNavItemId}>
               <Link

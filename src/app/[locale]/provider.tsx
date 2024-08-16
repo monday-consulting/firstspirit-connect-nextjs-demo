@@ -1,9 +1,10 @@
 "use client";
 
 import { FavoriteListProvider } from "@/utils/contexts/favorites";
-import type { ReactNode } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { SWRConfig } from "swr";
+import type { ReactNode } from "react";
+const queryClient = new QueryClient();
 
 export type ProviderProps = {
   children: ReactNode;
@@ -11,9 +12,9 @@ export type ProviderProps = {
 
 const ClientProvider = ({ children }: ProviderProps) => {
   return (
-    <SWRConfig>
+    <QueryClientProvider client={queryClient}>
       <FavoriteListProvider>{children}</FavoriteListProvider>
-    </SWRConfig>
+    </QueryClientProvider>
   );
 };
 

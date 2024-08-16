@@ -2,14 +2,13 @@
 
 import { Teaser } from "./Teaser";
 import type { RichTextElementProps } from "../elements/RichTextElement";
-import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { useLocale } from "use-intl";
-import { Suspense, useEffect, useState } from "react";
-import type { ProductTeaserProps } from "../elements/ProductTeaser";
-import { CategoryProductsList } from "./CategoryProductsList";
-import { Loading } from "../app-layout/Loading";
 import type { Dataset } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import { Suspense } from "react";
+import { Loading } from "../app-layout/Loading";
+import { CategoryProductsList } from "./CategoryProductsList";
 
 export type ProductFetch = {
   data: string;
@@ -41,38 +40,34 @@ const ProductCategoryTeaser = ({
   text,
   teaserTextStart: teaserTextLeft = true,
 }: ProductCategoryTeaserProps) => {
-  // Content hydration
   const locale = useLocale();
-  const [products, setProducts] = useState<ProductTeaserProps[] | undefined>(undefined);
 
-  const { data: clientProducts, error } = useSWR<ProductFetch[]>("/api/fetch", (url: string) =>
-    fetcher({ url, body: { type: "product", locale: locale } })
-  );
+  const transformDataToProps = (products: Dataset[]) => {
+    const filteredProducts = products
+      .map((item) => ({
+        ...item,
+        data: JSON.parse(item.data),
+      }))
+      .filter((item) => {
+        return item.data.tt_categories[0].id === category.id;
+      });
 
-  useEffect(() => {
-    if (clientProducts && clientProducts.length > 0) {
-      const filteredProducts = clientProducts
-        .map((item) => ({
-          ...item,
-          data: JSON.parse(item.data),
-        }))
-        .filter((item) => {
-          return item.data.tt_categories[0].id === category.id;
-        });
+    return filteredProducts.map((item) => ({
+      name: item.data.tt_name,
+      description: { content: item.data.tt_description },
+      route: item.route,
+      image: {
+        src: item.data.tt_image.resolutions.ORIGINAL.url,
+        alt: item.data.tt_image_alt_text,
+      },
+    }));
+  };
 
-      setProducts(
-        filteredProducts.map((item) => ({
-          name: item.data.tt_name,
-          description: { content: item.data.tt_description },
-          route: item.route,
-          image: {
-            src: item.data.tt_image.resolutions.ORIGINAL.url,
-            alt: item.data.tt_image_alt_text,
-          },
-        }))
-      );
-    }
-  }, [clientProducts, category.id]);
+  const { data: products, error } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => fetcher({ url: "/api/fetch", body: { locale, type: "product" } }),
+    select: transformDataToProps,
+  });
 
   return (
     <div className="bg-lightGray py-16">

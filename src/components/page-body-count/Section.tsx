@@ -38,8 +38,6 @@ const Section = ({ content }: SectionProps) => {
               type: content.data.st_category.type,
               name: content.data.st_category.value,
               id: content.data.st_category.key,
-              // TODO: Fetch products
-              products: [],
             }}
             category_link={{
               linkText: content.data.st_category_link.data.lt_text,
