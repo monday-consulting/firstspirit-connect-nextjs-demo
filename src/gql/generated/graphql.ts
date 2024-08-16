@@ -1179,49 +1179,186 @@ export type FirstSpiritProjectPropertiesSortInput = {
   updatedAt?: InputMaybe<SortOrderEnum>;
 };
 
-export type FirstSpiritSection = {
+export type FirstSpiritSection = Node & {
   __typename?: 'FirstSpiritSection';
-  children?: Maybe<Array<Maybe<FirstSpiritSection>>>;
+  _locale?: Maybe<Scalars['String']['output']>;
+  _objectId: Scalars['String']['output'];
+  _translations?: Maybe<Array<Maybe<FirstSpiritSection>>>;
+  children: Array<Node>;
   data: Scalars['JSON']['output'];
   displayName?: Maybe<Scalars['String']['output']>;
+  displayed?: Maybe<Scalars['Boolean']['output']>;
+  fsId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  internal: Internal;
   lifespan?: Maybe<FirstSpiritLifespan>;
   name?: Maybe<Scalars['String']['output']>;
+  page: FirstSpiritPage;
+  parent?: Maybe<Node>;
   previewId: Scalars['String']['output'];
+  section?: Maybe<Array<Maybe<FirstSpiritSection>>>;
   sectionType: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+};
+
+export type FirstSpiritSectionConnection = {
+  __typename?: 'FirstSpiritSectionConnection';
+  distinct: Array<Scalars['String']['output']>;
+  edges: Array<FirstSpiritSectionEdge>;
+  group: Array<FirstSpiritSectionGroupConnection>;
+  max?: Maybe<Scalars['Float']['output']>;
+  min?: Maybe<Scalars['Float']['output']>;
+  nodes: Array<FirstSpiritSection>;
+  pageInfo: PageInfo;
+  sum?: Maybe<Scalars['Float']['output']>;
+  totalCount: Scalars['Int']['output'];
+};
+
+
+export type FirstSpiritSectionConnectionDistinctArgs = {
+  field: FirstSpiritSectionFieldSelector;
+};
+
+
+export type FirstSpiritSectionConnectionGroupArgs = {
+  field: FirstSpiritSectionFieldSelector;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type FirstSpiritSectionConnectionMaxArgs = {
+  field: FirstSpiritSectionFieldSelector;
+};
+
+
+export type FirstSpiritSectionConnectionMinArgs = {
+  field: FirstSpiritSectionFieldSelector;
+};
+
+
+export type FirstSpiritSectionConnectionSumArgs = {
+  field: FirstSpiritSectionFieldSelector;
+};
+
+export type FirstSpiritSectionEdge = {
+  __typename?: 'FirstSpiritSectionEdge';
+  next?: Maybe<FirstSpiritSection>;
+  node: FirstSpiritSection;
+  previous?: Maybe<FirstSpiritSection>;
 };
 
 export type FirstSpiritSectionFieldSelector = {
-  children?: InputMaybe<FirstSpiritSectionFieldSelector>;
+  _locale?: InputMaybe<FieldSelectorEnum>;
+  _objectId?: InputMaybe<FieldSelectorEnum>;
+  _translations?: InputMaybe<FirstSpiritSectionFieldSelector>;
+  children?: InputMaybe<NodeFieldSelector>;
   data?: InputMaybe<FieldSelectorEnum>;
   displayName?: InputMaybe<FieldSelectorEnum>;
+  displayed?: InputMaybe<FieldSelectorEnum>;
+  fsId?: InputMaybe<FieldSelectorEnum>;
+  id?: InputMaybe<FieldSelectorEnum>;
+  internal?: InputMaybe<InternalFieldSelector>;
   lifespan?: InputMaybe<FirstSpiritLifespanFieldSelector>;
   name?: InputMaybe<FieldSelectorEnum>;
+  page?: InputMaybe<FirstSpiritPageFieldSelector>;
+  parent?: InputMaybe<NodeFieldSelector>;
   previewId?: InputMaybe<FieldSelectorEnum>;
+  section?: InputMaybe<FirstSpiritSectionFieldSelector>;
   sectionType?: InputMaybe<FieldSelectorEnum>;
+  type?: InputMaybe<FieldSelectorEnum>;
+  updatedAt?: InputMaybe<FieldSelectorEnum>;
 };
 
 export type FirstSpiritSectionFilterInput = {
-  children?: InputMaybe<FirstSpiritSectionFilterInput>;
+  _locale?: InputMaybe<StringQueryOperatorInput>;
+  _objectId?: InputMaybe<StringQueryOperatorInput>;
+  _translations?: InputMaybe<FirstSpiritSectionFilterInput>;
+  children?: InputMaybe<NodeFilterInput>;
   data?: InputMaybe<JsonQueryOperatorInput>;
   displayName?: InputMaybe<StringQueryOperatorInput>;
+  displayed?: InputMaybe<BooleanQueryOperatorInput>;
+  fsId?: InputMaybe<StringQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  internal?: InputMaybe<InternalFilterInput>;
   lifespan?: InputMaybe<FirstSpiritLifespanFilterInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
+  page?: InputMaybe<FirstSpiritPageFilterInput>;
+  parent?: InputMaybe<NodeFilterInput>;
   previewId?: InputMaybe<StringQueryOperatorInput>;
+  section?: InputMaybe<FirstSpiritSectionFilterInput>;
   sectionType?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  updatedAt?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type FirstSpiritSectionFilterListInput = {
   elemMatch?: InputMaybe<FirstSpiritSectionFilterInput>;
 };
 
+export type FirstSpiritSectionGroupConnection = {
+  __typename?: 'FirstSpiritSectionGroupConnection';
+  distinct: Array<Scalars['String']['output']>;
+  edges: Array<FirstSpiritSectionEdge>;
+  field: Scalars['String']['output'];
+  fieldValue?: Maybe<Scalars['String']['output']>;
+  group: Array<FirstSpiritSectionGroupConnection>;
+  max?: Maybe<Scalars['Float']['output']>;
+  min?: Maybe<Scalars['Float']['output']>;
+  nodes: Array<FirstSpiritSection>;
+  pageInfo: PageInfo;
+  sum?: Maybe<Scalars['Float']['output']>;
+  totalCount: Scalars['Int']['output'];
+};
+
+
+export type FirstSpiritSectionGroupConnectionDistinctArgs = {
+  field: FirstSpiritSectionFieldSelector;
+};
+
+
+export type FirstSpiritSectionGroupConnectionGroupArgs = {
+  field: FirstSpiritSectionFieldSelector;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type FirstSpiritSectionGroupConnectionMaxArgs = {
+  field: FirstSpiritSectionFieldSelector;
+};
+
+
+export type FirstSpiritSectionGroupConnectionMinArgs = {
+  field: FirstSpiritSectionFieldSelector;
+};
+
+
+export type FirstSpiritSectionGroupConnectionSumArgs = {
+  field: FirstSpiritSectionFieldSelector;
+};
+
 export type FirstSpiritSectionSortInput = {
-  children?: InputMaybe<FirstSpiritSectionSortInput>;
+  _locale?: InputMaybe<SortOrderEnum>;
+  _objectId?: InputMaybe<SortOrderEnum>;
+  _translations?: InputMaybe<FirstSpiritSectionSortInput>;
+  children?: InputMaybe<NodeSortInput>;
   data?: InputMaybe<SortOrderEnum>;
   displayName?: InputMaybe<SortOrderEnum>;
+  displayed?: InputMaybe<SortOrderEnum>;
+  fsId?: InputMaybe<SortOrderEnum>;
+  id?: InputMaybe<SortOrderEnum>;
+  internal?: InputMaybe<InternalSortInput>;
   lifespan?: InputMaybe<FirstSpiritLifespanSortInput>;
   name?: InputMaybe<SortOrderEnum>;
+  page?: InputMaybe<FirstSpiritPageSortInput>;
+  parent?: InputMaybe<NodeSortInput>;
   previewId?: InputMaybe<SortOrderEnum>;
+  section?: InputMaybe<FirstSpiritSectionSortInput>;
   sectionType?: InputMaybe<SortOrderEnum>;
+  type?: InputMaybe<SortOrderEnum>;
+  updatedAt?: InputMaybe<SortOrderEnum>;
 };
 
 export type FirstSpiritSeoRouteList = {
@@ -1394,11 +1531,13 @@ export type Query = {
   allFirstSpiritNavigationData: FirstSpiritNavigationDataConnection;
   allFirstSpiritPage: FirstSpiritPageConnection;
   allFirstSpiritProjectProperties: FirstSpiritProjectPropertiesConnection;
+  allFirstSpiritSection: FirstSpiritSectionConnection;
   firstSpiritDataset?: Maybe<FirstSpiritDataset>;
   firstSpiritGcaPage?: Maybe<FirstSpiritGcaPage>;
   firstSpiritNavigationData?: Maybe<FirstSpiritNavigationData>;
   firstSpiritPage?: Maybe<FirstSpiritPage>;
   firstSpiritProjectProperties?: Maybe<FirstSpiritProjectProperties>;
+  firstSpiritSection?: Maybe<FirstSpiritSection>;
 };
 
 
@@ -1439,6 +1578,14 @@ export type QueryAllFirstSpiritProjectPropertiesArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<InputMaybe<FirstSpiritProjectPropertiesSortInput>>>;
+};
+
+
+export type QueryAllFirstSpiritSectionArgs = {
+  filter?: InputMaybe<FirstSpiritSectionFilterInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<InputMaybe<FirstSpiritSectionSortInput>>>;
 };
 
 
@@ -1547,6 +1694,29 @@ export type QueryFirstSpiritProjectPropertiesArgs = {
   updatedAt?: InputMaybe<StringQueryOperatorInput>;
 };
 
+
+export type QueryFirstSpiritSectionArgs = {
+  _locale?: InputMaybe<StringQueryOperatorInput>;
+  _objectId?: InputMaybe<StringQueryOperatorInput>;
+  _translations?: InputMaybe<FirstSpiritSectionFilterListInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  data?: InputMaybe<JsonQueryOperatorInput>;
+  displayName?: InputMaybe<StringQueryOperatorInput>;
+  displayed?: InputMaybe<BooleanQueryOperatorInput>;
+  fsId?: InputMaybe<StringQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+  lifespan?: InputMaybe<FirstSpiritLifespanFilterInput>;
+  name?: InputMaybe<StringQueryOperatorInput>;
+  page?: InputMaybe<FirstSpiritPageFilterInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  previewId?: InputMaybe<StringQueryOperatorInput>;
+  section?: InputMaybe<FirstSpiritSectionFilterListInput>;
+  sectionType?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  updatedAt?: InputMaybe<StringQueryOperatorInput>;
+};
+
 export enum SortOrderEnum {
   Asc = 'ASC',
   Desc = 'DESC'
@@ -1591,8 +1761,17 @@ export type ProductsQueryVariables = Exact<{
 
 export type ProductsQuery = { __typename?: 'Query', allFirstSpiritDataset: { __typename?: 'FirstSpiritDatasetConnection', nodes: Array<{ __typename?: 'FirstSpiritDataset', fsId: string, entityType: string, route: string, data: any }> } };
 
+export type SectionQueryVariables = Exact<{
+  locale: Scalars['String']['input'];
+  id: Scalars['String']['input'];
+}>;
+
+
+export type SectionQuery = { __typename?: 'Query', allFirstSpiritSection: { __typename?: 'FirstSpiritSectionConnection', nodes: Array<{ __typename?: 'FirstSpiritSection', data: any, name?: string | null, fsId: string }> } };
+
 
 export const FooterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"footer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstSpiritGcaPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]} as unknown as DocumentNode<FooterQuery, FooterQueryVariables>;
 export const FsNavigationQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fsNavigationQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstSpiritNavigationData"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"structure"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigationItem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"seoRoute"}},{"kind":"Field","name":{"kind":"Name","value":"fsNavItemId"}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"structureChildren"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigationItem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"seoRoute"}},{"kind":"Field","name":{"kind":"Name","value":"fsNavItemId"}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"structureChildren"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigationItem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fsNavItemId"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"seoRoute"}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<FsNavigationQueryQuery, FsNavigationQueryQueryVariables>;
 export const PageByRouteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"pageByRoute"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"route"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstSpiritPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"route"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"route"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"layout"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"pageBodies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"children"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"previewId"}}]}}]}}]}}]} as unknown as DocumentNode<PageByRouteQuery, PageByRouteQueryVariables>;
 export const ProductsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"products"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allFirstSpiritDataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"entityType"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"StringValue","value":"product","block":false}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fsId"}},{"kind":"Field","name":{"kind":"Name","value":"entityType"}},{"kind":"Field","name":{"kind":"Name","value":"route"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]}}]} as unknown as DocumentNode<ProductsQuery, ProductsQueryVariables>;
+export const SectionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"section"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allFirstSpiritSection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"fsId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"fsId"}}]}}]}}]}}]} as unknown as DocumentNode<SectionQuery, SectionQueryVariables>;

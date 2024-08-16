@@ -93,6 +93,7 @@ const Section = ({ content }: SectionProps) => {
               label: content.data.st_cta?.data.lt_text,
               href: content.data.st_cta?.data.lt_link,
             }}
+            sectionId={content.id}
           />
         );
       case "features":

@@ -1,4 +1,5 @@
 import { getAllProducts } from "@/gql/documents/products";
+import { getSectionById } from "@/gql/documents/section";
 import type { FetcherBody } from "@/utils/fetcher";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -15,6 +16,12 @@ export async function POST(req: NextRequest) {
       switch (body.type) {
         case "product":
           data = await getAllProducts(body.locale);
+          break;
+        case "section":
+          if (!body.id) {
+            throw new Error("No id provided");
+          }
+          data = await getSectionById(body.locale, body.id);
           break;
         default:
           throw new Error("No type provided");

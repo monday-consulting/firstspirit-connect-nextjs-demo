@@ -1,4 +1,4 @@
-export type FetchEntityType = "product" | "category" | "page" | "component" | "content";
+export type FetchEntityType = "product" | "section";
 
 export type FetcherBody = {
   type: FetchEntityType;

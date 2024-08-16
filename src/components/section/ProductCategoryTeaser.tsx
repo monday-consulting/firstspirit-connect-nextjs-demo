@@ -4,7 +4,6 @@ import { Teaser } from "./Teaser";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
-import { defaultLocale } from "@/i18n";
 import { useLocale } from "use-intl";
 import { Suspense, useEffect, useState } from "react";
 import type { ProductTeaserProps } from "../elements/ProductTeaser";
@@ -42,15 +41,12 @@ const ProductCategoryTeaser = ({
   text,
   teaserTextStart: teaserTextLeft = true,
 }: ProductCategoryTeaserProps) => {
-  const categoryProductsListData = {
-    data: category.products,
-  };
+  // Content hydration
   const locale = useLocale();
-
   const [products, setProducts] = useState<ProductTeaserProps[] | undefined>(undefined);
 
   const { data: clientProducts, error } = useSWR<ProductFetch[]>("/api/fetch", (url: string) =>
-    fetcher({ url, body: { type: "product", locale: locale || defaultLocale } })
+    fetcher({ url, body: { type: "product", locale: locale } })
   );
 
   useEffect(() => {
@@ -90,7 +86,7 @@ const ProductCategoryTeaser = ({
             cta={{ href: category_link.href, label: category_link.linkText }}
             imageReplaceContent={
               <Suspense fallback={<Loading />}>
-                {products && <CategoryProductsList products={products} />}
+                {products && !error && <CategoryProductsList products={products} />}
               </Suspense>
             }
           />
