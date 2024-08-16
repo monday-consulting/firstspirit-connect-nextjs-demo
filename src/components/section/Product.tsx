@@ -7,6 +7,7 @@ import Image from "next/image";
 import type { Dataset, ImageData } from "@/types";
 
 export type Product = {
+  id: string;
   categories: Dataset[];
   description: RichTextElementProps;
   image: ImageData;

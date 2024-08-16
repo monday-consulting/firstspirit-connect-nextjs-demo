@@ -153,8 +153,8 @@ export const Default: Story = {
   args: {
     category: {
       type: "category",
-      key: "category-key",
-      value: "Category Name",
+      id: "category-key",
+      name: "Category Name",
       products: mockDataset,
     },
     category_link: {

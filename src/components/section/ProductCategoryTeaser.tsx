@@ -1,14 +1,28 @@
+"use client";
+
 import { Teaser } from "./Teaser";
-import { CategoryProductsList } from "./CategoryProductsList";
 import type { RichTextElementProps } from "../elements/RichTextElement";
+import { fetcher } from "@/utils/fetcher";
+import { useLocale } from "use-intl";
 import type { Dataset } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import { Suspense } from "react";
+import { Loading } from "../app-layout/Loading";
+import { CategoryProductsList } from "./CategoryProductsList";
+
+export type ProductFetch = {
+  data: string;
+  entityType: "product";
+  fsId: string;
+  route: string;
+};
 
 export type ProductCategoryTeaserProps = {
   category: {
     type: string;
-    key: string;
-    value: string;
-    products: Dataset[];
+    id: string;
+    name: string;
+    products?: Dataset[];
   };
   category_link: {
     href: string;
@@ -26,9 +40,34 @@ const ProductCategoryTeaser = ({
   text,
   teaserTextStart: teaserTextLeft = true,
 }: ProductCategoryTeaserProps) => {
-  const categoryProductsListData = {
-    data: category.products,
+  const locale = useLocale();
+
+  const transformDataToProps = (products: Dataset[]) => {
+    const filteredProducts = products
+      .map((item) => ({
+        ...item,
+        data: JSON.parse(item.data),
+      }))
+      .filter((item) => {
+        return item.data.tt_categories[0].id === category.id;
+      });
+
+    return filteredProducts.map((item) => ({
+      name: item.data.tt_name,
+      description: { content: item.data.tt_description },
+      route: item.route,
+      image: {
+        src: item.data.tt_image.resolutions.ORIGINAL.url,
+        alt: item.data.tt_image_alt_text,
+      },
+    }));
   };
+
+  const { data: products, error } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => fetcher({ url: "/api/fetch", body: { locale, type: "product" } }),
+    select: transformDataToProps,
+  });
 
   return (
     <div className="bg-lightGray py-16">
@@ -36,12 +75,14 @@ const ProductCategoryTeaser = ({
         <div className="m-auto">
           <Teaser
             headline={headline}
-            claim={category.value}
+            claim={category.name}
             text={text}
             imageStart={teaserTextLeft}
             cta={{ href: category_link.href, label: category_link.linkText }}
             imageReplaceContent={
-              <CategoryProductsList category={categoryProductsListData} categoryId={category.key} />
+              <Suspense fallback={<Loading />}>
+                {products && !error && <CategoryProductsList products={products} />}
+              </Suspense>
             }
           />
         </div>

@@ -16,6 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     product: {
+      id: "123",
       categories: [
         {
           type: "Dataset",

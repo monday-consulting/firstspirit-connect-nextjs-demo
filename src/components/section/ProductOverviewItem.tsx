@@ -7,16 +7,16 @@ import type { ImageData } from "@/types";
 
 export type ProductOverviewItemProps = {
   image: ImageData;
-  categories: string[];
+  category: string;
   name: string;
-  price: number;
+  price: string;
   id: string;
   route: string;
 };
 
 const ProductOverviewItem = ({
   image,
-  categories,
+  category,
   name,
   price,
   route,
@@ -47,17 +47,14 @@ const ProductOverviewItem = ({
       </div>
       <div>
         <div className="text-center">
-          {categories.map((category) => (
-            <p key={category} className="m-2 inline font-medium text-gray-400 text-sm">
-              {category}
-            </p>
-          ))}
+          <p className="m-2 inline font-medium text-gray-400 text-sm">{category}</p>
+
           <Link href={route}>
             <h3 className="my-4 font-heading font-medium text-xl leading-8 hover:underline">
               {name}
             </h3>
           </Link>
-          <p className="font-heading font-medium text-text text-xl">{price} €</p>
+          <p className="font-heading font-medium text-text text-xl">{price}</p>
         </div>
         <div className="mx-4 flex justify-between text-xl">
           <button

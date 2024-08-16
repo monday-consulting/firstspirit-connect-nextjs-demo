@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/composables/navigation";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";

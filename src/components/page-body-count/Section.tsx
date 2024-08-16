@@ -1,6 +1,6 @@
 import type { Section as FsxaSection } from "fsxa-api";
 import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
-import { getProductLink } from "@/utils/links";
+import { getCategoryLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
 import { FAQSection } from "../section/FAQSection";
@@ -36,14 +36,12 @@ const Section = ({ content }: SectionProps) => {
           <ProductCategoryTeaser
             category={{
               type: content.data.st_category.type,
-              value: content.data.st_category.value,
-              key: content.data.st_category.key,
-              // TODO: Fetch products
-              products: [],
+              name: content.data.st_category.value,
+              id: content.data.st_category.key,
             }}
             category_link={{
               linkText: content.data.st_category_link.data.lt_text,
-              href: getProductLink("TODO"),
+              href: getCategoryLink(content.data.st_category.key),
             }}
             headline={content.data.st_headline}
             text={{ content: content.data.st_text }}
@@ -55,12 +53,14 @@ const Section = ({ content }: SectionProps) => {
           <Steps
             headline={content.data.st_headline}
             subline={content.data.st_subline}
-            // biome-ignore lint/suspicious/noExplicitAny: No type definitions
-            stepsItems={content.data.st_steps.map((step: any, index: number) => ({
-              title: step.data.st_title,
-              text: { content: step.data.st_text },
-              index: index + 1,
-            }))}
+            stepsItems={content.data.st_steps.map(
+              // biome-ignore lint/suspicious/noExplicitAny: No type definitions
+              (step: any, index: number) => ({
+                title: step.data.st_title,
+                text: { content: step.data.st_text },
+                index: index + 1,
+              })
+            )}
           />
         );
       case "accordion":
@@ -68,11 +68,13 @@ const Section = ({ content }: SectionProps) => {
           <FAQSection
             headline={content.data.st_headline}
             subline={content.data.st_subline}
-            // biome-ignore lint/suspicious/noExplicitAny: No type definitions
-            entries={content.data.st_accordion.map((entry: any) => ({
-              title: entry.data.st_title,
-              content: { content: entry.data.st_content },
-            }))}
+            entries={content.data.st_accordion.map(
+              // biome-ignore lint/suspicious/noExplicitAny: No type definitions
+              (entry: any) => ({
+                title: entry.data.st_title,
+                content: { content: entry.data.st_content },
+              })
+            )}
           />
         );
       case "stage":
@@ -89,6 +91,7 @@ const Section = ({ content }: SectionProps) => {
               label: content.data.st_cta?.data.lt_text,
               href: content.data.st_cta?.data.lt_link,
             }}
+            sectionId={content.id}
           />
         );
       case "features":
@@ -97,20 +100,22 @@ const Section = ({ content }: SectionProps) => {
             headline={content.data.st_headline}
             text={{ content: content.data.st_text }}
             // TODO: Typesafety missing
-            // biome-ignore lint/suspicious/noExplicitAny: No type definitions
-            features={content.data.st_features.map((feature: any) => ({
-              link: {
-                href: feature.data.st_link.data.lt_link,
-                label: feature.data.st_link.data.lt_text,
-              },
-              image: {
-                src: feature.data.st_image.resolutions.ORIGINAL.url,
-                alt: feature.data.st_image_alt_text,
-              },
-              title: feature.data.st_title,
-              text: { content: feature.data.st_text },
-              id: feature.id,
-            }))}
+            features={content.data.st_features.map(
+              // biome-ignore lint/suspicious/noExplicitAny: No type definitions
+              (feature: any) => ({
+                link: {
+                  href: feature.data.st_link.data.lt_link,
+                  label: feature.data.st_link.data.lt_text,
+                },
+                image: {
+                  src: feature.data.st_image.resolutions.ORIGINAL.url,
+                  alt: feature.data.st_image_alt_text,
+                },
+                title: feature.data.st_title,
+                text: { content: feature.data.st_text },
+                id: feature.id,
+              })
+            )}
           />
         );
       case "interesting_facts":
