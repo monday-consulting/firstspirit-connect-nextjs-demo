@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Arrow } from "@/components/elements/Arrow";
+import { VscArrowSmallRight } from "react-icons/vsc";
 
 export interface NewsT {
   image: {
@@ -15,11 +15,7 @@ export interface NewsT {
   link?: string;
 }
 
-interface NewsTeaserProps {
-  data: NewsT;
-}
-
-const NewsTeaser = ({ data }: NewsTeaserProps) => {
+const NewsTeaser = (data: NewsT) => {
   return (
     <div className="text-center">
       <div className="mb-5 h-72 w-full overflow-hidden rounded-xl">
@@ -45,10 +41,10 @@ const NewsTeaser = ({ data }: NewsTeaserProps) => {
       <h2 className="my-3 font-bold font-heading text-2xl text-primary">{data.headline}</h2>
       {data.teaserText && <p className="mb-3 text-text">{data.teaserText}</p>}
       {data.link && (
-        <Link href={data.link} className="font-bold text-blue-700 hover:underline">
+        <Link href={data.link} className="font-bold text-blue-700">
           Read Article
           <div className="mx-2 inline-block align-middle">
-            <Arrow />
+            <VscArrowSmallRight />
           </div>
         </Link>
       )}
