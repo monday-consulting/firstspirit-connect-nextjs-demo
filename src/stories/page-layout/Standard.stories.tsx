@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Standard } from "@/components/page-layout/Standard";
+import { StandardLayout } from "@/components/page-layout/StandardLayout";
 
 const meta = {
-  title: "components/PageLayout/Standard",
-  component: Standard,
+  title: "components/PageLayout/StandardLayout",
+  component: StandardLayout,
   tags: ["autodocs"],
-} satisfies Meta<typeof Standard>;
+} satisfies Meta<typeof StandardLayout>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    path: "Standard",
+    pageBodies: [],
   },
 };

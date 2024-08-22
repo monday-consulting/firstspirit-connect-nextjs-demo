@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import FAQSection from "@/components/section/FAQSection";
-import Link from "next/link";
+import { FAQSection } from "@/components/section/FAQSection";
 
 const meta: Meta<typeof FAQSection> = {
   title: "components/Section/FAQSection",
@@ -20,21 +19,17 @@ export const Default: Story = {
     entries: [
       {
         title: "Accordion one",
-        content:
-          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        content: {
+          content:
+            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        },
       },
       {
         title: "Accordion two",
-        content:
-          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
-      },
-      {
-        title: "Accordion three",
-        content: (
-          <p>
-            This is <strong>HTML</strong>!
-          </p>
-        ),
+        content: {
+          content:
+            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        },
       },
     ],
     claim: "Was Sie schon immer wissen wollten - Antworten auf die häufigsten Fragen",

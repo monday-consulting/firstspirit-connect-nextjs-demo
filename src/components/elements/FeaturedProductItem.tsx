@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import type { ImageData } from "@/types";
 
-interface ProductCardProps {
-  product: {
-    data: {
-      tt_teaser_image?: string;
-      tt_name: string;
-      tt_abstract: string;
-    };
-    route: string;
-  };
-  imageSource?: string;
-}
+export type FeaturedProductItemProps = {
+  image: ImageData;
+  name: string;
+  abstract: string;
+  route: string;
+};
 
-const FeaturedProductItem = ({ product, imageSource }: ProductCardProps) => {
+const FeaturedProductItem = ({ image, name, abstract, route }: FeaturedProductItemProps) => {
   const [hover, setHover] = useState(false);
 
   const handleMouseOver = () => {
@@ -26,9 +23,9 @@ const FeaturedProductItem = ({ product, imageSource }: ProductCardProps) => {
 
   return (
     <div className="relative z-0 w-full sm:w-300 lg:w-300 xl:w-360">
-      {product.data.tt_teaser_image && <img src={imageSource} alt={product.data.tt_name} />}
+      <Image src={image.src} alt={image.alt} width={600} height={400} />
 
-      <Link href={product.route}>
+      <Link href={route}>
         <div
           className={`absolute top-0 z-20 h-full p-4 text-white lg:p-8 ${
             hover ? "bg-black/75" : "bg-black/50"
@@ -37,14 +34,12 @@ const FeaturedProductItem = ({ product, imageSource }: ProductCardProps) => {
           onFocus={handleMouseOver}
           onMouseLeave={handleMouseLeave}
         >
-          <h3 className="mt-4 border-b-2 font-black text-2xl text-yellow-500">
-            {product.data.tt_name}
-          </h3>
-          <p>{product.data.tt_abstract}</p>
+          <h3 className="mt-4 border-b-2 font-black text-2xl text-yellow-500">{name}</h3>
+          <p>{abstract}</p>
         </div>
       </Link>
     </div>
   );
 };
 
-export default FeaturedProductItem;
+export { FeaturedProductItem };

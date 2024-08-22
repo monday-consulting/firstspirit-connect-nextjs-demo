@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import FeaturedProductItem from "@/components/elements/FeaturedProductItem";
+import { FeaturedProductItem } from "@/components/elements/FeaturedProductItem";
 
 const meta: Meta<typeof FeaturedProductItem> = {
   title: "components/Elements/FeaturedProductItem",
@@ -10,16 +10,14 @@ const meta: Meta<typeof FeaturedProductItem> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    imageSource: "https://placehold.co/600x400",
-    product: {
-      route: "ExampleRoute",
-      data: {
-        tt_abstract: "ExampleAbstract",
-        tt_name: "ExampleName",
-        tt_teaser_image: "ExmapleTeaserImage",
-      },
+    image: {
+      src: "https://placehold.co/600x400",
+      alt: "Alt text",
     },
+    name: "ExampleName",
+    abstract: "ExampleAbstract",
+    route: "#",
   },
 };

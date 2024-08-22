@@ -1,23 +1,20 @@
-import { cn } from "@/utils/cn";
-import { Page } from "fsxa-api";
+import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
+import { Body } from "../page/Body";
 
-interface HomeProps {
-  path: string;
-}
+export type HomeProps = {
+  pageBodies: FirstSpiritPageBody[];
+};
 
-export const Home = ({ path }: HomeProps) => {
-  //TODO define variable page of type Page
-  //const top = () => {
-  //  return page.children.find((pagebody) => pagebody.name === 'top')!
-  //}
-  //const content = () => {
-  //  return page.children.find((pagebody) => pagebody.name === 'content')!
-  //}
+const Home = ({ pageBodies }: HomeProps) => {
+  const top = pageBodies?.find((pageBody) => pageBody.name === "top");
+  const content = pageBodies?.find((pageBody) => pageBody.name === "content");
 
-  //TODO (below) two PageBody tags
   return (
-    <div data-testid="homePageLayout">
-      <h1>{path}</h1>
+    <div className="flex flex-col gap-4">
+      {top && <Body content={[top]} />}
+      {content && <Body content={[content]} />}
     </div>
   );
 };
+
+export { Home };

@@ -1,13 +1,17 @@
+"use client";
+
 import { cn } from "@/utils/cn";
-import { type ReactNode, useState } from "react";
+import { useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
+import type { RichTextElementProps } from "./RichTextElement";
+import { RichTextElement } from "./RichTextElement";
 
 export type AccordionProps = {
   title: string;
-  content: ReactNode | string;
+  content: RichTextElementProps;
 };
 
-export const Accordion = ({ title, content }: AccordionProps) => {
+const Accordion = ({ title, content }: AccordionProps) => {
   const [open, setOpen] = useState(false);
   const toggle = () => {
     setOpen(!open);
@@ -35,9 +39,11 @@ export const Accordion = ({ title, content }: AccordionProps) => {
           className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200"
           style={open ? { maxHeight: "364px" } : {}}
         >
-          {content}
+          <RichTextElement {...content} />
         </div>
       </div>
     </div>
   );
 };
+
+export { Accordion };

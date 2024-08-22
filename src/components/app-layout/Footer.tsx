@@ -1,16 +1,17 @@
 import Link from "next/link";
 import logo from "@/assets/smart_living_logo.webp";
 import Image from "next/image";
+import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
 
-export interface LegalLink {
-  name: string;
-  route: string;
-}
+export type LegalLink = {
+  label: string;
+  href: string;
+};
 
-export interface FooterProps {
-  copyrightText: string;
+export type FooterProps = {
+  copyrightText: RichTextElementProps;
   legalLinks: LegalLink[];
-}
+};
 
 const Footer = ({ copyrightText, legalLinks }: FooterProps) => {
   return (
@@ -21,13 +22,13 @@ const Footer = ({ copyrightText, legalLinks }: FooterProps) => {
         </Link>
         <div className="flex gap-8 md:text-right" data-testid="legal-links">
           {legalLinks.map((link) => (
-            <Link className="hover:underline" key={link.name} href={link.route}>
-              {link.name}
+            <Link className="hover:underline" key={link.label} href={link.href}>
+              {link.label}
             </Link>
           ))}
         </div>
-        <div className="md:text-center" data-testid="copyright">
-          © {copyrightText}
+        <div className="md:text-center">
+          <RichTextElement {...copyrightText} />
         </div>
       </div>
     </div>

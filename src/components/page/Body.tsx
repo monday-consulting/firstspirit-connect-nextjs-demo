@@ -1,48 +1,32 @@
-import React, { useMemo } from "react";
-import type { PageBodyContent, PageBody } from "fsxa-api";
-import { Dataset } from "../page-body-count/Dataset";
-import Content2Section from "../page-body-count/Content2Section";
-import Section from "../page-body-count/Section";
-import { Unknown } from "../Unknown";
-import { useDev } from "../composables/showDev";
-import { useNextApp } from "../tests/testutils/nextMocks";
-import { DevComponent } from "../Dev";
-import { AddSection } from "../AddSection";
-import ClientOnly from "../elements/ClientOnly";
+import { Section } from "../page-body-count/Section";
+import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 
-interface BodyProps {
-  pageBody: PageBody;
-}
+export type BodyProps = {
+  content?: FirstSpiritPageBody[];
+};
 
-const Body = ({ pageBody }: BodyProps) => {
-  const { showDev } = useDev();
-
-  const { $isPreviewMode } = useNextApp();
-
-  const getComponentFromPageBody = (pageBodyContent: PageBodyContent) => {
+const Body = ({ content }: BodyProps) => {
+  // biome-ignore lint/suspicious/noExplicitAny: No type definitions
+  const getComponentFromPageBody = (pageBodyContent: any) => {
     switch (pageBodyContent.type) {
-      case "Dataset":
-        return <Dataset content={pageBodyContent} />;
       case "Section":
         return <Section content={pageBodyContent} />;
-      case "Content2Section":
-        return <Content2Section content={pageBodyContent} />;
       default:
-        return <Unknown />;
+        return null;
     }
   };
 
   return (
     <div>
-      {pageBody.children.map((pageBodyContent) => (
-        <div className="" key={pageBodyContent.type}>
-          {showDev && $isPreviewMode && <DevComponent content={pageBodyContent} />}
-          {getComponentFromPageBody(pageBodyContent)}
+      {content?.map((pageBodyContent) => (
+        <div key={pageBodyContent.previewId}>
+          {pageBodyContent.children?.map((item) => (
+            <div key={item.id}>{getComponentFromPageBody(item)}</div>
+          ))}
         </div>
       ))}
-      <ClientOnly>{$isPreviewMode && <AddSection bodyName={pageBody.name} />}</ClientOnly>
     </div>
   );
 };
 
-export default Body;
+export { Body };

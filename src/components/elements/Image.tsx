@@ -1,12 +1,12 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import type { Image as fsxaImage } from "fsxa-api";
 import Image from "next/image";
 
-interface ImageProps {
+export type ImageProps = {
   image: fsxaImage;
   ratio?: string;
   alt: string;
-}
+};
 
 const ImageComponent = ({ image, alt, ratio }: ImageProps) => {
   // useMemo is used to optimize the formation of srcSet string and recompute only on changes in image or ratio
@@ -34,4 +34,4 @@ const ImageComponent = ({ image, alt, ratio }: ImageProps) => {
   return <Image alt={alt} src={srcSet} width={width} height={height} />;
 };
 
-export default ImageComponent;
+export { ImageComponent };

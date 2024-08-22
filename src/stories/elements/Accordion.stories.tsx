@@ -13,7 +13,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: "Accordion title",
-    content:
-      "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+    content: {
+      content:
+        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+    },
   },
 };

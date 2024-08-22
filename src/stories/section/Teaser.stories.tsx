@@ -12,16 +12,25 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    imageLeft: true,
+    imageStart: true,
     headline: "Headline",
     image: {
       src: "https://placehold.co/600x400",
       alt: "Alt Text",
     },
-    text: "Textd wdawd wad awdjaklwj dlkawjdkl jawkldjaw lkdjalwökjdklaöwjdkajwlk ödjwakl djlkawjd lkwajdkl wajkdjwa kldjöklaw jdklwjd klwajdkl waj",
+    text: {
+      content: [
+        {
+          content:
+            "Textd wdawd wad awdjaklwj dlkawjdkl jawkldjaw lkdjalwökjdklaöwjdkajwlk ödjwakl djlkawjd lkwajdkl wajkdjwa kldjöklaw jdklwjd klwajdkl waj",
+          data: "test",
+          type: "paragraph",
+        },
+      ],
+    },
     cta: {
       href: "Home",
-      linkText: "Home",
+      label: "Home",
     },
   },
 };

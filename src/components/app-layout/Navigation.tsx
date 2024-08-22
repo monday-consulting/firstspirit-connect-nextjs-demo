@@ -6,7 +6,7 @@ import { LuGlobe, LuMenu, LuX } from "react-icons/lu";
 import { locales } from "@/i18n";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import useFavorites from "@/utils/hooks/useFavorites";
+import { useFavorites } from "@/utils/hooks/useFavorites";
 import { FavoriteTeaser } from "../elements/FavoriteTeaser";
 import { VscHeart } from "react-icons/vsc";
 
@@ -42,7 +42,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
   return (
     <nav className="flex items-center justify-between px-8 py-4">
       <div className="flex items-center gap-8">
-        <Link href="/">
+        <Link href={t("routes.home")}>
           <Image src={logo} alt="Logo" className="mr-4" height={40} />
         </Link>
         <div className="hidden gap-8 md:flex">
@@ -72,14 +72,14 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         <div className="group relative">
           <VscHeart size={20} className="cursor-pointer" />
           <div className="-right-2 absolute hidden w-96 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
-            <h3 className="font-bold">{t("i18n.favListTitle")}</h3>
+            <h3 className="font-bold">{t("favorites.listTitle")}</h3>
             <div className="flex flex-col gap-2">
               {favorites.list && favorites.list.length > 0 ? (
                 favorites.list.map((favorite) => (
                   <FavoriteTeaser key={favorite.id} title={favorite.title} image={favorite.image} />
                 ))
               ) : (
-                <p>{t("i18n.favListEmpty")}</p>
+                <p>{t("favorites.listEmpty")}</p>
               )}
             </div>
           </div>
@@ -97,14 +97,14 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         </div>
         <button type="button" className="flex md:hidden" onClick={toggleMobileNav}>
           {mobileNavActive ? (
-            <LuX size={20} className="z-10 cursor-pointer" />
+            <LuX size={20} className="z-50 cursor-pointer" />
           ) : (
-            <LuMenu size={20} className="z-10 cursor-pointer" />
+            <LuMenu size={20} className="z-50 cursor-pointer" />
           )}
         </button>
       </div>
       {mobileNavActive && (
-        <div className="absolute top-0 right-0 bottom-0 flex w-4/5 flex-col gap-8 bg-white px-10 py-[41.5px] shadow-lg">
+        <div className="absolute top-0 right-0 bottom-0 z-40 flex w-4/5 flex-col gap-8 bg-white px-10 py-[41.5px] shadow-lg">
           {navStructure.structure.map((navItem) => (
             <div key={navItem.fsNavItemId}>
               <Link

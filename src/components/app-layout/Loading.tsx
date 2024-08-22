@@ -1,6 +1,4 @@
-import { cn } from "@/utils/cn";
-
-export const Loading = () => {
+const Loading = () => {
   return (
     <div className="absolute inset-0 z-40 flex items-center justify-center bg-white">
       <div role="status">
@@ -25,3 +23,5 @@ export const Loading = () => {
     </div>
   );
 };
+
+export { Loading };
