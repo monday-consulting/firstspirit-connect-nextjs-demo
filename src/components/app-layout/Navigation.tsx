@@ -54,13 +54,25 @@ const Navigation = ({ navStructure }: NavigationProps) => {
               {navItem.children && navItem.children.length > 0 && (
                 <div className="absolute left-0 hidden w-72 flex-col gap-4 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
                   {navItem.children.map((item) => (
-                    <Link
-                      href={item.seoRoute || "#"}
-                      key={item.fsNavItemId}
-                      className="hover:underline"
-                    >
-                      {item.label}
-                    </Link>
+                    <div key={item.fsNavItemId} className="flex flex-col gap-2">
+                      <Link
+                        href={item.seoRoute || "#"}
+                        className="font-bold text-textLighter uppercase hover:text-black hover:underline"
+                      >
+                        {item.label}
+                      </Link>
+                      <div className="flex translate-x-2 flex-col">
+                        {item.children?.map((itemLvl2) => (
+                          <Link
+                            href={itemLvl2.seoRoute || "#"}
+                            key={itemLvl2.fsNavItemId}
+                            className="w-full rounded-md px-2 py-1 hover:bg-lightGray hover:underline"
+                          >
+                            {itemLvl2.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}
@@ -110,7 +122,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
               <div className="mb-1">
                 <Link
                   href={navItem.seoRoute || "#"}
-                  className="font-bold text-gray-400 uppercase hover:text-black hover:underline"
+                  className="font-bold text-textLighter uppercase hover:text-black hover:underline"
                 >
                   {navItem.label}
                 </Link>
