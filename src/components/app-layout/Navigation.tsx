@@ -52,7 +52,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
                 {navItem.label}
               </Link>
               {navItem.children && navItem.children.length > 0 && (
-                <div className="absolute left-0 hidden w-72 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
+                <div className="absolute left-0 hidden w-72 flex-col gap-4 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
                   {navItem.children.map((item) => (
                     <Link
                       href={item.seoRoute || "#"}
@@ -107,22 +107,35 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         <div className="absolute top-0 right-0 bottom-0 z-40 flex w-4/5 flex-col gap-8 bg-white px-10 py-[41.5px] shadow-lg">
           {navStructure.structure.map((navItem) => (
             <div key={navItem.fsNavItemId}>
-              <Link
-                href={navItem.seoRoute || "#"}
-                className="font-bold text-gray-400 uppercase hover:text-black"
-              >
-                {navItem.label}
-              </Link>
+              <div className="mb-1">
+                <Link
+                  href={navItem.seoRoute || "#"}
+                  className="font-bold text-gray-400 uppercase hover:text-black hover:underline"
+                >
+                  {navItem.label}
+                </Link>
+              </div>
               {navItem.children && (
-                <div className="flex flex-col gap-2">
+                <div className="flex translate-x-4 flex-col gap-3">
                   {navItem.children.map((item) => (
-                    <Link
-                      href={item.seoRoute || "#"}
-                      key={item.fsNavItemId}
-                      className="hover:underline"
-                    >
-                      {item.label}
-                    </Link>
+                    <div key={item.fsNavItemId}>
+                      <div className="mb-1">
+                        <Link href={item.seoRoute || "#"} className="font-bold hover:underline">
+                          {item.label}
+                        </Link>
+                      </div>
+                      <div className="flex translate-x-4 flex-col">
+                        {item.children?.map((itemLvl2) => (
+                          <Link
+                            href={itemLvl2.seoRoute || "#"}
+                            key={itemLvl2.fsNavItemId}
+                            className="hover:underline"
+                          >
+                            {itemLvl2.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}

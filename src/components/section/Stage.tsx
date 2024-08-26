@@ -73,7 +73,7 @@ const Stage = (props: StageProps) => {
       style={backgroundImageStyle}
     >
       <div className="container mx-auto px-4">
-        <div className="rounded-4xl bg-black bg-opacity-80 px-12 pt-12 pb-9 md:max-w-xl">
+        <div className="rounded-2xl bg-black bg-opacity-80 px-12 pt-12 pb-9 md:max-w-xl">
           <h2 className="mb-4 font-bold font-heading text-5xl text-white leading-tight tracking-px-n md:text-6xl">
             {props.headline}
           </h2>
