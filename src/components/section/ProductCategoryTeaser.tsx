@@ -3,7 +3,7 @@
 import { Teaser } from "./Teaser";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import { fetcher } from "@/utils/fetcher";
-import { useLocale } from "use-intl";
+import { useLocale } from "next-intl";
 import type { Dataset } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
