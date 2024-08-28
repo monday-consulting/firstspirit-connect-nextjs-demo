@@ -15,7 +15,7 @@ const SlugPage = async ({ params }: { params: { slug: string[]; locale: string }
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between px-24">
       {page?.layout === "homepage" && <Home pageBodies={pageBodies} />}
       {page?.layout === "standard" && <StandardLayout pageBodies={pageBodies} />}
     </main>

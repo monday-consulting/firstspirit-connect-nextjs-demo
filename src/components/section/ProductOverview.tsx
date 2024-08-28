@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "use-intl";
+import { useTranslations } from "next-intl";
 import { ProductOverviewItem, type ProductOverviewItemProps } from "./ProductOverviewItem";
 
 export type ProductOverviewProps = {
