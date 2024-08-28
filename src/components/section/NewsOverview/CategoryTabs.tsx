@@ -18,6 +18,7 @@ const CategoryTabs = ({ data }: CategoryTabsProps) => {
   }
   return (
     <div className="w-full">
+      <Tab label="All Categories" />
       {categories.map((category) => (
         <Tab key={category} label={category} />
       ))}

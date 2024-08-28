@@ -15,10 +15,14 @@ export interface NewsT {
   link?: string;
 }
 
-const NewsTeaser = (data: NewsT) => {
+interface NewsTeaserProps {
+  data: NewsT;
+}
+
+const NewsTeaser = ({ data }: NewsTeaserProps) => {
   return (
     <div className="text-center">
-      <div className="mb-5 h-72 w-full overflow-hidden rounded-xl">
+      <div className="mb-3 h-72 w-full overflow-hidden rounded-xl">
         <Image
           width={500}
           height={500}
@@ -28,14 +32,14 @@ const NewsTeaser = (data: NewsT) => {
         />
       </div>
       {data.categories.map((category) => (
-        <div
+        <span
           key={category}
-          className="mx-1 inline rounded-full bg-gray-100 px-2 py-1 text-secondary"
+          className="mb-3 inline-block rounded-full bg-gray-100 px-2 py-px font-medium text-secondary text-xs uppercase leading-5 shadow-sm"
         >
           {category}
-        </div>
+        </span>
       ))}
-      <p className="mt-3 text-text">
+      <p className="text-text">
         {data.author} · {data.date}
       </p>
       <h2 className="my-3 font-bold font-heading text-2xl text-primary">{data.headline}</h2>
