@@ -14,7 +14,7 @@ const NewsOverview = ({ data }: NewsOverviewProps) => {
         <p className="mb-7 text-text">
           A simple news overview page with search and filter capabilities.
         </p>
-        <Search className="m-auto mb-10 block w-1/3" />
+        <Search className="m-auto mb-10 block sm:w-full md:w-1/3" />
       </div>
       <CategoryTabs data={data} />
     </div>
