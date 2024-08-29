@@ -1,5 +1,5 @@
 import { CategoryTabs } from "./CategoryTabs";
-import { NewsTeaser, type NewsT } from "./NewsTeaser";
+import type { NewsT } from "./NewsTeaser";
 import { Search } from "./Search";
 
 interface NewsOverviewProps {
@@ -7,8 +7,6 @@ interface NewsOverviewProps {
 }
 
 const NewsOverview = ({ data }: NewsOverviewProps) => {
-  //TODO: make CategoryTabs responsive
-  //TODO: finish search bar
   return (
     <div>
       <div className="text-center">
@@ -17,13 +15,8 @@ const NewsOverview = ({ data }: NewsOverviewProps) => {
           A simple news overview page with search and filter capabilities.
         </p>
         <Search className="m-auto mb-10 block w-1/3" />
-        <CategoryTabs data={data} />
       </div>
-      <div className="mx-8 mt-5 grid gap-8 sm:grid-cols-1 md:grid-cols-2">
-        {data.map((item) => (
-          <NewsTeaser key={item.headline} data={item} />
-        ))}
-      </div>
+      <CategoryTabs data={data} />
     </div>
   );
 };
