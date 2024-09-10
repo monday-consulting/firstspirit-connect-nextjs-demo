@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ProductTeaser } from "@/components/elements/ProductTeaser";
 
 const meta: Meta<typeof ProductTeaser> = {
-  title: "components/elements/ProductTeaser",
+  title: "components/Elements/ProductTeaser",
   component: ProductTeaser,
   parameters: {
     layout: "centered",

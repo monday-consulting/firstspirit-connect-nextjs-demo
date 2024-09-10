@@ -5,7 +5,7 @@ import {
 } from "@/components/section/CategoryProductsList";
 
 const meta: Meta<typeof CategoryProductsList> = {
-  title: "components/elements/CategoryProductsList",
+  title: "components/Elements/CategoryProductsList",
   component: CategoryProductsList,
   parameters: {
     layout: "centered",
