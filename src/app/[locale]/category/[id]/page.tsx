@@ -1,5 +1,6 @@
 import { ProductOverview } from "@/components/section/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
+import { getProductDetailLink } from "@/utils/links";
 
 const SlugPage = async ({
   params,
@@ -31,7 +32,7 @@ const SlugPage = async ({
           name: item.data.tt_name,
           price: item.data.tt_price,
           id: item.id,
-          route: item.route,
+          route: getProductDetailLink(item.id),
         }))}
       />
     </main>

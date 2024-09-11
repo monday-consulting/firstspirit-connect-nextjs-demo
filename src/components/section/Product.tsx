@@ -25,11 +25,9 @@ const Product = ({ product }: ProductProps) => {
 
   const categoryNames = useMemo(() => {
     return currentDataset?.categories.flatMap(
-      (category: { data: { name: string } }) => category.data.name
+      (category: { data: { tt_name: string } }) => category.data.tt_name
     );
   }, [currentDataset]);
-
-  const favoriteButtonId = currentDataset.categories.map((item) => item.id).join(" ");
 
   return (
     <div
@@ -53,14 +51,14 @@ const Product = ({ product }: ProductProps) => {
                 <h1 className="mt-3 font-bold font-heading text-4xl">{currentDataset?.name}</h1>
               </div>
               <div className="flex items-start py-4">
-                <p className="mb-5 font-medium text-textDark">
+                <div className="mb-5 font-medium text-text">
                   <RichTextElement {...product.description} />
-                </p>
+                </div>
               </div>
               <div className="w-full px-4">
                 <FavoriteButton
                   product={{
-                    id: favoriteButtonId,
+                    id: product.id,
                     title: currentDataset.name,
                     image: product.image,
                   }}
@@ -74,6 +72,7 @@ const Product = ({ product }: ProductProps) => {
           <div className="relative my-12 w-full lg:my-0 lg:w-1/2">
             {currentDataset?.image && (
               <Image
+                className="rounded-xl"
                 src={currentDataset.image.src}
                 alt={currentDataset.image.alt}
                 width={1000}

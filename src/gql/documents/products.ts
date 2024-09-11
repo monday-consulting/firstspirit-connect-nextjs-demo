@@ -16,7 +16,18 @@ const productsDocument = graphql(`
   }
 `);
 
+const productDetailDocument = graphql(`query productDetail($locale: String!, $id: String!) {
+  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {
+    data
+  }
+}`);
+
 export const getAllProducts = async (locale: string) => {
   const res = await client.request(productsDocument, { locale });
   return res.allFirstSpiritDataset.nodes;
+};
+
+export const getProductDetail = async (locale: string, id: string) => {
+  const res = await client.request(productDetailDocument, { locale, id });
+  return res.firstSpiritDataset?.data;
 };

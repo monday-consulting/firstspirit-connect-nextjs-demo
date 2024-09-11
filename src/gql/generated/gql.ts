@@ -17,6 +17,7 @@ const documents = {
     "\n  query fsNavigationQuery($locale:String!) {\n    firstSpiritNavigationData(_locale: {eq: $locale}) {\n      structure {\n        navigationItem {\n          label\n          seoRoute\n          fsNavItemId\n          page {\n            id\n          }\n        }\n        structureChildren {\n          navigationItem {\n            label\n            seoRoute\n            fsNavItemId\n            page {\n              id\n            }\n          }\n          structureChildren {\n            navigationItem {\n              fsNavItemId\n              label\n              seoRoute\n              page {\n                id\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n": types.FsNavigationQueryDocument,
     "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n        name\n        previewId\n      }\n    }\n  }\n": types.PageByRouteDocument,
     "\n  query products($locale: String!) {\n    allFirstSpiritDataset(\n      filter: {_locale: {eq: $locale}, entityType: {eq: \"product\"}}\n    ) {\n      nodes {\n        fsId\n        entityType\n        route\n        data\n      }\n    }\n  }\n": types.ProductsDocument,
+    "query productDetail($locale: String!, $id: String!) {\n  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {\n    data\n  }\n}": types.ProductDetailDocument,
     "\n  query section($locale: String!, $id: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, fsId: {eq: $id}}) {\n      nodes {\n        data\n        name\n        fsId\n      }\n    }\n  }\n": types.SectionDocument,
 };
 
@@ -50,6 +51,10 @@ export function graphql(source: "\n  query pageByRoute($locale: String!, $route:
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query products($locale: String!) {\n    allFirstSpiritDataset(\n      filter: {_locale: {eq: $locale}, entityType: {eq: \"product\"}}\n    ) {\n      nodes {\n        fsId\n        entityType\n        route\n        data\n      }\n    }\n  }\n"): (typeof documents)["\n  query products($locale: String!) {\n    allFirstSpiritDataset(\n      filter: {_locale: {eq: $locale}, entityType: {eq: \"product\"}}\n    ) {\n      nodes {\n        fsId\n        entityType\n        route\n        data\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query productDetail($locale: String!, $id: String!) {\n  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {\n    data\n  }\n}"): (typeof documents)["query productDetail($locale: String!, $id: String!) {\n  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {\n    data\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
