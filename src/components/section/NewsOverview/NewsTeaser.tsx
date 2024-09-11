@@ -34,7 +34,7 @@ const NewsTeaser = ({ data }: NewsTeaserProps) => {
       {data.categories.map((category) => (
         <span
           key={category}
-          className="mb-3 inline-block rounded-full bg-gray-100 px-2 py-px font-medium text-secondary text-xs uppercase leading-5 shadow-sm"
+          className="py mx-1 mb-3 inline-block rounded-full bg-gray-100 px-2 font-medium text-secondary text-xs uppercase leading-5 shadow-sm"
         >
           {category}
         </span>
