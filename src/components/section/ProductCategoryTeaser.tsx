@@ -4,29 +4,24 @@ import { Teaser } from "./Teaser";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import { fetcher } from "@/utils/fetcher";
 import { useLocale } from "next-intl";
-import type { Dataset } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { Loading } from "../app-layout/Loading";
 import { CategoryProductsList } from "./CategoryProductsList";
+import { getProductDetailLink, getProductGroupLink } from "@/utils/links";
 
-export type ProductFetch = {
-  data: string;
-  entityType: "product";
-  fsId: string;
-  route: string;
-};
+// biome-ignore lint/suspicious/noExplicitAny: make typesafe
+export type ProductKeys = { data: any; entityType: string; fsId: string; route: string };
 
 export type ProductCategoryTeaserProps = {
   category: {
     type: string;
     id: string;
     name: string;
-    products?: Dataset[];
+    products?: ProductKeys;
   };
-  category_link: {
-    href: string;
-    linkText: string;
+  group_link: {
+    label: string;
   };
   headline: string;
   text: RichTextElementProps;
@@ -35,14 +30,14 @@ export type ProductCategoryTeaserProps = {
 
 const ProductCategoryTeaser = ({
   category,
-  category_link,
+  group_link,
   headline,
   text,
   teaserTextStart: teaserTextLeft = true,
 }: ProductCategoryTeaserProps) => {
   const locale = useLocale();
 
-  const transformDataToProps = (products: Dataset[]) => {
+  const transformDataToProps = (products: ProductKeys[]) => {
     const filteredProducts = products
       .map((item) => ({
         ...item,
@@ -55,7 +50,7 @@ const ProductCategoryTeaser = ({
     return filteredProducts.map((item) => ({
       name: item.data.tt_name,
       description: { content: item.data.tt_description },
-      route: item.route,
+      route: getProductDetailLink(item.fsId),
       image: {
         src: item.data.tt_image.resolutions.ORIGINAL.url,
         alt: item.data.tt_image_alt_text,
@@ -78,7 +73,7 @@ const ProductCategoryTeaser = ({
             claim={category.name}
             text={text}
             imageStart={teaserTextLeft}
-            cta={{ href: category_link.href, label: category_link.linkText }}
+            cta={{ href: getProductGroupLink(category.name), label: group_link.label }}
             imageReplaceContent={
               <Suspense fallback={<Loading />}>
                 {products && !error && <CategoryProductsList products={products} />}

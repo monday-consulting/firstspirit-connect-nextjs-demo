@@ -4,4 +4,4 @@ export const parseLink = (str: string) => replaceUmlauts(str.toLowerCase().repla
 
 export const getProductDetailLink = (id: string) => `/product-detail/${parseLink(id)}`;
 
-export const getCategoryLink = (title: string) => `/category/${parseLink(title)}`;
+export const getProductGroupLink = (groupName: string) => `${parseLink(groupName)}`;

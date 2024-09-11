@@ -157,7 +157,7 @@ export const Default: Story = {
       name: "Category Name",
       products: mockDataset,
     },
-    category_link: {
+    group_link: {
       href: "https://placehold.co/600x400",
       linkText: "View More",
     },
