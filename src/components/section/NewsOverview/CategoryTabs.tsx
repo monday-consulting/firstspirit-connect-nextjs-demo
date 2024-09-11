@@ -1,12 +1,9 @@
-import { NewsTeaser, type NewsT } from "./NewsTeaser";
+import { NewsTeaser } from "./NewsTeaser";
 import { TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { NewsTab } from "./NewsTab";
+import type { NewsOverviewProps } from "./NewsOverview";
 
-interface CategoryTabsProps {
-  data: NewsT[];
-}
-
-const CategoryTabs = ({ data }: CategoryTabsProps) => {
+const CategoryTabs = ({ data }: NewsOverviewProps) => {
   //extract and create array of categories without duplicates
   const allCategories = new Array();
   data.map((item) => item.categories.map((category) => allCategories.push(category)));
@@ -25,7 +22,16 @@ const CategoryTabs = ({ data }: CategoryTabsProps) => {
       <TabPanels>
         <TabPanel className="mx-8 mt-5 grid gap-8 sm:grid-cols-1 md:grid-cols-2">
           {data.map((item) => (
-            <NewsTeaser key={item.headline} data={item} />
+            <NewsTeaser
+              key={item.headline}
+              image={item.image}
+              categories={item.categories}
+              author={item.author}
+              date={item.date}
+              headline={item.headline}
+              teaserText={item.teaserText}
+              link={item.link}
+            />
           ))}
         </TabPanel>
         {categories.map((category) => {
@@ -37,7 +43,16 @@ const CategoryTabs = ({ data }: CategoryTabsProps) => {
           return (
             <TabPanel key={category} className="mx-8 mt-5 grid gap-8 sm:grid-cols-1 md:grid-cols-2">
               {teasers.map((item) => (
-                <NewsTeaser key={item.headline} data={item} />
+                <NewsTeaser
+                  key={item.headline}
+                  image={item.image}
+                  categories={item.categories}
+                  author={item.author}
+                  date={item.date}
+                  headline={item.headline}
+                  teaserText={item.teaserText}
+                  link={item.link}
+                />
               ))}
             </TabPanel>
           );

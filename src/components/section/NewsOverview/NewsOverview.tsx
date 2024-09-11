@@ -2,9 +2,9 @@ import { CategoryTabs } from "./CategoryTabs";
 import type { NewsT } from "./NewsTeaser";
 import { Search } from "./Search";
 
-interface NewsOverviewProps {
+export type NewsOverviewProps = {
   data: NewsT[];
-}
+};
 
 const NewsOverview = ({ data }: NewsOverviewProps) => {
   return (
