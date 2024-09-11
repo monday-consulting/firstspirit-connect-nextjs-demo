@@ -2,16 +2,18 @@ import { ProductOverview } from "@/components/section/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
 import { getProductDetailLink } from "@/utils/links";
 
-const SlugPage = async ({
+const CategoryPage = async ({
   params,
 }: {
-  params: { locale: string; id: string };
+  params: { locale: string; category: string };
 }) => {
   const allProducts = await getAllProducts(params.locale);
 
+  console.log(params.category);
+
   const filteredProducts = allProducts.filter((item) => {
     const parsedData = JSON.parse(item.data);
-    return parsedData.tt_categories[0].id === params.id;
+    return parsedData.tt_categories[0].schema === params.category;
   });
 
   const products = filteredProducts.map((item) => ({
@@ -39,4 +41,4 @@ const SlugPage = async ({
   );
 };
 
-export default SlugPage;
+export default CategoryPage;

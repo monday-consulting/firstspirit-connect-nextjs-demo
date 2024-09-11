@@ -1,17 +1,18 @@
 import { ProductOverview } from "@/components/section/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
+import { getProductDetailLink } from "@/utils/links";
 
 const SlugPage = async ({
   params,
 }: {
-  params: { locale: string; group: string };
+  params: { locale: string; product_group: string };
 }) => {
   const allProducts = await getAllProducts(params.locale);
 
   const filteredProducts = allProducts.filter((item) => {
     const parsedData = JSON.parse(item.data);
     const ttName = parsedData.tt_categories[0].data.tt_name;
-    return ttName?.toLowerCase().replaceAll(' ', '-') === decodeURI(params.group);
+    return ttName?.toLowerCase().replaceAll(" ", "-") === decodeURI(params.product_group);
   });
 
   const products = filteredProducts.map((item) => ({
@@ -32,7 +33,7 @@ const SlugPage = async ({
           name: item.data.tt_name,
           price: item.data.tt_price,
           id: item.id,
-          route: item.route,
+          route: getProductDetailLink(item.id),
         }))}
       />
     </main>
