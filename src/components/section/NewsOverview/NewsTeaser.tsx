@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { VscArrowSmallRight } from "react-icons/vsc";
+import { LuArrowRight } from "react-icons/lu";
 
 export type NewsT = {
   image: {
@@ -43,8 +43,8 @@ const NewsTeaser = ({ image, categories, author, date, headline, teaserText, lin
       {link && (
         <Link href={link} className="font-bold text-blue-700">
           Read Article
-          <div className="mx-2 inline-block align-middle">
-            <VscArrowSmallRight />
+          <div className="inline-block align-middle">
+            <LuArrowRight />
           </div>
         </Link>
       )}
