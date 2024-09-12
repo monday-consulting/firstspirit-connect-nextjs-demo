@@ -11,14 +11,14 @@ import { CategoryProductsList } from "./CategoryProductsList";
 import { getProductDetailLink, getProductGroupLink } from "@/utils/links";
 
 // biome-ignore lint/suspicious/noExplicitAny: make typesafe
-export type ProductKeys = { data: any; entityType: string; fsId: string; route: string };
+export type Product = { data: any; entityType: string; fsId: string; route: string };
 
 export type ProductCategoryTeaserProps = {
   category: {
     type: string;
     id: string;
     name: string;
-    products?: ProductKeys;
+    products?: Product[];
   };
   group_link: {
     label: string;
@@ -37,7 +37,7 @@ const ProductCategoryTeaser = ({
 }: ProductCategoryTeaserProps) => {
   const locale = useLocale();
 
-  const transformDataToProps = (products: ProductKeys[]) => {
+  const transformDataToProps = (products: Product[]) => {
     const filteredProducts = products
       .map((item) => ({
         ...item,
