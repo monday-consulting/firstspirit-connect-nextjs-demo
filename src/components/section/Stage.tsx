@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getImageProps } from "next/image";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
-import { useLocale } from "use-intl";
+import { useLocale } from "next-intl";
 
 export type StageProps = {
   headline: string;

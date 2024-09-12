@@ -1,6 +1,5 @@
 import type { Section as FsxaSection } from "fsxa-api";
 import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
-import { getCategoryLink } from "@/utils/links";
 import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
 import { FAQSection } from "../section/FAQSection";
@@ -39,9 +38,8 @@ const Section = ({ content }: SectionProps) => {
               name: content.data.st_category.value,
               id: content.data.st_category.key,
             }}
-            category_link={{
-              linkText: content.data.st_category_link.data.lt_text,
-              href: getCategoryLink(content.data.st_category.key),
+            group_link={{
+              label: content.data.st_category_link.data.lt_text,
             }}
             headline={content.data.st_headline}
             text={{ content: content.data.st_text }}

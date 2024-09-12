@@ -52,7 +52,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
                 {navItem.label}
               </Link>
               {navItem.children && navItem.children.length > 0 && (
-                <div className="absolute left-0 hidden w-72 flex-col gap-4 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
+                <div className="absolute left-0 z-40 hidden w-72 flex-col gap-4 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
                   {navItem.children.map((item) => (
                     <div key={item.fsNavItemId} className="flex flex-col gap-2">
                       <Link
@@ -83,12 +83,17 @@ const Navigation = ({ navStructure }: NavigationProps) => {
       <div className="flex gap-6">
         <div className="group relative">
           <VscHeart size={20} className="cursor-pointer" />
-          <div className="-right-2 absolute hidden w-96 flex-col gap-4 bg-white p-8 shadow-lg group-hover:flex">
+          <div className="-right-2 absolute z-40 hidden w-96 flex-col gap-4 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
             <h3 className="font-bold">{t("favorites.listTitle")}</h3>
             <div className="flex flex-col gap-2">
               {favorites.list && favorites.list.length > 0 ? (
                 favorites.list.map((favorite) => (
-                  <FavoriteTeaser key={favorite.id} title={favorite.title} image={favorite.image} />
+                  <FavoriteTeaser
+                    key={favorite.id}
+                    title={favorite.title}
+                    id={favorite.id}
+                    image={favorite.image}
+                  />
                 ))
               ) : (
                 <p>{t("favorites.listEmpty")}</p>
@@ -98,7 +103,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         </div>
         <div className="group">
           <LuGlobe size={20} className="cursor-pointer" />
-          <div className="absolute right-6 hidden flex-col gap-2 bg-white p-8 shadow-lg group-hover:flex">
+          <div className="absolute right-6 z-40 hidden flex-col gap-2 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
             <Link locale={locales[0]} href="/" className="hover:underline">
               Deutsch
             </Link>
