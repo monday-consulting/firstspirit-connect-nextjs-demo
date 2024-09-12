@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 
 export type ButtonProps = {
   lt_button_text: string;

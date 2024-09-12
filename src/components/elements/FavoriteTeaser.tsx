@@ -1,7 +1,7 @@
 import { getProductDetailLink } from "@/utils/links";
 import Image from "next/image";
 import type { ImageData } from "@/types";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { LuTrash } from "react-icons/lu";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 

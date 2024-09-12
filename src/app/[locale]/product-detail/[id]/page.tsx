@@ -2,6 +2,7 @@ import { Product } from "@/components/section/Product";
 import { getProductDetail } from "@/gql/documents/products";
 
 const ProductDetailPage = async ({ params }: { params: { id: string; locale: string } }) => {
+  console.log("PRODUCT-DETAIL");
   const res = await getProductDetail(params.locale, params.id);
   const product = JSON.parse(res);
 

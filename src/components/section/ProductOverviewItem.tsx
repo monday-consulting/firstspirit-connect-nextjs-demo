@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useFavorites } from "@/utils/hooks/useFavorites";

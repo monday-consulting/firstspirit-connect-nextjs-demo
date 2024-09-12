@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { getImageProps } from "next/image";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
-import { useLocale } from "next-intl";
 
 export type StageProps = {
   headline: string;
@@ -28,44 +27,12 @@ const getBackgroundImage = (srcSet = "") => {
   return `image-set(${imageSet})`;
 };
 
-// const transformDataToProps = (section: FirstSpiritSection): StageProps => {
-//   const parsedData = JSON.parse(section.data);
-
-//   return {
-//     headline: parsedData.st_headline,
-//     subline: parsedData.st_subheadline,
-//     image: {
-//       src: parsedData.st_image.resolutions.ORIGINAL.url,
-//       alt: parsedData.st_image_alt_text || "Default alt text",
-//     },
-//     cta: parsedData.st_cta
-//       ? {
-//           label: parsedData.st_cta.data.lt_text,
-//           // TODO: Reference reolving
-//           href: "#",
-//         }
-//       : undefined,
-//     sectionId: section.fsId,
-//   };
-// };
-
 const Stage = (props: StageProps) => {
   const {
     props: { srcSet },
   } = getImageProps({ alt: props.image.alt, src: props.image.src, width: 1080, height: 0 });
   const backgroundImage = getBackgroundImage(srcSet);
   const backgroundImageStyle = { width: "100vw", backgroundImage };
-
-  const locale = useLocale();
-
-  // TODO: use data object
-  // const { data } = useQuery({
-  //   queryKey: ["stage"],
-  //   queryFn: () =>
-  //     fetcher({ url: "/api/fetch", body: { locale, type: "section", id: props.sectionId } }),
-  //   initialData: props,
-  //   select: transformDataToProps,
-  // });
 
   return (
     <div

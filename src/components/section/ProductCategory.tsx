@@ -1,6 +1,6 @@
 import { getProductGroupLink } from "@/utils/links";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import type { Product } from "./Product";
 import { RichTextElement } from "../elements/RichTextElement";
 

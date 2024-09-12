@@ -1,7 +1,4 @@
 {
-  "routes": {
-    "home": "/startseite/"
-  },
   "favorites": {
     "listTitle": "Liste aller Favoriten",
     "listEmpty": "Keine Favoriten gespeichert"
