@@ -74,6 +74,7 @@ const ProductCategoryTeaser = ({
             text={text}
             imageStart={teaserTextLeft}
             cta={{ href: getProductGroupLink(category.name), label: group_link.label }}
+            breakpoint="xl"
             imageReplaceContent={
               <Suspense fallback={<Loading />}>
                 {products && !error && <CategoryProductsList products={products} />}

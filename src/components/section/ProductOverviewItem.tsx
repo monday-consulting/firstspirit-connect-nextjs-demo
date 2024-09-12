@@ -39,9 +39,15 @@ const ProductOverviewItem = ({
   return (
     <div className="max-w-[380px]">
       <div className="mb-12 w-full">
-        <div className="w-full overflow-hidden rounded-2xl">
+        <div className="w-full overflow-hidden rounded-xl">
           <Link href={route}>
-            <Image src={image.src} alt={image.alt} className="w-full" width={400} height={400} />
+            <Image
+              src={image.src}
+              alt={image.alt}
+              className="h-64 w-full object-cover"
+              width={400}
+              height={400}
+            />
           </Link>
         </div>
       </div>
