@@ -11,7 +11,7 @@ const SlugPage = async ({ params }: { params: { slug: string[]; locale: string }
       ? "/startseite/"
       : "/homepage/";
 
-  const page = await getPageContentByRoute(params.locale, route);
+  const page = await getPageContentByRoute(params.locale, decodeURI(route));
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
 
   return (

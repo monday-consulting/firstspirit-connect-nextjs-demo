@@ -26,13 +26,13 @@ const CategoryProductsList = ({ products }: CategoryProductListProps) => {
   }, [products]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <div className="flex flex-col gap-4">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="flex flex-col gap-6">
         {columns.col1.map((item, index) => (
           <ProductTeaser key={index} {...item} />
         ))}
       </div>
-      <div className="mt-20 flex flex-col gap-4">
+      <div className="mt-20 flex flex-col gap-6">
         {columns.col2.map((item, index) => (
           <ProductTeaser key={index} {...item} />
         ))}
