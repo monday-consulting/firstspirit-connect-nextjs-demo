@@ -7,8 +7,10 @@ export default createMiddleware({
   alternateLinks: false,
 });
 
-console.log("MIDDLEWARE");
-
 export const config = {
-  matcher: ["/", "/(de_DE|en_GB)/:path*"],
+  matcher: [
+    '/',
+    '/(de_DE|en_GB)/:path*',
+    '/((?!_next|_vercel|.*\\..*).*)',
+  ],
 };
