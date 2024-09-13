@@ -5,8 +5,6 @@ import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 import { defaultLocale } from "@/i18n/config";
 
 const SlugPage = async ({ params }: { params: { slug: string[]; locale: string } }) => {
-  console.log("SLUG-PAGE");
-
   const route = params.slug
     ? `/${params.slug.join("/")}/`
     : params.locale === defaultLocale

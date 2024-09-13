@@ -7,7 +7,6 @@ const SlugPage = async ({
 }: {
   params: { locale: string; product_group: string };
 }) => {
-  console.log("PRODUCTS-GROUP-PAGE");
   const allProducts = await getAllProducts(params.locale);
 
   const filteredProducts = allProducts.filter((item) => {

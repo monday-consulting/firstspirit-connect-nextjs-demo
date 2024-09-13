@@ -3,10 +3,6 @@ import { createSharedPathnamesNavigation } from "next-intl/navigation";
 import { defaultLocale, locales } from "./config";
 
 const pathnames = {
-  "/": {
-    en_GB: "/homepage/",
-    de_DE: "/startseite/",
-  },
   "/product-detail/[id]/": {
     en_GB: "/product-detail/[id]/",
     de_DE: "/produkt-detail/[id]/",
@@ -25,4 +21,5 @@ export const routing = defineRouting({
 });
 
 // TODO: use createLocalizedPathnamesNavigation instead
-export const { Link, redirect, usePathname, useRouter } = createSharedPathnamesNavigation(routing);
+export const { Link, redirect, usePathname, useRouter } =
+  createSharedPathnamesNavigation(routing);
