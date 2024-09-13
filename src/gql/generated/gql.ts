@@ -19,6 +19,7 @@ const documents = {
     "\n  query products($locale: String!) {\n    allFirstSpiritDataset(\n      filter: {_locale: {eq: $locale}, entityType: {eq: \"product\"}}\n    ) {\n      nodes {\n        fsId\n        entityType\n        route\n        data\n      }\n    }\n  }\n": types.ProductsDocument,
     "query productDetail($locale: String!, $id: String!) {\n  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {\n    data\n  }\n}": types.ProductDetailDocument,
     "\n  query section($locale: String!, $id: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, fsId: {eq: $id}}) {\n      nodes {\n        data\n        name\n        fsId\n      }\n    }\n  }\n": types.SectionDocument,
+    "\n  query sectionByType($locale: String!, $type: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}) {\n      nodes {\n        id\n        data\n      }\n    }\n  }\n": types.SectionByTypeDocument,
 };
 
 /**
@@ -59,6 +60,10 @@ export function graphql(source: "query productDetail($locale: String!, $id: Stri
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query section($locale: String!, $id: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, fsId: {eq: $id}}) {\n      nodes {\n        data\n        name\n        fsId\n      }\n    }\n  }\n"): (typeof documents)["\n  query section($locale: String!, $id: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, fsId: {eq: $id}}) {\n      nodes {\n        data\n        name\n        fsId\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query sectionByType($locale: String!, $type: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}) {\n      nodes {\n        id\n        data\n      }\n    }\n  }\n"): (typeof documents)["\n  query sectionByType($locale: String!, $type: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}) {\n      nodes {\n        id\n        data\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
