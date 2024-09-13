@@ -5,10 +5,10 @@
   "engines": {
     "node": ">= 20.9.0"
   },
-  "packageManager": "pnpm@9.7.0",
+  "packageManager": "pnpm@9.10.0",
   "volta": {
     "node": "20.16.0",
-    "pnpm": "9.7.0"
+    "pnpm": "9.10.0"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -30,7 +30,7 @@
     "fsxa-api": "^10.22.2",
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.0",
-    "next": "14.2.5",
+    "next": "14.2.11",
     "next-intl": "^3.19.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
