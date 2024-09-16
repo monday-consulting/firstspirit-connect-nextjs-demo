@@ -1,19 +1,27 @@
-import { GoogleMapsEmbed } from "@next/third-parties/google";
+"use client";
+
+import { APIProvider, Map as GoogleMap, Marker } from "@vis.gl/react-google-maps";
 
 export type GoogleMapsProps = {
-  qArea: string;
-  center?: string;
+  center: google.maps.LatLngLiteral;
+  markers: google.maps.LatLngLiteral[];
 };
-const GoogleMaps = ({ qArea = "germany", center }: GoogleMapsProps) => {
+
+const GoogleMaps = ({ center, markers }: GoogleMapsProps) => {
   return (
-    <GoogleMapsEmbed
-      apiKey={process.env.GOOGLE_MAPS_API_KEY || ""}
-      height={400}
-      width={800}
-      mode="place"
-      q={qArea}
-      center={center}
-    />
+    <APIProvider apiKey={process.env.GOOGLE_MAPS_API_KEY || ""}>
+      <GoogleMap
+        style={{ width: "80vw", height: "400px" }}
+        defaultCenter={{ lat: 22.54992, lng: 0 }}
+        defaultZoom={3}
+        gestureHandling={"greedy"}
+        disableDefaultUI={true}
+      >
+        {markers.map((marker, index) => (
+          <Marker key={index} position={marker} />
+        ))}
+      </GoogleMap>
+    </APIProvider>
   );
 };
 
