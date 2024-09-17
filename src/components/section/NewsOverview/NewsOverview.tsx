@@ -3,10 +3,10 @@ import type { NewsT } from "./NewsTeaser";
 import { Search } from "./Search";
 
 export type NewsOverviewProps = {
-  data: NewsT[];
+  News: NewsT[];
 };
 
-const NewsOverview = ({ data }: NewsOverviewProps) => {
+const NewsOverview = ({ News }: NewsOverviewProps) => {
   return (
     <div>
       <div className="text-center">
@@ -16,7 +16,7 @@ const NewsOverview = ({ data }: NewsOverviewProps) => {
         </p>
         <Search className="m-auto mb-10 block sm:w-full md:w-1/3" />
       </div>
-      <CategoryTabs data={data} />
+      <CategoryTabs News={News} />
     </div>
   );
 };
