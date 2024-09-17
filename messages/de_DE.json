@@ -5,5 +5,11 @@
   },
   "products": {
     "resultCountText": "Produkte gefunden"
+  },
+  "locations": {
+    "searchInfo": "Finde einen Ort",
+    "searchPlaceholder": "Search",
+    "phone": "Telefon",
+    "getDirection": "Navigation"
   }
 }

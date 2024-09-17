@@ -1,21 +1,31 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import { APIProvider, Map as GoogleMap, Marker } from "@vis.gl/react-google-maps";
 
 export type GoogleMapsProps = {
   center: google.maps.LatLngLiteral;
   markers: google.maps.LatLngLiteral[];
+  zoom?: number;
+  disableUi?: boolean;
+  className?: string;
 };
 
-const GoogleMaps = ({ center, markers }: GoogleMapsProps) => {
+const GoogleMaps = ({
+  center,
+  markers,
+  zoom = 5,
+  disableUi = false,
+  className,
+}: GoogleMapsProps) => {
   return (
     <APIProvider apiKey={process.env.GOOGLE_MAPS_API_KEY || ""}>
       <GoogleMap
-        style={{ width: "80vw", height: "400px" }}
-        defaultCenter={{ lat: 22.54992, lng: 0 }}
-        defaultZoom={3}
+        className={cn("h-[400px] w-full", className)}
+        defaultCenter={center}
+        defaultZoom={zoom}
         gestureHandling={"greedy"}
-        disableDefaultUI={true}
+        disableDefaultUI={disableUi}
       >
         {markers.map((marker, index) => (
           <Marker key={index} position={marker} />
