@@ -20,7 +20,7 @@ const preview: Preview = {
     (Story) => (
       <div>
         <ClientProvider>
-          <IntlProvider locale={"de_DE"} messages={messages}>
+          <IntlProvider locale={"en_GB"} messages={messages}>
             <Story />
           </IntlProvider>
         </ClientProvider>

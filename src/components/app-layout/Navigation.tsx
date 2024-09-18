@@ -122,7 +122,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         </button>
       </div>
       {mobileNavActive && (
-        <div className="absolute top-0 right-0 bottom-0 z-40 flex w-4/5 flex-col gap-8 bg-white px-10 py-[41.5px] shadow-lg">
+        <div className="absolute top-0 right-0 bottom-0 z-40 flex w-4/5 flex-col gap-8 overflow-y-auto bg-white px-10 py-[41.5px] shadow-lg sm:w-2/3 md:w-1/2">
           {navStructure.structure.map((navItem) => (
             <div key={navItem.fsNavItemId}>
               <div className="mb-1">

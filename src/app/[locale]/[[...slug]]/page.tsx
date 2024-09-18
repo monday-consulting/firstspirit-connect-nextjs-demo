@@ -5,11 +5,14 @@ import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
 import { defaultLocale, type Locale } from "@/i18n/config";
 
 const SlugPage = async ({ params }: { params: { slug: string[]; locale: Locale } }) => {
+  console.log("LOCALE: ", params.locale);
   const route = params.slug
     ? `/${params.slug.join("/")}/`
     : params.locale === defaultLocale
-      ? "/startseite/"
-      : "/homepage/";
+      ? "/homepage/"
+      : "/startseite/";
+
+  console.log("ROUTE: ", route);
 
   const page = await getPageContentByRoute(params.locale, decodeURI(route));
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
