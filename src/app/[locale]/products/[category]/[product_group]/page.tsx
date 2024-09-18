@@ -10,14 +10,13 @@ const SlugPage = async ({
   const allProducts = await getAllProducts(params.locale);
 
   const filteredProducts = allProducts.filter((item) => {
-    const parsedData = JSON.parse(item.data);
-    const ttName = parsedData.tt_categories[0].data.tt_name;
+    const ttName = item.data.tt_categories[0].data.tt_name;
     return ttName?.toLowerCase().replaceAll(" ", "-") === decodeURI(params.product_group);
   });
 
   const products = filteredProducts.map((item) => ({
     route: item.route,
-    data: JSON.parse(item.data),
+    data: item.data,
     id: item.fsId,
   }));
 
