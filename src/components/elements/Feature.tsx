@@ -22,8 +22,14 @@ const Feature = ({ link, image, title, text }: FeatureProps) => {
   return (
     <div className="w-full p-8 md:w-1/3">
       <Link href={link.href} className="group/feature flex flex-col gap-4">
-        <div className="mb-4 overflow-hidden rounded-xl">
-          <Image src={image.src} alt={image.alt} width={400} height={300} />
+        <div className="mb-4">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={400}
+            height={300}
+            className="overflow-hidden rounded-xl"
+          />
         </div>
         <h3 className="font-semibold text-text text-xl group-hover/feature:underline md:text-2xl">
           {title}

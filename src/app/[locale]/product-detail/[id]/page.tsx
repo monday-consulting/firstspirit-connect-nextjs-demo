@@ -6,7 +6,7 @@ const ProductDetailPage = async ({ params }: { params: { id: string; locale: Loc
   const product = await getProductDetail(params.locale, params.id);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-24">
+    <main className="flex min-h-screen flex-col items-center justify-between px-4 sm:px-12 md:px-24">
       <Product
         product={{
           id: params.id,

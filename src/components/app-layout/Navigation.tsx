@@ -46,7 +46,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         <Link href="/">
           <Image src={logo} alt="Logo" className="mr-4" height={40} />
         </Link>
-        <div className="hidden gap-8 md:flex">
+        <div className="hidden gap-8 lg:flex">
           {navStructure.structure.map((navItem) => (
             <div key={navItem.fsNavItemId} className="group relative">
               <Link href={navItem.seoRoute || "#"} className="hover:text-gray-400">
@@ -113,7 +113,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
             </Link>
           </div>
         </div>
-        <button type="button" className="flex md:hidden" onClick={toggleMobileNav}>
+        <button type="button" className="flex lg:hidden" onClick={toggleMobileNav}>
           {mobileNavActive ? (
             <LuX size={20} className="z-50 cursor-pointer" />
           ) : (
@@ -129,6 +129,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
                 <Link
                   href={navItem.seoRoute || "#"}
                   className="font-bold text-textLighter uppercase hover:text-black hover:underline"
+                  onClick={toggleMobileNav}
                 >
                   {navItem.label}
                 </Link>
@@ -138,7 +139,11 @@ const Navigation = ({ navStructure }: NavigationProps) => {
                   {navItem.children.map((item) => (
                     <div key={item.fsNavItemId}>
                       <div className="mb-1">
-                        <Link href={item.seoRoute || "#"} className="font-bold hover:underline">
+                        <Link
+                          href={item.seoRoute || "#"}
+                          className="font-bold hover:underline"
+                          onClick={toggleMobileNav}
+                        >
                           {item.label}
                         </Link>
                       </div>
@@ -148,6 +153,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
                             href={itemLvl2.seoRoute || "#"}
                             key={itemLvl2.fsNavItemId}
                             className="hover:underline"
+                            onClick={toggleMobileNav}
                           >
                             {itemLvl2.label}
                           </Link>
