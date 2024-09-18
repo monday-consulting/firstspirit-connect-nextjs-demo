@@ -2,8 +2,7 @@ import { Product } from "@/components/section/Product";
 import { getProductDetail } from "@/gql/documents/products";
 
 const ProductDetailPage = async ({ params }: { params: { id: string; locale: string } }) => {
-  const res = await getProductDetail(params.locale, params.id);
-  const product = JSON.parse(res);
+  const product = await getProductDetail(params.locale, params.id);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-24">
