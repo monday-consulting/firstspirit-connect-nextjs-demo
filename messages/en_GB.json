@@ -10,6 +10,7 @@
     "searchInfo": "Find a location",
     "searchPlaceholder": "Search",
     "phone": "Phone",
-    "getDirection": "Get direction"
+    "getDirection": "Get direction",
+    "noResults": "No contacts found."
   }
 }

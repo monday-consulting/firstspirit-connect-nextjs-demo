@@ -10,6 +10,7 @@
     "searchInfo": "Finde einen Ort",
     "searchPlaceholder": "Search",
     "phone": "Telefon",
-    "getDirection": "Navigation"
+    "getDirection": "Navigation",
+    "noResults": "Keine Kontakte gefunden."
   }
 }
