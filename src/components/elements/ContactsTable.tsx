@@ -52,27 +52,29 @@ const ContactsTable = ({ contacts }: ContactsTableProps) => {
           </div>
         </div>
       </div>
-      <table className="w-full table-auto rounded-md bg-lightGray text-left font-medium text-sm ">
-        <tbody>
-          {filteredContacts.map((contact) => (
-            <tr key={contact.name}>
-              <td className="px-6 py-5">{contact.name}</td>
-              <td className="py-5 pr-6">
-                <RichTextElement {...contact.description} />
-              </td>
-              <td className="py-5 pr-6">
-                <Link
-                  className="inline-block w-full rounded-md bg-secondary px-7 py-5 text-center font-medium text-base text-white leading-4 hover:brightness-90 md:text-lg"
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${contact.coordinates.lat},${contact.coordinates.lng}`}
-                  target="_blank"
-                >
-                  {t("locations.getDirection")}
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="overflow-hidden overflow-x-auto rounded-md bg-lightGray">
+        <table className="w-full table-auto text-left text-sm">
+          <tbody>
+            {filteredContacts.map((contact) => (
+              <tr key={contact.name}>
+                <td className="px-2 py-4 sm:px-4 sm:py-6">{contact.name}</td>
+                <td className="py-2 pr-4 sm:py-6 sm:pr-4">
+                  <RichTextElement {...contact.description} />
+                </td>
+                <td className="py-2 pr-2 sm:py-6 sm:pr-4">
+                  <Link
+                    className="inline-block w-full rounded-md bg-secondary px-7 py-5 text-center font-medium text-base text-white leading-4 hover:brightness-90 md:text-lg"
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${contact.coordinates.lat},${contact.coordinates.lng}`}
+                    target="_blank"
+                  >
+                    {t("locations.getDirection")}
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

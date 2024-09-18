@@ -28,7 +28,7 @@ const LocationsPage = async ({ params }: { params: { locale: string } }) => {
   );
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-24">
+    <main className="flex min-h-screen flex-col items-center justify-between px-4 sm:px-12 md:px-24">
       <Locations
         headline={"This is a headline"}
         subline={"This is a subline text example."}
