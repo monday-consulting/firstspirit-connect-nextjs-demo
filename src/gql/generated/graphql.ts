@@ -17,6 +17,7 @@ export type Scalars = {
   Float: { input: number; output: number; }
   /** A date string, such as 2007-12-03, compliant with the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   Date: { input: any; output: any; }
+  DateTime: { input: any; output: any; }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: { input: any; output: any; }
 };
@@ -68,15 +69,41 @@ export type FirstSpiritChangeInfoSortInput = {
   revision?: InputMaybe<SortOrderEnum>;
 };
 
+export type FirstSpiritContent2Section = {
+  __typename?: 'FirstSpiritContent2Section';
+  data: FirstSpiritContent2SectionData;
+  fsReferences?: Maybe<Array<Maybe<FirstSpiritReference>>>;
+  sectionType: Scalars['String']['output'];
+};
+
+export type FirstSpiritContent2SectionData = {
+  __typename?: 'FirstSpiritContent2SectionData';
+  entityType: Scalars['String']['output'];
+  filterParams: Scalars['JSON']['output'];
+  maxPageCount: Scalars['Int']['output'];
+  ordering?: Maybe<Array<Maybe<FirstSpiritContent2SectionDataOrdering>>>;
+  query?: Maybe<Scalars['String']['output']>;
+  recordCountPerPage: Scalars['Int']['output'];
+  schema: Scalars['String']['output'];
+};
+
+export type FirstSpiritContent2SectionDataOrdering = {
+  __typename?: 'FirstSpiritContent2SectionDataOrdering';
+  ascending: Scalars['Boolean']['output'];
+  attribute: Scalars['String']['output'];
+};
+
 export type FirstSpiritDataset = Node & {
   __typename?: 'FirstSpiritDataset';
   _locale?: Maybe<Scalars['String']['output']>;
+  /** The original non-global ID from this data source */
   _objectId: Scalars['String']['output'];
   _translations?: Maybe<Array<Maybe<FirstSpiritDataset>>>;
   children: Array<Node>;
-  data: Scalars['JSON']['output'];
+  data?: Maybe<Scalars['JSON']['output']>;
   entityType: Scalars['String']['output'];
   fsId: Scalars['String']['output'];
+  fsReferences?: Maybe<Array<Maybe<FirstSpiritReference>>>;
   id: Scalars['ID']['output'];
   internal: Internal;
   parent?: Maybe<Node>;
@@ -145,6 +172,7 @@ export type FirstSpiritDatasetFieldSelector = {
   data?: InputMaybe<FieldSelectorEnum>;
   entityType?: InputMaybe<FieldSelectorEnum>;
   fsId?: InputMaybe<FieldSelectorEnum>;
+  fsReferences?: InputMaybe<FirstSpiritReferenceFieldSelector>;
   id?: InputMaybe<FieldSelectorEnum>;
   internal?: InputMaybe<InternalFieldSelector>;
   parent?: InputMaybe<NodeFieldSelector>;
@@ -161,20 +189,21 @@ export type FirstSpiritDatasetFieldSelector = {
 export type FirstSpiritDatasetFilterInput = {
   _locale?: InputMaybe<StringQueryOperatorInput>;
   _objectId?: InputMaybe<StringQueryOperatorInput>;
-  _translations?: InputMaybe<FirstSpiritDatasetFilterInput>;
-  children?: InputMaybe<NodeFilterInput>;
+  _translations?: InputMaybe<FirstSpiritDatasetFilterListInput>;
+  children?: InputMaybe<NodeFilterListInput>;
   data?: InputMaybe<JsonQueryOperatorInput>;
   entityType?: InputMaybe<StringQueryOperatorInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
+  fsReferences?: InputMaybe<FirstSpiritReferenceFilterListInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   internal?: InputMaybe<InternalFilterInput>;
   parent?: InputMaybe<NodeFilterInput>;
   previewId?: InputMaybe<StringQueryOperatorInput>;
   remoteProjectId?: InputMaybe<StringQueryOperatorInput>;
   route?: InputMaybe<StringQueryOperatorInput>;
-  routes?: InputMaybe<FirstSpiritDatasetRouteFilterInput>;
+  routes?: InputMaybe<FirstSpiritDatasetRouteFilterListInput>;
   schema?: InputMaybe<StringQueryOperatorInput>;
-  sections?: InputMaybe<FirstSpiritSectionFilterInput>;
+  sections?: InputMaybe<FirstSpiritSectionFilterListInput>;
   template?: InputMaybe<StringQueryOperatorInput>;
   updatedAt?: InputMaybe<StringQueryOperatorInput>;
 };
@@ -258,6 +287,7 @@ export type FirstSpiritDatasetSortInput = {
   data?: InputMaybe<SortOrderEnum>;
   entityType?: InputMaybe<SortOrderEnum>;
   fsId?: InputMaybe<SortOrderEnum>;
+  fsReferences?: InputMaybe<FirstSpiritReferenceSortInput>;
   id?: InputMaybe<SortOrderEnum>;
   internal?: InputMaybe<InternalSortInput>;
   parent?: InputMaybe<NodeSortInput>;
@@ -274,6 +304,7 @@ export type FirstSpiritDatasetSortInput = {
 export type FirstSpiritGcaPage = Node & {
   __typename?: 'FirstSpiritGcaPage';
   _locale?: Maybe<Scalars['String']['output']>;
+  /** The original non-global ID from this data source */
   _objectId: Scalars['String']['output'];
   _translations?: Maybe<Array<Maybe<FirstSpiritGcaPage>>>;
   children: Array<Node>;
@@ -360,8 +391,8 @@ export type FirstSpiritGcaPageFieldSelector = {
 export type FirstSpiritGcaPageFilterInput = {
   _locale?: InputMaybe<StringQueryOperatorInput>;
   _objectId?: InputMaybe<StringQueryOperatorInput>;
-  _translations?: InputMaybe<FirstSpiritGcaPageFilterInput>;
-  children?: InputMaybe<NodeFilterInput>;
+  _translations?: InputMaybe<FirstSpiritGcaPageFilterListInput>;
+  children?: InputMaybe<NodeFilterListInput>;
   data?: InputMaybe<JsonQueryOperatorInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -369,7 +400,7 @@ export type FirstSpiritGcaPageFilterInput = {
   layout?: InputMaybe<StringQueryOperatorInput>;
   meta?: InputMaybe<JsonQueryOperatorInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
-  pageBodies?: InputMaybe<FirstSpiritPageBodyFilterInput>;
+  pageBodies?: InputMaybe<FirstSpiritPageBodyFilterListInput>;
   parent?: InputMaybe<NodeFilterInput>;
   previewId?: InputMaybe<StringQueryOperatorInput>;
   remoteProjectId?: InputMaybe<StringQueryOperatorInput>;
@@ -466,6 +497,8 @@ export type FirstSpiritIdentifierSortInput = {
   tenantId?: InputMaybe<SortOrderEnum>;
 };
 
+export type FirstSpiritInlineUnionBc48473F = FirstSpiritDataset | FirstSpiritPage;
+
 export type FirstSpiritLifespan = {
   __typename?: 'FirstSpiritLifespan';
   end?: Maybe<Scalars['Date']['output']>;
@@ -532,6 +565,7 @@ export type FirstSpiritMetaSortInput = {
 export type FirstSpiritNavigationData = Node & {
   __typename?: 'FirstSpiritNavigationData';
   _locale?: Maybe<Scalars['String']['output']>;
+  /** The original non-global ID from this data source */
   _objectId: Scalars['String']['output'];
   _translations?: Maybe<Array<Maybe<FirstSpiritNavigationData>>>;
   changeInfo?: Maybe<FirstSpiritChangeInfo>;
@@ -618,19 +652,19 @@ export type FirstSpiritNavigationDataFieldSelector = {
 export type FirstSpiritNavigationDataFilterInput = {
   _locale?: InputMaybe<StringQueryOperatorInput>;
   _objectId?: InputMaybe<StringQueryOperatorInput>;
-  _translations?: InputMaybe<FirstSpiritNavigationDataFilterInput>;
+  _translations?: InputMaybe<FirstSpiritNavigationDataFilterListInput>;
   changeInfo?: InputMaybe<FirstSpiritChangeInfoFilterInput>;
-  children?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
-  idList?: InputMaybe<FirstSpiritNavigationItemFilterInput>;
+  idList?: InputMaybe<FirstSpiritNavigationItemFilterListInput>;
   internal?: InputMaybe<InternalFilterInput>;
   locale?: InputMaybe<FirstSpiritMasterLocaleFilterInput>;
   meta?: InputMaybe<FirstSpiritMetaFilterInput>;
   pages?: InputMaybe<FirstSpiritPagesFilterInput>;
   parent?: InputMaybe<NodeFilterInput>;
-  seoRouteList?: InputMaybe<FirstSpiritSeoRouteListFilterInput>;
-  structure?: InputMaybe<FirstSpiritStructureItemFilterInput>;
+  seoRouteList?: InputMaybe<FirstSpiritSeoRouteListFilterListInput>;
+  structure?: InputMaybe<FirstSpiritStructureItemFilterListInput>;
   updatedAt?: InputMaybe<StringQueryOperatorInput>;
 };
 
@@ -759,6 +793,7 @@ export type FirstSpiritNavigationItemSortInput = {
 export type FirstSpiritPage = Node & {
   __typename?: 'FirstSpiritPage';
   _locale?: Maybe<Scalars['String']['output']>;
+  /** The original non-global ID from this data source */
   _objectId: Scalars['String']['output'];
   _translations?: Maybe<Array<Maybe<FirstSpiritPage>>>;
   children: Array<Node>;
@@ -781,19 +816,19 @@ export type FirstSpiritPage = Node & {
 
 export type FirstSpiritPageBody = {
   __typename?: 'FirstSpiritPageBody';
-  children?: Maybe<Array<Maybe<Scalars['JSON']['output']>>>;
+  children?: Maybe<Array<FirstSpiritPageBodyContent>>;
   name: Scalars['String']['output'];
   previewId: Scalars['String']['output'];
 };
 
+export type FirstSpiritPageBodyContent = FirstSpiritContent2Section | FirstSpiritDataset | FirstSpiritSection;
+
 export type FirstSpiritPageBodyFieldSelector = {
-  children?: InputMaybe<FieldSelectorEnum>;
   name?: InputMaybe<FieldSelectorEnum>;
   previewId?: InputMaybe<FieldSelectorEnum>;
 };
 
 export type FirstSpiritPageBodyFilterInput = {
-  children?: InputMaybe<JsonQueryOperatorInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
   previewId?: InputMaybe<StringQueryOperatorInput>;
 };
@@ -803,7 +838,6 @@ export type FirstSpiritPageBodyFilterListInput = {
 };
 
 export type FirstSpiritPageBodySortInput = {
-  children?: InputMaybe<SortOrderEnum>;
   name?: InputMaybe<SortOrderEnum>;
   previewId?: InputMaybe<SortOrderEnum>;
 };
@@ -859,17 +893,13 @@ export type FirstSpiritPageFieldSelector = {
   _locale?: InputMaybe<FieldSelectorEnum>;
   _objectId?: InputMaybe<FieldSelectorEnum>;
   _translations?: InputMaybe<FirstSpiritPageFieldSelector>;
-  children?: InputMaybe<NodeFieldSelector>;
   data?: InputMaybe<FieldSelectorEnum>;
   fsId?: InputMaybe<FieldSelectorEnum>;
-  id?: InputMaybe<FieldSelectorEnum>;
-  internal?: InputMaybe<InternalFieldSelector>;
   layout?: InputMaybe<FieldSelectorEnum>;
   meta?: InputMaybe<FieldSelectorEnum>;
   metaPageRefs?: InputMaybe<FieldSelectorEnum>;
   name?: InputMaybe<FieldSelectorEnum>;
   pageBodies?: InputMaybe<FirstSpiritPageBodyFieldSelector>;
-  parent?: InputMaybe<NodeFieldSelector>;
   previewId?: InputMaybe<FieldSelectorEnum>;
   refId?: InputMaybe<FieldSelectorEnum>;
   remoteProjectId?: InputMaybe<FieldSelectorEnum>;
@@ -880,18 +910,14 @@ export type FirstSpiritPageFieldSelector = {
 export type FirstSpiritPageFilterInput = {
   _locale?: InputMaybe<StringQueryOperatorInput>;
   _objectId?: InputMaybe<StringQueryOperatorInput>;
-  _translations?: InputMaybe<FirstSpiritPageFilterInput>;
-  children?: InputMaybe<NodeFilterInput>;
+  _translations?: InputMaybe<FirstSpiritPageFilterListInput>;
   data?: InputMaybe<JsonQueryOperatorInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
-  id?: InputMaybe<StringQueryOperatorInput>;
-  internal?: InputMaybe<InternalFilterInput>;
   layout?: InputMaybe<StringQueryOperatorInput>;
   meta?: InputMaybe<JsonQueryOperatorInput>;
   metaPageRefs?: InputMaybe<JsonQueryOperatorInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
-  pageBodies?: InputMaybe<FirstSpiritPageBodyFilterInput>;
-  parent?: InputMaybe<NodeFilterInput>;
+  pageBodies?: InputMaybe<FirstSpiritPageBodyFilterListInput>;
   previewId?: InputMaybe<StringQueryOperatorInput>;
   refId?: InputMaybe<StringQueryOperatorInput>;
   remoteProjectId?: InputMaybe<StringQueryOperatorInput>;
@@ -949,17 +975,13 @@ export type FirstSpiritPageSortInput = {
   _locale?: InputMaybe<SortOrderEnum>;
   _objectId?: InputMaybe<SortOrderEnum>;
   _translations?: InputMaybe<FirstSpiritPageSortInput>;
-  children?: InputMaybe<NodeSortInput>;
   data?: InputMaybe<SortOrderEnum>;
   fsId?: InputMaybe<SortOrderEnum>;
-  id?: InputMaybe<SortOrderEnum>;
-  internal?: InputMaybe<InternalSortInput>;
   layout?: InputMaybe<SortOrderEnum>;
   meta?: InputMaybe<SortOrderEnum>;
   metaPageRefs?: InputMaybe<SortOrderEnum>;
   name?: InputMaybe<SortOrderEnum>;
   pageBodies?: InputMaybe<FirstSpiritPageBodySortInput>;
-  parent?: InputMaybe<NodeSortInput>;
   previewId?: InputMaybe<SortOrderEnum>;
   refId?: InputMaybe<SortOrderEnum>;
   remoteProjectId?: InputMaybe<SortOrderEnum>;
@@ -1008,6 +1030,7 @@ export type FirstSpiritPermissionSortInput = {
 export type FirstSpiritProjectProperties = Node & {
   __typename?: 'FirstSpiritProjectProperties';
   _locale?: Maybe<Scalars['String']['output']>;
+  /** The original non-global ID from this data source */
   _objectId: Scalars['String']['output'];
   _translations?: Maybe<Array<Maybe<FirstSpiritProjectProperties>>>;
   children: Array<Node>;
@@ -1096,8 +1119,8 @@ export type FirstSpiritProjectPropertiesFieldSelector = {
 export type FirstSpiritProjectPropertiesFilterInput = {
   _locale?: InputMaybe<StringQueryOperatorInput>;
   _objectId?: InputMaybe<StringQueryOperatorInput>;
-  _translations?: InputMaybe<FirstSpiritProjectPropertiesFilterInput>;
-  children?: InputMaybe<NodeFilterInput>;
+  _translations?: InputMaybe<FirstSpiritProjectPropertiesFilterListInput>;
+  children?: InputMaybe<NodeFilterListInput>;
   data?: InputMaybe<JsonQueryOperatorInput>;
   fsChildren?: InputMaybe<StringQueryOperatorInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
@@ -1179,9 +1202,32 @@ export type FirstSpiritProjectPropertiesSortInput = {
   updatedAt?: InputMaybe<SortOrderEnum>;
 };
 
+export type FirstSpiritReference = {
+  __typename?: 'FirstSpiritReference';
+  ref?: Maybe<Array<FirstSpiritInlineUnionBc48473F>>;
+  refKey: Scalars['String']['output'];
+};
+
+export type FirstSpiritReferenceFieldSelector = {
+  refKey?: InputMaybe<FieldSelectorEnum>;
+};
+
+export type FirstSpiritReferenceFilterInput = {
+  refKey?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type FirstSpiritReferenceFilterListInput = {
+  elemMatch?: InputMaybe<FirstSpiritReferenceFilterInput>;
+};
+
+export type FirstSpiritReferenceSortInput = {
+  refKey?: InputMaybe<SortOrderEnum>;
+};
+
 export type FirstSpiritSection = Node & {
   __typename?: 'FirstSpiritSection';
   _locale?: Maybe<Scalars['String']['output']>;
+  /** The original non-global ID from this data source */
   _objectId: Scalars['String']['output'];
   _translations?: Maybe<Array<Maybe<FirstSpiritSection>>>;
   children: Array<Node>;
@@ -1189,6 +1235,7 @@ export type FirstSpiritSection = Node & {
   displayName?: Maybe<Scalars['String']['output']>;
   displayed?: Maybe<Scalars['Boolean']['output']>;
   fsId: Scalars['String']['output'];
+  fsReferences?: Maybe<Array<Maybe<FirstSpiritReference>>>;
   id: Scalars['ID']['output'];
   internal: Internal;
   lifespan?: Maybe<FirstSpiritLifespan>;
@@ -1253,17 +1300,14 @@ export type FirstSpiritSectionFieldSelector = {
   _locale?: InputMaybe<FieldSelectorEnum>;
   _objectId?: InputMaybe<FieldSelectorEnum>;
   _translations?: InputMaybe<FirstSpiritSectionFieldSelector>;
-  children?: InputMaybe<NodeFieldSelector>;
   data?: InputMaybe<FieldSelectorEnum>;
   displayName?: InputMaybe<FieldSelectorEnum>;
   displayed?: InputMaybe<FieldSelectorEnum>;
   fsId?: InputMaybe<FieldSelectorEnum>;
-  id?: InputMaybe<FieldSelectorEnum>;
-  internal?: InputMaybe<InternalFieldSelector>;
+  fsReferences?: InputMaybe<FirstSpiritReferenceFieldSelector>;
   lifespan?: InputMaybe<FirstSpiritLifespanFieldSelector>;
   name?: InputMaybe<FieldSelectorEnum>;
   page?: InputMaybe<FirstSpiritPageFieldSelector>;
-  parent?: InputMaybe<NodeFieldSelector>;
   previewId?: InputMaybe<FieldSelectorEnum>;
   section?: InputMaybe<FirstSpiritSectionFieldSelector>;
   sectionType?: InputMaybe<FieldSelectorEnum>;
@@ -1274,20 +1318,17 @@ export type FirstSpiritSectionFieldSelector = {
 export type FirstSpiritSectionFilterInput = {
   _locale?: InputMaybe<StringQueryOperatorInput>;
   _objectId?: InputMaybe<StringQueryOperatorInput>;
-  _translations?: InputMaybe<FirstSpiritSectionFilterInput>;
-  children?: InputMaybe<NodeFilterInput>;
+  _translations?: InputMaybe<FirstSpiritSectionFilterListInput>;
   data?: InputMaybe<JsonQueryOperatorInput>;
   displayName?: InputMaybe<StringQueryOperatorInput>;
   displayed?: InputMaybe<BooleanQueryOperatorInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
-  id?: InputMaybe<StringQueryOperatorInput>;
-  internal?: InputMaybe<InternalFilterInput>;
+  fsReferences?: InputMaybe<FirstSpiritReferenceFilterListInput>;
   lifespan?: InputMaybe<FirstSpiritLifespanFilterInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
   page?: InputMaybe<FirstSpiritPageFilterInput>;
-  parent?: InputMaybe<NodeFilterInput>;
   previewId?: InputMaybe<StringQueryOperatorInput>;
-  section?: InputMaybe<FirstSpiritSectionFilterInput>;
+  section?: InputMaybe<FirstSpiritSectionFilterListInput>;
   sectionType?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
   updatedAt?: InputMaybe<StringQueryOperatorInput>;
@@ -1343,17 +1384,14 @@ export type FirstSpiritSectionSortInput = {
   _locale?: InputMaybe<SortOrderEnum>;
   _objectId?: InputMaybe<SortOrderEnum>;
   _translations?: InputMaybe<FirstSpiritSectionSortInput>;
-  children?: InputMaybe<NodeSortInput>;
   data?: InputMaybe<SortOrderEnum>;
   displayName?: InputMaybe<SortOrderEnum>;
   displayed?: InputMaybe<SortOrderEnum>;
   fsId?: InputMaybe<SortOrderEnum>;
-  id?: InputMaybe<SortOrderEnum>;
-  internal?: InputMaybe<InternalSortInput>;
+  fsReferences?: InputMaybe<FirstSpiritReferenceSortInput>;
   lifespan?: InputMaybe<FirstSpiritLifespanSortInput>;
   name?: InputMaybe<SortOrderEnum>;
   page?: InputMaybe<FirstSpiritPageSortInput>;
-  parent?: InputMaybe<NodeSortInput>;
   previewId?: InputMaybe<SortOrderEnum>;
   section?: InputMaybe<FirstSpiritSectionSortInput>;
   sectionType?: InputMaybe<SortOrderEnum>;
@@ -1398,7 +1436,7 @@ export type FirstSpiritStructureItemFieldSelector = {
 export type FirstSpiritStructureItemFilterInput = {
   fsStructureItemId?: InputMaybe<StringQueryOperatorInput>;
   navigationItem?: InputMaybe<FirstSpiritNavigationItemFilterInput>;
-  structureChildren?: InputMaybe<FirstSpiritStructureItemFilterInput>;
+  structureChildren?: InputMaybe<FirstSpiritStructureItemFilterListInput>;
 };
 
 export type FirstSpiritStructureItemFilterListInput = {
@@ -1410,6 +1448,28 @@ export type FirstSpiritStructureItemSortInput = {
   navigationItem?: InputMaybe<FirstSpiritNavigationItemSortInput>;
   structureChildren?: InputMaybe<FirstSpiritStructureItemSortInput>;
 };
+
+export enum GatsbyImageFormat {
+  Auto = 'AUTO',
+  Avif = 'AVIF',
+  Jpg = 'JPG',
+  NoChange = 'NO_CHANGE',
+  Png = 'PNG',
+  Webp = 'WEBP'
+}
+
+export enum GatsbyImageLayout {
+  Constrained = 'CONSTRAINED',
+  Fixed = 'FIXED',
+  FullWidth = 'FULL_WIDTH'
+}
+
+export enum GatsbyImagePlaceholder {
+  Blurred = 'BLURRED',
+  DominantColor = 'DOMINANT_COLOR',
+  None = 'NONE',
+  TracedSvg = 'TRACED_SVG'
+}
 
 export type IntQueryOperatorInput = {
   eq?: InputMaybe<Scalars['Int']['input']>;
@@ -1496,7 +1556,7 @@ export type NodeFieldSelector = {
 };
 
 export type NodeFilterInput = {
-  children?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   internal?: InputMaybe<InternalFilterInput>;
   parent?: InputMaybe<NodeFilterInput>;
@@ -1538,6 +1598,7 @@ export type Query = {
   firstSpiritPage?: Maybe<FirstSpiritPage>;
   firstSpiritProjectProperties?: Maybe<FirstSpiritProjectProperties>;
   firstSpiritSection?: Maybe<FirstSpiritSection>;
+  siteBuildMetadata?: Maybe<SiteBuildMetadata>;
 };
 
 
@@ -1597,6 +1658,7 @@ export type QueryFirstSpiritDatasetArgs = {
   data?: InputMaybe<JsonQueryOperatorInput>;
   entityType?: InputMaybe<StringQueryOperatorInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
+  fsReferences?: InputMaybe<FirstSpiritReferenceFilterListInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   internal?: InputMaybe<InternalFilterInput>;
   parent?: InputMaybe<NodeFilterInput>;
@@ -1655,17 +1717,13 @@ export type QueryFirstSpiritPageArgs = {
   _locale?: InputMaybe<StringQueryOperatorInput>;
   _objectId?: InputMaybe<StringQueryOperatorInput>;
   _translations?: InputMaybe<FirstSpiritPageFilterListInput>;
-  children?: InputMaybe<NodeFilterListInput>;
   data?: InputMaybe<JsonQueryOperatorInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
-  id?: InputMaybe<StringQueryOperatorInput>;
-  internal?: InputMaybe<InternalFilterInput>;
   layout?: InputMaybe<StringQueryOperatorInput>;
   meta?: InputMaybe<JsonQueryOperatorInput>;
   metaPageRefs?: InputMaybe<JsonQueryOperatorInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
   pageBodies?: InputMaybe<FirstSpiritPageBodyFilterListInput>;
-  parent?: InputMaybe<NodeFilterInput>;
   previewId?: InputMaybe<StringQueryOperatorInput>;
   refId?: InputMaybe<StringQueryOperatorInput>;
   remoteProjectId?: InputMaybe<StringQueryOperatorInput>;
@@ -1699,22 +1757,125 @@ export type QueryFirstSpiritSectionArgs = {
   _locale?: InputMaybe<StringQueryOperatorInput>;
   _objectId?: InputMaybe<StringQueryOperatorInput>;
   _translations?: InputMaybe<FirstSpiritSectionFilterListInput>;
-  children?: InputMaybe<NodeFilterListInput>;
   data?: InputMaybe<JsonQueryOperatorInput>;
   displayName?: InputMaybe<StringQueryOperatorInput>;
   displayed?: InputMaybe<BooleanQueryOperatorInput>;
   fsId?: InputMaybe<StringQueryOperatorInput>;
-  id?: InputMaybe<StringQueryOperatorInput>;
-  internal?: InputMaybe<InternalFilterInput>;
+  fsReferences?: InputMaybe<FirstSpiritReferenceFilterListInput>;
   lifespan?: InputMaybe<FirstSpiritLifespanFilterInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
   page?: InputMaybe<FirstSpiritPageFilterInput>;
-  parent?: InputMaybe<NodeFilterInput>;
   previewId?: InputMaybe<StringQueryOperatorInput>;
   section?: InputMaybe<FirstSpiritSectionFilterListInput>;
   sectionType?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
   updatedAt?: InputMaybe<StringQueryOperatorInput>;
+};
+
+
+export type QuerySiteBuildMetadataArgs = {
+  buildTime?: InputMaybe<DateQueryOperatorInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+};
+
+export type Site = Node & {
+  __typename?: 'Site';
+  children: Array<Node>;
+  graphqlTypegen?: Maybe<Scalars['Boolean']['output']>;
+  host?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  internal: Internal;
+  jsxRuntime?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Node>;
+  pathPrefix?: Maybe<Scalars['String']['output']>;
+  polyfill?: Maybe<Scalars['Boolean']['output']>;
+  port?: Maybe<Scalars['Int']['output']>;
+  trailingSlash?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteBuildMetadata = Node & {
+  __typename?: 'SiteBuildMetadata';
+  buildTime?: Maybe<Scalars['Date']['output']>;
+  children: Array<Node>;
+  id: Scalars['ID']['output'];
+  internal: Internal;
+  parent?: Maybe<Node>;
+};
+
+
+export type SiteBuildMetadataBuildTimeArgs = {
+  difference?: InputMaybe<Scalars['String']['input']>;
+  formatString?: InputMaybe<Scalars['String']['input']>;
+  fromNow?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SitePlugin = Node & {
+  __typename?: 'SitePlugin';
+  browserAPIs?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  children: Array<Node>;
+  id: Scalars['ID']['output'];
+  internal: Internal;
+  name?: Maybe<Scalars['String']['output']>;
+  nodeAPIs?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  packageJson?: Maybe<SitePluginPackageJson>;
+  parent?: Maybe<Node>;
+  pluginFilepath?: Maybe<Scalars['String']['output']>;
+  pluginOptions?: Maybe<SitePluginPluginOptions>;
+  resolve?: Maybe<Scalars['String']['output']>;
+  ssrAPIs?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  version?: Maybe<Scalars['String']['output']>;
+};
+
+export type SitePluginPackageJson = {
+  __typename?: 'SitePluginPackageJson';
+  author?: Maybe<Scalars['String']['output']>;
+  dependencies?: Maybe<Array<Maybe<SitePluginPackageJsonDependencies>>>;
+  description?: Maybe<Scalars['String']['output']>;
+  devDependencies?: Maybe<Array<Maybe<SitePluginPackageJsonDevDependencies>>>;
+  keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  license?: Maybe<Scalars['String']['output']>;
+  main?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  peerDependencies?: Maybe<Array<Maybe<SitePluginPackageJsonPeerDependencies>>>;
+  version?: Maybe<Scalars['String']['output']>;
+};
+
+export type SitePluginPackageJsonDependencies = {
+  __typename?: 'SitePluginPackageJsonDependencies';
+  name?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
+};
+
+export type SitePluginPackageJsonDevDependencies = {
+  __typename?: 'SitePluginPackageJsonDevDependencies';
+  name?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
+};
+
+export type SitePluginPackageJsonPeerDependencies = {
+  __typename?: 'SitePluginPackageJsonPeerDependencies';
+  name?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
+};
+
+export type SitePluginPluginOptions = {
+  __typename?: 'SitePluginPluginOptions';
+  allExtensions?: Maybe<Scalars['Boolean']['output']>;
+  apikey?: Maybe<Scalars['String']['output']>;
+  caasURL?: Maybe<Scalars['String']['output']>;
+  contentMode?: Maybe<Scalars['String']['output']>;
+  isTSX?: Maybe<Scalars['Boolean']['output']>;
+  jsxPragma?: Maybe<Scalars['String']['output']>;
+  logLevel?: Maybe<Scalars['String']['output']>;
+  navigationServiceURL?: Maybe<Scalars['String']['output']>;
+  path?: Maybe<Scalars['String']['output']>;
+  pathCheck?: Maybe<Scalars['Boolean']['output']>;
+  projectID?: Maybe<Scalars['String']['output']>;
+  tenantID?: Maybe<Scalars['String']['output']>;
 };
 
 export enum SortOrderEnum {
@@ -1752,14 +1913,14 @@ export type PageByRouteQueryVariables = Exact<{
 }>;
 
 
-export type PageByRouteQuery = { __typename?: 'Query', firstSpiritPage?: { __typename?: 'FirstSpiritPage', layout: string, name: string, id: string, pageBodies?: Array<{ __typename?: 'FirstSpiritPageBody', children?: Array<any | null> | null, name: string, previewId: string } | null> | null } | null };
+export type PageByRouteQuery = { __typename?: 'Query', firstSpiritPage?: { __typename?: 'FirstSpiritPage', layout: string, name: string, id: string, pageBodies?: Array<{ __typename?: 'FirstSpiritPageBody', name: string, previewId: string, children?: Array<{ __typename?: 'FirstSpiritContent2Section' } | { __typename?: 'FirstSpiritDataset' } | { __typename: 'FirstSpiritSection', id: string, sectionType: string, data: any }> | null } | null> | null } | null };
 
 export type ProductsQueryVariables = Exact<{
   locale: Scalars['String']['input'];
 }>;
 
 
-export type ProductsQuery = { __typename?: 'Query', allFirstSpiritDataset: { __typename?: 'FirstSpiritDatasetConnection', nodes: Array<{ __typename?: 'FirstSpiritDataset', fsId: string, entityType: string, route: string, data: any }> } };
+export type ProductsQuery = { __typename?: 'Query', allFirstSpiritDataset: { __typename?: 'FirstSpiritDatasetConnection', nodes: Array<{ __typename?: 'FirstSpiritDataset', fsId: string, entityType: string, route: string, data?: any | null }> } };
 
 export type ProductDetailQueryVariables = Exact<{
   locale: Scalars['String']['input'];
@@ -1767,7 +1928,7 @@ export type ProductDetailQueryVariables = Exact<{
 }>;
 
 
-export type ProductDetailQuery = { __typename?: 'Query', firstSpiritDataset?: { __typename?: 'FirstSpiritDataset', data: any } | null };
+export type ProductDetailQuery = { __typename?: 'Query', firstSpiritDataset?: { __typename?: 'FirstSpiritDataset', data?: any | null } | null };
 
 export type SectionQueryVariables = Exact<{
   locale: Scalars['String']['input'];
@@ -1780,7 +1941,7 @@ export type SectionQuery = { __typename?: 'Query', allFirstSpiritSection: { __ty
 
 export const FooterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"footer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstSpiritGcaPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]} as unknown as DocumentNode<FooterQuery, FooterQueryVariables>;
 export const FsNavigationQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fsNavigationQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstSpiritNavigationData"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"structure"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigationItem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"seoRoute"}},{"kind":"Field","name":{"kind":"Name","value":"fsNavItemId"}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"structureChildren"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigationItem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"seoRoute"}},{"kind":"Field","name":{"kind":"Name","value":"fsNavItemId"}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"structureChildren"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigationItem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fsNavItemId"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"seoRoute"}},{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<FsNavigationQueryQuery, FsNavigationQueryQueryVariables>;
-export const PageByRouteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"pageByRoute"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"route"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstSpiritPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"route"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"route"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"layout"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"pageBodies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"children"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"previewId"}}]}}]}}]}}]} as unknown as DocumentNode<PageByRouteQuery, PageByRouteQueryVariables>;
+export const PageByRouteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"pageByRoute"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"route"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstSpiritPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"route"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"route"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"layout"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"pageBodies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FirstSpiritSection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"sectionType"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"previewId"}}]}}]}}]}}]} as unknown as DocumentNode<PageByRouteQuery, PageByRouteQueryVariables>;
 export const ProductsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"products"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allFirstSpiritDataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"entityType"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"StringValue","value":"product","block":false}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fsId"}},{"kind":"Field","name":{"kind":"Name","value":"entityType"}},{"kind":"Field","name":{"kind":"Name","value":"route"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]}}]} as unknown as DocumentNode<ProductsQuery, ProductsQueryVariables>;
 export const ProductDetailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"productDetail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstSpiritDataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"fsId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]} as unknown as DocumentNode<ProductDetailQuery, ProductDetailQueryVariables>;
 export const SectionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"section"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allFirstSpiritSection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_locale"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"fsId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"fsId"}}]}}]}}]}}]} as unknown as DocumentNode<SectionQuery, SectionQueryVariables>;

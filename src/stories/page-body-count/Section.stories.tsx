@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    content: {
+    section: {
       id: "exampleId",
       previewId: "exampleId.de_DE",
       sectionType: "smartliving.product_overview",
