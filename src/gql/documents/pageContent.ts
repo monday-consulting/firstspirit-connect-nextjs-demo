@@ -8,6 +8,7 @@ const pageContentDocument = graphql(`
       layout
       name
       id
+      data
       pageBodies {
         children {
           ... on FirstSpiritSection {
