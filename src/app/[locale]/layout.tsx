@@ -28,7 +28,7 @@ const RootLayout = async ({
 }>) => {
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
-  const footer = await getFooter(locale).then((f) => JSON.parse(f?.data));
+  const footer = await getFooter(locale);
 
   return (
     <html lang={locale}>
@@ -58,9 +58,9 @@ const RootLayout = async ({
             />
             {children}
             <Footer
-              copyrightText={{ content: footer.gc_copyright }}
+              copyrightText={{ content: footer?.data.gc_copyright }}
               // biome-ignore lint/suspicious/noExplicitAny: No type definitions
-              legalLinks={footer.gc_links.map((item: any) => ({
+              legalLinks={footer?.data.gc_links.map((item: any) => ({
                 label: item.data.lt_text,
                 href: "#",
               }))}
