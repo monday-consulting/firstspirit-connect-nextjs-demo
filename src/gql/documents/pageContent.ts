@@ -8,7 +8,14 @@ const pageContentDocument = graphql(`
       name
       id
       pageBodies {
-        children
+        children {
+          ... on FirstSpiritSection {
+            __typename
+            id
+            sectionType
+            data
+          }
+        }
         name
         previewId
       }
