@@ -4,6 +4,7 @@ import type { ImageData } from "@/types";
 import { Link } from "@/i18n/routing";
 import { LuTrash } from "react-icons/lu";
 import { useFavorites } from "@/utils/hooks/useFavorites";
+import { useLocale } from "next-intl";
 
 export type FavoriteTeaserProps = {
   title: string;
@@ -13,9 +14,10 @@ export type FavoriteTeaserProps = {
 
 const FavoriteTeaser = ({ title, id, image }: FavoriteTeaserProps) => {
   const [favorites] = useFavorites();
+  const locale = useLocale();
   return (
     <Link
-      href={getProductDetailLink(id)}
+      href={getProductDetailLink(id, locale)}
       className="relative flex gap-4 rounded-lg p-3 ring-2 ring-lightGray"
     >
       <div className="relative aspect-square w-14">
