@@ -19,7 +19,7 @@ const GoogleMaps = ({
   className,
 }: GoogleMapsProps) => {
   return (
-    <APIProvider apiKey={process.env.GOOGLE_MAPS_API_KEY || ""}>
+    <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""}>
       <GoogleMap
         className={cn("h-[400px] w-full overflow-hidden rounded-xl shadow-lg", className)}
         defaultCenter={center}
