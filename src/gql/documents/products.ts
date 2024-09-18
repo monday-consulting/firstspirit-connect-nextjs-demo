@@ -1,3 +1,4 @@
+import type { Locale } from "@/i18n/config";
 import { client } from "../client";
 import { graphql } from "../generated";
 
@@ -22,12 +23,12 @@ const productDetailDocument = graphql(`query productDetail($locale: String!, $id
   }
 }`);
 
-export const getAllProducts = async (locale: string) => {
+export const getAllProducts = async (locale: Locale) => {
   const res = await client.request(productsDocument, { locale });
   return res.allFirstSpiritDataset.nodes;
 };
 
-export const getProductDetail = async (locale: string, id: string) => {
+export const getProductDetail = async (locale: Locale, id: string) => {
   const res = await client.request(productDetailDocument, { locale, id });
   return res.firstSpiritDataset?.data;
 };

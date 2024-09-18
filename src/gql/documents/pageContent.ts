@@ -1,3 +1,4 @@
+import type { Locale } from "@/i18n/config";
 import { client } from "../client";
 import { graphql } from "../generated";
 
@@ -23,7 +24,7 @@ const pageContentDocument = graphql(`
   }
 `);
 
-export const getPageContentByRoute = async (locale: string, route: string) => {
+export const getPageContentByRoute = async (locale: Locale, route: string) => {
   const res = await client.request(pageContentDocument, { locale, route });
   return res.firstSpiritPage;
 };

@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import { Loading } from "../app-layout/Loading";
 import { CategoryProductsList } from "./CategoryProductsList";
 import { getProductDetailLink, getProductGroupLink } from "@/utils/links";
+import type { Locale } from "@/i18n/config";
 
 // biome-ignore lint/suspicious/noExplicitAny: make typesafe
 export type Product = { data: any; entityType: string; fsId: string; route: string };
@@ -35,7 +36,7 @@ const ProductCategoryTeaser = ({
   text,
   teaserTextStart: teaserTextLeft = true,
 }: ProductCategoryTeaserProps) => {
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
 
   const transformDataToProps = (products: Product[]) => {
     const filteredProducts = products

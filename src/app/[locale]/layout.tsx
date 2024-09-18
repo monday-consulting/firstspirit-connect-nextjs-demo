@@ -8,6 +8,7 @@ import { Navigation, type NavigationStructure } from "@/components/app-layout/Na
 import { Footer } from "@/components/app-layout/Footer";
 import { getFooter } from "@/gql/documents/gcaPage";
 import { ClientProvider } from "./provider";
+import type { Locale } from "@/i18n/config";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,7 @@ const RootLayout = async ({
   params: { locale },
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
+  params: { locale: Locale };
 }>) => {
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);

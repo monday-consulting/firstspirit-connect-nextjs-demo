@@ -4,6 +4,10 @@ import { defaultLocale, locales } from "./config";
 
 const pathnames = {
   "/": "/",
+  locations: {
+    en_GB: "/locations",
+    de_DE: "/standorte",
+  },
   "/product-detail/[id]": {
     en_GB: "/product-detail/[id]",
     de_DE: "/produkt-detail/[id]",

@@ -1,11 +1,12 @@
 import { ProductOverview } from "@/components/section/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
+import type { Locale } from "@/i18n/config";
 import { getProductDetailLink } from "@/utils/links";
 
 const SlugPage = async ({
   params,
 }: {
-  params: { locale: string; product_group: string };
+  params: { locale: Locale; product_group: string };
 }) => {
   const allProducts = await getAllProducts(params.locale);
 
