@@ -51,7 +51,7 @@ const ProductCategoryTeaser = ({
     return filteredProducts.map((item) => ({
       name: item.data.tt_name,
       description: { content: item.data.tt_description },
-      route: getProductDetailLink(item.fsId),
+      route: getProductDetailLink(item.fsId, locale),
       image: {
         src: item.data.tt_image.resolutions.ORIGINAL.url,
         alt: item.data.tt_image_alt_text,

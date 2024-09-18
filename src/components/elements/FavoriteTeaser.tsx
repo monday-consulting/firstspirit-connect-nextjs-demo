@@ -16,6 +16,7 @@ export type FavoriteTeaserProps = {
 const FavoriteTeaser = ({ title, id, image }: FavoriteTeaserProps) => {
   const [favorites] = useFavorites();
   const locale = useLocale() as Locale;
+
   return (
     <Link
       href={getProductDetailLink(id, locale)}

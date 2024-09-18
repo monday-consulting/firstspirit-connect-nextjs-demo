@@ -14,12 +14,6 @@ const sectionById = graphql(`
   }
 `);
 
-<<<<<<< Updated upstream
-export const getSectionById = async (locale: string, id: string) => {
-  const res = await client.request(sectionById, { locale, id });
-  return res.allFirstSpiritSection.nodes[0];
-};
-=======
 const sectionByType = graphql(`
   query sectionByType($locale: String!, $type: String!) {
     allFirstSpiritSection(filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}) {
@@ -40,4 +34,3 @@ export const getSectionByType = async (locale: Locale, type: string) => {
   const res = await client.request(sectionByType, { locale, type });
   return res.allFirstSpiritSection.nodes[0];
 };
->>>>>>> Stashed changes
