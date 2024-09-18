@@ -31,7 +31,7 @@ const Teaser = ({
   breakpoint = "md",
 }: TeaserProps) => {
   return (
-    <div className="py-14">
+    <div className="py-8">
       <div className="container mx-auto px-4">
         <div
           className={cn(

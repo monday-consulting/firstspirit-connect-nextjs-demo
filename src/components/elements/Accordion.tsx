@@ -19,7 +19,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
 
   return (
     <div className="w-full p-1">
-      <div className="rounded-xl border-2 border-text bg-white bg-opacity-60 px-8 py-7 shadow-10xl">
+      <div className="rounded-xl border-2 border-text bg-white bg-opacity-60 px-4 py-4 shadow-10xl md:px-8 md:py-8">
         <div className="flex cursor-pointer p-2 text-text">
           <button
             type="button"

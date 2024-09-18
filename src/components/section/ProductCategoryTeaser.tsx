@@ -66,7 +66,7 @@ const ProductCategoryTeaser = ({
   });
 
   return (
-    <div className="bg-lightGray py-16">
+    <div className="bg-lightGray py-8">
       <div className="container mx-auto">
         <div className="m-auto">
           <Teaser

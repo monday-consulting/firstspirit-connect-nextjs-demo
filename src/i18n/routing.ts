@@ -26,6 +26,5 @@ export const routing = defineRouting({
   pathnames: pathnames as typeof pathnames & Record<string & {}, string>,
 });
 
-// TODO: NLFY-183 - use createLocalizedPathnamesNavigation for localized navigation
 export const { Link, redirect, usePathname, useRouter, getPathname } =
   createLocalizedPathnamesNavigation(routing);
