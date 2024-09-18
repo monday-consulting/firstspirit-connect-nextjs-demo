@@ -21,7 +21,7 @@ const GoogleMaps = ({
   return (
     <APIProvider apiKey={process.env.GOOGLE_MAPS_API_KEY || ""}>
       <GoogleMap
-        className={cn("h-[400px] w-full", className)}
+        className={cn("h-[400px] w-full overflow-hidden rounded-xl shadow-lg", className)}
         defaultCenter={center}
         defaultZoom={zoom}
         gestureHandling={"greedy"}

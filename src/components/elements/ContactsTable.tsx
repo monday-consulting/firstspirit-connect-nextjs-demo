@@ -1,3 +1,5 @@
+"use client";
+
 import { fuzzySearchObjects } from "@/utils/strings";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
@@ -36,8 +38,8 @@ const ContactsTable = ({ contacts }: ContactsTableProps) => {
   }, [filtered]);
 
   return (
-    <div className="mb-6 overflow-x-auto rounded bg-white p-4 shadow">
-      <div className="flex flex-col gap-4 bg-white py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <div className="mb-6 rounded-xl bg-white p-4 shadow-lg sm:p-8">
+      <div className="flex flex-col gap-4 bg-white pb-4 sm:flex-row sm:items-center sm:justify-between ">
         <h2 className="font-bold text-3xl text-text tracking-tight">{t("locations.searchInfo")}</h2>
         <div>
           <div className="relative mx-auto flex md:w-80">
@@ -53,10 +55,10 @@ const ContactsTable = ({ contacts }: ContactsTableProps) => {
           </div>
         </div>
       </div>
-      <table className="w-full table-auto text-left font-medium text-sm">
+      <table className="w-full table-auto rounded-md bg-lightGray text-left font-medium text-sm ">
         <tbody>
           {filteredContacts.map((contact) => (
-            <tr className="bg-gray-100" key={contact.name}>
+            <tr key={contact.name}>
               <td className="px-6 py-5">{contact.name}</td>
               <td className="py-5 pr-6">
                 <p>

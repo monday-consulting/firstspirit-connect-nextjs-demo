@@ -1,9 +1,9 @@
-import { GoogleMaps } from "@/components/elements/GoogleMaps";
+import { Locations } from "@/components/section/Locations";
 import { getSectionByType } from "@/gql/documents/section";
+import { Default as ContactTableStory } from "@/stories/elements/ContactsTable.stories";
 
 const LocationsPage = async ({ params }: { params: { locale: string } }) => {
-  const pageSection = await getSectionByType(params.locale, "google_maps");
-  const data = JSON.parse(pageSection.data);
+  const data = await getSectionByType(params.locale, "google_maps");
 
   const center = { lat: 40.7128, lng: -74.006 }; // New York City coordinates
   const markers = [
@@ -14,7 +14,16 @@ const LocationsPage = async ({ params }: { params: { locale: string } }) => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-24">
-      <GoogleMaps center={center} markers={markers} />
+      <Locations
+        headline={"This is a headline"}
+        subline={"This is a subline text example."}
+        mapInfo={{
+          center,
+          markers,
+          zoom: 3,
+        }}
+        contactInfo={{ contacts: ContactTableStory.args.contacts }}
+      />
     </main>
   );
 };
