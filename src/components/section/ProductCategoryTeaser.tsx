@@ -41,7 +41,7 @@ const ProductCategoryTeaser = ({
     const filteredProducts = products
       .map((item) => ({
         ...item,
-        data: JSON.parse(item.data),
+        data: item.data,
       }))
       .filter((item) => {
         return item.data.tt_categories[0].id === category.id;
