@@ -1,8 +1,8 @@
-import { defineRouting } from "next-intl/routing";
-import { createSharedPathnamesNavigation } from "next-intl/navigation";
+import { defineRouting, type Pathnames } from "next-intl/routing";
+import { createLocalizedPathnamesNavigation } from "next-intl/navigation";
 import { defaultLocale, locales } from "./config";
 
-const pathnames = {
+const pathnames: Pathnames<typeof locales> = {
   "/": "/",
   locations: {
     en_GB: "/locations",
@@ -27,4 +27,5 @@ export const routing = defineRouting({
 });
 
 // TODO: NLFY-183 - use createLocalizedPathnamesNavigation for localized navigation
-export const { Link, redirect, usePathname, useRouter } = createSharedPathnamesNavigation(routing);
+export const { Link, redirect, usePathname, useRouter, getPathname } =
+  createLocalizedPathnamesNavigation(routing);

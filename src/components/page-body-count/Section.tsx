@@ -1,11 +1,11 @@
 import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
-import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
 import { FAQSection } from "../section/FAQSection";
-import { Features } from "../section/Features";
 import { Steps } from "../section/Steps";
 import { TextImage } from "../section/TextImage";
 import type { FirstSpiritSection } from "@/gql/generated/graphql";
+import { Stage } from "../section/Stage";
+import { Features } from "../section/Features";
 
 export type SectionProps = {
   section: FirstSpiritSection;
@@ -84,10 +84,10 @@ const Section = ({ section }: SectionProps) => {
               src: section.data.st_image.resolutions.ORIGINAL.url,
               alt: section.data.st_image_alt_text,
             }}
-            // TODO: resolve lt_link reference
             cta={{
               label: section.data.st_cta?.data.lt_text,
-              href: section.data.st_cta?.data.lt_link,
+              // TODO: resolve section.data.st_cta?.data.lt_link
+              href: "#",
             }}
             sectionId={section.id}
           />
@@ -97,12 +97,12 @@ const Section = ({ section }: SectionProps) => {
           <Features
             headline={section.data.st_headline}
             text={{ content: section.data.st_text }}
-            // TODO: Typesafety missing
             features={section.data.st_features.map(
               // biome-ignore lint/suspicious/noExplicitAny: No type definitions
               (feature: any) => ({
                 link: {
-                  href: feature.data.st_link.data.lt_link,
+                  // TODO: reslove feature.data.st_link.data.lt_link
+                  href: "#",
                   label: feature.data.st_link.data.lt_text,
                 },
                 image: {
@@ -136,7 +136,8 @@ const Section = ({ section }: SectionProps) => {
             cta={
               section.data.st_cta && {
                 label: section.data.st_cta.data.lt_text,
-                href: section.data.st_cta.data.lt_link,
+                // TODO: resolve section.data.st_cta.data.lt_link
+                href: "#",
               }
             }
           />
