@@ -2,7 +2,7 @@ import { Home } from "@/components/page-layout/Home";
 import { StandardLayout } from "@/components/page-layout/StandardLayout";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
-import { defaultLocale } from "@/i18n";
+import { defaultLocale } from "@/i18n/config";
 
 const SlugPage = async ({ params }: { params: { slug: string[]; locale: string } }) => {
   const route = params.slug

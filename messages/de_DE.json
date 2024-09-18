@@ -1,12 +1,15 @@
 {
-  "routes": {
-    "home": "/startseite/"
-  },
   "favorites": {
     "listTitle": "Liste aller Favoriten",
     "listEmpty": "Keine Favoriten gespeichert"
   },
   "products": {
     "resultCountText": "Produkte gefunden"
+  },
+  "locations": {
+    "searchInfo": "Finde einen Ort",
+    "searchPlaceholder": "Search",
+    "phone": "Telefon",
+    "getDirection": "Navigation"
   }
 }

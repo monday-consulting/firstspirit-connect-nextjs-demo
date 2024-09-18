@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { getImageProps } from "next/image";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";

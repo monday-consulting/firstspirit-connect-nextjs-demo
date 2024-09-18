@@ -1,9 +1,10 @@
 "use client";
+
 import Image from "next/image";
 import logo from "@/assets/smart_living_logo.webp";
-import { Link } from "@/components/composables/navigation";
+import { Link } from "@/i18n/routing";
 import { LuGlobe, LuMenu, LuX } from "react-icons/lu";
-import { locales } from "@/i18n";
+import { locales } from "@/i18n/config";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useFavorites } from "@/utils/hooks/useFavorites";
@@ -42,7 +43,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
   return (
     <nav className="flex items-center justify-between px-8 py-4">
       <div className="flex items-center gap-8">
-        <Link href={t("routes.home")}>
+        <Link href="/">
           <Image src={logo} alt="Logo" className="mr-4" height={40} />
         </Link>
         <div className="hidden gap-8 md:flex">

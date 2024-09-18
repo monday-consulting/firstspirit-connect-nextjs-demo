@@ -1,6 +1,6 @@
 import type { ImageData } from "@/types";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { RichTextElement, type RichTextElementProps } from "./RichTextElement";
 
 export type ProductTeaserProps = {

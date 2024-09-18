@@ -1,4 +1,4 @@
-import { Link } from "@/components/composables/navigation";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";

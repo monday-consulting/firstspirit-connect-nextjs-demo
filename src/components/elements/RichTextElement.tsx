@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/utils/cn";
 
 export type RichTextElementContent = {

@@ -32,7 +32,7 @@ const SlugPage = async ({
           name: item.data.tt_name,
           price: item.data.tt_price,
           id: item.id,
-          route: getProductDetailLink(item.id),
+          route: getProductDetailLink(item.id, params.locale),
         }))}
       />
     </main>
