@@ -4,16 +4,13 @@ import { fuzzySearchObjects } from "@/utils/strings";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { LuSearch } from "react-icons/lu";
+import { RichTextElement, type RichTextElementProps } from "./RichTextElement";
+import { Link } from "@/i18n/routing";
 
 export type Contact = {
   name: string;
-  street: string;
-  houseNumber: string;
-  zipCode: string;
-  city: string;
-  country: string;
-  email?: string;
-  phone?: string;
+  description: RichTextElementProps;
+  coordinates: google.maps.LatLngLiteral;
 };
 
 export type ContactsTableProps = {
@@ -61,27 +58,16 @@ const ContactsTable = ({ contacts }: ContactsTableProps) => {
             <tr key={contact.name}>
               <td className="px-6 py-5">{contact.name}</td>
               <td className="py-5 pr-6">
-                <p>
-                  {contact.street} {contact.houseNumber}
-                </p>
-                <p>
-                  {contact.zipCode} {contact.city}
-                </p>
-                <p>{contact.country}</p>
-                {contact.phone && (
-                  <p>
-                    {t("locations.phone")}: {contact.phone}
-                  </p>
-                )}
-                {contact.email && <p>E-Mail: {contact.email}</p>}
+                <RichTextElement {...contact.description} />
               </td>
               <td className="py-5 pr-6">
-                <a
+                <Link
                   className="inline-block w-full rounded-md bg-secondary px-7 py-5 text-center font-medium text-base text-white leading-4 hover:brightness-90 md:text-lg"
-                  href="https://www.google.com/maps/place/Crownpeak+Technology+GmbH/@51.5023768,7.5290053,15.94z/data=!4m5!3m4!1s0x47b916e7769275ab:0xef521cead5efe27d!8m2!3d51.5043505!4d7.5283671"
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${contact.coordinates.lat},${contact.coordinates.lng}`}
+                  target="_blank"
                 >
                   {t("locations.getDirection")}
-                </a>
+                </Link>
               </td>
             </tr>
           ))}

@@ -1,16 +1,31 @@
+import type { Contact } from "@/components/elements/ContactsTable";
 import { Locations } from "@/components/section/Locations";
+import { getDatasetByType } from "@/gql/documents/dataset";
 import { getSectionByType } from "@/gql/documents/section";
-import { Default as ContactTableStory } from "@/stories/elements/ContactsTable.stories";
 
 const LocationsPage = async ({ params }: { params: { locale: string } }) => {
-  const data = await getSectionByType(params.locale, "google_maps");
+  const googleMapsData = await getSectionByType(params.locale, "google_maps");
+  const contactsData = await getDatasetByType(params.locale, "location");
 
-  const center = { lat: 40.7128, lng: -74.006 }; // New York City coordinates
-  const markers = [
-    { lat: 40.7128, lng: -74.006 }, // New York City
-    { lat: 34.0522, lng: -118.2437 }, // Los Angeles
-    { lat: 41.8781, lng: -87.6298 }, // Chicago
-  ];
+  const center = {
+    lat: googleMapsData.data.st_initial_lat,
+    lng: googleMapsData.data.st_initial_long,
+  };
+
+  // biome-ignore lint/suspicious/noExplicitAny: Lack of type generation
+  const markers = contactsData.map((item: any) => ({
+    lat: item.data.tt_lat,
+    lng: item.data.tt_long,
+  }));
+
+  const contacts = contactsData.map(
+    (item) =>
+      ({
+        name: item.data.tt_name,
+        description: { content: item.data.tt_description },
+        coordinates: { lat: item.data.tt_lat, lng: item.data.tt_long },
+      }) as Contact
+  );
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-24">
@@ -20,9 +35,9 @@ const LocationsPage = async ({ params }: { params: { locale: string } }) => {
         mapInfo={{
           center,
           markers,
-          zoom: 3,
+          zoom: 5,
         }}
-        contactInfo={{ contacts: ContactTableStory.args.contacts }}
+        contactInfo={{ contacts }}
       />
     </main>
   );
