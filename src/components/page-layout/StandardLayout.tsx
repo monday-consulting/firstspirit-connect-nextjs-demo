@@ -11,16 +11,18 @@ export type StandardLayoutProps = {
 const StandardLayout = ({ pageInfo, pageBodies }: StandardLayoutProps) => {
   return (
     <>
-      <Stage
-        headline={pageInfo.pt_headline}
-        subline={pageInfo.pt_subheadline}
-        image={{
-          src: pageInfo.pt_image.resolutions.ORIGINAL.url,
-          alt: pageInfo.pt_image_alt_text,
-        }}
-        sectionId={""}
-        shortVersion
-      />
+      {pageInfo?.pt_image && (
+        <Stage
+          headline={pageInfo.pt_headline}
+          subline={pageInfo.pt_subheadline}
+          image={{
+            src: pageInfo.pt_image.resolutions.ORIGINAL.url,
+            alt: pageInfo.pt_image_alt_text,
+          }}
+          sectionId={""}
+          shortVersion
+        />
+      )}
       <Body content={pageBodies} />
     </>
   );
