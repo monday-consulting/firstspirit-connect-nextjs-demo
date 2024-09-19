@@ -4,6 +4,6 @@ import { replaceUmlauts } from "./strings";
 export const parseLink = (str: string) => replaceUmlauts(str.toLowerCase().replace(/\s/g, "-"));
 
 export const getProductDetailLink = (id: string, locale: Locale) =>
-  `/${locale === defaultLocale ? "produkt-detail" : "product-detail"}/${parseLink(id)}`;
+  `/${locale === defaultLocale ? "product-detail" : "produkt-detail"}/${parseLink(id)}`;
 
 export const getProductGroupLink = (groupName: string) => `${parseLink(groupName)}`;
