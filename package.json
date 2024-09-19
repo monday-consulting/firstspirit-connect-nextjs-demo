@@ -28,6 +28,7 @@
   "dependencies": {
     "@headlessui/react": "^2.1.3",
     "@tanstack/react-query": "^5.52.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "fsxa-api": "^10.22.2",
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.0",
