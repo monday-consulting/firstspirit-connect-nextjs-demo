@@ -8,5 +8,10 @@
   },
   "products": {
     "resultCountText": "products found"
+  },
+  "news": {
+    "newsOverview": "News Overview",
+    "subHeadline": "A simple news overview page with search and filter capabilities.",
+    "search": "Search"
   }
 }
