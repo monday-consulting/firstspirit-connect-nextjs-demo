@@ -13,8 +13,7 @@ const LocationsPage = async ({ params }: { params: { locale: Locale } }) => {
     lng: googleMapsData.data.st_initial_long,
   };
 
-  // biome-ignore lint/suspicious/noExplicitAny: Lack of type generation
-  const markers = contactsData.map((item: any) => ({
+  const markers = contactsData.map((item) => ({
     lat: item.data.tt_lat,
     lng: item.data.tt_long,
   }));
