@@ -1,18 +1,22 @@
+import { cn } from "@/utils/cn";
 import { useTranslations } from "next-intl";
-import { BiSearchAlt } from "react-icons/bi";
+import { LuSearch } from "react-icons/lu";
 
-interface SearchProps {
+export type SearchProps = {
   className?: string;
-}
+};
 
 const Search = ({ className }: SearchProps) => {
   const t = useTranslations();
 
   return (
     <div
-      className={`flex h-10 items-center rounded-md border-2 border-input pl-3 font-medium text-sm text-text ring-offset-background focus-within:ring-1 focus-within:ring-ring focus-within:ring-offset-2 ${className}`}
+      className={cn(
+        className,
+        "flex h-10 items-center rounded-md border-2 border-input pl-3 font-medium text-sm text-text ring-offset-background focus-within:ring-1 focus-within:ring-ring focus-within:ring-offset-2"
+      )}
     >
-      <BiSearchAlt className="h-[18px] w-[18px]" />
+      <LuSearch size={18} />
       <input
         type="search"
         placeholder={t("news.search")}
@@ -21,4 +25,5 @@ const Search = ({ className }: SearchProps) => {
     </div>
   );
 };
+
 export { Search };

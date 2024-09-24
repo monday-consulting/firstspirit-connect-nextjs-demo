@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
+import { useTranslations } from "next-intl";
 
-export type NewsT = {
+export type NewsEntity = {
   image: {
     src: string;
     alt: string;
@@ -16,22 +17,23 @@ export type NewsT = {
 };
 
 export type NewsTeaserProps = {
-  teaserData: NewsT;
+  newsEntity: NewsEntity;
 };
 
-const NewsTeaser = ({ teaserData }: NewsTeaserProps) => {
+const NewsTeaser = ({ newsEntity }: NewsTeaserProps) => {
+  const t = useTranslations();
   return (
-    <div className="text-center">
-      <div className="mb-3 h-72 w-full overflow-hidden rounded-xl">
+    <div className="flex flex-col items-center justify-center text-center">
+      <div className="mb-3">
         <Image
-          width={500}
-          height={500}
-          className="-translate-y-1/2 relative top-1/2 w-full"
-          src={teaserData.image.src}
-          alt={teaserData.image.alt}
+          src={newsEntity.image.src}
+          alt={newsEntity.image.alt}
+          width={400}
+          height={300}
+          className="rounded-xl"
         />
       </div>
-      {teaserData.categories.map((category) => (
+      {newsEntity.categories.map((category) => (
         <span
           key={category}
           className="py mx-1 mb-3 inline-block rounded-full bg-lightGray px-2 font-medium text-secondary text-xs uppercase leading-5 shadow-sm"
@@ -40,13 +42,13 @@ const NewsTeaser = ({ teaserData }: NewsTeaserProps) => {
         </span>
       ))}
       <p className="text-text">
-        {teaserData.author} · {teaserData.date}
+        {newsEntity.author} · {newsEntity.date}
       </p>
-      <h2 className="my-3 font-bold font-heading text-2xl text-primary">{teaserData.headline}</h2>
-      {teaserData.teaserText && <p className="mb-3 text-text">{teaserData.teaserText}</p>}
-      {teaserData.link && (
-        <Link href={teaserData.link} className="font-bold text-blue-700">
-          Read Article
+      <h2 className="my-3 font-bold font-heading text-2xl text-primary">{newsEntity.headline}</h2>
+      {newsEntity.teaserText && <p className="mb-3 text-text">{newsEntity.teaserText}</p>}
+      {newsEntity.link && (
+        <Link href={newsEntity.link} className="font-bold text-blue-700">
+          {t("news.readArticle")}
           <div className="inline-block align-middle">
             <LuArrowRight />
           </div>
