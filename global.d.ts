@@ -1,6 +1,6 @@
-import type de_DE from "./messages/de_DE.json";
+import type en_GB from "./messages/en_GB.json";
 
-type Messages = typeof de_DE;
+type Messages = typeof en_GB;
 
 declare global {
   interface IntlMessages extends Messages {}

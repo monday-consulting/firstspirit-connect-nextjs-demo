@@ -39,7 +39,7 @@ export const Default: Story = {
               src: "https://placehold.co/1000x800",
               alt: "Product 1 Image",
             },
-            name: "Product 1",
+            tt_name: "Product 1",
             price: "$100",
             teaserText: "Teaser text for Product 1",
           },

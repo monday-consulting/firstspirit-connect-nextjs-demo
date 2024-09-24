@@ -13,11 +13,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  query datasetByType($locale: String!, $type: String!) {\n    allFirstSpiritDataset(filter: {_locale: {eq: $locale}, entityType: {eq: $type}}) {\n      nodes {\n        id\n        entityType\n        route\n        data\n      }\n    }\n  }\n": types.DatasetByTypeDocument,
     "\n  query footer($locale: String!, $name: String!) {\n    firstSpiritGcaPage(_locale: {eq: $locale}, name: {eq: $name}) {\n      data\n    }\n  }\n": types.FooterDocument,
     "\n  query fsNavigationQuery($locale:String!) {\n    firstSpiritNavigationData(_locale: {eq: $locale}) {\n      structure {\n        navigationItem {\n          label\n          seoRoute\n          fsNavItemId\n          page {\n            id\n          }\n        }\n        structureChildren {\n          navigationItem {\n            label\n            seoRoute\n            fsNavItemId\n            page {\n              id\n            }\n          }\n          structureChildren {\n            navigationItem {\n              fsNavItemId\n              label\n              seoRoute\n              page {\n                id\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n": types.FsNavigationQueryDocument,
-    "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n        name\n        previewId\n      }\n    }\n  }\n": types.PageByRouteDocument,
+    "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      data\n      pageBodies {\n        children {\n          ... on FirstSpiritSection {\n            __typename\n            id\n            sectionType\n            data\n          }\n        }\n        name\n        previewId\n      }\n    }\n  }\n": types.PageByRouteDocument,
     "\n  query products($locale: String!) {\n    allFirstSpiritDataset(\n      filter: {_locale: {eq: $locale}, entityType: {eq: \"product\"}}\n    ) {\n      nodes {\n        fsId\n        entityType\n        route\n        data\n      }\n    }\n  }\n": types.ProductsDocument,
+    "query productDetail($locale: String!, $id: String!) {\n  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {\n    data\n  }\n}": types.ProductDetailDocument,
     "\n  query section($locale: String!, $id: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, fsId: {eq: $id}}) {\n      nodes {\n        data\n        name\n        fsId\n      }\n    }\n  }\n": types.SectionDocument,
+    "\n  query sectionByType($locale: String!, $type: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}) {\n      nodes {\n        id\n        data\n      }\n    }\n  }\n": types.SectionByTypeDocument,
 };
 
 /**
@@ -37,6 +40,10 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  query datasetByType($locale: String!, $type: String!) {\n    allFirstSpiritDataset(filter: {_locale: {eq: $locale}, entityType: {eq: $type}}) {\n      nodes {\n        id\n        entityType\n        route\n        data\n      }\n    }\n  }\n"): (typeof documents)["\n  query datasetByType($locale: String!, $type: String!) {\n    allFirstSpiritDataset(filter: {_locale: {eq: $locale}, entityType: {eq: $type}}) {\n      nodes {\n        id\n        entityType\n        route\n        data\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query footer($locale: String!, $name: String!) {\n    firstSpiritGcaPage(_locale: {eq: $locale}, name: {eq: $name}) {\n      data\n    }\n  }\n"): (typeof documents)["\n  query footer($locale: String!, $name: String!) {\n    firstSpiritGcaPage(_locale: {eq: $locale}, name: {eq: $name}) {\n      data\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -45,7 +52,7 @@ export function graphql(source: "\n  query fsNavigationQuery($locale:String!) {\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n        name\n        previewId\n      }\n    }\n  }\n"): (typeof documents)["\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      pageBodies {\n        children\n        name\n        previewId\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      data\n      pageBodies {\n        children {\n          ... on FirstSpiritSection {\n            __typename\n            id\n            sectionType\n            data\n          }\n        }\n        name\n        previewId\n      }\n    }\n  }\n"): (typeof documents)["\n  query pageByRoute($locale: String!, $route: String!) {\n    firstSpiritPage(_locale: {eq: $locale}, route: {eq: $route}) {\n      layout\n      name\n      id\n      data\n      pageBodies {\n        children {\n          ... on FirstSpiritSection {\n            __typename\n            id\n            sectionType\n            data\n          }\n        }\n        name\n        previewId\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -53,7 +60,15 @@ export function graphql(source: "\n  query products($locale: String!) {\n    all
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "query productDetail($locale: String!, $id: String!) {\n  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {\n    data\n  }\n}"): (typeof documents)["query productDetail($locale: String!, $id: String!) {\n  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {\n    data\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query section($locale: String!, $id: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, fsId: {eq: $id}}) {\n      nodes {\n        data\n        name\n        fsId\n      }\n    }\n  }\n"): (typeof documents)["\n  query section($locale: String!, $id: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, fsId: {eq: $id}}) {\n      nodes {\n        data\n        name\n        fsId\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query sectionByType($locale: String!, $type: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}) {\n      nodes {\n        id\n        data\n      }\n    }\n  }\n"): (typeof documents)["\n  query sectionByType($locale: String!, $type: String!) {\n    allFirstSpiritSection(filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}) {\n      nodes {\n        id\n        data\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

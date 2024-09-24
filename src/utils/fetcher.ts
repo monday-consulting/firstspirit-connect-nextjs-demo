@@ -1,8 +1,10 @@
+import type { Locale } from "@/i18n/config";
+
 export type FetchEntityType = "product" | "section";
 
 export type FetcherBody = {
   type: FetchEntityType;
-  locale: string;
+  locale: Locale;
   id?: string;
 };
 

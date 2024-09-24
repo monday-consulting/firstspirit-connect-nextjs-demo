@@ -1,7 +1,4 @@
 {
-  "routes": {
-    "home": "/startseite/"
-  },
   "favorites": {
     "listTitle": "Liste aller Favoriten",
     "listEmpty": "Keine Favoriten gespeichert"
@@ -13,5 +10,12 @@
     "newsOverview": "Nachrichtenübersicht",
     "subHeadline": "Eine simple Nachrichtenübersichtsseite mit Suche und Filterfunktion.",
     "search": "Suchen"
+  },
+  "locations": {
+    "searchInfo": "Finde einen Ort",
+    "searchPlaceholder": "Search",
+    "phone": "Telefon",
+    "getDirection": "Navigation",
+    "noResults": "Keine Kontakte gefunden."
   }
 }

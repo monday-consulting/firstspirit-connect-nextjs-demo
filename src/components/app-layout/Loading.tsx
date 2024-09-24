@@ -1,6 +1,14 @@
-const Loading = () => {
+import { cn } from "@/utils/cn";
+
+export type LoadingProps = {
+  className?: string;
+};
+
+const Loading = ({ className }: LoadingProps) => {
   return (
-    <div className="absolute inset-0 z-40 flex items-center justify-center bg-white">
+    <div
+      className={cn("absolute inset-0 z-40 flex items-center justify-center bg-white", className)}
+    >
       <div role="status">
         <svg
           aria-hidden="true"

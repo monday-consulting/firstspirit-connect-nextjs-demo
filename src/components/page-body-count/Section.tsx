@@ -1,33 +1,32 @@
-import type { Section as FsxaSection } from "fsxa-api";
 import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
-import { getCategoryLink } from "@/utils/links";
-import { Stage } from "../section/Stage";
 import { Teaser } from "../section/Teaser";
 import { FAQSection } from "../section/FAQSection";
-import { Features } from "../section/Features";
 import { Steps } from "../section/Steps";
 import { TextImage } from "../section/TextImage";
+import type { FirstSpiritSection } from "@/gql/generated/graphql";
+import { Stage } from "../section/Stage";
+import { Features } from "../section/Features";
 
 export type SectionProps = {
-  content: FsxaSection;
+  section: FirstSpiritSection;
 };
 
-const Section = ({ content }: SectionProps) => {
+const Section = ({ section }: SectionProps) => {
   const SectionComponent = () => {
-    switch (content.sectionType) {
+    switch (section.sectionType) {
       case "smartliving.product_overview":
         return "SectionProductOverview";
       case "text_image":
         return (
           <TextImage
-            headline={content.data.st_headline}
-            subheadline={{ content: content.data.st_subheadline }}
-            text={{ content: content.data.st_text }}
+            headline={section.data.st_headline}
+            subheadline={{ content: section.data.st_subheadline }}
+            text={{ content: section.data.st_text }}
             twoColumn
-            layout={content.data.st_layout.key}
+            layout={section.data.st_layout.key}
             image={{
-              src: content.data.st_image.resolutions.ORIGINAL.url,
-              alt: content.data.st_image_alt_text,
+              src: section.data.st_image.resolutions.ORIGINAL.url,
+              alt: section.data.st_image_alt_text,
             }}
           />
         );
@@ -35,25 +34,24 @@ const Section = ({ content }: SectionProps) => {
         return (
           <ProductCategoryTeaser
             category={{
-              type: content.data.st_category.type,
-              name: content.data.st_category.value,
-              id: content.data.st_category.key,
+              type: section.data.st_category.type,
+              name: section.data.st_category.value,
+              id: section.data.st_category.key,
             }}
-            category_link={{
-              linkText: content.data.st_category_link.data.lt_text,
-              href: getCategoryLink(content.data.st_category.key),
+            group_link={{
+              label: section.data.st_category_link.data.lt_text,
             }}
-            headline={content.data.st_headline}
-            text={{ content: content.data.st_text }}
-            teaserTextStart={content.data.st_text_alignment.identifier === "left"}
+            headline={section.data.st_headline}
+            text={{ content: section.data.st_text }}
+            teaserTextStart={section.data.st_text_alignment.identifier === "left"}
           />
         );
       case "steps":
         return (
           <Steps
-            headline={content.data.st_headline}
-            subline={content.data.st_subline}
-            stepsItems={content.data.st_steps.map(
+            headline={section.data.st_headline}
+            subline={section.data.st_subline}
+            stepsItems={section.data.st_steps.map(
               // biome-ignore lint/suspicious/noExplicitAny: No type definitions
               (step: any, index: number) => ({
                 title: step.data.st_title,
@@ -66,9 +64,9 @@ const Section = ({ content }: SectionProps) => {
       case "accordion":
         return (
           <FAQSection
-            headline={content.data.st_headline}
-            subline={content.data.st_subline}
-            entries={content.data.st_accordion.map(
+            headline={section.data.st_headline}
+            subline={section.data.st_subline}
+            entries={section.data.st_accordion.map(
               // biome-ignore lint/suspicious/noExplicitAny: No type definitions
               (entry: any) => ({
                 title: entry.data.st_title,
@@ -80,31 +78,31 @@ const Section = ({ content }: SectionProps) => {
       case "stage":
         return (
           <Stage
-            headline={content.data.st_headline}
-            subline={content.data.st_subheadline}
+            headline={section.data.st_headline}
+            subline={section.data.st_subheadline}
             image={{
-              src: content.data.st_image.resolutions.ORIGINAL.url,
-              alt: content.data.st_image_alt_text,
+              src: section.data.st_image.resolutions.ORIGINAL.url,
+              alt: section.data.st_image_alt_text,
             }}
-            // TODO: resolve lt_link reference
             cta={{
-              label: content.data.st_cta?.data.lt_text,
-              href: content.data.st_cta?.data.lt_link,
+              label: section.data.st_cta?.data.lt_text,
+              // TODO: resolve section.data.st_cta?.data.lt_link
+              href: "#",
             }}
-            sectionId={content.id}
+            sectionId={section.id}
           />
         );
       case "features":
         return (
           <Features
-            headline={content.data.st_headline}
-            text={{ content: content.data.st_text }}
-            // TODO: Typesafety missing
-            features={content.data.st_features.map(
+            headline={section.data.st_headline}
+            text={{ content: section.data.st_text }}
+            features={section.data.st_features.map(
               // biome-ignore lint/suspicious/noExplicitAny: No type definitions
               (feature: any) => ({
                 link: {
-                  href: feature.data.st_link.data.lt_link,
+                  // TODO: reslove feature.data.st_link.data.lt_link
+                  href: "#",
                   label: feature.data.st_link.data.lt_text,
                 },
                 image: {
@@ -127,18 +125,19 @@ const Section = ({ content }: SectionProps) => {
       case "teaser":
         return (
           <Teaser
-            headline={content.data.st_headline}
-            claim={content.data.st_subhealine}
-            text={{ content: content.data.st_text }}
-            imageStart={content.data.st_layout.key === "text-image"}
+            headline={section.data.st_headline}
+            claim={section.data.st_subhealine}
+            text={{ content: section.data.st_text }}
+            imageStart={section.data.st_layout.key === "text-image"}
             image={{
-              src: content.data.st_image.resolutions.ORIGINAL.url,
-              alt: content.data.st_image_alt_text,
+              src: section.data.st_image.resolutions.ORIGINAL.url,
+              alt: section.data.st_image_alt_text,
             }}
             cta={
-              content.data.st_cta && {
-                label: content.data.st_cta.data.lt_text,
-                href: content.data.st_cta.data.lt_link,
+              section.data.st_cta && {
+                label: section.data.st_cta.data.lt_text,
+                // TODO: resolve section.data.st_cta.data.lt_link
+                href: "#",
               }
             }
           />

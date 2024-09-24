@@ -1,26 +1,33 @@
 import { ProductOverview } from "@/components/section/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
+import type { Locale } from "@/i18n/config";
+import { getProductDetailLink } from "@/utils/links";
+import { redirect } from "next/navigation";
 
 const SlugPage = async ({
   params,
 }: {
-  params: { locale: string; id: string };
+  params: { locale: Locale; product_group: string };
 }) => {
   const allProducts = await getAllProducts(params.locale);
 
   const filteredProducts = allProducts.filter((item) => {
-    const parsedData = JSON.parse(item.data);
-    return parsedData.tt_categories[0].id === params.id;
+    const ttName = item.data.tt_categories[0].data.tt_name;
+    return ttName?.toLowerCase().replaceAll(" ", "-") === decodeURI(params.product_group);
   });
+
+  if (filteredProducts.length < 1) {
+    redirect("/");
+  }
 
   const products = filteredProducts.map((item) => ({
     route: item.route,
-    data: JSON.parse(item.data),
+    data: item.data,
     id: item.fsId,
   }));
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-24">
+    <main className="flex min-h-screen flex-col items-center justify-between px-4 sm:px-12 md:px-24">
       <ProductOverview
         products={products.map((item) => ({
           image: {
@@ -31,7 +38,7 @@ const SlugPage = async ({
           name: item.data.tt_name,
           price: item.data.tt_price,
           id: item.id,
-          route: item.route,
+          route: getProductDetailLink(item.id, params.locale),
         }))}
       />
     </main>

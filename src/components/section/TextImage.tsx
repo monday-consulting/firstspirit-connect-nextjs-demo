@@ -41,7 +41,13 @@ const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: Te
               <div
                 className={`${layout === "image-text" ? "order-1" : "order-2"} w-full break-after-column px-4 pb-4`}
               >
-                <Image src={image.src} alt={image.alt} width={400} height={200} />
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={400}
+                  height={200}
+                  className="rounded-xl"
+                />
               </div>
             )}
             {text && (

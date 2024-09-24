@@ -12,7 +12,7 @@ const ProductOverview = ({ products }: ProductOverviewProps) => {
   return (
     <div className="bg-white py-24">
       <div className="container mx-auto px-4 text-center">
-        {products && (
+        {products.length > 0 && (
           <div className="bg-blueGray-100 pt-12 pb-20 2xl:pb-22">
             <div className="border-black border-b border-opacity-5 pb-9 text-center">
               <div className="relative">

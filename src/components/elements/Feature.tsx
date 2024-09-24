@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { LuArrowRight } from "react-icons/lu";
@@ -21,9 +21,15 @@ export type FeatureProps = {
 const Feature = ({ link, image, title, text }: FeatureProps) => {
   return (
     <div className="w-full p-8 md:w-1/3">
-      <Link href={link.href} className="group/feature flex flex-col gap-4">
-        <div className="mb-4 overflow-hidden rounded-2xl">
-          <Image src={image.src} alt={image.alt} width={400} height={300} />
+      <Link href={link.href} className="group/feature flex flex-col items-center gap-4">
+        <div className="mb-4">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={400}
+            height={300}
+            className="overflow-hidden rounded-xl"
+          />
         </div>
         <h3 className="font-semibold text-text text-xl group-hover/feature:underline md:text-2xl">
           {title}

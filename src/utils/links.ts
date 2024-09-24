@@ -1,7 +1,9 @@
+import { defaultLocale, type Locale } from "@/i18n/config";
 import { replaceUmlauts } from "./strings";
 
 export const parseLink = (str: string) => replaceUmlauts(str.toLowerCase().replace(/\s/g, "-"));
 
-export const getProductLink = (title: string) => `/product/${parseLink(title)}`;
+export const getProductDetailLink = (id: string, locale: Locale) =>
+  `/${locale === defaultLocale ? "product-detail" : "produkt-detail"}/${parseLink(id)}`;
 
-export const getCategoryLink = (title: string) => `/category/${parseLink(title)}`;
+export const getProductGroupLink = (groupName: string) => `${parseLink(groupName)}`;

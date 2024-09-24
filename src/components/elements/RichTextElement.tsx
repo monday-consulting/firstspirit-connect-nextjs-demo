@@ -1,6 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { cn } from "@/utils/cn";
 
 export type RichTextElementContent = {
   content: RichTextElementContent[] | string;
@@ -10,6 +11,7 @@ export type RichTextElementContent = {
 
 export type RichTextElementProps = {
   content: RichTextElementContent[] | string;
+  className?: string;
 };
 
 const convertToMarkdown = (content: RichTextElementContent[]): string => {
@@ -39,13 +41,14 @@ const convertToMarkdown = (content: RichTextElementContent[]): string => {
     .join(" ");
 };
 
-const RichTextElement = ({ content }: RichTextElementProps) => {
+const RichTextElement = ({ content, className }: RichTextElementProps) => {
   return (
     <>
       {typeof content === "string" ? (
         <>{content}</>
       ) : (
         <ReactMarkdown
+          className={cn(className)}
           //@ts-expect-error: type error but it works as expect
           rehypePlugins={[rehypeRaw]}
           components={{

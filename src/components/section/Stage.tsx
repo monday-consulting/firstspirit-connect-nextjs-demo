@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { getImageProps } from "next/image";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
-import { useLocale } from "next-intl";
+import { cn } from "@/utils/cn";
 
 export type StageProps = {
   headline: string;
@@ -15,6 +15,7 @@ export type StageProps = {
     href: string;
   };
   sectionId: string;
+  shortVersion?: boolean;
 };
 
 const getBackgroundImage = (srcSet = "") => {
@@ -28,56 +29,38 @@ const getBackgroundImage = (srcSet = "") => {
   return `image-set(${imageSet})`;
 };
 
-// const transformDataToProps = (section: FirstSpiritSection): StageProps => {
-//   const parsedData = JSON.parse(section.data);
-
-//   return {
-//     headline: parsedData.st_headline,
-//     subline: parsedData.st_subheadline,
-//     image: {
-//       src: parsedData.st_image.resolutions.ORIGINAL.url,
-//       alt: parsedData.st_image_alt_text || "Default alt text",
-//     },
-//     cta: parsedData.st_cta
-//       ? {
-//           label: parsedData.st_cta.data.lt_text,
-//           // TODO: Reference reolving
-//           href: "#",
-//         }
-//       : undefined,
-//     sectionId: section.fsId,
-//   };
-// };
-
 const Stage = (props: StageProps) => {
+  const shortVersion = props.shortVersion || false;
   const {
     props: { srcSet },
   } = getImageProps({ alt: props.image.alt, src: props.image.src, width: 1080, height: 0 });
   const backgroundImage = getBackgroundImage(srcSet);
   const backgroundImageStyle = { width: "100vw", backgroundImage };
 
-  const locale = useLocale();
-
-  // TODO: use data object
-  // const { data } = useQuery({
-  //   queryKey: ["stage"],
-  //   queryFn: () =>
-  //     fetcher({ url: "/api/fetch", body: { locale, type: "section", id: props.sectionId } }),
-  //   initialData: props,
-  //   select: transformDataToProps,
-  // });
-
   return (
     <div
-      className="overflow-hidden bg-black bg-center bg-cover bg-fixed bg-no-repeat py-28"
+      className={cn(
+        "overflow-hidden bg-black bg-center bg-cover bg-fixed bg-no-repeat",
+        shortVersion ? "py-16" : "py-28"
+      )}
       style={backgroundImageStyle}
     >
       <div className="container mx-auto px-4">
-        <div className="rounded-2xl bg-black bg-opacity-80 px-12 pt-12 pb-9 md:max-w-xl">
-          <h2 className="mb-4 font-bold font-heading text-5xl text-white leading-tight tracking-px-n md:text-6xl">
+        <div
+          className={cn(
+            "rounded-2xl bg-black px-12 pt-12 md:max-w-xl",
+            shortVersion ? "bg-opacity-40 pb-12" : "bg-opacity-80 pb-16"
+          )}
+        >
+          <h2
+            className={cn(
+              "mb-4 font-bold font-heading text-white leading-tight tracking-px-n ",
+              shortVersion ? "text-3xl md:text-4xl" : "text-5xl md:text-6xl"
+            )}
+          >
             {props.headline}
           </h2>
-          <p className="mb-11 font-medium text-lg text-lightGray leading-normal">{props.subline}</p>
+          <p className="font-medium text-lg text-lightGray leading-normal">{props.subline}</p>
           {props.cta?.href && (
             <Link
               href={props.cta?.href}

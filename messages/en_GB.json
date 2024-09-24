@@ -1,7 +1,4 @@
 {
-  "routes": {
-    "home": "/homepage/"
-  },
   "favorites": {
     "listTitle": "List of all favorites",
     "listEmpty": "No favorites saved"
@@ -13,5 +10,12 @@
     "newsOverview": "News Overview",
     "subHeadline": "A simple news overview page with search and filter capabilities.",
     "search": "Search"
+  },
+  "locations": {
+    "searchInfo": "Find a location",
+    "searchPlaceholder": "Search",
+    "phone": "Phone",
+    "getDirection": "Get direction",
+    "noResults": "No contacts found."
   }
 }

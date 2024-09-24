@@ -2,22 +2,29 @@ import { Home } from "@/components/page-layout/Home";
 import { StandardLayout } from "@/components/page-layout/StandardLayout";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
-import { defaultLocale } from "@/i18n";
+import { defaultLocale, type Locale } from "@/i18n/config";
+import { redirect } from "next/navigation";
 
-const SlugPage = async ({ params }: { params: { slug: string[]; locale: string } }) => {
-  const route = params.slug
+const SlugPage = async ({ params }: { params: { slug: string[]; locale: Locale } }) => {
+  const path = params.slug
     ? `/${params.slug.join("/")}/`
     : params.locale === defaultLocale
-      ? "/startseite/"
-      : "/homepage/";
+      ? "/homepage/"
+      : "/startseite/";
 
-  const page = await getPageContentByRoute(params.locale, route);
+  const page = await getPageContentByRoute(params.locale, decodeURI(path));
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
 
+  if (!page?.name) {
+    redirect("/");
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-24">
+    <main className="flex min-h-screen flex-col items-center justify-between px-4 sm:px-12 md:px-24">
       {page?.layout === "homepage" && <Home pageBodies={pageBodies} />}
-      {page?.layout === "standard" && <StandardLayout pageBodies={pageBodies} />}
+      {page?.layout === "standard" && (
+        <StandardLayout pageInfo={page.data} pageBodies={pageBodies} />
+      )}
     </main>
   );
 };

@@ -1,3 +1,4 @@
+import type { Locale } from "@/i18n/config";
 import { client } from "../client";
 import { graphql } from "../generated";
 
@@ -7,8 +8,16 @@ const pageContentDocument = graphql(`
       layout
       name
       id
+      data
       pageBodies {
-        children
+        children {
+          ... on FirstSpiritSection {
+            __typename
+            id
+            sectionType
+            data
+          }
+        }
         name
         previewId
       }
@@ -16,8 +25,7 @@ const pageContentDocument = graphql(`
   }
 `);
 
-export const getPageContentByRoute = async (locale: string, route: string) => {
-  console.log(`Fetch page content from: {locale: ${locale}, route: ${route}}`);
+export const getPageContentByRoute = async (locale: Locale, route: string) => {
   const res = await client.request(pageContentDocument, { locale, route });
   return res.firstSpiritPage;
 };

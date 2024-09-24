@@ -1,6 +1,6 @@
-import { getCategoryLink } from "@/utils/links";
+import { getProductGroupLink } from "@/utils/links";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import type { Product } from "./Product";
 import { RichTextElement } from "../elements/RichTextElement";
 
@@ -12,7 +12,7 @@ const ProductCategory = ({ products }: ProductCategoryProps) => {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {products.map((product) => (
-        <Link key={product.id} href={getCategoryLink(product.name)}>
+        <Link key={product.id} href={getProductGroupLink(product.name)}>
           <div className="relative h-40 overflow-hidden">
             <div className="absolute inset-0 z-10 transform bg-black bg-opacity-70 p-8 text-white opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-100">
               <h3 className="font-bold text-lg">{product.name}</h3>

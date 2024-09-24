@@ -1,4 +1,4 @@
-import { Link } from "@/components/composables/navigation";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
@@ -17,6 +17,7 @@ export type TeaserProps = {
     label: string;
   };
   imageStart?: boolean;
+  breakpoint?: "sm" | "md" | "lg" | "xl";
 };
 
 const Teaser = ({
@@ -27,11 +28,20 @@ const Teaser = ({
   text,
   cta,
   imageStart = true,
+  breakpoint = "md",
 }: TeaserProps) => {
   return (
-    <div className="py-14">
+    <div className="py-8">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center gap-8 md:flex-row md:gap-4">
+        <div
+          className={cn(
+            "flex flex-col items-center gap-8",
+            breakpoint === "sm" && "sm:flex-row sm:gap-4",
+            breakpoint === "md" && "md:flex-row md:gap-4",
+            breakpoint === "lg" && "lg:flex-row lg:gap-4",
+            breakpoint === "xl" && "xl:flex-row xl:gap-4"
+          )}
+        >
           <div
             className={cn(
               "px-4 text-left sm:w-full",
