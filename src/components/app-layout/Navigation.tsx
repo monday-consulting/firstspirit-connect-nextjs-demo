@@ -2,14 +2,15 @@
 
 import Image from "next/image";
 import logo from "@/assets/smart_living_logo.webp";
-import { Link } from "@/i18n/routing";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { LuGlobe, LuMenu, LuX } from "react-icons/lu";
-import { locales } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { FavoriteTeaser } from "../elements/FavoriteTeaser";
 import { VscHeart } from "react-icons/vsc";
+import { useParams } from "next/navigation";
 
 export type NavigationRoute = {
   fsNavItemId: string;
@@ -35,9 +36,22 @@ const Navigation = ({ navStructure }: NavigationProps) => {
   const [mobileNavActive, setMobileNavActive] = useState(false);
   const [favorites] = useFavorites();
   const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
 
   const toggleMobileNav = () => {
     setMobileNavActive(!mobileNavActive);
+  };
+
+  const handleLocaleSwitch = (newLocale: Locale) => {
+    router.replace(
+      // @ts-expect-error -- TypeScript will validate that only known `params`
+      // are used in combination with a given `pathname`. Since the two will
+      // always match for the current route, we can skip runtime checks.
+      { pathname, params },
+      { locale: newLocale }
+    );
   };
 
   return (
@@ -105,12 +119,20 @@ const Navigation = ({ navStructure }: NavigationProps) => {
         <div className="group">
           <LuGlobe size={20} className="cursor-pointer" />
           <div className="absolute right-6 z-40 hidden flex-col gap-2 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
-            <Link locale={locales[0]} href="/" className="hover:underline">
-              Deutsch
-            </Link>
-            <Link locale={locales[1]} href="/" className="hover:underline">
+            <button
+              type="button"
+              className="hover:underline"
+              onClick={() => handleLocaleSwitch("en_GB")}
+            >
               English
-            </Link>
+            </button>
+            <button
+              type="button"
+              className="hover:underline"
+              onClick={() => handleLocaleSwitch("de_DE")}
+            >
+              Deutsch
+            </button>
           </div>
         </div>
         <button type="button" className="flex lg:hidden" onClick={toggleMobileNav}>
