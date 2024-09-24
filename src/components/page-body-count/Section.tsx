@@ -8,7 +8,7 @@ import { Stage } from "../section/Stage";
 import { Features } from "../section/Features";
 
 export type SectionProps = {
-  section: FirstSpiritSection;
+  section: Pick<FirstSpiritSection, "__typename" | "id" | "sectionType" | "data">;
 };
 
 const Section = ({ section }: SectionProps) => {
