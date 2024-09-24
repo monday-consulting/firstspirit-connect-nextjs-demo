@@ -6,7 +6,6 @@ import { defaultLocale, type Locale } from "@/i18n/config";
 import { redirect } from "next/navigation";
 
 const SlugPage = async ({ params }: { params: { slug: string[]; locale: Locale } }) => {
-  console.log("SLUG");
   const path = params.slug
     ? `/${params.slug.join("/")}/`
     : params.locale === defaultLocale
@@ -17,7 +16,6 @@ const SlugPage = async ({ params }: { params: { slug: string[]; locale: Locale }
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
 
   if (!page?.name) {
-    console.log("REDIRECT");
     redirect("/");
   }
 
