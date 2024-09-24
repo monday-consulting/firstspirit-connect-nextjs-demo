@@ -2,6 +2,7 @@ import { ProductOverview } from "@/components/section/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
 import type { Locale } from "@/i18n/config";
 import { getProductDetailLink } from "@/utils/links";
+import { redirect } from "next/navigation";
 
 const SlugPage = async ({
   params,
@@ -14,6 +15,10 @@ const SlugPage = async ({
     const ttName = item.data.tt_categories[0].data.tt_name;
     return ttName?.toLowerCase().replaceAll(" ", "-") === decodeURI(params.product_group);
   });
+
+  if (filteredProducts.length < 1) {
+    redirect("/");
+  }
 
   const products = filteredProducts.map((item) => ({
     route: item.route,
