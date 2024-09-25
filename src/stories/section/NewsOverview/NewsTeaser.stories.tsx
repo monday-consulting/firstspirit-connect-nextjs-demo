@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    teaserData: {
+    newsEntity: {
       image: {
         src: "https://placehold.co/600x400",
         alt: "Alt Text",

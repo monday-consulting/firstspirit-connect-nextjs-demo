@@ -1,18 +1,15 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CategoryDropdown } from "./CategoryDropdown";
-import { CategoryTabs } from "./CategoryTabs";
 import type { NewsEntity } from "./NewsTeaser";
 import { Search } from "./Search";
-import { useWindowSize } from "@/utils/hooks/useWindowSize";
+import { NewsFilter } from "./NewsFilter";
 
 export type NewsOverviewProps = {
   news: NewsEntity[];
 };
 
 const NewsOverview = ({ news }: NewsOverviewProps) => {
-  const size = useWindowSize();
   const t = useTranslations();
 
   //extract and create array of categories without duplicates
@@ -30,11 +27,7 @@ const NewsOverview = ({ news }: NewsOverviewProps) => {
         <p className="mb-7 text-text">{t("news.subHeadline")}</p>
         <Search className="m-auto mb-10 block sm:w-full md:w-1/3" />
       </div>
-      {(size?.width ?? 0) <= 640 ? (
-        <CategoryDropdown news={news} categories={categories} />
-      ) : (
-        <CategoryTabs news={news} categories={categories} />
-      )}
+      <NewsFilter news={news} categories={categories} />
     </div>
   );
 };
