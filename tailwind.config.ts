@@ -11,6 +11,7 @@ const config: Config = {
         textDark: "#1f2937",
         textLight: "#556987",
         textLighter: "#9ca3af",
+        gray: "#d3d4d6",
         lightGray: "#e9eaeb",
       },
     },

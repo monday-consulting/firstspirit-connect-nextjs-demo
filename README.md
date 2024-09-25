@@ -15,3 +15,5 @@ For Next.js you should copy the `.env.example` content to an new `.env` file and
 ### Builds
 `pnpm build:next` - builds Next.js
 `pnpm build:sb` - builds Storybook
+
+### Netlify Connect configuration
