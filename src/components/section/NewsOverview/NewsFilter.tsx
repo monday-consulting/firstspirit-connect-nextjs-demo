@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { type NewsEntity, NewsTeaser } from "./NewsTeaser";
 import {
   Listbox,
@@ -15,6 +15,9 @@ import {
 } from "@headlessui/react";
 import { useWindowSize } from "@/utils/hooks/useWindowSize";
 import { FaChevronDown, FaCheck } from "react-icons/fa";
+import { useTranslations } from "next-intl";
+import { fuzzySearchObjects } from "@/utils/strings";
+import { Search } from "./Search";
 
 export type NewsFilterProps = {
   news: NewsEntity[];
@@ -24,26 +27,39 @@ export type NewsFilterProps = {
 const NewsFilter = ({ news, categories }: NewsFilterProps) => {
   const noFilterActiveCategory = categories[0];
 
+  const t = useTranslations();
   const size = useWindowSize();
-  const [selectedCategory, setSelectedCategory] = useState(noFilterActiveCategory);
-  const [filteredNews, setFilteredNews] = useState(news);
 
-  useEffect(() => {
-    if (selectedCategory === noFilterActiveCategory) {
-      setFilteredNews(news);
-    } else {
-      setFilteredNews(news.filter((item) => item.categories.includes(selectedCategory)));
+  const [selectedCategory, setSelectedCategory] = useState(noFilterActiveCategory);
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredNews = useMemo(() => {
+    if (selectedCategory === noFilterActiveCategory && searchInput === "") {
+      return news;
     }
-  }, [selectedCategory, news, noFilterActiveCategory]);
+    if (selectedCategory === noFilterActiveCategory && searchInput.length > 0) {
+      return fuzzySearchObjects<NewsEntity>(searchInput, news, "headline");
+    }
+    if (selectedCategory !== noFilterActiveCategory && searchInput === "") {
+      return news.filter((item) => item.categories.includes(selectedCategory));
+    }
+    if (selectedCategory !== noFilterActiveCategory && searchInput.length > 0) {
+      return fuzzySearchObjects<NewsEntity>(
+        searchInput,
+        news.filter((item) => item.categories.includes(selectedCategory)),
+        "headline"
+      );
+    }
+  }, [selectedCategory, news, noFilterActiveCategory, searchInput]);
 
   const CategoryDropdown = () => {
     return (
-      <div>
+      <>
         <div className="text-center">
           <Listbox value={selectedCategory} onChange={setSelectedCategory}>
             <ListboxButton
               className={
-                "mb-5 w-full rounded bg-lightGray font-semibold text-text leading-10 focus-visible:outline-none data-[hover]:bg-gray"
+                "mb-6 w-full rounded bg-lightGray font-semibold text-text leading-10 focus-visible:outline-none data-[hover]:bg-gray"
               }
             >
               {selectedCategory}
@@ -67,11 +83,17 @@ const NewsFilter = ({ news, categories }: NewsFilterProps) => {
           </Listbox>
         </div>
         <div className="mx-8 mt-5 grid grid-cols-1 gap-8">
-          {filteredNews.map((newsEntity) => (
-            <NewsTeaser key={newsEntity.headline} newsEntity={newsEntity} />
-          ))}
+          {filteredNews && filteredNews.length > 0 ? (
+            <>
+              {filteredNews.map((newsEntity) => (
+                <NewsTeaser key={newsEntity.headline} newsEntity={newsEntity} />
+              ))}
+            </>
+          ) : (
+            <h4 className="text-center font-bold text-2xl text-text">{t("news.noResults")}</h4>
+          )}
         </div>
-      </div>
+      </>
     );
   };
 
@@ -86,27 +108,41 @@ const NewsFilter = ({ news, categories }: NewsFilterProps) => {
           {categories.map((category) => (
             <Tab
               key={category}
-              className="w-max rounded px-3 py-1 font-semibold text-text focus-visible:outline-none data-[selected]:data-[hover]:bg-gray data-[hover]:bg-lightGray data-[selected]:bg-lightGray"
+              className="mb-6 w-max rounded px-3 py-1 font-semibold text-text focus-visible:outline-none data-[selected]:data-[hover]:bg-gray data-[hover]:bg-lightGray data-[selected]:bg-lightGray"
             >
               {category}
             </Tab>
           ))}
         </TabList>
-
         <TabPanels>
-          {categories.map((category) => (
-            <TabPanel key={category} className="mx-8 mt-5 grid gap-8 sm:grid-cols-1 md:grid-cols-2">
-              {filteredNews.map((item) => (
-                <NewsTeaser key={item.headline} newsEntity={item} />
-              ))}
-            </TabPanel>
-          ))}
+          {categories.map(
+            (category) =>
+              filteredNews &&
+              filteredNews.length > 0 && (
+                <TabPanel
+                  key={category}
+                  className="mx-8 mt-5 grid gap-8 sm:grid-cols-1 md:grid-cols-2"
+                >
+                  {filteredNews.map((item) => (
+                    <NewsTeaser key={item.headline} newsEntity={item} />
+                  ))}
+                </TabPanel>
+              )
+          )}
+          {filteredNews && filteredNews.length < 1 && (
+            <h4 className="text-center font-bold text-2xl text-text">{t("news.noResults")}</h4>
+          )}
         </TabPanels>
       </TabGroup>
     );
   };
 
-  return <>{(size?.width ?? 0) <= 640 ? <CategoryDropdown /> : <CategoryTabs />}</>;
+  return (
+    <div>
+      <Search input={searchInput} setInput={setSearchInput} />
+      {(size?.width ?? 0) <= 640 ? <CategoryDropdown /> : <CategoryTabs />}
+    </div>
+  );
 };
 
 export { NewsFilter };

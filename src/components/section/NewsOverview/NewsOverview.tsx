@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import type { NewsEntity } from "./NewsTeaser";
-import { Search } from "./Search";
 import { NewsFilter } from "./NewsFilter";
 
 export type NewsOverviewProps = {
@@ -14,7 +13,7 @@ const NewsOverview = ({ news }: NewsOverviewProps) => {
 
   //extract and create array of categories without duplicates
   const categories = [
-    "All Categories",
+    t("news.allCategories"),
     ...Array.from(new Set(news.flatMap((item) => item.categories))),
   ];
 
@@ -25,7 +24,6 @@ const NewsOverview = ({ news }: NewsOverviewProps) => {
           {t("news.newsOverview")}
         </h1>
         <p className="mb-7 text-text">{t("news.subHeadline")}</p>
-        <Search className="m-auto mb-10 block sm:w-full md:w-1/3" />
       </div>
       <NewsFilter news={news} categories={categories} />
     </div>

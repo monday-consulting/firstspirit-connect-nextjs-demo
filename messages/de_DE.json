@@ -10,7 +10,9 @@
     "newsOverview": "Nachrichtenübersicht",
     "subHeadline": "Eine simple Nachrichtenübersichtsseite mit Suche und Filterfunktion.",
     "search": "Suchen",
-    "readArticle": "Artikel lesen"
+    "readArticle": "Artikel lesen",
+    "allCategories": "Alle Kategorien",
+    "noResults": "Keine Nachrichten gefunden"
   },
   "locations": {
     "searchInfo": "Finde einen Ort",

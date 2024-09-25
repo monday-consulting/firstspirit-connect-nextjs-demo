@@ -10,7 +10,9 @@
     "newsOverview": "News Overview",
     "subHeadline": "A simple news overview page with search and filter capabilities.",
     "search": "Search",
-    "readArticle": "Read Article"
+    "readArticle": "Read Article",
+    "allCategories": "All Categories",
+    "noResults": "No news found"
   },
   "locations": {
     "searchInfo": "Find a location",
