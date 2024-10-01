@@ -8,6 +8,7 @@ import type { Locale } from "@/i18n/config";
 const NewsOverviewPage = async ({ params }: { params: { locale: Locale } }) => {
   const page = await getPageContentByRoute(params.locale, decodeURI("/news/"));
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
+
   const news = await getDatasetByType(params.locale, "news");
 
   return (

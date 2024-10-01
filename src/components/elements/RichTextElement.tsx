@@ -49,7 +49,7 @@ const RichTextElement = ({ content, className }: RichTextElementProps) => {
       ) : (
         <ReactMarkdown
           className={cn(className)}
-          //@ts-expect-error: type error but it works as expect
+          // @ts-expect-error: type error but it works as expect
           rehypePlugins={[rehypeRaw]}
           components={{
             a: ({ href, children }) => (

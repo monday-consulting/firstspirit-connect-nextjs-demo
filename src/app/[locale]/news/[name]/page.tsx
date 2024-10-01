@@ -41,6 +41,7 @@ const NewsDetailPage = async ({ params }: { params: { locale: Locale; name: stri
             </div>
             <p className="text-text">{formatDate(date, params.locale)}</p>
             <h1 className="mt-2 text-center font-bold text-3xl text-textDark">{headline}</h1>
+            <p>{subline}</p>
             <div className="mt-4 flex items-center gap-4">
               <div className="h-16 w-16 overflow-hidden rounded-full">
                 <Image

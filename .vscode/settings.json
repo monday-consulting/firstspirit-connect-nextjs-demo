@@ -6,5 +6,8 @@
   "[javascript][javascriptreact][typescript][typescriptreact][json]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "biome.enabled": true
+  "biome.enabled": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }
