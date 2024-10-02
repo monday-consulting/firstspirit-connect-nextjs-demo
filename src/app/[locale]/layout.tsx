@@ -9,6 +9,7 @@ import { Footer } from "@/components/app-layout/Footer";
 import { getFooter } from "@/gql/documents/gcaPage";
 import { ClientProvider } from "./provider";
 import type { Locale } from "@/i18n/config";
+import { stripNavigationFiles } from "@/utils/links";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,15 +43,15 @@ const RootLayout = async ({
                   structure: structure?.map((layerA) => ({
                     fsNavItemId: layerA?.navigationItem.fsNavItemId,
                     label: layerA?.navigationItem.label,
-                    seoRoute: layerA?.navigationItem.seoRoute,
+                    seoRoute: stripNavigationFiles(layerA?.navigationItem.seoRoute),
                     children: layerA?.structureChildren.map((layerB) => ({
                       fsNavItemId: layerB?.navigationItem.fsNavItemId,
                       label: layerB?.navigationItem.label,
-                      seoRoute: layerB?.navigationItem.seoRoute,
+                      seoRoute: stripNavigationFiles(layerB?.navigationItem.seoRoute),
                       children: layerB?.structureChildren.map((layerC) => ({
                         fsNavItemId: layerC?.navigationItem.fsNavItemId,
                         label: layerC?.navigationItem.label,
-                        seoRoute: layerC?.navigationItem.seoRoute,
+                        seoRoute: stripNavigationFiles(layerC?.navigationItem.seoRoute),
                       })),
                     })),
                   })),

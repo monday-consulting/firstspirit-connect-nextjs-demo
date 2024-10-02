@@ -1,6 +1,13 @@
 import { defaultLocale, type Locale } from "@/i18n/config";
 import { removeSpecialCharacters, replaceUmlauts } from "./strings";
 
+export const stripNavigationFiles = (path: string | null | undefined): string => {
+  if (!path) return "";
+
+  // Remove the last part if it has a file extension
+  return path.replace(/\/[^\/]*\.[^\/]*$/, "/");
+};
+
 export const parseLink = (str: string) => {
   // Convert to lowercase, replace spaces with hyphens, and remove special characters
   let cleanStr = str.toLowerCase().replace(/\s/g, "-");
