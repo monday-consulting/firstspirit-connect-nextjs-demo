@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import type { PageBody, Dataset, Section, Content2Section } from "fsxa-api";
 import { Body } from "@/components/page/Body";
 
 const meta: Meta<typeof Body> = {
@@ -15,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Create mock data for the story
-const datasetExample: Dataset = {
+const datasetExample = {
   type: "Dataset",
   id: "dataset-1",
   previewId: "preview-1",
@@ -29,7 +28,7 @@ const datasetExample: Dataset = {
   locale: "en-US",
 };
 
-const sectionExample: Section = {
+const sectionExample = {
   type: "Section",
   id: "section-1",
   previewId: "preview-2",
@@ -38,7 +37,7 @@ const sectionExample: Section = {
   children: [],
 };
 
-const content2SectionExample: Content2Section = {
+const content2SectionExample = {
   type: "Content2Section",
   sectionType: "example-section",
   data: {
@@ -53,7 +52,7 @@ const content2SectionExample: Content2Section = {
   children: [datasetExample],
 };
 
-const pageBodyExample: PageBody = {
+const pageBodyExample = {
   type: "PageBody",
   name: "example-page-body",
   previewId: "preview-3",
