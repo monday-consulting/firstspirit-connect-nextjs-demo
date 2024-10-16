@@ -28,7 +28,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
           >
             {title}
           </button>
-          <button type="button" onClick={toggle}>
+          <button type="button" name="toggle accordion" onClick={toggle}>
             <LuChevronDown
               size={25}
               className={cn("transition-transform duration-200", open && "rotate-180")}
