@@ -69,7 +69,7 @@ const ProductOverviewItem = ({
           <button
             type="button"
             onClick={handleFavoriteState}
-            name={t("buttons.favourites")}
+            name={isFavorite(id) ? t("buttons.removeFavorite") : t("buttons.addFavorite")}
             className="text-textLighter hover:text-text"
           >
             {isFavorite(id) ? <FaHeart fill="currentColor" /> : <FaRegHeart fill="currentColor" />}

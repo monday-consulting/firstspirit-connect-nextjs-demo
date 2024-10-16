@@ -22,7 +22,8 @@
     "noResults": "No contacts found."
   },
   "buttons": {
-    "favourites": "Add to favourites",
+    "addFavorite": "Add to favorites",
+    "removeFavorite": "Remove from favorites",
     "closeAccordion": "Close accordion",
     "openAccordion": "Open accordion"
   }

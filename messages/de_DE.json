@@ -22,7 +22,8 @@
     "noResults": "Keine Kontakte gefunden."
   },
   "buttons": {
-    "favourites": "Als Favorit hinzufügen",
+    "addFavorite": "Als Favorit hinzufügen",
+    "removeFavorite": "Als Favorit entfernen",
     "closeAccordion": "Akkordion schließen",
     "openAccordion": "Akkordion öffnen"
   }
