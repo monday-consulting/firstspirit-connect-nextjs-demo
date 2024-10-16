@@ -20,5 +20,8 @@
     "phone": "Phone",
     "getDirection": "Get direction",
     "noResults": "No contacts found."
+  },
+  "buttons": {
+    "favourites": "Add to favourites"
   }
 }

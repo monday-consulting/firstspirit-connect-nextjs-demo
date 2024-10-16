@@ -20,5 +20,8 @@
     "phone": "Telefon",
     "getDirection": "Navigation",
     "noResults": "Keine Kontakte gefunden."
+  },
+  "buttons": {
+    "favourites": "Als Favorit hinzufügen"
   }
 }
