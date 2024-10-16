@@ -4,7 +4,8 @@
     "listEmpty": "No favorites saved"
   },
   "products": {
-    "resultCountText": "products found"
+    "resultCountText": "products found",
+    "link": "View product"
   },
   "news": {
     "newsOverview": "News Overview",

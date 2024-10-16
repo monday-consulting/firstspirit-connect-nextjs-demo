@@ -4,7 +4,8 @@
     "listEmpty": "Keine Favoriten gespeichert"
   },
   "products": {
-    "resultCountText": "Produkte gefunden"
+    "resultCountText": "Produkte gefunden",
+    "link": "Produkt ansehen"
   },
   "news": {
     "newsOverview": "Nachrichtenübersicht",

@@ -74,9 +74,11 @@ const ProductOverviewItem = ({
           >
             {isFavorite(id) ? <FaHeart fill="currentColor" /> : <FaRegHeart fill="currentColor" />}
           </button>
-          <Link href={route} className="text-textLighter hover:text-text">
-            <LuArrowRight />
-          </Link>
+          <button type="button" name={t("products.link")}>
+            <Link href={route} className="text-textLighter hover:text-text">
+              <LuArrowRight />
+            </Link>
+          </button>
         </div>
       </div>
     </div>
