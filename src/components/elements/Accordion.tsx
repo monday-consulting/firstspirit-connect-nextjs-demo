@@ -5,6 +5,7 @@ import { useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
 import type { RichTextElementProps } from "./RichTextElement";
 import { RichTextElement } from "./RichTextElement";
+import { useTranslations } from "next-intl";
 
 export type AccordionProps = {
   title: string;
@@ -12,6 +13,8 @@ export type AccordionProps = {
 };
 
 const Accordion = ({ title, content }: AccordionProps) => {
+  const t = useTranslations();
+
   const [open, setOpen] = useState(false);
   const toggle = () => {
     setOpen(!open);
@@ -28,7 +31,11 @@ const Accordion = ({ title, content }: AccordionProps) => {
           >
             {title}
           </button>
-          <button type="button" name="toggle accordion" onClick={toggle}>
+          <button
+            type="button"
+            name={open ? t("buttons.closeAccordion") : t("buttons.openAccordion")}
+            onClick={toggle}
+          >
             <LuChevronDown
               size={25}
               className={cn("transition-transform duration-200", open && "rotate-180")}

@@ -22,6 +22,8 @@
     "noResults": "Keine Kontakte gefunden."
   },
   "buttons": {
-    "favourites": "Als Favorit hinzufügen"
+    "favourites": "Als Favorit hinzufügen",
+    "closeAccordion": "Akkordion schließen",
+    "openAccordion": "Akkordion öffnen"
   }
 }
