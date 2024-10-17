@@ -1,5 +1,3 @@
-import type { Locale } from "@/i18n/config";
-
 export const replaceUmlauts = (str: string): string => {
   const umlautMap: { [key: string]: string } = {
     ä: "ae",
@@ -18,7 +16,7 @@ export const removeSpecialCharacters = (str: string) => {
   return str.replace(/[^a-zA-Z0-9\-]/g, "");
 };
 
-export const formatDate = (isoDate: string, locale: Locale): string => {
+export const formatDate = (isoDate: string): string => {
   const date = new Date(isoDate);
 
   return date.toLocaleDateString("de-DE", {

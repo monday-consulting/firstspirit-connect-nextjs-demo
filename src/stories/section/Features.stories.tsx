@@ -13,7 +13,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     headline: "Headline",
-    text: { content: "Test" },
+    text: [
+      {
+        content: "Test",
+        data: "",
+        type: "",
+      },
+    ],
     features: [
       {
         link: {
@@ -25,11 +31,14 @@ export const Default: Story = {
           alt: "Alt Text",
         },
         title: "Title",
-        text: {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui turpis, maximus non commodo ut, fringilla nec libero.",
-        },
-        id: "ID1",
+        text: [
+          {
+            content:
+              "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+            data: "",
+            type: "",
+          },
+        ],
       },
       {
         link: {
@@ -41,11 +50,14 @@ export const Default: Story = {
           alt: "Alt Text",
         },
         title: "Title",
-        text: {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui turpis, maximus non commodo ut, fringilla nec libero.",
-        },
-        id: "ID2",
+        text: [
+          {
+            content:
+              "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+            data: "",
+            type: "",
+          },
+        ],
       },
     ],
   },

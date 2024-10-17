@@ -3,10 +3,20 @@ import { client } from "../client";
 import { graphql } from "../generated";
 
 const sectionById = graphql(`
-  query section($locale: String!, $id: String!) {
+  query sectionById($locale: String!, $id: String!) {
     allFirstSpiritSection(filter: {_locale: {eq: $locale}, fsId: {eq: $id}}) {
       nodes {
-        data
+        data {
+          __typename
+          ...FirstSpiritTeaserFragment
+          ...FirstSpiritStageFragment
+          ...FirstSpiritTextImageFragment
+          ...FirstSpiritProductCategoryTeaserFragment
+          ...FirstSpiritStepsFragment
+          ...FirstSpiritAccordionFragment
+          ...FirstSpiritFeaturesFragment
+          ...FirstSpiritGoogleMapsFragment
+        }
         name
         fsId
       }
@@ -16,10 +26,23 @@ const sectionById = graphql(`
 
 const sectionByType = graphql(`
   query sectionByType($locale: String!, $type: String!) {
-    allFirstSpiritSection(filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}) {
+    allFirstSpiritSection(
+      filter: {_locale: {eq: $locale}, sectionType: {eq: $type}}
+    ) {
       nodes {
-        id
-        data
+        data {
+          __typename
+          ...FirstSpiritTeaserFragment
+          ...FirstSpiritStageFragment
+          ...FirstSpiritTextImageFragment
+          ...FirstSpiritProductCategoryTeaserFragment
+          ...FirstSpiritStepsFragment
+          ...FirstSpiritAccordionFragment
+          ...FirstSpiritFeaturesFragment
+          ...FirstSpiritGoogleMapsFragment
+        }
+        name
+        fsId
       }
     }
   }
