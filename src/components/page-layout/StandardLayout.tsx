@@ -1,29 +1,32 @@
-import { Body } from "../page/Body";
-import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
+import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/gql/generated/graphql";
 import { Stage } from "../section/Stage";
 
 export type StandardLayoutProps = {
-  // biome-ignore lint/suspicious/noExplicitAny: Lack of type definitions
-  pageInfo?: any;
+  pageInfo?: Pick<
+    FirstSpiritStandard,
+    "ptHeadline" | "ptSubheadline" | "ptImage" | "ptMdImageAltText"
+  >;
   pageBodies?: FirstSpiritPageBody[];
 };
 
 const StandardLayout = ({ pageInfo, pageBodies }: StandardLayoutProps) => {
   return (
     <>
-      {pageInfo?.pt_image && (
+      {pageInfo?.ptImage && (
         <Stage
-          headline={pageInfo.pt_headline}
-          subline={pageInfo.pt_subheadline}
+          headline={pageInfo.ptHeadline || ""}
+          subline={pageInfo.ptSubheadline || ""}
           image={{
-            src: pageInfo.pt_image.resolutions.ORIGINAL.url,
-            alt: pageInfo.pt_image_alt_text,
+            src:
+              (pageInfo.ptImage.__typename === "FirstSpiritImage" &&
+                pageInfo.ptImage.resolutions?.original?.url) ||
+              "",
+            alt: pageInfo.ptMdImageAltText || "",
           }}
-          sectionId={""}
           shortVersion
         />
       )}
-      <Body content={pageBodies} />
+      {/* <Body content={pageBodies} /> */}
     </>
   );
 };

@@ -5,6 +5,7 @@ import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type {
   FirstSpiritPageBody,
   FirstSpiritSmartLivingNewsFragmentFragment,
+  FirstSpiritStandard,
 } from "@/gql/generated/graphql";
 import type { Locale } from "@/i18n/config";
 
@@ -35,7 +36,9 @@ const NewsOverviewPage = async ({ params }: { params: { locale: Locale } }) => {
             },
           }))}
         />
-        {page && <StandardLayout pageInfo={page.data} pageBodies={pageBodies} />}
+        {page && (
+          <StandardLayout pageInfo={page.data as FirstSpiritStandard} pageBodies={pageBodies} />
+        )}
       </>
     </main>
   );

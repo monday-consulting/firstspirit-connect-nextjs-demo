@@ -113,7 +113,6 @@ const Section = ({ section }: SectionProps) => {
               label: section.data.stCta?.key || "",
               href: "#",
             }}
-            sectionId={section.id}
           />
         );
       case "FirstSpiritFeatures": {
