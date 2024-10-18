@@ -14,6 +14,7 @@ const pageContentDocument = graphql(`
         ... on FirstSpiritStandard {
           ptHeadline
           ptSubheadline
+          ptMdImageAltText
           ptImage {
             __typename
             ... on FirstSpiritImage {
