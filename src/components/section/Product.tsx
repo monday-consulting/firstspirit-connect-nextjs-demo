@@ -3,8 +3,8 @@
 import { useMemo } from "react";
 import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
 import { FavoriteButton } from "../elements/FavoriteButton";
-import Image from "next/image";
 import type { Dataset, ImageData } from "@/types";
+import { ImageComponent } from "../elements/Image";
 
 export type Product = {
   id: string;
@@ -71,12 +71,11 @@ const Product = ({ product }: ProductProps) => {
           </div>
           <div className="relative my-12 w-full lg:my-0 lg:w-1/2">
             {currentDataset?.image && (
-              <Image
-                className="rounded-xl"
+              <ImageComponent
                 src={currentDataset.image.src}
                 alt={currentDataset.image.alt}
-                width={1000}
-                height={800}
+                rounded="xl"
+                className="w-full [aspect-ratio:1/1]"
               />
             )}
           </div>
