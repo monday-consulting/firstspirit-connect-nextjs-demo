@@ -22,9 +22,6 @@ const FavoriteTeaser = ({ title, id, image }: FavoriteTeaserProps) => {
       href={getProductDetailLink(id, locale)}
       className="relative flex gap-4 rounded-lg p-3 ring-2 ring-lightGray"
     >
-      {/* <div className="relative aspect-square w-14">
-        <Image src={image.src} alt={image.alt} fill objectFit="cover" className="rounded-full" />
-      </div> */}
       <ImageComponent
         src={image.src}
         alt={image.alt}
