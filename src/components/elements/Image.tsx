@@ -6,11 +6,12 @@ export type ImageProps = {
   width: string;
   height: string;
   rounded?: string;
+  aspect?: string;
 };
 
-const ImageComponent = ({ src, alt, height, width, rounded }: ImageProps) => {
+const ImageComponent = ({ src, alt, height, width, rounded, aspect }: ImageProps) => {
   return (
-    <div className={`h-${height} w-${width} relative`}>
+    <div className={`h-${height} w-${width} relative ${aspect && `aspect-${aspect}`}`}>
       <Image
         src={src}
         alt={alt}
