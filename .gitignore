@@ -30,9 +30,6 @@ yarn-error.log*
 .env.development
 .env.production
 
-# vercel
-.vercel
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
@@ -40,3 +37,6 @@ next-env.d.ts
 # storybook
 /storybook-static
 *storybook.log
+
+# local Netlify folder
+.netlify
