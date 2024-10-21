@@ -1,37 +1,23 @@
-import { useMemo } from "react";
-import type { Image as fsxaImage } from "fsxa-api";
 import Image from "next/image";
 
 export type ImageProps = {
-  image: fsxaImage;
-  ratio?: string;
+  src: string;
   alt: string;
+  width: string;
+  height: string;
+  rounded?: string;
 };
 
-const ImageComponent = ({ image, alt, ratio }: ImageProps) => {
-  // useMemo is used to optimize the formation of srcSet string and recompute only on changes in image or ratio
-  const srcSet = useMemo(() => {
-    return Object.entries(image.resolutions)
-      .filter(([resolutionKey]) => {
-        return ratio ? resolutionKey.includes(ratio) : true;
-      })
-      .map(([, resolutionEntry]) => {
-        return `${resolutionEntry.url}`;
-      })
-      .join(", ");
-  }, [image, ratio]);
-
-  const { width, height } = useMemo(() => {
-    const resolutionEntry = Object.entries(image.resolutions).find(([resolutionKey]) =>
-      ratio ? resolutionKey.includes(ratio) : true
-    );
-    return {
-      width: resolutionEntry ? resolutionEntry[1].width : 0,
-      height: resolutionEntry ? resolutionEntry[1].height : 0,
-    };
-  }, [image, ratio]);
-
-  return <Image alt={alt} src={srcSet} width={width} height={height} />;
+const ImageComponent = ({ src, alt, height, width, rounded }: ImageProps) => {
+  return (
+    <div className={`h-${height} w-${width} relative`}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className={`object-cover ${rounded && `rounded-${rounded}`}`}
+      />
+    </div>
+  );
 };
-
 export { ImageComponent };
