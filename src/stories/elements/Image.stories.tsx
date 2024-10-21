@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ImageComponent } from "@/components/elements/Image";
+import { ImageComponent } from "@/components/elements/ImageComponent";
 
 const meta = {
   title: "components/Elements/Image2",
@@ -14,8 +14,5 @@ export const Example: Story = {
   args: {
     src: "https://placehold.co/600x400",
     alt: "Alt Text",
-    height: "60",
-    width: "full",
-    rounded: "xl",
   },
 };

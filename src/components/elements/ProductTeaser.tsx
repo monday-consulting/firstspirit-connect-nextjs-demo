@@ -1,7 +1,7 @@
 import type { ImageData } from "@/types";
 import { Link } from "@/i18n/routing";
 import { RichTextElement, type RichTextElementProps } from "./RichTextElement";
-import { ImageComponent } from "./Image";
+import { ImageComponent } from "./ImageComponent";
 
 export type ProductTeaserProps = {
   name: string;
@@ -17,8 +17,8 @@ const ProductTeaser = ({ name, description, route, image }: ProductTeaserProps) 
         <ImageComponent
           src={image.src}
           alt={image.alt}
-          rounded="xl"
-          className="w-full [aspect-ratio:1/1]"
+          imageClassName="rounded-xl"
+          className="aspect-square w-full"
         />
         <h1 className="mt-4 font-bold text-2xl">{name}</h1>
       </Link>

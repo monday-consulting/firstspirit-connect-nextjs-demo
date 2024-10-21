@@ -5,7 +5,7 @@ import { LuTrash } from "react-icons/lu";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { useLocale } from "next-intl";
 import type { Locale } from "@/i18n/config";
-import { ImageComponent } from "./Image";
+import { ImageComponent } from "./ImageComponent";
 
 export type FavoriteTeaserProps = {
   title: string;
@@ -26,7 +26,7 @@ const FavoriteTeaser = ({ title, id, image }: FavoriteTeaserProps) => {
         src={image.src}
         alt={image.alt}
         className="aspect-square w-14"
-        rounded="full"
+        imageClassName="rounded-full"
       />
       <p className="text-text">{title}</p>
       <button

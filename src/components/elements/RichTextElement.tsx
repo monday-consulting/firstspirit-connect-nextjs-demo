@@ -16,7 +16,7 @@ export type RichTextElementProps = {
 
 const convertToMarkdown = (content: RichTextElementContent[]): string => {
   return content
-    .map((item) => {
+    ?.map((item) => {
       // Handle nested content by calling the function recursively
       const nestedContent =
         typeof item.content === "string" ? item.content : convertToMarkdown(item.content);

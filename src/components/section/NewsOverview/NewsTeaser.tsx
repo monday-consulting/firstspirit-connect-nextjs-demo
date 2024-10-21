@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { formatDate } from "@/utils/strings";
 import { getNewsDetailLink } from "@/utils/links";
 import { Link } from "@/i18n/routing";
-import { ImageComponent } from "@/components/elements/Image";
+import { ImageComponent } from "@/components/elements/ImageComponent";
 
 export type NewsEntity = {
   image: {
@@ -25,12 +25,12 @@ const NewsTeaser = ({ newsEntity }: NewsTeaserProps) => {
   const locale = useLocale();
   const t = useTranslations();
   return (
-    <div className="flex flex-col items-center justify-center gap-4 text-center">
+    <div className="flex flex-col items-center gap-4 text-center">
       <ImageComponent
         src={newsEntity.image.src}
         alt={newsEntity.image.alt}
         className="h-72 w-full"
-        rounded="xl"
+        imageClassName="rounded-xl"
       />
       <div className="flex flex-row flex-wrap gap-2">
         {newsEntity.categories.map((category) => (
