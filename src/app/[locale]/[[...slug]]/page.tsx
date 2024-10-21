@@ -16,8 +16,6 @@ const SlugPage = async ({ params }: { params: { slug: string[]; locale: Locale }
   const pageInfo = page?.data.__typename === "FirstSpiritStandard" && page.data;
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
 
-  console.log("PAGE: ", page);
-  console.log("BODY: ", pageBodies);
   if (!page?.name) {
     redirect("/");
   }

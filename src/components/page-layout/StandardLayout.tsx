@@ -1,5 +1,6 @@
 import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/gql/generated/graphql";
 import { Stage } from "../section/Stage";
+import { Body } from "../page/Body";
 
 export type StandardLayoutProps = {
   pageInfo?: Pick<
@@ -26,7 +27,7 @@ const StandardLayout = ({ pageInfo, pageBodies }: StandardLayoutProps) => {
           shortVersion
         />
       )}
-      {/* <Body content={pageBodies} /> */}
+      <Body content={pageBodies} />
     </>
   );
 };

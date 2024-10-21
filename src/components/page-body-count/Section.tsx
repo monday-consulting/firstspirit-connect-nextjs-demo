@@ -9,6 +9,7 @@ import { Features } from "../section/Features";
 import type { StepsItemProps } from "../elements/StepsItem";
 import type { AccordionProps } from "../elements/Accordion";
 import type { FeatureProps } from "../elements/Feature";
+import { PartsTable } from "../section/PartsTable";
 
 export type SectionProps = {
   section: Pick<FirstSpiritSection, "__typename" | "id" | "data">;
@@ -61,7 +62,7 @@ const Section = ({ section }: SectionProps) => {
               return {
                 title: step.data.stTitle,
                 text: step.data.stText,
-                index,
+                index: index + 1,
               } as StepsItemProps;
             }
           })
@@ -154,7 +155,7 @@ const Section = ({ section }: SectionProps) => {
           <Teaser
             headline={section.data.stHeadline || ""}
             text={{ content: section.data.stText }}
-            imageStart={(section.data.stLayout || "text-image") === "text-image"}
+            imageStart={(section.data.stLayout?.key || "text-image") === "text-image"}
             image={{
               src:
                 (section.data.stImage?.__typename === "FirstSpiritImage" &&
@@ -171,6 +172,16 @@ const Section = ({ section }: SectionProps) => {
                   }
                 : undefined
             }
+          />
+        );
+      case "FirstSpiritTable":
+        return (
+          // TODO: parse stTable (NLFY-208)
+          <PartsTable
+            tableHead={{ colOne: "A", colTwo: "2" }}
+            tableRows={[]}
+            headline={section.data.stHeadline || undefined}
+            text={section.data.stText || undefined}
           />
         );
       default:

@@ -16,6 +16,7 @@ const sectionById = graphql(`
           ...FirstSpiritAccordionFragment
           ...FirstSpiritFeaturesFragment
           ...FirstSpiritGoogleMapsFragment
+          ...FirstSpiritTableFragment
         }
         name
         fsId
@@ -40,6 +41,7 @@ const sectionByType = graphql(`
           ...FirstSpiritAccordionFragment
           ...FirstSpiritFeaturesFragment
           ...FirstSpiritGoogleMapsFragment
+          ...FirstSpiritTableFragment
         }
         name
         fsId

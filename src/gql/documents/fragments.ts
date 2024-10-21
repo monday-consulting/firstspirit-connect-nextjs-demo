@@ -189,4 +189,11 @@ graphql(`
     # ttLat
     # ttLong
   }
+
+  fragment FirstSpiritTableFragment on FirstSpiritTable {
+    stHeadline
+    stText
+    stTable
+  }
+
 `);
