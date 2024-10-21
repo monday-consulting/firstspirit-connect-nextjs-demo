@@ -1,10 +1,10 @@
-import Image from "next/image";
 import { LuArrowRight } from "react-icons/lu";
 import { useLocale, useTranslations } from "next-intl";
 import { formatDate } from "@/utils/strings";
 import type { Locale } from "@/i18n/config";
 import { getNewsDetailLink } from "@/utils/links";
 import { Link } from "@/i18n/routing";
+import { ImageComponent } from "@/components/elements/Image";
 
 export type NewsEntity = {
   image: {
@@ -27,13 +27,15 @@ const NewsTeaser = ({ newsEntity }: NewsTeaserProps) => {
   const t = useTranslations();
   return (
     <div className="flex flex-col items-center justify-center gap-4 text-center">
-      <Image
-        src={newsEntity.image.src}
-        alt={newsEntity.image.alt}
-        width={400}
-        height={300}
-        className="rounded-xl"
-      />
+      <div className="relative h-80 w-full">
+        <ImageComponent
+          height="80"
+          width="full"
+          src={newsEntity.image.src}
+          alt={newsEntity.image.alt}
+          rounded="xl"
+        />
+      </div>
       <div className="flex flex-row flex-wrap gap-2">
         {newsEntity.categories.map((category) => (
           <span
