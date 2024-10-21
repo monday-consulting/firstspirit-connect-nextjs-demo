@@ -28,10 +28,9 @@ const NewsTeaser = ({ newsEntity }: NewsTeaserProps) => {
   return (
     <div className="flex flex-col items-center justify-center gap-4 text-center">
       <ImageComponent
-        height="80"
-        width="full"
         src={newsEntity.image.src}
         alt={newsEntity.image.alt}
+        className="h-72 w-full"
         rounded="xl"
       />
       <div className="flex flex-row flex-wrap gap-2">

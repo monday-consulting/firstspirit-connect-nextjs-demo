@@ -25,10 +25,8 @@ const FavoriteTeaser = ({ title, id, image }: FavoriteTeaserProps) => {
       <ImageComponent
         src={image.src}
         alt={image.alt}
-        width="14"
-        height="14"
+        className="aspect-square w-14"
         rounded="full"
-        aspect="square"
       />
       <p className="text-text">{title}</p>
       <button

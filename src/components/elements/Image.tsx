@@ -3,20 +3,18 @@ import Image from "next/image";
 export type ImageProps = {
   src: string;
   alt: string;
-  width: string;
-  height: string;
   rounded?: string;
-  aspect?: string;
+  className?: string;
 };
 
-const ImageComponent = ({ src, alt, height, width, rounded, aspect }: ImageProps) => {
+const ImageComponent = ({ src, alt, rounded, className }: ImageProps) => {
   return (
-    <div className={`h-${height} w-${width} relative ${aspect ? `aspect-${aspect}` : ""}`}>
+    <div className={`relative ${className}`}>
       <Image
         src={src}
         alt={alt}
         fill
-        className={`object-cover ${rounded ? `rounded-${rounded}` : ""}`}
+        className={`${rounded ? `rounded-${rounded}` : ""} object-cover`}
       />
     </div>
   );
