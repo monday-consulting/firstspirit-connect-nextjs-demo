@@ -1,9 +1,9 @@
 import { Link } from "@/i18n/routing";
-import Image from "next/image";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
+import { ImageComponent } from "../elements/Image";
 
 export type ProductOverviewItemProps = {
   image: ImageData;
@@ -41,13 +41,7 @@ const ProductOverviewItem = ({
       <div className="mb-12 w-full">
         <div className="w-full overflow-hidden rounded-xl">
           <Link href={route}>
-            <Image
-              src={image.src}
-              alt={image.alt}
-              className="h-64 w-full object-cover"
-              width={400}
-              height={400}
-            />
+            <ImageComponent src={image.src} alt={image.alt} className="w-full [aspect-ratio:1/1]" />
           </Link>
         </div>
       </div>
