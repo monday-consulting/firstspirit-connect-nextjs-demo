@@ -2,148 +2,188 @@ import { ProductCategoryTeaser } from "../section/ProductCategoryTeaser";
 import { Teaser } from "../section/Teaser";
 import { FAQSection } from "../section/FAQSection";
 import { Steps } from "../section/Steps";
-import { TextImage } from "../section/TextImage";
+import { TextImage, type TextImageLayout } from "../section/TextImage";
 import type { FirstSpiritSection } from "@/gql/generated/graphql";
 import { Stage } from "../section/Stage";
 import { Features } from "../section/Features";
+import type { StepsItemProps } from "../elements/StepsItem";
+import type { AccordionProps } from "../elements/Accordion";
+import type { FeatureProps } from "../elements/Feature";
+import { PartsTable } from "../section/PartsTable";
 
 export type SectionProps = {
-  section: Pick<FirstSpiritSection, "__typename" | "id" | "sectionType" | "data">;
+  section: Pick<FirstSpiritSection, "__typename" | "id" | "data">;
 };
 
 const Section = ({ section }: SectionProps) => {
   const SectionComponent = () => {
-    switch (section.sectionType) {
-      case "smartliving.product_overview":
-        return "SectionProductOverview";
-      case "text_image":
+    switch (section.data.__typename) {
+      case "FirstSpiritTextImage":
         return (
           <TextImage
-            headline={section.data.st_headline}
-            subheadline={{ content: section.data.st_subheadline }}
-            text={{ content: section.data.st_text }}
+            headline={section.data.stHeadline || ""}
+            subheadline={{ content: section.data.stSubheadline }}
+            text={section.data.stText}
             twoColumn
-            layout={section.data.st_layout.key}
+            layout={(section.data.stLayout?.key as TextImageLayout) || "text-image"}
             image={{
-              src: section.data.st_image.resolutions.ORIGINAL.url,
-              alt: section.data.st_image_alt_text,
+              src:
+                (section.data.stImage?.__typename === "FirstSpiritImage" &&
+                  section.data.stImage.resolutions?.original?.url) ||
+                "",
+              alt: section.data.stImageAltText || "",
             }}
           />
         );
-      case "product_category_teaser":
+      case "FirstSpiritProductCategoryTeaser":
         return (
           <ProductCategoryTeaser
             category={{
-              type: section.data.st_category.type,
-              name: section.data.st_category.value,
-              id: section.data.st_category.key,
+              type: section.data.stCategory?.key || "",
+              name: section.data.stCategory?.value || "",
+              id: section.data.stCategory?.key || "",
             }}
             group_link={{
-              label: section.data.st_category_link.data.lt_text,
+              // TODO: links not resolved correctly
+              label: section.data.stCategoryLink?.value || "",
             }}
-            headline={section.data.st_headline}
-            text={{ content: section.data.st_text }}
-            teaserTextStart={section.data.st_text_alignment.identifier === "left"}
+            headline={section.data.stHeadline || ""}
+            text={{ content: section.data.stText }}
+            teaserTextStart={section.data.stTextAlignment?.key === "left"}
           />
         );
-      case "steps":
+      case "FirstSpiritSteps": {
+        const stepItems = section.data.stSteps
+          ?.map((step, index) => {
+            if (
+              step?.__typename === "FirstSpiritSection" &&
+              step.data.__typename === "FirstSpiritStepsItem"
+            ) {
+              return {
+                title: step.data.stTitle,
+                text: step.data.stText,
+                index: index + 1,
+              } as StepsItemProps;
+            }
+          })
+          .filter((item) => item != null);
         return (
           <Steps
-            headline={section.data.st_headline}
-            subline={section.data.st_subline}
-            stepsItems={section.data.st_steps.map(
-              // biome-ignore lint/suspicious/noExplicitAny: No type definitions
-              (step: any, index: number) => ({
-                title: step.data.st_title,
-                text: { content: step.data.st_text },
-                index: index + 1,
-              })
-            )}
+            headline={section.data.stHeadline || ""}
+            subline={section.data.stSubline || ""}
+            stepsItems={stepItems || []}
           />
         );
-      case "accordion":
+      }
+      case "FirstSpiritAccordion": {
+        const entries = section.data.stAccordion
+          ?.map((entry) => {
+            if (
+              entry?.__typename === "FirstSpiritSection" &&
+              entry.data.__typename === "FirstSpiritAccordionItem"
+            ) {
+              return {
+                title: entry.data.stTitle,
+                content: entry.data.stContent,
+              } as AccordionProps;
+            }
+          })
+          .filter((item) => item != null);
         return (
           <FAQSection
-            headline={section.data.st_headline}
-            subline={section.data.st_subline}
-            entries={section.data.st_accordion.map(
-              // biome-ignore lint/suspicious/noExplicitAny: No type definitions
-              (entry: any) => ({
-                title: entry.data.st_title,
-                content: { content: entry.data.st_content },
-              })
-            )}
+            headline={section.data.stHeadline || ""}
+            subline={section.data.stSubline}
+            entries={entries || []}
           />
         );
-      case "stage":
+      }
+      case "FirstSpiritStage":
         return (
           <Stage
-            headline={section.data.st_headline}
-            subline={section.data.st_subheadline}
+            headline={section.data.stHeadline || ""}
+            subline={section.data.stSubheadline || ""}
             image={{
-              src: section.data.st_image.resolutions.ORIGINAL.url,
-              alt: section.data.st_image_alt_text,
+              src:
+                (section.data.stImage?.__typename === "FirstSpiritImage" &&
+                  section.data.stImage.resolutions?.original?.url) ||
+                "",
+              alt: "",
             }}
             cta={{
-              label: section.data.st_cta?.data.lt_text,
-              // TODO: resolve section.data.st_cta?.data.lt_link
+              // TODO: links not resolved correctly
+              label: section.data.stCta?.key || "",
               href: "#",
             }}
-            sectionId={section.id}
           />
         );
-      case "features":
-        return (
-          <Features
-            headline={section.data.st_headline}
-            text={{ content: section.data.st_text }}
-            features={section.data.st_features.map(
-              // biome-ignore lint/suspicious/noExplicitAny: No type definitions
-              (feature: any) => ({
+      case "FirstSpiritFeatures": {
+        const features = section.data.stFeatures
+          ?.map((feature) => {
+            if (
+              feature?.__typename === "FirstSpiritSection" &&
+              feature.data.__typename === "FirstSpiritFeature"
+            ) {
+              return {
+                title: feature.data.stTitle,
+                text: feature.data.stText,
                 link: {
-                  // TODO: reslove feature.data.st_link.data.lt_link
+                  // TODO: links not resolved correctly
+                  label: feature.data.stLink?.key || "",
                   href: "#",
-                  label: feature.data.st_link.data.lt_text,
                 },
                 image: {
-                  src: feature.data.st_image.resolutions.ORIGINAL.url,
-                  alt: feature.data.st_image_alt_text,
+                  src:
+                    (feature.data.stImage?.__typename === "FirstSpiritImage" &&
+                      feature.data.stImage.resolutions?.original?.url) ||
+                    "",
+                  alt: feature.data.stImageAltText,
                 },
-                title: feature.data.st_title,
-                text: { content: feature.data.st_text },
-                id: feature.id,
-              })
-            )}
+              } as FeatureProps;
+            }
+          })
+          .filter((item) => item != null);
+        return (
+          <Features
+            headline={section.data.stHeadline || ""}
+            text={section.data.stText}
+            features={features || []}
           />
         );
-      case "interesting_facts":
-        return "SectionInterestingFacts";
-      case "products.category_products":
-        return "SectionProductCategory";
-      case "smartliving.product":
-        return "SectionProduct";
-      case "teaser":
+      }
+      case "FirstSpiritTeaser":
         return (
           <Teaser
-            headline={section.data.st_headline}
-            claim={section.data.st_subhealine}
-            text={{ content: section.data.st_text }}
-            imageStart={section.data.st_layout.key === "text-image"}
+            headline={section.data.stHeadline || ""}
+            text={{ content: section.data.stText }}
+            imageStart={(section.data.stLayout?.key || "text-image") === "text-image"}
             image={{
-              src: section.data.st_image.resolutions.ORIGINAL.url,
-              alt: section.data.st_image_alt_text,
+              src:
+                (section.data.stImage?.__typename === "FirstSpiritImage" &&
+                  section.data.stImage.resolutions?.original?.url) ||
+                "",
+              alt: section.data.stImageAltText || "",
             }}
             cta={
-              section.data.st_cta && {
-                label: section.data.st_cta.data.lt_text,
-                // TODO: resolve section.data.st_cta.data.lt_link
-                href: "#",
-              }
+              section.data.stCta
+                ? {
+                    // TODO: links not resolved correctly
+                    label: section.data.stCta.key || "",
+                    href: "#",
+                  }
+                : undefined
             }
           />
         );
-      case "featured_products":
-        return "SectionFeaturedProducts";
+      case "FirstSpiritTable":
+        return (
+          // TODO: parse stTable (NLFY-208)
+          <PartsTable
+            tableHead={{ colOne: "A", colTwo: "2" }}
+            tableRows={[]}
+            headline={section.data.stHeadline || undefined}
+            text={section.data.stText || undefined}
+          />
+        );
       default:
         return undefined;
     }

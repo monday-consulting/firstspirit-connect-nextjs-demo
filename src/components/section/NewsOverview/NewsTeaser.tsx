@@ -1,7 +1,6 @@
 import { LuArrowRight } from "react-icons/lu";
 import { useLocale, useTranslations } from "next-intl";
 import { formatDate } from "@/utils/strings";
-import type { Locale } from "@/i18n/config";
 import { getNewsDetailLink } from "@/utils/links";
 import { Link } from "@/i18n/routing";
 import { ImageComponent } from "@/components/elements/Image";
@@ -44,7 +43,7 @@ const NewsTeaser = ({ newsEntity }: NewsTeaserProps) => {
         ))}
       </div>
       <p className="text-text">
-        {newsEntity.author} · {formatDate(newsEntity.date, locale as Locale)}
+        {newsEntity.author} · {formatDate(newsEntity.date)}
       </p>
       <h2 className="font-bold font-heading text-2xl text-primary">{newsEntity.headline}</h2>
       {newsEntity.teaserText && <p className="mb-3 text-text">{newsEntity.teaserText}</p>}

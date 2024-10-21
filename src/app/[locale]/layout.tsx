@@ -5,11 +5,12 @@ import { getNavigationStructure } from "@/gql/documents/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Navigation, type NavigationStructure } from "@/components/app-layout/Navigation";
-import { Footer } from "@/components/app-layout/Footer";
-import { getFooter } from "@/gql/documents/gcaPage";
+// import { getFooter } from "@/gql/documents/gcaPage";
 import { ClientProvider } from "./provider";
 import type { Locale } from "@/i18n/config";
 import { stripNavigationFiles } from "@/utils/links";
+import { getFooter } from "@/gql/documents/gcaPage";
+import { Footer } from "@/components/app-layout/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -59,14 +60,19 @@ const RootLayout = async ({
               }
             />
             {children}
-            <Footer
-              copyrightText={{ content: footer?.data.gc_copyright }}
-              // biome-ignore lint/suspicious/noExplicitAny: No type definitions
-              legalLinks={footer?.data.gc_links.map((item: any) => ({
-                label: item.data.lt_text,
-                href: "#",
-              }))}
-            />
+            {footer?.data.__typename === "FirstSpiritGcaFooter" && (
+              <Footer
+                copyrightText={{ content: footer?.data.gcCopyright }}
+                legalLinks={
+                  footer.data.gcLinks
+                    ? footer?.data.gcLinks.map((item) => ({
+                        label: item?.name || "",
+                        href: "#",
+                      }))
+                    : []
+                }
+              />
+            )}
           </ClientProvider>
         </NextIntlClientProvider>
       </body>

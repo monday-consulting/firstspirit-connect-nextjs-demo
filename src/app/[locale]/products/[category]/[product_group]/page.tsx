@@ -12,31 +12,42 @@ const SlugPage = async ({
   const allProducts = await getAllProducts(params.locale);
 
   const filteredProducts = allProducts.filter((item) => {
-    const ttName = item.data.tt_categories[0].data.tt_name;
-    return ttName?.toLowerCase().replaceAll(" ", "-") === decodeURI(params.product_group);
+    if (item.data.__typename === "FirstSpiritSmartlivingProduct") {
+      const ttName = item.data.ttCategories[0].data.tt_name;
+      return ttName?.toLowerCase().replaceAll(" ", "-") === decodeURI(params.product_group);
+    }
   });
 
   if (filteredProducts.length < 1) {
     redirect("/");
   }
 
-  const products = filteredProducts.map((item) => ({
-    route: item.route,
-    data: item.data,
-    id: item.fsId,
-  }));
+  const products = filteredProducts
+    .map((item) => {
+      if (item && item.data.__typename === "FirstSpiritSmartlivingProduct") {
+        return {
+          route: item.route,
+          data: item.data,
+          id: item.fsId,
+        };
+      }
+    })
+    .filter((item) => item != null);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-4 sm:px-12 md:px-24">
       <ProductOverview
         products={products.map((item) => ({
           image: {
-            src: item.data.tt_image.resolutions.ORIGINAL.url,
-            alt: item.data.tt_image_alt_text,
+            src:
+              (item.data.ttImage?.__typename === "FirstSpiritImage" &&
+                item.data.ttImage.resolutions?.original?.url) ||
+              "",
+            alt: item.data.ttImageAltText || "",
           },
-          category: item.data.tt_categories[0].data.tt_name,
-          name: item.data.tt_name,
-          price: item.data.tt_price,
+          category: item.data.ttCategories[0].data.tt_name,
+          name: item.data.ttName || "",
+          price: item.data.ttPrice || "",
           id: item.id,
           route: getProductDetailLink(item.id, params.locale),
         }))}

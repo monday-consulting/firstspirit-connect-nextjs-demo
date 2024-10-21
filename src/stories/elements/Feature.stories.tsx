@@ -21,10 +21,13 @@ export const Default: Story = {
       alt: "Alt Text",
     },
     title: "Title",
-    text: {
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula odio sed diam convallis laoreet. Maecenas porttitor lorem sit amet tempus pharetra.",
-    },
-    id: "ID1",
+    text: [
+      {
+        content:
+          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        data: "",
+        type: "",
+      },
+    ],
   },
 };
