@@ -27,15 +27,13 @@ const NewsTeaser = ({ newsEntity }: NewsTeaserProps) => {
   const t = useTranslations();
   return (
     <div className="flex flex-col items-center justify-center gap-4 text-center">
-      <div className="relative h-80 w-full">
-        <ImageComponent
-          height="80"
-          width="full"
-          src={newsEntity.image.src}
-          alt={newsEntity.image.alt}
-          rounded="xl"
-        />
-      </div>
+      <ImageComponent
+        height="80"
+        width="full"
+        src={newsEntity.image.src}
+        alt={newsEntity.image.alt}
+        rounded="xl"
+      />
       <div className="flex flex-row flex-wrap gap-2">
         {newsEntity.categories.map((category) => (
           <span
