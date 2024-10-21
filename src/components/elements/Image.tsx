@@ -11,12 +11,12 @@ export type ImageProps = {
 
 const ImageComponent = ({ src, alt, height, width, rounded, aspect }: ImageProps) => {
   return (
-    <div className={`h-${height} w-${width} relative ${aspect && `aspect-${aspect}`}`}>
+    <div className={`h-${height} w-${width} relative ${aspect ? `aspect-${aspect}` : ""}`}>
       <Image
         src={src}
         alt={alt}
         fill
-        className={`object-cover ${rounded && `rounded-${rounded}`}`}
+        className={`object-cover ${rounded ? `rounded-${rounded}` : ""}`}
       />
     </div>
   );
