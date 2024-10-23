@@ -13,7 +13,20 @@ type Story = StoryObj<typeof meta>;
 export const StepsItemDefault: Story = {
   args: {
     title: "Title",
-    text: { content: "Lorem ipsum" },
+    text: [
+      {
+        content:
+          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        data: "example",
+        type: "paragraph",
+      },
+      {
+        content:
+          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        data: "example",
+        type: "block",
+      },
+    ],
     index: 1,
   },
 };

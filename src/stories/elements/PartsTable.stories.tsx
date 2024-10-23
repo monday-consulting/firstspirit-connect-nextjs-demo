@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { PartsTable } from "@/components/elements/PartsTable";
+import { PartsTable } from "@/components/section/PartsTable";
 
 const meta = {
   title: "components/Elements/PartsTable",
@@ -12,21 +12,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    tableHead: { col_one: "Smart devices and systems", col_two: "2022" },
+    tableHead: { colOne: "Smart devices and systems", colTwo: "2022" },
     tableRows: [
-      { col_one: "Smart TV (television)", col_two: 58.5 },
-      { col_one: "Smart Speaker (intelligent/WLAN speaker)", col_two: 15.2 },
+      { colOne: "Smart TV (television)", colTwo: 58.5 },
+      { colOne: "Smart Speaker (intelligent/WLAN speaker)", colTwo: 15.2 },
       {
-        col_one: "Smart energy management system (e.g. thermostat, electricity meter, lighting)",
-        col_two: 9.7,
+        colOne: "Smart energy management system (e.g. thermostat, electricity meter, lighting)",
+        colTwo: 9.7,
       },
       {
-        col_one: "Smart security system (e.g. alarm system, smoke detector, surveillance camera)",
-        col_two: 9.5,
+        colOne: "Smart security system (e.g. alarm system, smoke detector, surveillance camera)",
+        colTwo: 9.5,
       },
       {
-        col_one: "Smart household appliance (e.g. vacuum robot, refrigerator, washing machine)",
-        col_two: 13.0,
+        colOne: "Smart household appliance (e.g. vacuum robot, refrigerator, washing machine)",
+        colTwo: 13.0,
       },
     ],
   },

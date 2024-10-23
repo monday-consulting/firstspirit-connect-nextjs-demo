@@ -3,13 +3,13 @@
 import { cn } from "@/utils/cn";
 import { useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
-import type { RichTextElementProps } from "./RichTextElement";
+import type { RichTextElementContent } from "./RichTextElement";
 import { RichTextElement } from "./RichTextElement";
 import { useTranslations } from "next-intl";
 
 export type AccordionProps = {
   title: string;
-  content: RichTextElementProps;
+  content: RichTextElementContent[];
 };
 
 const Accordion = ({ title, content }: AccordionProps) => {
@@ -46,7 +46,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
           className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200"
           style={open ? { maxHeight: "364px" } : {}}
         >
-          <RichTextElement {...content} />
+          <RichTextElement content={content} />
         </div>
       </div>
     </div>

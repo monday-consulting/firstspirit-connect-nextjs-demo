@@ -1,11 +1,11 @@
 import { Feature } from "@/components/elements/Feature";
 import type { FeatureProps } from "@/components/elements/Feature";
-import type { RichTextElementProps } from "../elements/RichTextElement";
+import type { RichTextElementContent } from "../elements/RichTextElement";
 import { RichTextElement } from "../elements/RichTextElement";
 
 export type FeaturesProps = {
   headline: string;
-  text: RichTextElementProps;
+  text: RichTextElementContent[];
   features: FeatureProps[];
 };
 
@@ -17,11 +17,11 @@ const Features = ({ headline, text, features }: FeaturesProps) => {
           {headline}
         </h2>
         <div className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
-          <RichTextElement {...text} />
+          <RichTextElement content={text} />
         </div>
         <div className="-m-8 flex flex-wrap text-left">
-          {features.map((feature) => (
-            <Feature {...feature} key={feature.id} />
+          {features.map((feature, index) => (
+            <Feature {...feature} key={index} />
           ))}
         </div>
       </div>

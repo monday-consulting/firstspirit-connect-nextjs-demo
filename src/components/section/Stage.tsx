@@ -14,7 +14,6 @@ export type StageProps = {
     label: string;
     href: string;
   };
-  sectionId: string;
   shortVersion?: boolean;
 };
 

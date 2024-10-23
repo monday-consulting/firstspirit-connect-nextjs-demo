@@ -9,7 +9,7 @@ const Loading = ({ className }: LoadingProps) => {
     <div
       className={cn("absolute inset-0 z-40 flex items-center justify-center bg-white", className)}
     >
-      <div role="status">
+      <output>
         <svg
           aria-hidden="true"
           className="h-8 w-8 animate-spin fill-yellow-500 text-gray-200 dark:text-gray-200"
@@ -27,7 +27,7 @@ const Loading = ({ className }: LoadingProps) => {
           />
         </svg>
         <span className="sr-only">Loading...</span>
-      </div>
+      </output>
     </div>
   );
 };

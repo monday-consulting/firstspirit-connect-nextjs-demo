@@ -25,6 +25,5 @@ export const Default: Story = {
       label: "CTA",
       href: "#",
     },
-    sectionId: "1234",
   },
 };

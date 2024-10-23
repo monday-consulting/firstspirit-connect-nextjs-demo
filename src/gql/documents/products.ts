@@ -11,17 +11,59 @@ const productsDocument = graphql(`
         fsId
         entityType
         route
-        data
+        data {
+          __typename
+          ... on FirstSpiritSmartlivingProduct {
+            ttName
+            ttPrice
+            ttTeaserText
+            ttCategories
+            ttDescription
+            ttImageAltText
+            ttImage {
+              __typename
+              ... on FirstSpiritImage {
+                resolutions {
+                  original {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
 `);
 
-const productDetailDocument = graphql(`query productDetail($locale: String!, $id: String!) {
-  firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {
-    data
-  }
-}`);
+const productDetailDocument = graphql(`
+  query productDetail($locale: String!, $id: String!) {
+    firstSpiritDataset(_locale: {eq: $locale}, fsId: {eq: $id}) {
+      data {
+        __typename
+        ... on FirstSpiritSmartlivingProduct {
+          ttName
+          ttPrice
+          ttTeaserText
+          ttCategories
+          ttDescription
+          ttImageAltText
+          ttImage {
+            __typename
+            ... on FirstSpiritImage {
+              resolutions {
+                original {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+`);
 
 export const getAllProducts = async (locale: Locale) => {
   const res = await client.request(productsDocument, { locale });
