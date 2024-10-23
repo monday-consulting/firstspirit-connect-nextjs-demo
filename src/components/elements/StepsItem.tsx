@@ -1,8 +1,8 @@
-import { RichTextElement, type RichTextElementProps } from "./RichTextElement";
+import { RichTextElement, type RichTextElementContent } from "./RichTextElement";
 
 export type StepsItemProps = {
   title: string;
-  text: RichTextElementProps;
+  text: RichTextElementContent[];
   index: number;
 };
 
@@ -17,7 +17,7 @@ const StepsItem = ({ title, text, index }: StepsItemProps) => {
         </div>
         <h3 className="mb-4 font-semibold text-primary text-xl md:text-2xl">{title}</h3>
         <div className="mb-5 font-medium text-text">
-          <RichTextElement {...text} />
+          <RichTextElement content={text} />
         </div>
       </div>
     </div>

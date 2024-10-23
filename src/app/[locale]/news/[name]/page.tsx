@@ -1,28 +1,25 @@
 import { RichTextElement } from "@/components/elements/RichTextElement";
-import { getDatasetByType } from "@/gql/documents/dataset";
+import { getDatasetsByType } from "@/gql/documents/dataset";
+import type { FirstSpiritSmartLivingNewsFragmentFragment } from "@/gql/generated/graphql";
 import type { Locale } from "@/i18n/config";
 import { getNewsDetailLink } from "@/utils/links";
 import { formatDate } from "@/utils/strings";
 import Image from "next/image";
 
 const NewsDetailPage = async ({ params }: { params: { locale: Locale; name: string } }) => {
-  const allNews = await getDatasetByType(params.locale, "news");
-
-  const newsEntity = allNews.find(
-    (entry) => getNewsDetailLink(entry.data.tt_headline) === getNewsDetailLink(params.name)
+  const allNews = (await getDatasetsByType(params.locale, "news")).map(
+    (entry) => entry.data as FirstSpiritSmartLivingNewsFragmentFragment
   );
 
-  const data = newsEntity?.data;
+  const newsEntity = allNews.find((entry) => {
+    if (entry.__typename === "FirstSpiritSmartlivingNews") {
+      return getNewsDetailLink(entry.ttHeadline || "") === getNewsDetailLink(params.name);
+    }
+  });
+
   // biome-ignore lint/suspicious/noExplicitAny: Lack of types generation
-  const categories = data.tt_tags.map((tag: any) => tag.data.tt_name) as string[];
-  const headline = data.tt_headline;
-  const subline = data.tt_subheadline;
-  const date = data.tt_date;
-  const author = data.tt_author[0].data;
-  const image = data.tt_image;
-  const imageAlt = data.tt_image_alt_text;
-  const teaserText = data.tt_teaserText;
-  const richText = data.tt_articleText;
+  const categories = newsEntity?.ttTags.map((tag: any) => tag.data.tt_name) as string[];
+  const author = newsEntity?.ttAuthor[0].data;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-12 ">
@@ -39,9 +36,11 @@ const NewsDetailPage = async ({ params }: { params: { locale: Locale; name: stri
                 </span>
               ))}
             </div>
-            <p className="text-text">{formatDate(date, params.locale)}</p>
-            <h1 className="mt-2 text-center font-bold text-3xl text-textDark">{headline}</h1>
-            <p>{subline}</p>
+            <p className="text-text">{formatDate(newsEntity.ttDate)}</p>
+            <h1 className="mt-2 text-center font-bold text-3xl text-textDark">
+              {newsEntity?.ttHeadline}
+            </h1>
+            <p>{newsEntity.ttSubheadline}</p>
             <div className="mt-4 flex items-center gap-4">
               <div className="h-16 w-16 overflow-hidden rounded-full">
                 <Image
@@ -57,16 +56,22 @@ const NewsDetailPage = async ({ params }: { params: { locale: Locale; name: stri
           </div>
           <div className="relative my-8 h-32 w-screen md:h-72">
             <Image
-              src={image.resolutions.ORIGINAL.url}
-              alt={imageAlt}
+              src={
+                (newsEntity?.ttImage?.__typename === "FirstSpiritImage" &&
+                  newsEntity?.ttImage.resolutions?.original?.url) ||
+                ""
+              }
+              alt={newsEntity?.ttImageAltText || ""}
               layout="fill"
               objectFit="cover"
               objectPosition="center"
             />
           </div>
           <div className="flex flex-col items-center px-4 text-text sm:px-12 md:px-24">
-            <p className="border-gray border-b-[1px] py-4 font-medium text-lg">{teaserText}</p>
-            <RichTextElement className="mt pt-4 text-text" content={richText} />
+            <p className="border-gray border-b-[1px] py-4 font-medium text-lg">
+              {newsEntity.ttTeaserText}
+            </p>
+            <RichTextElement className="mt pt-4 text-text" content={newsEntity.ttArticleText} />
           </div>
         </section>
       )}

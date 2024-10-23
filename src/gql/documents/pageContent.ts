@@ -8,18 +8,45 @@ const pageContentDocument = graphql(`
       layout
       name
       id
-      data
+      previewId
+      data {
+        __typename
+        ... on FirstSpiritStandard {
+          ptHeadline
+          ptSubheadline
+          ptMdImageAltText
+          ptImage {
+            __typename
+            ... on FirstSpiritImage {
+              resolutions {
+                original {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
       pageBodies {
+        name
         children {
           ... on FirstSpiritSection {
             __typename
             id
-            sectionType
-            data
+            data {
+              __typename
+              ...FirstSpiritTeaserFragment
+              ...FirstSpiritStageFragment
+              ...FirstSpiritTextImageFragment
+              ...FirstSpiritProductCategoryTeaserFragment
+              ...FirstSpiritStepsFragment
+              ...FirstSpiritAccordionFragment
+              ...FirstSpiritFeaturesFragment
+              ...FirstSpiritGoogleMapsFragment
+              ...FirstSpiritTableFragment
+            }
           }
         }
-        name
-        previewId
       }
     }
   }

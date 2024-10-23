@@ -15,8 +15,8 @@ const Body = ({ content }: BodyProps) => {
 
   return (
     <div>
-      {content?.map((pageBodyContent) => (
-        <div key={pageBodyContent.previewId}>
+      {content?.map((pageBodyContent, index) => (
+        <div key={index}>
           {pageBodyContent.children?.map((item, index) => (
             <div key={index}>{getComponentFromPageBody(item)}</div>
           ))}

@@ -3,15 +3,18 @@
 import { cn } from "@/utils/cn";
 import { useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
-import type { RichTextElementProps } from "./RichTextElement";
+import type { RichTextElementContent } from "./RichTextElement";
 import { RichTextElement } from "./RichTextElement";
+import { useTranslations } from "next-intl";
 
 export type AccordionProps = {
   title: string;
-  content: RichTextElementProps;
+  content: RichTextElementContent[];
 };
 
 const Accordion = ({ title, content }: AccordionProps) => {
+  const t = useTranslations();
+
   const [open, setOpen] = useState(false);
   const toggle = () => {
     setOpen(!open);
@@ -28,7 +31,11 @@ const Accordion = ({ title, content }: AccordionProps) => {
           >
             {title}
           </button>
-          <button type="button" onClick={toggle}>
+          <button
+            type="button"
+            name={open ? t("buttons.closeAccordion") : t("buttons.openAccordion")}
+            onClick={toggle}
+          >
             <LuChevronDown
               size={25}
               className={cn("transition-transform duration-200", open && "rotate-180")}
@@ -39,7 +46,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
           className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200"
           style={open ? { maxHeight: "364px" } : {}}
         >
-          <RichTextElement {...content} />
+          <RichTextElement content={content} />
         </div>
       </div>
     </div>
