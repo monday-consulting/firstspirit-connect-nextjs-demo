@@ -4,7 +4,8 @@
     "listEmpty": "No favorites saved"
   },
   "products": {
-    "resultCountText": "products found"
+    "resultCountText": "products found",
+    "link": "View product"
   },
   "news": {
     "newsOverview": "News Overview",
@@ -20,5 +21,11 @@
     "phone": "Phone",
     "getDirection": "Get direction",
     "noResults": "No contacts found."
+  },
+  "buttons": {
+    "addFavorite": "Add to favorites",
+    "removeFavorite": "Remove from favorites",
+    "closeAccordion": "Close accordion",
+    "openAccordion": "Open accordion"
   }
 }

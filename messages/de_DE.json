@@ -4,7 +4,8 @@
     "listEmpty": "Keine Favoriten gespeichert"
   },
   "products": {
-    "resultCountText": "Produkte gefunden"
+    "resultCountText": "Produkte gefunden",
+    "link": "Produkt ansehen"
   },
   "news": {
     "newsOverview": "Nachrichtenübersicht",
@@ -20,5 +21,11 @@
     "phone": "Telefon",
     "getDirection": "Navigation",
     "noResults": "Keine Kontakte gefunden."
+  },
+  "buttons": {
+    "addFavorite": "Als Favorit hinzufügen",
+    "removeFavorite": "Als Favorit entfernen",
+    "closeAccordion": "Akkordion schließen",
+    "openAccordion": "Akkordion öffnen"
   }
 }
