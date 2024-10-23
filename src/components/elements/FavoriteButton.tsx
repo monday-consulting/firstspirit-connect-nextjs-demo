@@ -4,6 +4,7 @@ import { cn } from "@/utils/cn";
 import type { Product } from "@/utils/contexts/favorites";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
+import { useTranslations } from "next-intl";
 
 export type FavoriteButtonProps = {
   product: Product;
@@ -11,6 +12,8 @@ export type FavoriteButtonProps = {
 };
 
 const FavoriteButton = ({ product, classNames }: FavoriteButtonProps) => {
+  const t = useTranslations();
+
   const [favorites, isFavorite] = useFavorites();
 
   const handleFavoriteState = () => {
@@ -24,6 +27,7 @@ const FavoriteButton = ({ product, classNames }: FavoriteButtonProps) => {
   return (
     <button
       type="button"
+      name={isFavorite(product.id) ? t("buttons.removeFavorite") : t("buttons.addFavorite")}
       className={cn(
         "flex h-12 w-12 items-center justify-center rounded-sm ring-2 ring-lightGray hover:ring-black",
         classNames
