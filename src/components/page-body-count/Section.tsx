@@ -177,7 +177,7 @@ const Section = ({ section }: SectionProps) => {
       case "FirstSpiritTable":
         return (
           <PartsTable
-            tableData={section.data.stTable || []}
+            tableContent={section.data.stTable || []}
             headline={section.data.stHeadline || undefined}
             text={section.data.stText || undefined}
           />
