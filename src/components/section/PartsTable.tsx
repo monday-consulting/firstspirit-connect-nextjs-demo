@@ -1,23 +1,23 @@
 import { RichTextElement, type RichTextElementContent } from "../elements/RichTextElement";
 
-export type PartsTableRow = {
-  colOne: string | number;
-  colTwo: string | number;
-};
+// export type PartsTableRow = {
+//   colOne: string | number;
+//   colTwo: string | number;
+// };
 
 export type PartsTableProps = {
-  tableHead: PartsTableRow;
-  tableRows: PartsTableRow[];
+  // tableHead: PartsTableRow;
+  tableData: RichTextElementContent[];
   headline?: string;
   text?: RichTextElementContent[];
 };
 
-const PartsTable = ({ tableHead, tableRows, headline, text }: PartsTableProps) => {
+const PartsTable = ({ tableData, headline, text }: PartsTableProps) => {
   return (
     <section className="flex flex-col">
       {headline && <h2 className="text-center font-bold text-3xl text-primary">{headline}</h2>}
       {text && <RichTextElement content={text} className="text-center" />}
-      <table className="w-full table-auto text-left font-medium text-sm text-text">
+      {/* <table className="w-full table-auto text-left font-medium text-sm text-text">
         <thead>
           <tr className="text-base">
             <th className="px-6 py-3">
@@ -44,7 +44,8 @@ const PartsTable = ({ tableHead, tableRows, headline, text }: PartsTableProps) =
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
+      <RichTextElement content={tableData} />
     </section>
   );
 };

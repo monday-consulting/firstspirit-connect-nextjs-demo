@@ -16,24 +16,23 @@ export type RichTextElementProps = {
 
 const convertToMarkdown = (content: RichTextElementContent[]): string => {
   return content
-    .map((item) => {
-      // Handle nested content by calling the function recursively
+    ?.map((item) => {
       const nestedContent =
         typeof item.content === "string" ? item.content : convertToMarkdown(item.content);
 
       switch (item.type) {
-        case "link":
-          return `<a href=${item.data}>${nestedContent}</a>`;
-        case "linebreak":
-          return `${nestedContent}</br>`;
-        case "underline":
-          return `<u>${nestedContent}</u>`;
+        case "td":
+          return `<td>${nestedContent}</td>`;
+        case "tr":
+          return `<tr>${nestedContent}</tr>`;
+        case "table":
+          return `<table>${nestedContent}</table>`;
         case "block":
-          return `<p>${nestedContent}</p>`;
-        case "paragraph":
-          return `<p>${nestedContent}</p>`;
-        case "list":
-          return `<ul><li>${nestedContent}</li></ul>`;
+          return `<div>${nestedContent}</div>`;
+        case "text":
+          return nestedContent; // Plain text doesn't need wrapping.
+        case "bold":
+          return `<strong>${nestedContent}</strong>`;
         default:
           return nestedContent;
       }
