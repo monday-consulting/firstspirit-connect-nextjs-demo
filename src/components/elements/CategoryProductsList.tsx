@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ProductTeaser, type ProductTeaserProps } from "../elements/ProductTeaser";
+import { ProductTeaser, type ProductTeaserProps } from "./ProductTeaser";
 
 export type CategoryProductListProps = {
   products: ProductTeaserProps[];

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import {
   CategoryProductsList,
   type CategoryProductListProps,
-} from "@/components/section/CategoryProductsList";
+} from "@/components/elements/CategoryProductsList";
 
 const meta: Meta<typeof CategoryProductsList> = {
   title: "components/Elements/CategoryProductsList",

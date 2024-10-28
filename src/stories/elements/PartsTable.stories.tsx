@@ -12,21 +12,262 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    tableHead: { colOne: "Smart devices and systems", colTwo: "2022" },
-    tableRows: [
-      { colOne: "Smart TV (television)", colTwo: 58.5 },
-      { colOne: "Smart Speaker (intelligent/WLAN speaker)", colTwo: 15.2 },
+    headline: "Smart devices and systems 2022",
+    text: [
       {
-        colOne: "Smart energy management system (e.g. thermostat, electricity meter, lighting)",
-        colTwo: 9.7,
+        content:
+          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+        data: "",
+        type: "",
       },
+    ],
+    tableContent: [
       {
-        colOne: "Smart security system (e.g. alarm system, smoke detector, surveillance camera)",
-        colTwo: 9.5,
-      },
-      {
-        colOne: "Smart household appliance (e.g. vacuum robot, refrigerator, washing machine)",
-        colTwo: 13.0,
+        data: "",
+        content: [
+          {
+            data: "",
+            content: [
+              {
+                data: "",
+                content: [
+                  {
+                    data: "",
+                    content: [
+                      {
+                        type: "text",
+                        content: "Smart devices and systems",
+                        data: "",
+                      },
+                    ],
+                    type: "text",
+                  },
+                ],
+                type: "td",
+              },
+              {
+                data: "",
+                content: [
+                  {
+                    data: "",
+                    content: [
+                      {
+                        type: "text",
+                        content: "2022",
+                        data: "",
+                      },
+                    ],
+                    type: "text",
+                  },
+                ],
+                type: "td",
+              },
+            ],
+            type: "tr",
+          },
+          {
+            data: "",
+            content: [
+              {
+                data: "",
+                content: [
+                  {
+                    type: "text",
+                    content: " ",
+                    data: "",
+                  },
+                ],
+                type: "td",
+              },
+              {
+                data: "",
+                content: [
+                  {
+                    type: "text",
+                    content: " ",
+                    data: "",
+                  },
+                ],
+                type: "td",
+              },
+            ],
+            type: "tr",
+          },
+          {
+            data: "",
+            content: [
+              {
+                data: "",
+                content: [
+                  {
+                    type: "text",
+                    content: "Smart TV (television)",
+                    data: "",
+                  },
+                ],
+                type: "td",
+              },
+              {
+                data: "",
+                content: [
+                  {
+                    data: "",
+                    content: [
+                      {
+                        type: "text",
+                        content: "58.5%",
+                        data: "",
+                      },
+                    ],
+                    type: "block",
+                  },
+                ],
+                type: "td",
+              },
+            ],
+            type: "tr",
+          },
+          {
+            data: "",
+            content: [
+              {
+                data: "",
+                content: [
+                  {
+                    type: "text",
+                    content: "Smart Speaker (intelligent/WLAN speaker)",
+                    data: "",
+                  },
+                ],
+                type: "td",
+              },
+              {
+                data: "",
+                content: [
+                  {
+                    data: "",
+                    content: [
+                      {
+                        type: "text",
+                        content: "15.2%",
+                        data: "",
+                      },
+                    ],
+                    type: "block",
+                  },
+                ],
+                type: "td",
+              },
+            ],
+            type: "tr",
+          },
+          {
+            data: "",
+            content: [
+              {
+                data: "",
+                content: [
+                  {
+                    type: "text",
+                    content:
+                      "Smart energy management system (e.g. thermostat, electricity meter, lighting)",
+                    data: "",
+                  },
+                ],
+                type: "td",
+              },
+              {
+                data: "",
+                content: [
+                  {
+                    data: "",
+                    content: [
+                      {
+                        type: "text",
+                        content: "9.7%",
+                        data: "",
+                      },
+                    ],
+                    type: "block",
+                  },
+                ],
+                type: "td",
+              },
+            ],
+            type: "tr",
+          },
+          {
+            data: "",
+            content: [
+              {
+                data: "",
+                content: [
+                  {
+                    type: "text",
+                    content:
+                      "Smart security system (e.g. alarm system, smoke detector, surveillance camera)",
+                    data: "",
+                  },
+                ],
+                type: "td",
+              },
+              {
+                data: "",
+                content: [
+                  {
+                    data: "",
+                    content: [
+                      {
+                        type: "text",
+                        content: "9.5%",
+                        data: "",
+                      },
+                    ],
+                    type: "block",
+                  },
+                ],
+                type: "td",
+              },
+            ],
+            type: "tr",
+          },
+          {
+            data: "",
+            content: [
+              {
+                data: "",
+                content: [
+                  {
+                    type: "text",
+                    content:
+                      "Smart household appliance (e.g. vacuum robot, refrigerator, washing machine)",
+                    data: "",
+                  },
+                ],
+                type: "td",
+              },
+              {
+                data: "",
+                content: [
+                  {
+                    data: "",
+                    content: [
+                      {
+                        type: "text",
+                        content: "13.0%",
+                        data: "",
+                      },
+                    ],
+                    type: "block",
+                  },
+                ],
+                type: "td",
+              },
+            ],
+            type: "tr",
+          },
+        ],
+        type: "table",
       },
     ],
   },
