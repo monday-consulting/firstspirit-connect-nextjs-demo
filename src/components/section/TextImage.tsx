@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
+import { ImageComponent } from "@/components/elements/ImageComponent";
 
 export type TextImageLayout = "text-image" | "image-text";
 
@@ -41,12 +41,11 @@ const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: Te
               <div
                 className={`${layout === "image-text" ? "order-1" : "order-2"} w-full break-after-column px-4 pb-4`}
               >
-                <Image
+                <ImageComponent
                   src={image.src}
                   alt={image.alt}
-                  width={400}
-                  height={200}
-                  className="rounded-xl"
+                  imageClassName="rounded-xl"
+                  className="aspect-[3/2] w-full"
                 />
               </div>
             )}

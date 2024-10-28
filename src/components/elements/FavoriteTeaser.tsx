@@ -1,11 +1,11 @@
 import { getProductDetailLink } from "@/utils/links";
-import Image from "next/image";
 import type { ImageData } from "@/types";
 import { Link } from "@/i18n/routing";
 import { LuTrash } from "react-icons/lu";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { useLocale } from "next-intl";
 import type { Locale } from "@/i18n/config";
+import { ImageComponent } from "./ImageComponent";
 
 export type FavoriteTeaserProps = {
   title: string;
@@ -22,9 +22,12 @@ const FavoriteTeaser = ({ title, id, image }: FavoriteTeaserProps) => {
       href={getProductDetailLink(id, locale)}
       className="relative flex gap-4 rounded-lg p-3 ring-2 ring-lightGray"
     >
-      <div className="relative aspect-square w-14">
-        <Image src={image.src} alt={image.alt} fill objectFit="cover" className="rounded-full" />
-      </div>
+      <ImageComponent
+        src={image.src}
+        alt={image.alt}
+        className="aspect-square w-14"
+        imageClassName="rounded-full"
+      />
       <p className="text-text">{title}</p>
       <button
         type="button"
