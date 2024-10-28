@@ -1,5 +1,3 @@
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/utils/cn";
 
@@ -14,60 +12,73 @@ export type RichTextElementProps = {
   className?: string;
 };
 
-const convertToMarkdown = (content: RichTextElementContent[]): string => {
-  return content
-    ?.map((item) => {
-      // Handle nested content by calling the function recursively
-      const nestedContent =
-        typeof item.content === "string" ? item.content : convertToMarkdown(item.content);
+const convertToReact = (content: RichTextElementContent[]): React.ReactNode => {
+  return content?.map((item, index) => {
+    const nestedContent =
+      typeof item.content === "string" ? item.content : convertToReact(item.content);
 
-      switch (item.type) {
-        case "link":
-          return `<a href=${item.data}>${nestedContent}</a>`;
-        case "linebreak":
-          return `${nestedContent}</br>`;
-        case "underline":
-          return `<u>${nestedContent}</u>`;
-        case "block":
-          return `<p>${nestedContent}</p>`;
-        case "paragraph":
-          return `<p>${nestedContent}</p>`;
-        case "list":
-          return `<ul><li>${nestedContent}</li></ul>`;
-        default:
-          return nestedContent;
-      }
-    })
-    .join(" ");
+    switch (item.type) {
+      case "link":
+        return (
+          <Link href={item.data || "#"} className="hover:underline" key={index}>
+            {nestedContent}
+          </Link>
+        );
+      case "list":
+        return <ul key={index}>{nestedContent}</ul>;
+      case "li":
+        return (
+          <li key={index}>
+            <span className="mr-2">&#8226;</span>
+            {nestedContent}
+          </li>
+        );
+      case "table":
+        return (
+          <table key={index} className="w-full table-auto text-left font-medium text-sm text-text">
+            {nestedContent}
+          </table>
+        );
+      case "thead":
+        return <thead key={index}>{nestedContent}</thead>;
+      case "tbody":
+        return <tbody key={index}>{nestedContent}</tbody>;
+      case "tr":
+        return (
+          <tr key={index} className={cn(index % 2 !== 0 && "bg-lightGray")}>
+            {nestedContent}
+          </tr>
+        );
+      case "th":
+        return (
+          <th key={index} className={cn(index === 0 ? "px-6 py-3" : "py-3 pr-6")}>
+            <strong>{nestedContent}</strong>
+          </th>
+        );
+      case "td":
+        return (
+          <td key={index} className={cn(index === 0 ? "px-6 py-5" : "py-5 pr-6")}>
+            {nestedContent}
+          </td>
+        );
+      case "bold":
+        return <strong key={index}>{nestedContent}</strong>;
+      case "block":
+      case "paragraph":
+        return <p key={index}>{nestedContent}</p>;
+      default:
+        return <span key={index}>{nestedContent}</span>;
+    }
+  });
 };
 
 const RichTextElement = ({ content, className }: RichTextElementProps) => {
   return (
     <>
       {typeof content === "string" ? (
-        <>{content}</>
+        <div className={className}>{content}</div>
       ) : (
-        <ReactMarkdown
-          className={cn(className)}
-          // @ts-expect-error: type error but it works as expect
-          rehypePlugins={[rehypeRaw]}
-          components={{
-            a: ({ href, children }) => (
-              <Link href={href || "#"} className="hover:underline">
-                {children}
-              </Link>
-            ),
-            ul: ({ children }) => <ul>{children}</ul>,
-            li: ({ children }) => (
-              <li>
-                <span className="mr-2">&#8226;</span>
-                {children}
-              </li>
-            ),
-          }}
-        >
-          {convertToMarkdown(content)}
-        </ReactMarkdown>
+        <div className={className}>{convertToReact(content)}</div>
       )}
     </>
   );
