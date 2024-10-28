@@ -1,10 +1,10 @@
 import { Link } from "@/i18n/routing";
-import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import { RichTextElement } from "../elements/RichTextElement";
 import type { ImageData } from "@/types";
+import { ImageComponent } from "@/components/elements/ImageComponent";
 
 export type TeaserProps = {
   headline: string;
@@ -70,18 +70,15 @@ const Teaser = ({
               )}
             </div>
           </div>
-          <div className="px-4">
-            {image && !imageReplaceContent && (
-              <Image
-                src={image.src}
-                alt={image.alt}
-                width={400}
-                height={200}
-                className="relative overflow-hidden rounded-xl"
-              />
-            )}
-            {imageReplaceContent && imageReplaceContent}
-          </div>
+          {image && !imageReplaceContent && (
+            <ImageComponent
+              src={image.src}
+              alt={image.alt}
+              imageClassName="rounded-xl"
+              className="aspect-[3/2] h-full w-1/2 px-4"
+            />
+          )}
+          {imageReplaceContent && imageReplaceContent}
         </div>
       </div>
     </div>
