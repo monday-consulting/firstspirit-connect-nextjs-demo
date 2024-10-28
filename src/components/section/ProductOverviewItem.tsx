@@ -3,6 +3,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
+import { useTranslations } from "next-intl";
 import { ImageComponent } from "../elements/Image";
 
 export type ProductOverviewItemProps = {
@@ -22,6 +23,8 @@ const ProductOverviewItem = ({
   route,
   id,
 }: ProductOverviewItemProps) => {
+  const t = useTranslations();
+
   const [favorites, isFavorite] = useFavorites();
 
   const handleFavoriteState = () => {
@@ -60,13 +63,16 @@ const ProductOverviewItem = ({
           <button
             type="button"
             onClick={handleFavoriteState}
+            name={isFavorite(id) ? t("buttons.removeFavorite") : t("buttons.addFavorite")}
             className="text-textLighter hover:text-text"
           >
             {isFavorite(id) ? <FaHeart fill="currentColor" /> : <FaRegHeart fill="currentColor" />}
           </button>
-          <Link href={route} className="text-textLighter hover:text-text">
-            <LuArrowRight />
-          </Link>
+          <button type="button" name={t("products.link")}>
+            <Link href={route} className="text-textLighter hover:text-text">
+              <LuArrowRight />
+            </Link>
+          </button>
         </div>
       </div>
     </div>

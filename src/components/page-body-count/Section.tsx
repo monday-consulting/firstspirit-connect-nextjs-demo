@@ -176,10 +176,8 @@ const Section = ({ section }: SectionProps) => {
         );
       case "FirstSpiritTable":
         return (
-          // TODO: parse stTable (NLFY-208)
           <PartsTable
-            tableHead={{ colOne: "A", colTwo: "2" }}
-            tableRows={[]}
+            tableContent={section.data.stTable || []}
             headline={section.data.stHeadline || undefined}
             text={section.data.stText || undefined}
           />
