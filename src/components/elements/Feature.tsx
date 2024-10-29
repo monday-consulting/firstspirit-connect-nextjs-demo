@@ -4,7 +4,7 @@ import { LuArrowRight } from "react-icons/lu";
 import type { RichTextElementContent } from "./RichTextElement";
 import { RichTextElement } from "./RichTextElement";
 import type { ImageData } from "@/types";
-import { ImageComponent } from "./Image";
+import { ImageComponent } from "./ImageComponent";
 
 //this type is used in section/features
 export type FeatureProps = {
@@ -21,7 +21,12 @@ const Feature = ({ link, image, title, text }: FeatureProps) => {
   return (
     <div className="w-full p-8 md:w-1/3">
       <Link href={link.href} className="group/feature flex flex-col items-center gap-4">
-        <ImageComponent src={image.src} alt={image.alt} rounded="xl" className="mb-4 h-40 w-full" />
+        <ImageComponent
+          src={image.src}
+          alt={image.alt}
+          imageClassName="rounded-xl"
+          className="mb-4 h-40 w-full"
+        />
         <h3 className="font-semibold text-text text-xl group-hover/feature:underline md:text-2xl">
           {title}
         </h3>

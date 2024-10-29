@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn";
 import type { RichTextElementProps } from "../elements/RichTextElement";
 import { RichTextElement } from "../elements/RichTextElement";
 import type { ImageData } from "@/types";
-import { ImageComponent } from "../elements/Image";
+import { ImageComponent } from "@/components/elements/ImageComponent";
 
 export type TeaserProps = {
   headline: string;
@@ -70,17 +70,15 @@ const Teaser = ({
               )}
             </div>
           </div>
-          <div className="w-1/2 px-4">
-            {image && !imageReplaceContent && (
-              <ImageComponent
-                src={image.src}
-                alt={image.alt}
-                rounded="xl"
-                className="h-full w-full [aspect-ratio:3/2]"
-              />
-            )}
-            {imageReplaceContent && imageReplaceContent}
-          </div>
+          {image && !imageReplaceContent && (
+            <ImageComponent
+              src={image.src}
+              alt={image.alt}
+              imageClassName="rounded-xl"
+              className="aspect-[3/2] h-full w-1/2 px-4"
+            />
+          )}
+          {imageReplaceContent && imageReplaceContent}
         </div>
       </div>
     </div>

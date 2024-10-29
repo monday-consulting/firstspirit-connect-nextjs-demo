@@ -11,6 +11,7 @@ import { useFavorites } from "@/utils/hooks/useFavorites";
 import { FavoriteTeaser } from "../elements/FavoriteTeaser";
 import { VscHeart } from "react-icons/vsc";
 import { useParams } from "next/navigation";
+import { NotificationNumber } from "../elements/NotificationNumber";
 
 export type NavigationRoute = {
   fsNavItemId: string;
@@ -97,6 +98,7 @@ const Navigation = ({ navStructure }: NavigationProps) => {
       </div>
       <div className="flex gap-6">
         <div className="group relative">
+          {favorites.list?.length && <NotificationNumber amount={favorites.list?.length} />}
           <VscHeart size={20} className="cursor-pointer" />
           <div className="-right-2 absolute z-40 hidden w-96 flex-col gap-4 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
             <h3 className="font-bold">{t("favorites.listTitle")}</h3>

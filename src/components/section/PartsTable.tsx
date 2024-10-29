@@ -1,3 +1,5 @@
+"use client";
+
 import { RichTextElement, type RichTextElementContent } from "../elements/RichTextElement";
 
 export type PartsTableProps = {

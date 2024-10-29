@@ -10,7 +10,7 @@ import type { Locale } from "@/i18n/config";
 import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
 import { Suspense } from "react";
 import { Loading } from "../app-layout/Loading";
-import { CategoryProductsList } from "./CategoryProductsList";
+import { CategoryProductsList } from "../elements/CategoryProductsList";
 import type { ProductTeaserProps } from "../elements/ProductTeaser";
 
 export type ProductCategoryTeaserProps = {

@@ -3,8 +3,8 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
+import { ImageComponent } from "../elements/ImageComponent";
 import { useTranslations } from "next-intl";
-import { ImageComponent } from "../elements/Image";
 
 export type ProductOverviewItemProps = {
   image: ImageData;
@@ -42,11 +42,14 @@ const ProductOverviewItem = ({
   return (
     <div className="max-w-[380px]">
       <div className="mb-12 w-full">
-        <div className="w-full overflow-hidden rounded-xl">
-          <Link href={route}>
-            <ImageComponent src={image.src} alt={image.alt} className="w-full [aspect-ratio:1/1]" />
-          </Link>
-        </div>
+        <Link href={route}>
+          <ImageComponent
+            src={image.src}
+            alt={image.alt}
+            className="aspect-square"
+            imageClassName="rounded-xl"
+          />
+        </Link>
       </div>
       <div>
         <div className="text-center">
