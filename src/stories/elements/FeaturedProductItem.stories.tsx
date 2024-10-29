@@ -16,8 +16,8 @@ export const Default: Story = {
       src: "https://placehold.co/600x400",
       alt: "Alt text",
     },
-    name: "ExampleName",
-    abstract: "ExampleAbstract",
+    name: "Example Name",
+    abstract: "Example Abstract",
     route: "#",
   },
 };

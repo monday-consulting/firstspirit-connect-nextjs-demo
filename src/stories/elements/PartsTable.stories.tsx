@@ -12,21 +12,34 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    tableHead: { colOne: "Smart devices and systems", colTwo: "2022" },
-    tableRows: [
-      { colOne: "Smart TV (television)", colTwo: 58.5 },
-      { colOne: "Smart Speaker (intelligent/WLAN speaker)", colTwo: 15.2 },
+    tableContent: [
       {
-        colOne: "Smart energy management system (e.g. thermostat, electricity meter, lighting)",
-        colTwo: 9.7,
+        content: "Content 1",
+        data: "Data",
+        type: "Type",
       },
       {
-        colOne: "Smart security system (e.g. alarm system, smoke detector, surveillance camera)",
-        colTwo: 9.5,
+        content: "Content 2",
+        data: "Data",
+        type: "Type",
       },
       {
-        colOne: "Smart household appliance (e.g. vacuum robot, refrigerator, washing machine)",
-        colTwo: 13.0,
+        content: "Content 3",
+        data: "Data",
+        type: "Type",
+      },
+    ],
+    headline: "Headline",
+    text: [
+      {
+        content: "Text Content 1",
+        data: "Data",
+        type: "Type",
+      },
+      {
+        content: "Text Content 2",
+        data: "Data",
+        type: "Type",
       },
     ],
   },

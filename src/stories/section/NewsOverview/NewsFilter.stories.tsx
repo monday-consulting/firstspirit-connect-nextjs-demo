@@ -10,56 +10,34 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const news = [
-  {
-    image: {
-      src: "https://placehold.co/600x400",
-      alt: "Alt Text",
-    },
-    categories: ["Gadgets", "Smarthome"],
-    author: "John Doe",
-    date: "December 9, 2022",
-    headline: "Headline 1",
-    teaserText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis molestie urna. Quisque laoreet nec nulla vitae ornare. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis erat turpis, feugiat ac orci id, pellentesque pretium felis. Fusce ac dapibus tortor.",
-    link: "#",
-  },
-  {
-    image: {
-      src: "https://placehold.co/600x400",
-      alt: "Alt Text",
-    },
-    categories: ["Smarthome", "Technology"],
-    author: "John Doe",
-    date: "December 9, 2022",
-    headline: "Headline 2",
-    teaserText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis molestie urna. Quisque laoreet nec nulla vitae ornare. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis erat turpis, feugiat ac orci id, pellentesque pretium felis. Fusce ac dapibus tortor.",
-    link: "#",
-  },
-  {
-    image: {
-      src: "https://placehold.co/600x400",
-      alt: "Alt Text",
-    },
-    categories: ["Green Tech", "Technology"],
-    author: "John Doe",
-    date: "December 9, 2022",
-    headline: "Headline 3",
-    teaserText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis molestie urna. Quisque laoreet nec nulla vitae ornare. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis erat turpis, feugiat ac orci id, pellentesque pretium felis. Fusce ac dapibus tortor.",
-    link: "#",
-  },
-];
-
-const categories = [
-  "All Categories",
-  ...Array.from(new Set(news.flatMap((item) => item.categories))),
-];
-
 export const Default: Story = {
   args: {
-    news,
-    categories,
+    news: [
+      {
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt Text",
+        },
+        categories: ["Category 1", "Category 2"],
+        author: "John Doe",
+        date: "December 9, 2023",
+        headline: "Headline",
+        teaserText:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+      },
+      {
+        image: {
+          src: "https://placehold.co/600x400",
+          alt: "Alt Text",
+        },
+        categories: ["Category 2", "Category 3"],
+        author: "John Doe",
+        date: "September 12, 2022",
+        headline: "Headline",
+        teaserText:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+      },
+    ],
+    categories: ["Category 1", "Category 2", "Category 3"],
   },
 };

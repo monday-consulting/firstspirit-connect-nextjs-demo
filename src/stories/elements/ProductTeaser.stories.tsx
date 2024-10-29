@@ -11,7 +11,6 @@ const meta: Meta<typeof ProductTeaser> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof ProductTeaser>;
 
 export const Default: Story = {

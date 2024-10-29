@@ -16,7 +16,7 @@ export const Default: Story = {
     content: [
       {
         content:
-          "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl. Sed turpis mi, consequat nec tellus quis, ullamcorper dignissim felis.",
         data: "",
         type: "",
       },

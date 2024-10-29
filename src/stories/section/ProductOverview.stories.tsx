@@ -75,7 +75,7 @@ export const Default: Story = {
         },
         category: "Category 4",
         name: "Product 2",
-        price: "123321 €",
+        price: "123.321 €",
         id: "product 2",
         route: "#",
       },

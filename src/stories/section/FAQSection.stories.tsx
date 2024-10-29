@@ -15,14 +15,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    headline: "Häufig gestellte Fragen",
+    headline: "Frequently Asked Questions",
     entries: [
       {
         title: "Accordion one",
         content: [
           {
             content:
-              "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
             data: "",
             type: "",
           },
@@ -33,14 +33,14 @@ export const Default: Story = {
         content: [
           {
             content:
-              "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
             data: "",
             type: "",
           },
         ],
       },
     ],
-    claim: "Was Sie schon immer wissen wollten - Antworten auf die häufigsten Fragen",
+    claim: "Your questions - Our answers",
     subline: (
       <p>
         Still have questions{" "}

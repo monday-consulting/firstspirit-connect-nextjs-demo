@@ -15,7 +15,7 @@ export const Default: Story = {
     headline: "Headline",
     text: [
       {
-        content: "Test",
+        content: "Subheadline",
         data: "",
         type: "",
       },
@@ -24,7 +24,7 @@ export const Default: Story = {
       {
         link: {
           href: "#",
-          label: "Home",
+          label: "Learn more",
         },
         image: {
           src: "https://placehold.co/600x400",
@@ -34,7 +34,7 @@ export const Default: Story = {
         text: [
           {
             content:
-              "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
             data: "",
             type: "",
           },
@@ -43,7 +43,7 @@ export const Default: Story = {
       {
         link: {
           href: "#",
-          label: "Home",
+          label: "Learn more",
         },
         image: {
           src: "https://placehold.co/600x400",
@@ -53,7 +53,7 @@ export const Default: Story = {
         text: [
           {
             content:
-              "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
             data: "",
             type: "",
           },
