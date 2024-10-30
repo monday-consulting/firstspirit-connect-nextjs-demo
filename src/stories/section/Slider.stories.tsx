@@ -15,9 +15,8 @@ export const Default: Story = {
     slides: [
       {
         button: {
-          lt_button_text: "Button1",
-          lt_product_link: { route: "Route1" },
-          lt_internal: { referenceId: "Button1" },
+          text: "Button1",
+          link: "/",
         },
         description: "Description",
         image: {
@@ -28,9 +27,8 @@ export const Default: Story = {
       },
       {
         button: {
-          lt_button_text: "Button2",
-          lt_product_link: { route: "Route2" },
-          lt_internal: { referenceId: "Button2" },
+          text: "Button2",
+          link: "/",
         },
         description: "Description",
         image: {

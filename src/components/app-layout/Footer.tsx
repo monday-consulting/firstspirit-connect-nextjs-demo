@@ -15,7 +15,7 @@ export type FooterProps = {
 
 const Footer = ({ copyrightText, legalLinks }: FooterProps) => {
   return (
-    <div className="w-full border-t pt-12 text-sm text-text">
+    <div className="w-full border-gray border-t pt-12 text-sm text-text">
       <div className="flex flex-col items-center gap-6 p-4">
         <Link href="/" className="mb-4">
           <Image src={logo} alt="Logo" height={40} />
