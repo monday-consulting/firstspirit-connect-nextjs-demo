@@ -98,7 +98,9 @@ const Navigation = ({ navStructure }: NavigationProps) => {
       </div>
       <div className="flex gap-6">
         <div className="group relative">
-          {favorites.list?.length && <NotificationNumber amount={favorites.list?.length} />}
+          {favorites.list && favorites.list.length > 0 && (
+            <NotificationNumber amount={favorites.list?.length} />
+          )}
           <VscHeart size={20} className="cursor-pointer" />
           <div className="-right-2 absolute z-40 hidden w-96 flex-col gap-4 rounded-xl bg-white p-8 shadow-lg group-hover:flex">
             <h3 className="font-bold">{t("favorites.listTitle")}</h3>
