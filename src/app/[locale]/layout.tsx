@@ -30,13 +30,9 @@ const RootLayout = async (
 ) => {
   const params = await props.params;
 
-  const {
-    locale
-  } = params;
+  const { locale } = params;
 
-  const {
-    children
-  } = props;
+  const { children } = props;
 
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
