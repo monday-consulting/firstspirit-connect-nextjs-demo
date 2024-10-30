@@ -1,4 +1,4 @@
-import { Product } from "@/components/section/Product";
+import { Product } from "@/components/sections/Product";
 import { getProductDetail } from "@/gql/documents/products";
 import type { Locale } from "@/i18n/config";
 

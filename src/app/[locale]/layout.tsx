@@ -4,13 +4,13 @@ import "@/assets/styles/globals.css";
 import { getNavigationStructure } from "@/gql/documents/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Navigation, type NavigationStructure } from "@/components/app-layout/Navigation";
+import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation";
 // import { getFooter } from "@/gql/documents/gcaPage";
 import { ClientProvider } from "./provider";
 import type { Locale } from "@/i18n/config";
 import { stripNavigationFiles } from "@/utils/links";
 import { getFooter } from "@/gql/documents/gcaPage";
-import { Footer } from "@/components/app-layout/Footer";
+import { Footer } from "@/components/layouts/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 

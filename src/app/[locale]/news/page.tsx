@@ -1,5 +1,5 @@
-import { StandardLayout } from "@/components/page-layout/StandardLayout";
-import { NewsOverview } from "@/components/section/NewsOverview/NewsOverview";
+import { StandardLayout } from "@/components/layouts/StandardLayout";
+import { NewsOverview } from "@/components/features/News/NewsOverview";
 import { getDatasetsByType } from "@/gql/documents/dataset";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type {

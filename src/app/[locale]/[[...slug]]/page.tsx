@@ -1,5 +1,5 @@
-import { Home } from "@/components/page-layout/Home";
-import { StandardLayout } from "@/components/page-layout/StandardLayout";
+import { Home } from "@/components/layouts/Home";
+import { StandardLayout } from "@/components/layouts/StandardLayout";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/gql/generated/graphql";
 import { defaultLocale, type Locale } from "@/i18n/config";
