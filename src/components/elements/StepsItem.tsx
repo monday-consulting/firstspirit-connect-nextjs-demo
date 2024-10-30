@@ -23,4 +23,5 @@ const StepsItem = ({ title, text, index }: StepsItemProps) => {
     </div>
   );
 };
+
 export { StepsItem };

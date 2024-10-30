@@ -33,7 +33,7 @@ const Slider = ({ slides }: SliderProps) => {
   };
 
   return (
-    <div className="group relative">
+    <section className="group relative">
       {activeSlide && (
         <div className="relative text-white">
           <button
@@ -68,7 +68,7 @@ const Slider = ({ slides }: SliderProps) => {
           />
         </div>
       )}
-    </div>
+    </section>
   );
 };
 export { Slider };

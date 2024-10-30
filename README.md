@@ -14,6 +14,9 @@ We use this technology to ensure that all data from Crownpeak CaaS is collected 
 * Use pnpm as package manager
 * Use recommended plugins
 
+## File structure
+...
+
 ## Environment
 For Next.js you should copy the `.env.example` content to an new `.env.development` file and replace it with your `DATA_LAYER_API_URL` and `DATA_LAYER_API_TOKEN`.
 If you want to use the google maps API you should also enter your token for `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`.
@@ -31,6 +34,12 @@ We use [graphql-codegen](https://the-guild.dev/graphql/codegen) to generate our 
 - **GraphQL Documents:** The plugin reads all GraphQL expressions from `/src/gql/documents` to build the type system.
 
 *Best Practices: To maintain a clean and organized codebase, reusable components or sections are defined in **GraphQL fragments**. This practice helps improve maintainability and simplifies updates.*
+
+## Internationalization (i18n)
+...
+
+## Tailwind
+...
 
 ## Storybook
 We use [Storybook](https://storybook.js.org/) for spot checking individual components during development. It allows us to test each component in an isolated environment. To create such an environment for a component, add a respective Storybook file in the `/src/stories` folder.

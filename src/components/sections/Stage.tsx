@@ -37,7 +37,7 @@ const Stage = (props: StageProps) => {
   const backgroundImageStyle = { width: "100vw", backgroundImage };
 
   return (
-    <div
+    <section
       className={cn(
         "overflow-hidden bg-black bg-center bg-cover bg-fixed bg-no-repeat",
         shortVersion ? "py-16" : "py-28"
@@ -71,7 +71,7 @@ const Stage = (props: StageProps) => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

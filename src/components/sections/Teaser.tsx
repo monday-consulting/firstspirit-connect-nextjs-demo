@@ -31,7 +31,7 @@ const Teaser = ({
   breakpoint = "md",
 }: TeaserProps) => {
   return (
-    <div className="py-8">
+    <section className="py-8">
       <div className="container mx-auto px-4">
         <div
           className={cn(
@@ -81,7 +81,7 @@ const Teaser = ({
           {imageReplaceContent && imageReplaceContent}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 export { Teaser };

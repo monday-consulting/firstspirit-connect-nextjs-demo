@@ -71,7 +71,7 @@ const ProductCategoryTeaser = ({
   });
 
   return (
-    <div className="bg-lightGray py-8">
+    <section className="bg-lightGray py-8">
       <div className="container mx-auto">
         <div className="m-auto">
           <Teaser
@@ -89,7 +89,7 @@ const ProductCategoryTeaser = ({
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

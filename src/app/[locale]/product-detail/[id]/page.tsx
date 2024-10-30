@@ -1,4 +1,4 @@
-import { Product } from "@/components/sections/Product";
+import { ProductDetail } from "@/components/features/Products/ProductDetail";
 import { getProductDetail } from "@/gql/documents/products";
 import type { Locale } from "@/i18n/config";
 
@@ -9,7 +9,7 @@ const ProductDetailPage = async (props: { params: Promise<{ id: string; locale: 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-4 sm:px-12 md:px-24">
       {product?.__typename === "FirstSpiritSmartlivingProduct" && (
-        <Product
+        <ProductDetail
           product={{
             id: params.id,
             categories: product.ttCategories,

@@ -1,14 +1,14 @@
 "use client";
 
 import { useMemo } from "react";
-import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
-import { FavoriteButton } from "../elements/FavoriteButton";
-import type { Dataset, ImageData } from "@/types";
+import { RichTextElement, type RichTextElementProps } from "../../elements/RichTextElement";
+import { FavoriteButton } from "../../elements/FavoriteButton";
+import type { ImageData } from "@/types";
 import { ImageComponent } from "@/components/elements/ImageComponent";
 
 export type Product = {
   id: string;
-  categories: Dataset[];
+  categories: { data: { tt_name: string } }[];
   description: RichTextElementProps;
   image: ImageData;
   name: string;
@@ -16,17 +16,15 @@ export type Product = {
   teaserText: string;
 };
 
-export type ProductProps = {
+export type ProductDetailProps = {
   product: Product;
 };
 
-const Product = ({ product }: ProductProps) => {
+const ProductDetail = ({ product }: ProductDetailProps) => {
   const currentDataset = product;
 
   const categoryNames = useMemo(() => {
-    return currentDataset?.categories.flatMap(
-      (category: { data: { tt_name: string } }) => category.data.tt_name
-    );
+    return currentDataset?.categories.flatMap((category) => category.data.tt_name);
   }, [currentDataset]);
 
   return (
@@ -75,4 +73,4 @@ const Product = ({ product }: ProductProps) => {
   );
 };
 
-export { Product };
+export { ProductDetail };

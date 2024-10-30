@@ -11,7 +11,7 @@ export type FeaturesProps = {
 
 const Features = ({ headline, text, features }: FeaturesProps) => {
   return (
-    <div className="py-14">
+    <section className="py-14">
       <div className="container mx-auto px-4 text-center">
         <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
           {headline}
@@ -25,7 +25,7 @@ const Features = ({ headline, text, features }: FeaturesProps) => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 export { Features };

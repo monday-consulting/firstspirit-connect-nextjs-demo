@@ -10,7 +10,7 @@ export type StepsProps = {
 
 const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
   return (
-    <div className="py-14">
+    <section className="py-14">
       <div className="container mx-auto px-4 text-center">
         <div className="mx-auto mb-16 max-w-5xl md:mb-24">
           <span className="mb-4 inline-block rounded-full bg-gray-100 px-2 py-px font-medium text-secondary text-xs uppercase leading-5 shadow-sm">
@@ -31,7 +31,7 @@ const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

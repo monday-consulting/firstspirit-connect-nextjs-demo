@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ProductOverview } from "@/components/sections/ProductOverview";
+import { ProductOverview } from "@/components/features/Products/ProductOverview";
 
 const meta = {
-  title: "components/Sections/ProductOverview",
+  title: "components/Features/Products/ProductOverview",
   component: ProductOverview,
   tags: ["autodocs"],
 } satisfies Meta<typeof ProductOverview>;

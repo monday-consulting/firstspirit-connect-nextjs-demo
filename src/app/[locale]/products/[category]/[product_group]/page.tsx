@@ -1,4 +1,4 @@
-import { ProductOverview } from "@/components/sections/ProductOverview";
+import { ProductOverview } from "@/components/features/Products/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
 import type { Locale } from "@/i18n/config";
 import { getProductDetailLink } from "@/utils/links";

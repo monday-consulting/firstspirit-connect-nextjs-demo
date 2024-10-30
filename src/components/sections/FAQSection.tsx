@@ -10,7 +10,7 @@ export type FAQSectionProps = {
 
 const FAQSection = ({ headline, entries, claim, subline }: FAQSectionProps) => {
   return (
-    <div className="py-14">
+    <section className="py-14">
       <div className="container mx-auto px-4 text-center md:max-w-4xl">
         {claim && (
           <p className="mb-7 font-semibold text-sm text-text uppercase tracking-px">{claim}</p>
@@ -33,7 +33,7 @@ const FAQSection = ({ headline, entries, claim, subline }: FAQSectionProps) => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
