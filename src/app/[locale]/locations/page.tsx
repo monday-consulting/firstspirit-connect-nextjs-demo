@@ -7,7 +7,8 @@ import type {
 } from "@/gql/generated/graphql";
 import type { Locale } from "@/i18n/config";
 
-const LocationsPage = async ({ params }: { params: { locale: Locale } }) => {
+const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => {
+  const params = await props.params;
   const googleMaps = (await getSectionByType(
     params.locale,
     "google_maps"

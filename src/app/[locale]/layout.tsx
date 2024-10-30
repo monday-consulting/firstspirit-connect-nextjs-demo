@@ -22,13 +22,22 @@ export const metadata: Metadata = {
 
 export const revalidate = 300; // Revalidate content every 5 minutes
 
-const RootLayout = async ({
-  children,
-  params: { locale },
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: Locale };
-}>) => {
+const RootLayout = async (
+  props: Readonly<{
+    children: React.ReactNode;
+    params: { locale: Locale };
+  }>
+) => {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
   const footer = await getFooter(locale);

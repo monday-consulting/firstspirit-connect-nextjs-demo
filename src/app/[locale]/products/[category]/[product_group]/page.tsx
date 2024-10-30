@@ -4,11 +4,12 @@ import type { Locale } from "@/i18n/config";
 import { getProductDetailLink } from "@/utils/links";
 import { redirect } from "next/navigation";
 
-const SlugPage = async ({
-  params,
-}: {
-  params: { locale: Locale; product_group: string };
-}) => {
+const SlugPage = async (
+  props: {
+    params: Promise<{ locale: Locale; product_group: string }>;
+  }
+) => {
+  const params = await props.params;
   const allProducts = await getAllProducts(params.locale);
 
   const filteredProducts = allProducts.filter((item) => {

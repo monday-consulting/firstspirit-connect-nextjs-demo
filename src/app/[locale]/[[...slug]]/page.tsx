@@ -5,7 +5,8 @@ import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/gql/generated/g
 import { defaultLocale, type Locale } from "@/i18n/config";
 import { redirect } from "next/navigation";
 
-const SlugPage = async ({ params }: { params: { slug: string[]; locale: Locale } }) => {
+const SlugPage = async (props: { params: Promise<{ slug: string[]; locale: Locale }> }) => {
+  const params = await props.params;
   const path = params.slug
     ? `/${params.slug.join("/")}/`
     : params.locale === defaultLocale

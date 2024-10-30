@@ -9,7 +9,8 @@ import type {
 } from "@/gql/generated/graphql";
 import type { Locale } from "@/i18n/config";
 
-const NewsOverviewPage = async ({ params }: { params: { locale: Locale } }) => {
+const NewsOverviewPage = async (props: { params: Promise<{ locale: Locale }> }) => {
+  const params = await props.params;
   const page = await getPageContentByRoute(params.locale, decodeURI("/news/"));
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
 

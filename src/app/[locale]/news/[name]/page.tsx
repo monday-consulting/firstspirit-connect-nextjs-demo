@@ -6,7 +6,8 @@ import { getNewsDetailLink } from "@/utils/links";
 import { formatDate } from "@/utils/strings";
 import Image from "next/image";
 
-const NewsDetailPage = async ({ params }: { params: { locale: Locale; name: string } }) => {
+const NewsDetailPage = async (props: { params: Promise<{ locale: Locale; name: string }> }) => {
+  const params = await props.params;
   const allNews = (await getDatasetsByType(params.locale, "news")).map(
     (entry) => entry.data as FirstSpiritSmartLivingNewsFragmentFragment
   );
