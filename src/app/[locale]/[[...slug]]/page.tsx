@@ -1,11 +1,12 @@
-import { Home } from "@/components/page-layout/Home";
-import { StandardLayout } from "@/components/page-layout/StandardLayout";
+import { Home } from "@/components/layouts/Home";
+import { StandardLayout } from "@/components/layouts/StandardLayout";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/gql/generated/graphql";
 import { defaultLocale, type Locale } from "@/i18n/config";
 import { redirect } from "next/navigation";
 
-const SlugPage = async ({ params }: { params: { slug: string[]; locale: Locale } }) => {
+const SlugPage = async (props: { params: Promise<{ slug: string[]; locale: Locale }> }) => {
+  const params = await props.params;
   const path = params.slug
     ? `/${params.slug.join("/")}/`
     : params.locale === defaultLocale

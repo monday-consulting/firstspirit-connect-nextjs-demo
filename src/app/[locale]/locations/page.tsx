@@ -1,4 +1,4 @@
-import { Locations } from "@/components/section/Locations";
+import { Locations } from "@/components/features/Locations/Locations";
 import { getDatasetsByType } from "@/gql/documents/dataset";
 import { getSectionByType } from "@/gql/documents/section";
 import type {
@@ -7,7 +7,8 @@ import type {
 } from "@/gql/generated/graphql";
 import type { Locale } from "@/i18n/config";
 
-const LocationsPage = async ({ params }: { params: { locale: Locale } }) => {
+const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => {
+  const params = await props.params;
   const googleMaps = (await getSectionByType(
     params.locale,
     "google_maps"

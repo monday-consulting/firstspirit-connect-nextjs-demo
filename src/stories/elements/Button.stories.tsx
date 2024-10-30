@@ -12,10 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    lt_button_text: "Button",
-    lt_product_link: { route: "route" },
-    lt_internal: {
-      referenceId: "ID",
-    },
+    text: "Button",
+    link: "/",
   },
 };

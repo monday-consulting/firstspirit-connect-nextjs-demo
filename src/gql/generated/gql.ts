@@ -11,6 +11,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
     "\n  query datasetsByType($locale: String!, $type: String!) {\n    allFirstSpiritDataset(filter: {_locale: {eq: $locale}, entityType: {eq: $type}}) {\n      nodes {\n        id\n        entityType\n        route\n        data {\n          __typename\n          ...FirstSpiritSmartLivingNewsFragment\n          ...FirstSpiritSmartLivingLocationFragment\n        }\n      }\n    }\n  }\n": types.DatasetsByTypeDocument,

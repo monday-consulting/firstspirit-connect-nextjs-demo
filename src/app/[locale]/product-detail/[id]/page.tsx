@@ -1,8 +1,9 @@
-import { Product } from "@/components/section/Product";
+import { Product } from "@/components/sections/Product";
 import { getProductDetail } from "@/gql/documents/products";
 import type { Locale } from "@/i18n/config";
 
-const ProductDetailPage = async ({ params }: { params: { id: string; locale: Locale } }) => {
+const ProductDetailPage = async (props: { params: Promise<{ id: string; locale: Locale }> }) => {
+  const params = await props.params;
   const product = await getProductDetail(params.locale, params.id);
 
   return (

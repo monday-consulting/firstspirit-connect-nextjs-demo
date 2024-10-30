@@ -1,5 +1,5 @@
-import { StandardLayout } from "@/components/page-layout/StandardLayout";
-import { NewsOverview } from "@/components/section/NewsOverview/NewsOverview";
+import { StandardLayout } from "@/components/layouts/StandardLayout";
+import { NewsOverview } from "@/components/features/News/NewsOverview";
 import { getDatasetsByType } from "@/gql/documents/dataset";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type {
@@ -9,7 +9,8 @@ import type {
 } from "@/gql/generated/graphql";
 import type { Locale } from "@/i18n/config";
 
-const NewsOverviewPage = async ({ params }: { params: { locale: Locale } }) => {
+const NewsOverviewPage = async (props: { params: Promise<{ locale: Locale }> }) => {
+  const params = await props.params;
   const page = await getPageContentByRoute(params.locale, decodeURI("/news/"));
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
 
