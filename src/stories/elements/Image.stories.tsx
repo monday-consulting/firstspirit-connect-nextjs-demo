@@ -14,7 +14,6 @@ export const Example: Story = {
   args: {
     src: "https://placehold.co/600x400",
     alt: "Alt Text",
-    rounded: "xl",
     className: "h-60 w-80",
   },
 };
