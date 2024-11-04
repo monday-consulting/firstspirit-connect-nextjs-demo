@@ -30,19 +30,20 @@ We use [biome.js](https://biomejs.dev/) for formatting and linting. To configure
 
 We use [graphql-codegen](https://the-guild.dev/graphql/codegen) to generate our frontend type definitions. To configure the plugin, update the `/codegen.ts` file.
 
-- **Generated TypeScript Files:** The generated TypeScript files are located in `/src/gql/generated`.
-- **GraphQL Documents:** The plugin reads all GraphQL expressions from `/src/gql/documents` to build the type system.
+- **Generated TypeScript Files:** The generated TypeScript files are located in `/src/gql/generated/`.
+- **GraphQL Documents:** The plugin reads all GraphQL expressions from `/src/gql/documents/` to build the type system.
 
 *Best Practices: To maintain a clean and organized codebase, reusable components or sections are defined in **GraphQL fragments**. This practice helps improve maintainability and simplifies updates.*
 
 ## Internationalization (i18n)
-...
+We use [next-intl](https://next-intl-docs.vercel.app/) for internationalization, enabling dynamic routing and localized content across different languages. Unsupported locales trigger a 404 error. The different config files are located in `/src/i18n/`.
 
-## tailwindcss
-We use [tailwindcss](https://tailwindcss.com/) for styling components. This tool allows us to style components dynamically in the same file without bloating the code.
+
+## Tailwind CSS
+We use [Tailwind CSS](https://tailwindcss.com/) for component styling. Tailwind enables us to apply styles directly in the markup, keeping the styles scoped and the codebase clean without external CSS files or bloated class names. This utility-first approach ensures a dynamic and responsive design with minimal effort.
 
 ## Storybook
-We use [Storybook](https://storybook.js.org/) for spot checking individual components during development. It allows us to test each component in an isolated environment. To create such an environment for a component, add a respective Storybook file in the `/src/stories` folder.
+We use [Storybook](https://storybook.js.org/) for spot checking individual components during development. It allows us to test each component in an isolated environment. To create such an environment for a component, add a respective Storybook file in the `/src/stories/` folder.
 
 ## Scripts
 
