@@ -28,11 +28,6 @@ export type NavigationProps = {
   navStructure: NavigationStructure;
 };
 
-export type Favorite = {
-  title: string;
-  href: string;
-};
-
 const Navigation = ({ navStructure }: NavigationProps) => {
   const [mobileNavActive, setMobileNavActive] = useState(false);
   const [favorites] = useFavorites();

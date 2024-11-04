@@ -2,15 +2,11 @@ import { Link } from "@/i18n/routing";
 import logo from "@/assets/smart_living_logo.webp";
 import Image from "next/image";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
-
-export type LegalLink = {
-  label: string;
-  href: string;
-};
+import type { LinkData } from "@/types";
 
 export type FooterProps = {
   copyrightText: RichTextElementProps;
-  legalLinks: LegalLink[];
+  legalLinks: LinkData[];
 };
 
 const Footer = ({ copyrightText, legalLinks }: FooterProps) => {

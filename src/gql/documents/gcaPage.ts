@@ -1,6 +1,7 @@
 import type { Locale } from "@/i18n/config";
 import { client } from "../client";
 import { graphql } from "../generated";
+import type { FirstSpiritGcaFooter } from "../generated/graphql";
 
 const gcaPageDocument = graphql(`
   query gcaPageByName($locale: String!, $name: String!) {
@@ -9,9 +10,22 @@ const gcaPageDocument = graphql(`
         __typename
         ... on FirstSpiritGcaFooter {
           gcCopyright
-          # TODO: Add gcLinks to the footer after fix in connector
           gcLinks {
-            name
+            data {
+              __typename
+              ... on FirstSpiritInternalLink {
+                __typename
+                ltText
+                ltLink {
+                  ... on FirstSpiritPageRef {
+                    __typename
+                    page {
+                      route
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -21,5 +35,5 @@ const gcaPageDocument = graphql(`
 
 export const getFooter = async (locale: Locale) => {
   const res = await client.request(gcaPageDocument, { locale, name: "footer" });
-  return res.firstSpiritGcaPage;
+  return res.firstSpiritGcaPage?.data as FirstSpiritGcaFooter;
 };

@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
 import type { RichTextElementProps } from "../globals/RichTextElement";
 import { RichTextElement } from "../globals/RichTextElement";
-import type { ImageData } from "@/types";
+import type { ImageData, LinkData } from "@/types";
 import { ImageComponent } from "@/components/globals/ImageComponent";
 
 export type TeaserProps = {
@@ -12,10 +12,7 @@ export type TeaserProps = {
   image?: ImageData;
   imageReplaceContent?: ReactNode;
   text: RichTextElementProps;
-  cta?: {
-    href: string;
-    label: string;
-  };
+  cta?: LinkData;
   imageStart?: boolean;
   breakpoint?: "sm" | "md" | "lg" | "xl";
 };

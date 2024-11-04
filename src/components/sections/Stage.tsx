@@ -3,17 +3,14 @@
 import { Link } from "@/i18n/routing";
 import { getImageProps } from "next/image";
 import { LuArrowRight } from "react-icons/lu";
-import type { ImageData } from "@/types";
+import type { ImageData, LinkData } from "@/types";
 import { cn } from "@/utils/cn";
 
 export type StageProps = {
   headline: string;
   subline: string;
   image: ImageData;
-  cta?: {
-    label: string;
-    href: string;
-  };
+  cta?: LinkData;
   shortVersion?: boolean;
 };
 

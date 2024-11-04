@@ -5,12 +5,12 @@ import { getNavigationStructure } from "@/gql/documents/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
-// import { getFooter } from "@/gql/documents/gcaPage";
 import { ClientProvider } from "./provider";
 import type { Locale } from "@/i18n/config";
 import { stripNavigationFiles } from "@/utils/links";
 import { getFooter } from "@/gql/documents/gcaPage";
 import { Footer } from "@/components/layouts/Footer";
+import type { LinkData } from "@/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,15 +28,26 @@ const RootLayout = async (
     params: { locale: Locale };
   }>
 ) => {
-  const params = await props.params;
-
-  const { locale } = params;
-
   const { children } = props;
+  const { locale } = props.params;
 
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
   const footer = await getFooter(locale);
+
+  const footerLinks = footer.gcLinks
+    ?.map((link) => {
+      if (link?.data.__typename === "FirstSpiritInternalLink") {
+        return {
+          label: link.data.ltText,
+          href:
+            link.data.ltLink?.__typename === "FirstSpiritPageRef"
+              ? link.data.ltLink.page?.route
+              : "/",
+        };
+      }
+    })
+    .filter((link) => link !== undefined) as LinkData[];
 
   return (
     <html lang={locale}>
@@ -65,19 +76,8 @@ const RootLayout = async (
               }
             />
             {children}
-            {footer?.data.__typename === "FirstSpiritGcaFooter" && (
-              <Footer
-                copyrightText={{ content: footer?.data.gcCopyright }}
-                legalLinks={
-                  footer.data.gcLinks
-                    ? footer?.data.gcLinks.map((item) => ({
-                        label: item?.name || "",
-                        href: "#",
-                      }))
-                    : []
-                }
-              />
-            )}
+
+            <Footer copyrightText={{ content: footer?.gcCopyright }} legalLinks={footerLinks} />
           </ClientProvider>
         </NextIntlClientProvider>
       </body>
