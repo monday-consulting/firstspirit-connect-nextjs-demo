@@ -20,16 +20,16 @@ export const metadata: Metadata = {
     "Demo project that shows the usage of Netlify Connect with FirstSpirit integration in a Next.js project",
 };
 
-export const revalidate = 300; // Revalidate content every 5 minutes
+export const revalidate = 300; // Revalidate content every 5 minute
 
 const RootLayout = async (
   props: Readonly<{
     children: React.ReactNode;
-    params: { locale: Locale };
+    params: Promise<{ locale: Locale }>;
   }>
 ) => {
   const { children } = props;
-  const { locale } = props.params;
+  const { locale } = await props.params;
 
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
