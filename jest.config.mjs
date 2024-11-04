@@ -7,6 +7,9 @@ const config = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1", // Adjust according to your project structure
+  },
 };
 
 export default config;

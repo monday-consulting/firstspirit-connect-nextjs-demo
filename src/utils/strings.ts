@@ -18,7 +18,6 @@ export const removeSpecialCharacters = (str: string) => {
 
 export const formatDate = (isoDate: string): string => {
   const date = new Date(isoDate);
-
   return date.toLocaleDateString("de-DE", {
     day: "2-digit",
     month: "2-digit",
