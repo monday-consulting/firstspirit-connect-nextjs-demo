@@ -6,9 +6,9 @@ import { TextImage, type TextImageLayout } from "../sections/TextImage";
 import type { FirstSpiritSection } from "@/gql/generated/graphql";
 import { Stage } from "../sections/Stage";
 import { Features } from "../sections/Features";
-import type { StepsItemProps } from "../elements/StepsItem";
-import type { AccordionProps } from "../elements/Accordion";
-import type { FeatureProps } from "../elements/Feature";
+import type { StepsItemProps } from "../features/Steps/StepsItem";
+import type { AccordionProps } from "../sections/Accordion";
+import type { FeatureProps } from "../features/Features/Feature";
 import { PartsTable } from "../sections/PartsTable";
 
 export type SectionProps = {

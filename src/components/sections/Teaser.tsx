@@ -1,10 +1,10 @@
 import { Link } from "@/i18n/routing";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
-import type { RichTextElementProps } from "../elements/RichTextElement";
-import { RichTextElement } from "../elements/RichTextElement";
+import type { RichTextElementProps } from "../globals/RichTextElement";
+import { RichTextElement } from "../globals/RichTextElement";
 import type { ImageData } from "@/types";
-import { ImageComponent } from "@/components/elements/ImageComponent";
+import { ImageComponent } from "@/components/globals/ImageComponent";
 
 export type TeaserProps = {
   headline: string;
