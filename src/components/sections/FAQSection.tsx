@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Accordion, type AccordionProps } from "../elements/Accordion";
+import { Accordion, type AccordionProps } from "../sections/Accordion";
 
 export type FAQSectionProps = {
   headline: string;

@@ -1,4 +1,4 @@
-import { NewsDetail } from "@/components/features/News/NewsDetail";
+import { NewsDetail } from "@/components/features/NewsOverview/NewsDetail";
 import { getDatasetsByType } from "@/gql/documents/dataset";
 import type { FirstSpiritSmartLivingNewsFragmentFragment } from "@/gql/generated/graphql";
 import type { Locale } from "@/i18n/config";

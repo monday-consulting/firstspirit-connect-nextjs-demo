@@ -1,5 +1,5 @@
-import { RichTextElement, type RichTextElementProps } from "../elements/RichTextElement";
-import { StepsItem, type StepsItemProps } from "../elements/StepsItem";
+import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
+import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
 
 export type StepsProps = {
   subline: string;

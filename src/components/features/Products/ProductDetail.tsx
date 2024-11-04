@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
-import { RichTextElement, type RichTextElementProps } from "../../elements/RichTextElement";
-import { FavoriteButton } from "../../elements/FavoriteButton";
+import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";
+import { FavoriteButton } from "../../layouts/Navigation/Favorites/FavoriteButton";
 import type { ImageData } from "@/types";
-import { ImageComponent } from "@/components/elements/ImageComponent";
+import { ImageComponent } from "@/components/globals/ImageComponent";
 
 export type Product = {
   id: string;

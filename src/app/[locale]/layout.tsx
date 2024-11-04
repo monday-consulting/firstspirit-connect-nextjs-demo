@@ -4,7 +4,7 @@ import "@/assets/styles/globals.css";
 import { getNavigationStructure } from "@/gql/documents/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation";
+import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
 // import { getFooter } from "@/gql/documents/gcaPage";
 import { ClientProvider } from "./provider";
 import type { Locale } from "@/i18n/config";

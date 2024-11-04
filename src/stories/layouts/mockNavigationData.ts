@@ -1,4 +1,4 @@
-import type { NavigationStructure } from "@/components/layouts/Navigation";
+import type { NavigationStructure } from "@/components/layouts/Navigation/Navigation";
 
 export const mockNavigationData: NavigationStructure = {
   structure: [

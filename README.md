@@ -15,7 +15,7 @@ We use this technology to ensure that all data from Crownpeak CaaS is collected 
 * Use recommended plugins
 
 ## File structure
-...
+Frontend components are stored in `/src/components/`, their corresponding Storybook files are stored in `/src/stories/`. Within those directories there is a `/sections/` folder for all components implemented as a FirstSpirit section, a `/features/` folder containing subfolders storing subcomponents only used in components from the `/sections/` folder. There is also a `/global-components/` folder containing components that are used throughout the project and are not strictly tied to other components, and finally there is the `/layout/` folder containing the components and subcomponents that make up the standard page layout.
 
 ## Environment
 For Next.js you should copy the `.env.example` content to an new `.env.development` file and replace it with your `DATA_LAYER_API_URL` and `DATA_LAYER_API_TOKEN`.

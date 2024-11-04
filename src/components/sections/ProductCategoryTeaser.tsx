@@ -1,7 +1,7 @@
 "use client";
 
 import { Teaser } from "./Teaser";
-import type { RichTextElementProps } from "../elements/RichTextElement";
+import type { RichTextElementProps } from "../globals/RichTextElement";
 import { fetcher } from "@/utils/fetcher";
 import { useLocale } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
@@ -10,8 +10,8 @@ import type { Locale } from "@/i18n/config";
 import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
 import { Suspense } from "react";
 import { Loading } from "../layouts/Loading";
-import { CategoryProductsList } from "../elements/CategoryProductsList";
-import type { ProductTeaserProps } from "../elements/ProductTeaser";
+import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
+import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
 
 export type ProductCategoryTeaserProps = {
   category: {
