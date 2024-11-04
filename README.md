@@ -15,8 +15,8 @@ We use this technology to ensure that all data from Crownpeak CaaS is collected 
 * Use recommended plugins
 
 ## File structure
-...
-
+... 
+ 
 ## Environment
 For Next.js you should copy the `.env.example` content to an new `.env.development` file and replace it with your `DATA_LAYER_API_URL` and `DATA_LAYER_API_TOKEN`.
 If you want to use the google maps API you should also enter your token for `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`.
