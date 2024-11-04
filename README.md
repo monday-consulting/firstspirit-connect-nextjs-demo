@@ -38,8 +38,8 @@ We use [graphql-codegen](https://the-guild.dev/graphql/codegen) to generate our 
 ## Internationalization (i18n)
 ...
 
-## Tailwind
-...
+## tailwindcss
+We use [tailwindcss](https://tailwindcss.com/) for styling components. This tool allows us to style components dynamically in the same file without bloating the code.
 
 ## Storybook
 We use [Storybook](https://storybook.js.org/) for spot checking individual components during development. It allows us to test each component in an isolated environment. To create such an environment for a component, add a respective Storybook file in the `/src/stories` folder.
