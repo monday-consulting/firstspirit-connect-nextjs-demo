@@ -1,4 +1,4 @@
-import { Locations } from "@/components/features/Locations/Locations";
+import { Locations } from "@/components/features/GoogleMaps/Locations";
 import { getDatasetsByType } from "@/gql/documents/dataset";
 import { getSectionByType } from "@/gql/documents/section";
 import type {

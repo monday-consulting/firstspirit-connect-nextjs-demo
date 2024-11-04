@@ -151,9 +151,8 @@ graphql(`
     stHeadline
     stSubheadline
     stInitialZoom
-    # TODO: Int parsing currently not supported by graphql server - update fragment after solving
-    # stInitialLat
-    # stInitialLong
+    stInitialLat
+    stInitialLong
   }
 `);
 
@@ -185,9 +184,8 @@ graphql(`
   fragment FirstSpiritSmartLivingLocationFragment on FirstSpiritSmartlivingLocation {
     ttName
     ttDescription
-    # TODO: Int parsing currently not supported by graphql server - update fragment after solving
-    # ttLat
-    # ttLong
+    ttLat
+    ttLong
   }
 
   fragment FirstSpiritTableFragment on FirstSpiritTable {

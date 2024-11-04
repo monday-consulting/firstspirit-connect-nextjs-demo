@@ -1,7 +1,7 @@
 "use client";
 
 import type { ImageData } from "@/types";
-import { Button, type ButtonProps } from "../elements/Button";
+import { Button, type ButtonProps } from "../global-components/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
