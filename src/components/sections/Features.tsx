@@ -1,7 +1,7 @@
 import { Feature } from "@/components/features/Features/Feature";
 import type { FeatureProps } from "@/components/features/Features/Feature";
-import type { RichTextElementContent } from "../global-components/RichTextElement";
-import { RichTextElement } from "../global-components/RichTextElement";
+import type { RichTextElementContent } from "../globals/RichTextElement";
+import { RichTextElement } from "../globals/RichTextElement";
 
 export type FeaturesProps = {
   headline: string;

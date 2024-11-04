@@ -4,10 +4,7 @@ import { fuzzySearchObjects } from "@/utils/strings";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { LuSearch } from "react-icons/lu";
-import {
-  RichTextElement,
-  type RichTextElementProps,
-} from "../../global-components/RichTextElement";
+import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";
 
 export type Contact = {
   name: string;

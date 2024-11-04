@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { RichTextElement } from "@/components/global-components/RichTextElement";
+import { RichTextElement } from "@/components/globals/RichTextElement";
 
 const meta: Meta<typeof RichTextElement> = {
-  title: "components/Global Components/RichTextElement",
+  title: "components/Globals/RichTextElement",
   component: RichTextElement,
   parameters: {
     layout: "centered",

@@ -3,7 +3,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
-import { ImageComponent } from "../../global-components/ImageComponent";
+import { ImageComponent } from "../../globals/ImageComponent";
 import { useTranslations } from "next-intl";
 
 export type ProductOverviewItemProps = {

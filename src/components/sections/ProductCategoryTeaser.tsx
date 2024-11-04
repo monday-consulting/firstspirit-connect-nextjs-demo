@@ -1,7 +1,7 @@
 "use client";
 
 import { Teaser } from "./Teaser";
-import type { RichTextElementProps } from "../global-components/RichTextElement";
+import type { RichTextElementProps } from "../globals/RichTextElement";
 import { fetcher } from "@/utils/fetcher";
 import { useLocale } from "next-intl";
 import { useQuery } from "@tanstack/react-query";

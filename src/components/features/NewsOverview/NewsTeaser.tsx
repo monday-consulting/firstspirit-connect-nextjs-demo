@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { formatDate } from "@/utils/strings";
 import { getNewsDetailLink } from "@/utils/links";
 import { Link } from "@/i18n/routing";
-import { ImageComponent } from "@/components/global-components/ImageComponent";
+import { ImageComponent } from "@/components/globals/ImageComponent";
 
 export type NewsEntity = {
   image: {

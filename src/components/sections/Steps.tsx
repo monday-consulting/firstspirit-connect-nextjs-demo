@@ -1,4 +1,4 @@
-import { RichTextElement, type RichTextElementProps } from "../global-components/RichTextElement";
+import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
 
 export type StepsProps = {

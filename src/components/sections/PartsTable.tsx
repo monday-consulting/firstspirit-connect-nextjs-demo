@@ -1,6 +1,6 @@
 "use client";
 
-import { RichTextElement, type RichTextElementContent } from "../global-components/RichTextElement";
+import { RichTextElement, type RichTextElementContent } from "../globals/RichTextElement";
 
 export type PartsTableProps = {
   tableContent: RichTextElementContent[];
