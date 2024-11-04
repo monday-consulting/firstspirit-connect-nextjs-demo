@@ -9,24 +9,23 @@ import type { Locale } from "@/i18n/config";
 
 const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => {
   const params = await props.params;
-  const googleMaps = (await getSectionByType(
-    params.locale,
-    "google_maps"
-  )) as FirstSpiritGoogleMapsFragmentFragment;
+  const googleMaps = await getSectionByType(params.locale, "google_maps");
+  const googleMapsData = googleMaps.data as FirstSpiritGoogleMapsFragmentFragment;
 
   const contacts = (await getDatasetsByType(params.locale, "location")).map(
     (contact) => contact.data as FirstSpiritSmartLivingLocationFragmentFragment
   );
 
-  // TODO: Int parsing currently not supported by graphql server - update fragment after solving
-  // const center = { lat: googleMapsData.stInitialLat || 0, lng: googleMapsData.stInitialLong || 0 };
-  const center = { lat: 50, lng: 10 };
+  const center = { lat: googleMapsData.stInitialLat || 0, lng: googleMapsData.stInitialLong || 0 };
 
-  // const markers = contacts.map((item) => ({
-  //   lat: item.data.tt_lat,
-  //   lng: item.data.tt_long,
-  // }));
-  const markers = [] as { lat: number; lng: number }[];
+  const markers = contacts
+    .map((item) => {
+      if (item.ttLat && item.ttLong) {
+        return { lat: item.ttLat, lng: item.ttLong };
+      }
+      return undefined;
+    })
+    .filter((marker): marker is { lat: number; lng: number } => marker !== undefined);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-4 sm:px-12 md:px-24">
@@ -42,8 +41,7 @@ const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => 
           contacts: contacts.map((contact) => ({
             name: contact.ttName || "",
             description: { content: contact.ttDescription || "" },
-            // TODO: Int parsing currently not supported by graphql server - update fragment after solving
-            coordinates: { lat: 0, lng: 0 },
+            coordinates: { lat: contact.ttLat || 0, lng: contact.ttLong || 0 },
           })),
         }}
       />
