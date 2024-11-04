@@ -1,8 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { NewsEntity } from "../features/NewsOverview/NewsTeaser";
-import { NewsFilter } from "../features/NewsOverview/NewsFilter";
+import type { NewsEntity } from "./NewsTeaser";
+import { NewsFilter } from "./NewsFilter";
 
 export type NewsOverviewProps = {
   news: NewsEntity[];

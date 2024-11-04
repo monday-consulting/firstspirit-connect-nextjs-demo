@@ -1,6 +1,6 @@
 import type { StoryObj } from "@storybook/react";
 import { Steps } from "@/components/sections/Steps";
-import { Underlined } from "../global-components/RichTextElement.stories";
+import { Underlined } from "../globals/RichTextElement.stories";
 import { StepsItemDefault } from "../features/Steps/StepsItem.stories";
 
 const meta = {

@@ -1,5 +1,5 @@
-import { RichTextElement, type RichTextElementProps } from "../global-components/RichTextElement";
-import { ImageComponent } from "@/components/global-components/ImageComponent";
+import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
+import { ImageComponent } from "@/components/globals/ImageComponent";
 
 export type TextImageLayout = "text-image" | "image-text";
 

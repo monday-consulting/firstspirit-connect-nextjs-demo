@@ -5,7 +5,7 @@ import { LuTrash } from "react-icons/lu";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { useLocale } from "next-intl";
 import type { Locale } from "@/i18n/config";
-import { ImageComponent } from "../../../global-components/ImageComponent";
+import { ImageComponent } from "../../../globals/ImageComponent";
 
 export type FavoriteTeaserProps = {
   title: string;

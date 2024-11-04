@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ImageComponent } from "@/components/global-components/ImageComponent";
+import { ImageComponent } from "@/components/globals/ImageComponent";
 
 const meta = {
-  title: "components/Global Components/ImageComponent",
+  title: "components/Globals/ImageComponent",
   component: ImageComponent,
   tags: ["autodocs"],
 } satisfies Meta<typeof ImageComponent>;

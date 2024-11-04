@@ -1,10 +1,10 @@
 import { Link } from "@/i18n/routing";
 import type { ReactNode } from "react";
 import { LuArrowRight } from "react-icons/lu";
-import type { RichTextElementContent } from "../../global-components/RichTextElement";
-import { RichTextElement } from "../../global-components/RichTextElement";
+import type { RichTextElementContent } from "../../globals/RichTextElement";
+import { RichTextElement } from "../../globals/RichTextElement";
 import type { ImageData } from "@/types";
-import { ImageComponent } from "../../global-components/ImageComponent";
+import { ImageComponent } from "../../globals/ImageComponent";
 
 //this type is used in section/features
 export type FeatureProps = {

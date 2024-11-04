@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { NewsOverview } from "@/components/sections/NewsOverview";
+import { NewsOverview } from "@/components/features/NewsOverview/NewsOverview";
 
 const meta = {
-  title: "components/Sections/NewsOverview",
+  title: "components/Features/NewsOverview/NewsOverview",
   component: NewsOverview,
   tags: ["autodocs"],
 } satisfies Meta<typeof NewsOverview>;

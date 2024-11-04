@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/routing";
 import logo from "@/assets/smart_living_logo.webp";
 import Image from "next/image";
-import { RichTextElement, type RichTextElementProps } from "../global-components/RichTextElement";
+import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 
 export type LegalLink = {
   label: string;
