@@ -6,10 +6,7 @@ import { Link } from "@/i18n/routing";
 import { ImageComponent } from "@/components/globals/ImageComponent";
 
 export type NewsEntity = {
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ImageData;
   categories: string[];
   author: string;
   date: string;
