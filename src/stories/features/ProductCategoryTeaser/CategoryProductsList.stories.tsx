@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CategoryProductsList } from "@/components/features/ProductCategoryTeaser/CategoryProductsList";
+import { DefaultImage, TinyImage } from "@/stories/mocks/imageMocks";
+import { DefaultText, MediumText } from "@/stories/mocks/textMocks";
 
 const meta: Meta<typeof CategoryProductsList> = {
   title: "components/Features/ProductCategoryTeaser/CategoryProductsList",
@@ -18,15 +20,15 @@ export const Default: Story = {
     products: [
       {
         name: "Product 1",
-        description: {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        },
+        description: { content: DefaultText },
         route: "#",
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt text",
-        },
+        image: DefaultImage,
+      },
+      {
+        name: "Product 2",
+        description: { content: MediumText },
+        route: "#",
+        image: TinyImage,
       },
     ],
   },

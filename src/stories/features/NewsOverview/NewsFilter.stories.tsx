@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { NewsFilter } from "@/components/features/NewsOverview/NewsFilter";
+import { DefaultImage, TinyImage } from "@/stories/mocks/imageMocks";
+import { DefaultText } from "@/stories/mocks/textMocks";
 
 const meta = {
   title: "components/Features/NewsOverview/NewsFilter",
@@ -14,28 +16,20 @@ export const Default: Story = {
   args: {
     news: [
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: DefaultImage,
         categories: ["Category 1", "Category 2"],
         author: "John Doe",
         date: "December 9, 2023",
         headline: "Headline",
-        teaserText:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+        teaserText: DefaultText,
       },
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: TinyImage,
         categories: ["Category 2", "Category 3"],
         author: "John Doe",
         date: "September 12, 2022",
         headline: "Headline",
-        teaserText:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+        teaserText: DefaultText,
       },
     ],
     categories: ["Category 1", "Category 2", "Category 3"],

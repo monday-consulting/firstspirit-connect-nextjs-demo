@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FAQSection } from "@/components/sections/FAQSection";
+import { DefaultText, LongText } from "../mocks/textMocks";
 
 const meta: Meta<typeof FAQSection> = {
   title: "components/Sections/FAQSection",
@@ -21,8 +22,7 @@ export const Default: Story = {
         title: "Accordion one",
         content: [
           {
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+            content: DefaultText,
             data: "",
             type: "",
           },
@@ -32,8 +32,7 @@ export const Default: Story = {
         title: "Accordion two",
         content: [
           {
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+            content: LongText,
             data: "",
             type: "",
           },

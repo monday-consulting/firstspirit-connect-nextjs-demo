@@ -1,5 +1,6 @@
 import type { StoryObj } from "@storybook/react";
 import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
+import { DefaultImage, HugeImage, TinyImage } from "../mocks/imageMocks";
 
 const meta = {
   title: "components/Sections/FeaturedProducts",
@@ -19,28 +20,19 @@ export const Default: Story = {
     subline: "This is a subline",
     products: [
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt text",
-        },
+        image: DefaultImage,
         name: "Example Name",
         abstract: "Example Abstract",
         route: "#",
       },
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt text",
-        },
+        image: TinyImage,
         name: "Example Name",
         abstract: "Example Abstract",
         route: "#",
       },
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt text",
-        },
+        image: HugeImage,
         name: "Example Name",
         abstract: "Example Abstract",
         route: "#",

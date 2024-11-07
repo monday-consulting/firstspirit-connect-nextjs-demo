@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Teaser } from "@/components/sections/Teaser";
+import { DefaultImage } from "../mocks/imageMocks";
+import { DefaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/Teaser",
@@ -14,15 +16,11 @@ export const Default: Story = {
   args: {
     imageStart: true,
     headline: "Headline",
-    image: {
-      src: "https://placehold.co/600x400",
-      alt: "Alt Text",
-    },
+    image: DefaultImage,
     text: {
       content: [
         {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+          content: DefaultText,
           data: "test",
           type: "paragraph",
         },

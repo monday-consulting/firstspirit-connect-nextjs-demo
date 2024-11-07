@@ -30,23 +30,6 @@ export const Paragraph: Story = {
   },
 };
 
-export const Linebreak: Story = {
-  args: {
-    content: [
-      {
-        content: "Hier kommt ein Linebreak",
-        data: "example",
-        type: "linebreak",
-      },
-      {
-        content: "Hier kommt ein Linebreak",
-        data: "example",
-        type: "linebreak",
-      },
-    ],
-  },
-};
-
 export const Link: Story = {
   args: {
     content: [
@@ -54,18 +37,6 @@ export const Link: Story = {
         content: "Example Link",
         data: "exampleUrl.com",
         type: "link",
-      },
-    ],
-  },
-};
-
-export const Underlined: Story = {
-  args: {
-    content: [
-      {
-        content: "Example text",
-        data: "exampleUrl.com",
-        type: "underline",
       },
     ],
   },

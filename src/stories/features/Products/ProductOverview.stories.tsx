@@ -1,5 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ProductOverview } from "@/components/features/Products/ProductOverview";
+import {
+  DefaultImage,
+  HighImage,
+  HugeImage,
+  SmallImage,
+  TinyImage,
+  WideImage,
+} from "@/stories/mocks/imageMocks";
 
 const meta = {
   title: "components/Features/Products/ProductOverview",
@@ -14,10 +22,7 @@ export const Default: Story = {
   args: {
     products: [
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: DefaultImage,
         category: "Category 3",
         name: "Product 1",
         price: "1 €",
@@ -25,10 +30,7 @@ export const Default: Story = {
         route: "#",
       },
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: TinyImage,
         category: "Category 2",
         name: "Product 2",
         price: "2 €",
@@ -36,10 +38,7 @@ export const Default: Story = {
         route: "#",
       },
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: HugeImage,
         category: "Category 1",
         name: "Product 1",
         price: "3 €",
@@ -47,10 +46,7 @@ export const Default: Story = {
         route: "#",
       },
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: SmallImage,
         category: "Category 3",
         name: "Product 2",
         price: "4 €",
@@ -58,10 +54,7 @@ export const Default: Story = {
         route: "#",
       },
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: WideImage,
         category: "Category 2",
         name: "Product 1",
         price: "123 €",
@@ -69,10 +62,7 @@ export const Default: Story = {
         route: "#",
       },
       {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: HighImage,
         category: "Category 4",
         name: "Product 2",
         price: "123.321 €",

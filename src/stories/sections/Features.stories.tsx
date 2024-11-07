@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Features } from "@/components/sections/Features";
+import { DefaultImage, HighImage } from "../mocks/imageMocks";
+import { DefaultText, MediumText } from "../mocks/textMocks";
 
 const meta: Meta<typeof Features> = {
   title: "components/Sections/Features",
@@ -26,15 +28,11 @@ export const Default: Story = {
           href: "#",
           label: "Learn more",
         },
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: DefaultImage,
         title: "Title",
         text: [
           {
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+            content: DefaultText,
             data: "",
             type: "",
           },
@@ -45,15 +43,11 @@ export const Default: Story = {
           href: "#",
           label: "Learn more",
         },
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: HighImage,
         title: "Title",
         text: [
           {
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+            content: MediumText,
             data: "",
             type: "",
           },
