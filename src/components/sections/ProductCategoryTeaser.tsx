@@ -5,13 +5,14 @@ import type { RichTextElementProps } from "../globals/RichTextElement";
 import { fetcher } from "@/utils/fetcher";
 import { useLocale } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
-import { getProductDetailLink, getProductGroupLink } from "@/utils/links";
+import { getProductDetailLink } from "@/utils/links";
 import type { Locale } from "@/i18n/config";
 import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
 import { Suspense } from "react";
 import { Loading } from "../layouts/Loading";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
+import type { LinkData } from "@/types";
 
 export type ProductCategoryTeaserProps = {
   category: {
@@ -20,7 +21,7 @@ export type ProductCategoryTeaserProps = {
     name: string;
     products?: FirstSpiritSmartlivingProduct[];
   };
-  linkLabel: string;
+  link: LinkData;
   headline: string;
   text: RichTextElementProps;
   teaserTextStart?: boolean;
@@ -28,7 +29,7 @@ export type ProductCategoryTeaserProps = {
 
 const ProductCategoryTeaser = ({
   category,
-  linkLabel,
+  link,
   headline,
   text,
   teaserTextStart: teaserTextLeft = true,
@@ -79,7 +80,7 @@ const ProductCategoryTeaser = ({
             claim={category.name}
             text={text}
             imageStart={teaserTextLeft}
-            cta={{ href: getProductGroupLink(category.name), label: `${linkLabel}Todo` }}
+            cta={link}
             breakpoint="xl"
             imageReplaceContent={
               <Suspense fallback={<Loading />}>

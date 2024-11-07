@@ -44,7 +44,7 @@ const Section = ({ section }: SectionProps) => {
               name: section.data.stCategory?.value || "",
               id: section.data.stCategory?.key || "",
             }}
-            linkLabel={section.data.stCategoryLink?.data?.ltText || ""}
+            link={getConnectorLink(section.data.stCategoryLink?.data)}
             headline={section.data.stHeadline || ""}
             text={{ content: section.data.stText }}
             teaserTextStart={section.data.stTextAlignment?.key === "left"}

@@ -83,9 +83,25 @@ graphql(`
     stTextAlignment {
       key
     }
+    stCategoryLink {
+      data {
+        __typename
+        ... on FirstSpiritInternalLink {
+          ltText
+          ltLink {
+            __typename
+            ... on FirstSpiritPageRef {
+              page {
+                route
+              }
+            }
+          }
+        }
+      }
+    }
     stCategory {
-      key
       value
+      key
     }
   }
 
