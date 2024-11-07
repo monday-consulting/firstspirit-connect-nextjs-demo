@@ -153,7 +153,10 @@ export const Default: Story = {
       name: "Category Name",
       products: mockProducts as FirstSpiritSmartlivingProduct[],
     },
-    linkLabel: "View More",
+    link: {
+      href: "/",
+      label: "Test Label",
+    },
     headline: "Product Teaser Headline",
     text: {
       content:
