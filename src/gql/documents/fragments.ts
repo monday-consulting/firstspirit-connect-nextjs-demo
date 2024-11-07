@@ -38,7 +38,20 @@ graphql(`
       }
     }
     stCta {
-      key
+      data {
+        __typename
+        ... on FirstSpiritInternalLink {
+          ltText
+          ltLink {
+            __typename
+            ... on FirstSpiritPageRef {
+              page {
+                route
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -129,7 +142,20 @@ graphql(`
               key
             }
             stLink {
-              key
+              data {
+                __typename
+                ... on FirstSpiritInternalLink {
+                  ltText
+                  ltLink {
+                    __typename
+                    ... on FirstSpiritPageRef {
+                      page {
+                        route
+                      }
+                    }
+                  }
+                }
+              }
             }
             stImage {
               __typename

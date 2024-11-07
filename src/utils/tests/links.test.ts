@@ -1,9 +1,11 @@
+import type { FirstSpiritLinkUnion } from "@/gql/generated/graphql";
 import {
   stripNavigationFiles,
   parseLink,
   getProductDetailLink,
   getNewsDetailLink,
   getProductGroupLink,
+  getConnectorLink,
 } from "../links";
 import { replaceUmlauts, removeSpecialCharacters } from "../strings";
 
@@ -74,5 +76,34 @@ describe("getNewsDetailLink", () => {
   it("calls parseLink with the news name", () => {
     const result = getNewsDetailLink("Breaking News");
     expect(result).toBe("/news/breaking-news");
+  });
+});
+
+describe("getConnectorLink function", () => {
+  const defaultLink = { href: "/", label: "Home" };
+
+  it("should return default link if input is null or undefined", () => {
+    expect(getConnectorLink(null)).toEqual(defaultLink);
+    expect(getConnectorLink(undefined)).toEqual(defaultLink);
+  });
+
+  it("should return the internal link with the correct href and label when given a valid link", () => {
+    const validLink = {
+      __typename: "FirstSpiritInternalLink",
+      ltLink: {
+        __typename: "FirstSpiritPageRef",
+        page: {
+          route: "/example/page.html",
+        },
+      },
+      ltText: "Example Page",
+    } as FirstSpiritLinkUnion;
+
+    const expectedLink = {
+      href: "/example/",
+      label: "Example Page",
+    };
+
+    expect(getConnectorLink(validLink)).toEqual(expectedLink);
   });
 });
