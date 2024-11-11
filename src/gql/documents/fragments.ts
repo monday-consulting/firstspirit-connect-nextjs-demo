@@ -38,7 +38,20 @@ graphql(`
       }
     }
     stCta {
-      key
+      data {
+        __typename
+        ... on FirstSpiritInternalLink {
+          ltText
+          ltLink {
+            __typename
+            ... on FirstSpiritPageRef {
+              page {
+                route
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -70,9 +83,25 @@ graphql(`
     stTextAlignment {
       key
     }
+    stCategoryLink {
+      data {
+        __typename
+        ... on FirstSpiritInternalLink {
+          ltText
+          ltLink {
+            __typename
+            ... on FirstSpiritPageRef {
+              page {
+                route
+              }
+            }
+          }
+        }
+      }
+    }
     stCategory {
-      key
       value
+      key
     }
   }
 
@@ -129,7 +158,20 @@ graphql(`
               key
             }
             stLink {
-              key
+              data {
+                __typename
+                ... on FirstSpiritInternalLink {
+                  ltText
+                  ltLink {
+                    __typename
+                    ... on FirstSpiritPageRef {
+                      page {
+                        route
+                      }
+                    }
+                  }
+                }
+              }
             }
             stImage {
               __typename

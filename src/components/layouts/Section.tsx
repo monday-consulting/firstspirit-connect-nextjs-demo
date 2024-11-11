@@ -10,6 +10,7 @@ import type { StepsItemProps } from "../features/Steps/StepsItem";
 import type { AccordionProps } from "../sections/Accordion";
 import type { FeatureProps } from "../features/Features/Feature";
 import { PartsTable } from "../sections/PartsTable";
+import { getConnectorLink } from "@/utils/links";
 
 export type SectionProps = {
   section: Pick<FirstSpiritSection, "__typename" | "id" | "data">;
@@ -43,7 +44,7 @@ const Section = ({ section }: SectionProps) => {
               name: section.data.stCategory?.value || "",
               id: section.data.stCategory?.key || "",
             }}
-            linkLabel={section.data.stCategoryLink?.value || ""}
+            link={getConnectorLink(section.data.stCategoryLink?.data)}
             headline={section.data.stHeadline || ""}
             text={{ content: section.data.stText }}
             teaserTextStart={section.data.stTextAlignment?.key === "left"}
@@ -94,7 +95,7 @@ const Section = ({ section }: SectionProps) => {
           />
         );
       }
-      case "FirstSpiritStage":
+      case "FirstSpiritStage": {
         return (
           <Stage
             headline={section.data.stHeadline || ""}
@@ -106,13 +107,10 @@ const Section = ({ section }: SectionProps) => {
                 "",
               alt: "",
             }}
-            cta={{
-              // TODO: links not resolved correctly
-              label: section.data.stCta?.key || "",
-              href: "#",
-            }}
+            cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
           />
         );
+      }
       case "FirstSpiritFeatures": {
         const features = section.data.stFeatures
           ?.map((feature) => {
@@ -123,11 +121,9 @@ const Section = ({ section }: SectionProps) => {
               return {
                 title: feature.data.stTitle,
                 text: feature.data.stText,
-                link: {
-                  // TODO: links not resolved correctly
-                  label: feature.data.stLink?.key || "",
-                  href: "#",
-                },
+                link: feature.data.stLink?.data
+                  ? getConnectorLink(feature.data.stLink.data)
+                  : undefined,
                 image: {
                   src:
                     (feature.data.stImage?.__typename === "FirstSpiritImage" &&
@@ -160,15 +156,7 @@ const Section = ({ section }: SectionProps) => {
                 "",
               alt: section.data.stImageAltText || "",
             }}
-            cta={
-              section.data.stCta
-                ? {
-                    // TODO: links not resolved correctly
-                    label: section.data.stCta.key || "",
-                    href: "#",
-                  }
-                : undefined
-            }
+            cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
           />
         );
       case "FirstSpiritTable":
