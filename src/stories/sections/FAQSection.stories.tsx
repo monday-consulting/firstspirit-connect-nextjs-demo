@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FAQSection } from "@/components/sections/FAQSection";
+import { Default as Accordion } from "./Accordion.stories";
 
 const meta: Meta<typeof FAQSection> = {
   title: "components/Sections/FAQSection",
@@ -16,30 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     headline: "Frequently Asked Questions",
-    entries: [
-      {
-        title: "Accordion one",
-        content: [
-          {
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
-            data: "",
-            type: "",
-          },
-        ],
-      },
-      {
-        title: "Accordion two",
-        content: [
-          {
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
-            data: "",
-            type: "",
-          },
-        ],
-      },
-    ],
+    entries: [Accordion.args, Accordion.args, Accordion.args],
     claim: "Your questions - Our answers",
     subline: (
       <p>

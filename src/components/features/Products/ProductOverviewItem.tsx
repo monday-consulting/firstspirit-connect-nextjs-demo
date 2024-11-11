@@ -60,7 +60,7 @@ const ProductOverviewItem = ({
               {name}
             </h3>
           </Link>
-          <p className="font-heading font-medium text-text text-xl">{price}</p>
+          <p className="font-heading font-medium text-text text-xl">{price}€</p>
         </div>
         <div className="mx-4 flex justify-between text-xl">
           <button

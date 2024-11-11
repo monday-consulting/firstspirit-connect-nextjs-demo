@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { StepsItem } from "@/components/features/Steps/StepsItem";
+import { DefaultText } from "@/stories/mocks/textMocks";
 
 const meta = {
   title: "components/Features/Steps/StepsItem",
@@ -15,14 +16,12 @@ export const StepsItemDefault: Story = {
     title: "Title",
     text: [
       {
-        content:
-          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        content: DefaultText,
         data: "example",
         type: "paragraph",
       },
       {
-        content:
-          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        content: DefaultText,
         data: "example",
         type: "block",
       },

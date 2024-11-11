@@ -1,5 +1,7 @@
 import { TextImage, type TextImageLayout } from "@/components/sections/TextImage";
 import type { Meta, StoryObj } from "@storybook/react";
+import { DefaultImage } from "../mocks/imageMocks";
+import { DefaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/TextImage",
@@ -23,21 +25,16 @@ export const Default: Story = {
         },
       ],
     },
-    image: {
-      src: "https://placehold.co/600x400",
-      alt: "Alt Text",
-    },
+    image: DefaultImage,
     text: {
       content: [
         {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+          content: DefaultText,
           data: "example",
           type: "paragraph",
         },
         {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+          content: DefaultText,
           data: "example",
           type: "block",
         },

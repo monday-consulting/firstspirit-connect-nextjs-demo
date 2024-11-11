@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Slider } from "@/components/sections/Slider";
+import { DefaultImage, HugeImage } from "../mocks/imageMocks";
 
 const meta = {
   title: "components/Sections/Slider",
@@ -19,10 +20,7 @@ export const Default: Story = {
           link: "/",
         },
         description: "Description",
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: DefaultImage,
         title: "Title1",
       },
       {
@@ -31,10 +29,7 @@ export const Default: Story = {
           link: "/",
         },
         description: "Description",
-        image: {
-          src: "http://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: HugeImage,
         title: "Title2",
       },
     ],
