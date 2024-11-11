@@ -12,6 +12,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  //props need to passed to avoid error
+  //props are not displayed in this instance
   args: {
     product: {
       id: "1",

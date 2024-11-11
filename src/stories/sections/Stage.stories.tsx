@@ -20,7 +20,7 @@ export const Default: Story = {
     subline: "This is a Stage component",
     image: DefaultImage,
     cta: {
-      label: "CTA",
+      label: "Learn more",
       href: "#",
     },
   },

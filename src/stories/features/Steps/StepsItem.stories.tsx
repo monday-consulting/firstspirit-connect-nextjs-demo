@@ -20,11 +20,6 @@ export const StepsItemDefault: Story = {
         data: "example",
         type: "paragraph",
       },
-      {
-        content: DefaultText,
-        data: "example",
-        type: "block",
-      },
     ],
     index: 1,
   },

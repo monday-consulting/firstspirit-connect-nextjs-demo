@@ -32,7 +32,7 @@ export const Default: Story = {
       image: DefaultImage,
       name: "Stick Up Cam Security",
       price: "$100",
-      teaserText: "Teaser text for Product 1",
+      teaserText: "",
     },
   },
 };

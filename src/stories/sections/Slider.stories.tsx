@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Slider } from "@/components/sections/Slider";
-import { DefaultImage, HugeImage } from "../mocks/imageMocks";
+import { DefaultImage, SmallImage } from "../mocks/imageMocks";
+import { DefaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/Slider",
@@ -28,8 +29,8 @@ export const Default: Story = {
           text: "Button2",
           link: "/",
         },
-        description: "Description",
-        image: HugeImage,
+        description: DefaultText,
+        image: SmallImage,
         title: "Title2",
       },
     ],

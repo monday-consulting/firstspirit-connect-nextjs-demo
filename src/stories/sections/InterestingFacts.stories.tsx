@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { InterestingFacts } from "@/components/sections/InterestingFacts";
 import { DefaultImage } from "../mocks/imageMocks";
+import { DefaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/InterestingFacts",
@@ -21,12 +22,12 @@ export const Default: Story = {
       {
         id: "1",
         number: 1,
-        text: "Text",
+        text: DefaultText,
       },
       {
         id: "2",
         number: 2,
-        text: "Text",
+        text: DefaultText,
       },
     ],
   },

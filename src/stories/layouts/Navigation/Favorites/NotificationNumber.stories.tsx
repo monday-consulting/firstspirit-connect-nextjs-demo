@@ -4,6 +4,9 @@ import { NotificationNumber } from "@/components/layouts/Navigation/Favorites/No
 const meta = {
   title: "components/Layouts/Navigation/Favorites/NotificationNumber",
   component: NotificationNumber,
+  parameters: {
+    layout: "centered",
+  },
   tags: ["autodocs"],
 } satisfies Meta<typeof NotificationNumber>;
 
