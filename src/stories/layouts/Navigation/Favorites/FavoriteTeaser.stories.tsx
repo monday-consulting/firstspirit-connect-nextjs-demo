@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FavoriteTeaser } from "@/components/layouts/Navigation/Favorites/FavoriteTeaser";
-import { DefaultImage } from "@/stories/mocks/imageMocks";
+import { defaultImage } from "@/stories/mocks/imageMocks";
 
 const meta = {
   title: "components/Layouts/Navigation/Favorites/FavoriteTeaser",
@@ -15,6 +15,6 @@ export const Default: Story = {
   args: {
     id: "TestID",
     title: "Product Name",
-    image: DefaultImage,
+    image: defaultImage,
   },
 };

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ProductDetail } from "@/components/features/Products/ProductDetail";
-import { DefaultText } from "@/stories/mocks/textMocks";
-import { DefaultImage } from "@/stories/mocks/imageMocks";
+import { defaultText } from "@/stories/mocks/textMocks";
+import { defaultImage } from "@/stories/mocks/imageMocks";
 
 const meta: Meta<typeof ProductDetail> = {
   title: "components/Features/Products/ProductDetail",
@@ -23,13 +23,13 @@ export const Default: Story = {
       description: {
         content: [
           {
-            content: DefaultText,
+            content: defaultText,
             data: "example",
             type: "paragraph",
           },
         ],
       },
-      image: DefaultImage,
+      image: defaultImage,
       name: "Stick Up Cam Security",
       price: "$100",
       teaserText: "",

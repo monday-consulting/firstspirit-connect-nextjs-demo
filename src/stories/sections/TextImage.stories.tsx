@@ -1,7 +1,7 @@
 import { TextImage, type TextImageLayout } from "@/components/sections/TextImage";
 import type { Meta, StoryObj } from "@storybook/react";
-import { DefaultImage } from "../mocks/imageMocks";
-import { DefaultText } from "../mocks/textMocks";
+import { defaultImage } from "../mocks/imageMocks";
+import { defaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/TextImage",
@@ -25,16 +25,16 @@ export const Default: Story = {
         },
       ],
     },
-    image: DefaultImage,
+    image: defaultImage,
     text: {
       content: [
         {
-          content: DefaultText,
+          content: defaultText,
           data: "example",
           type: "paragraph",
         },
         {
-          content: DefaultText,
+          content: defaultText,
           data: "example",
           type: "block",
         },

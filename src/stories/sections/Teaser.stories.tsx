@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Teaser } from "@/components/sections/Teaser";
-import { DefaultImage } from "../mocks/imageMocks";
-import { DefaultText } from "../mocks/textMocks";
+import { defaultImage } from "../mocks/imageMocks";
+import { defaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/Teaser",
@@ -16,11 +16,11 @@ export const Default: Story = {
   args: {
     imageStart: true,
     headline: "Headline",
-    image: DefaultImage,
+    image: defaultImage,
     text: {
       content: [
         {
-          content: DefaultText,
+          content: defaultText,
           data: "test",
           type: "paragraph",
         },

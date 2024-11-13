@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Accordion } from "@/components/sections/Accordion";
-import { MediumText } from "../mocks/textMocks";
+import { mediumText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/Accordion",
@@ -16,7 +16,7 @@ export const Default: Story = {
     title: "Accordion title",
     content: [
       {
-        content: MediumText,
+        content: mediumText,
         data: "",
         type: "",
       },

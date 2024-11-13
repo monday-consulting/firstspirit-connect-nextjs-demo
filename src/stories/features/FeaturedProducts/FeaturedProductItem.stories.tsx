@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FeaturedProductItem } from "@/components/features/FeaturedProducts/FeaturedProductItem";
-import { DefaultImage } from "@/stories/mocks/imageMocks";
+import { defaultImage } from "@/stories/mocks/imageMocks";
 
 const meta: Meta<typeof FeaturedProductItem> = {
   title: "components/Features/FeaturedProducts/FeaturedProductItem",
@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    image: DefaultImage,
+    image: defaultImage,
     name: "Example Name",
     abstract: "Example Abstract",
     route: "#",

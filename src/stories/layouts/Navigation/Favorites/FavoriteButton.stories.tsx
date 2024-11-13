@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FavoriteButton } from "@/components/layouts/Navigation/Favorites/FavoriteButton";
-import { DefaultImage } from "@/stories/mocks/imageMocks";
+import { defaultImage } from "@/stories/mocks/imageMocks";
 
 const meta: Meta<typeof FavoriteButton> = {
   title: "components/Layouts/Navigation/Favorites/FavoriteButton",
@@ -18,7 +18,7 @@ export const Default: Story = {
     product: {
       id: "1",
       title: "Product",
-      image: DefaultImage,
+      image: defaultImage,
     },
   },
 };
