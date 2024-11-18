@@ -1,3 +1,4 @@
+import type { ImageData } from "@/types";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { ImageComponent } from "@/components/globals/ImageComponent";
 

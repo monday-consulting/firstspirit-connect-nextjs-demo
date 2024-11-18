@@ -1,6 +1,6 @@
 import type { StoryObj } from "@storybook/react";
 import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
-import { Default as FeaturedProductItem } from "../features/FeaturedProducts/FeaturedProductItem.stories";
+import { featuredProductItemDefaultArgs } from "../features/FeaturedProducts/FeaturedProductItem.stories";
 
 const meta = {
   title: "components/Sections/FeaturedProducts",
@@ -18,6 +18,10 @@ export const Default: Story = {
   args: {
     headline: "Headline",
     subline: "This is a subline",
-    products: [FeaturedProductItem.args, FeaturedProductItem.args, FeaturedProductItem.args],
+    products: [
+      featuredProductItemDefaultArgs,
+      featuredProductItemDefaultArgs,
+      featuredProductItemDefaultArgs,
+    ],
   },
 };

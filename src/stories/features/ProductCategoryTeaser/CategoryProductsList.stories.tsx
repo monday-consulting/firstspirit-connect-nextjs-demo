@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CategoryProductsList } from "@/components/features/ProductCategoryTeaser/CategoryProductsList";
-import { Default as ProductTeaser } from "./ProductTeaser.stories";
+import { productTeaserDefaultArgs } from "./ProductTeaser.stories";
 
 const meta: Meta<typeof CategoryProductsList> = {
   title: "components/Features/ProductCategoryTeaser/CategoryProductsList",
@@ -16,6 +16,6 @@ type Story = StoryObj<typeof CategoryProductsList>;
 
 export const Default: Story = {
   args: {
-    products: [ProductTeaser.args, ProductTeaser.args, ProductTeaser.args],
+    products: [productTeaserDefaultArgs, productTeaserDefaultArgs, productTeaserDefaultArgs],
   },
 };

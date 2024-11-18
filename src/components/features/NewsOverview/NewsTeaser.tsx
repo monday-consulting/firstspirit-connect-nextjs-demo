@@ -4,6 +4,7 @@ import { formatDate } from "@/utils/strings";
 import { getNewsDetailLink } from "@/utils/links";
 import { Link } from "@/i18n/routing";
 import { ImageComponent } from "@/components/globals/ImageComponent";
+import type { ImageData } from "@/types";
 
 export type NewsEntity = {
   image: ImageData;
