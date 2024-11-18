@@ -17,7 +17,7 @@ export const StepsItemDefault: Story = {
     text: [
       {
         content: defaultText,
-        data: "example",
+        data: {},
         type: "paragraph",
       },
     ],

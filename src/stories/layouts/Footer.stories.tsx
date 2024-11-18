@@ -16,7 +16,7 @@ export const Default: Story = {
       content: [
         {
           content: "Copyright",
-          data: "test",
+          data: {},
           type: "paragraph",
         },
       ],

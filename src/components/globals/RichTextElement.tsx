@@ -3,7 +3,7 @@ import { cn } from "@/utils/cn";
 
 export type RichTextElementContent = {
   content: RichTextElementContent[] | string;
-  data: string;
+  data: { href?: string; format?: string };
   type: string;
 };
 
@@ -18,15 +18,17 @@ const convertToReact = (content: RichTextElementContent[]): React.ReactNode => {
       typeof item.content === "string" ? item.content : convertToReact(item.content);
 
     switch (item.type) {
+      case "linebreak":
+        return <br key={index} />;
       case "link":
         return (
-          <Link href={item.data || "#"} className="hover:underline" key={index}>
+          <Link href={item.data.href || "#"} className="hover:underline" key={index}>
             {nestedContent}
           </Link>
         );
       case "list":
         return <ul key={index}>{nestedContent}</ul>;
-      case "li":
+      case "listitem":
         return (
           <li key={index}>
             <span className="mr-2">&#8226;</span>
@@ -64,8 +66,19 @@ const convertToReact = (content: RichTextElementContent[]): React.ReactNode => {
       case "bold":
         return <strong key={index}>{nestedContent}</strong>;
       case "block":
+        return <div key={index}>{nestedContent}</div>;
       case "paragraph":
-        return <p key={index}>{nestedContent}</p>;
+        return (
+          <div className="my-2" key={index}>
+            {nestedContent}
+          </div>
+        );
+      case "text":
+        return item.data.format === "bold" ? (
+          <strong key={index}>{nestedContent}</strong>
+        ) : (
+          <span key={index}>{nestedContent}</span>
+        );
       default:
         return <span key={index}>{nestedContent}</span>;
     }

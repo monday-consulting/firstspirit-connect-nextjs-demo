@@ -23,7 +23,7 @@ export const Default: Story = {
     text: [
       {
         content: defaultText,
-        data: "",
+        data: {},
         type: "",
       },
     ],

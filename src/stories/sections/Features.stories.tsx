@@ -17,7 +17,7 @@ export const Default: Story = {
     text: [
       {
         content: "Subheadline",
-        data: "",
+        data: {},
         type: "",
       },
     ],

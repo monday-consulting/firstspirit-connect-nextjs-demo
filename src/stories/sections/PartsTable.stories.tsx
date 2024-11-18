@@ -17,27 +17,27 @@ export const Default: Story = {
       {
         content:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
-        data: "",
+        data: {},
         type: "",
       },
     ],
     tableContent: [
       {
-        data: "",
+        data: {},
         content: [
           {
-            data: "",
+            data: {},
             content: [
               {
-                data: "",
+                data: {},
                 content: [
                   {
-                    data: "",
+                    data: {},
                     content: [
                       {
                         type: "text",
                         content: "Smart devices and systems",
-                        data: "",
+                        data: {},
                       },
                     ],
                     type: "text",
@@ -46,15 +46,15 @@ export const Default: Story = {
                 type: "td",
               },
               {
-                data: "",
+                data: {},
                 content: [
                   {
-                    data: "",
+                    data: {},
                     content: [
                       {
                         type: "text",
                         content: "2022",
-                        data: "",
+                        data: {},
                       },
                     ],
                     type: "text",
@@ -66,26 +66,26 @@ export const Default: Story = {
             type: "tr",
           },
           {
-            data: "",
+            data: {},
             content: [
               {
-                data: "",
+                data: {},
                 content: [
                   {
                     type: "text",
                     content: " ",
-                    data: "",
+                    data: {},
                   },
                 ],
                 type: "td",
               },
               {
-                data: "",
+                data: {},
                 content: [
                   {
                     type: "text",
                     content: " ",
-                    data: "",
+                    data: {},
                   },
                 ],
                 type: "td",
@@ -94,29 +94,29 @@ export const Default: Story = {
             type: "tr",
           },
           {
-            data: "",
+            data: {},
             content: [
               {
-                data: "",
+                data: {},
                 content: [
                   {
                     type: "text",
                     content: "Smart TV (television)",
-                    data: "",
+                    data: {},
                   },
                 ],
                 type: "td",
               },
               {
-                data: "",
+                data: {},
                 content: [
                   {
-                    data: "",
+                    data: {},
                     content: [
                       {
                         type: "text",
                         content: "58.5%",
-                        data: "",
+                        data: {},
                       },
                     ],
                     type: "block",
@@ -128,29 +128,29 @@ export const Default: Story = {
             type: "tr",
           },
           {
-            data: "",
+            data: {},
             content: [
               {
-                data: "",
+                data: {},
                 content: [
                   {
                     type: "text",
                     content: "Smart Speaker (intelligent/WLAN speaker)",
-                    data: "",
+                    data: {},
                   },
                 ],
                 type: "td",
               },
               {
-                data: "",
+                data: {},
                 content: [
                   {
-                    data: "",
+                    data: {},
                     content: [
                       {
                         type: "text",
                         content: "15.2%",
-                        data: "",
+                        data: {},
                       },
                     ],
                     type: "block",
@@ -162,30 +162,30 @@ export const Default: Story = {
             type: "tr",
           },
           {
-            data: "",
+            data: {},
             content: [
               {
-                data: "",
+                data: {},
                 content: [
                   {
                     type: "text",
                     content:
                       "Smart energy management system (e.g. thermostat, electricity meter, lighting)",
-                    data: "",
+                    data: {},
                   },
                 ],
                 type: "td",
               },
               {
-                data: "",
+                data: {},
                 content: [
                   {
-                    data: "",
+                    data: {},
                     content: [
                       {
                         type: "text",
                         content: "9.7%",
-                        data: "",
+                        data: {},
                       },
                     ],
                     type: "block",
@@ -197,30 +197,30 @@ export const Default: Story = {
             type: "tr",
           },
           {
-            data: "",
+            data: {},
             content: [
               {
-                data: "",
+                data: {},
                 content: [
                   {
                     type: "text",
                     content:
                       "Smart security system (e.g. alarm system, smoke detector, surveillance camera)",
-                    data: "",
+                    data: {},
                   },
                 ],
                 type: "td",
               },
               {
-                data: "",
+                data: {},
                 content: [
                   {
-                    data: "",
+                    data: {},
                     content: [
                       {
                         type: "text",
                         content: "9.5%",
-                        data: "",
+                        data: {},
                       },
                     ],
                     type: "block",
@@ -232,30 +232,30 @@ export const Default: Story = {
             type: "tr",
           },
           {
-            data: "",
+            data: {},
             content: [
               {
-                data: "",
+                data: {},
                 content: [
                   {
                     type: "text",
                     content:
                       "Smart household appliance (e.g. vacuum robot, refrigerator, washing machine)",
-                    data: "",
+                    data: {},
                   },
                 ],
                 type: "td",
               },
               {
-                data: "",
+                data: {},
                 content: [
                   {
-                    data: "",
+                    data: {},
                     content: [
                       {
                         type: "text",
                         content: "13.0%",
-                        data: "",
+                        data: {},
                       },
                     ],
                     type: "block",

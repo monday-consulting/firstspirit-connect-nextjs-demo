@@ -17,7 +17,7 @@ export const Default: Story = {
     content: [
       {
         content: mediumText,
-        data: "",
+        data: {},
         type: "",
       },
     ],
