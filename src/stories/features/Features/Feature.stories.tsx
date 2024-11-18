@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Feature } from "@/components/features/Features/Feature";
+import { defaultImage } from "@/stories/mocks/imageMocks";
+import { defaultText } from "@/stories/mocks/textMocks";
 
 const meta = {
   title: "components/Features/Features/Feature",
@@ -16,15 +18,11 @@ export const Default: Story = {
       href: "#",
       label: "Learn more",
     },
-    image: {
-      src: "https://placehold.co/600x400",
-      alt: "Alt Text",
-    },
+    image: defaultImage,
     title: "Title",
     text: [
       {
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar pellentesque semper. Nam vel auctor risus, in convallis nisl.",
+        content: defaultText,
         data: "",
         type: "",
       },

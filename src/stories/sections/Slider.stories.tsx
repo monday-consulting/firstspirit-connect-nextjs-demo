@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Slider } from "@/components/sections/Slider";
+import { defaultImage, smallImage } from "../mocks/imageMocks";
+import { defaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/Slider",
@@ -19,10 +21,7 @@ export const Default: Story = {
           link: "/",
         },
         description: "Description",
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        image: defaultImage,
         title: "Title1",
       },
       {
@@ -30,11 +29,8 @@ export const Default: Story = {
           text: "Button2",
           link: "/",
         },
-        description: "Description",
-        image: {
-          src: "http://placehold.co/600x400",
-          alt: "Alt Text",
-        },
+        description: defaultText,
+        image: smallImage,
         title: "Title2",
       },
     ],

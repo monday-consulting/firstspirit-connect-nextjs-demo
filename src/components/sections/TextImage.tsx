@@ -1,3 +1,4 @@
+import type { ImageData } from "@/types";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { ImageComponent } from "@/components/globals/ImageComponent";
 
@@ -9,10 +10,7 @@ export type TextImageProps = {
   text: RichTextElementProps;
   twoColumn: boolean;
   layout: TextImageLayout;
-  image?: {
-    src: string;
-    alt: string;
-  };
+  image?: ImageData;
 };
 
 const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: TextImageProps) => {

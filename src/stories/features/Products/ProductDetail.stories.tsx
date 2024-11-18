@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ProductDetail } from "@/components/features/Products/ProductDetail";
+import { defaultText } from "@/stories/mocks/textMocks";
+import { defaultImage } from "@/stories/mocks/imageMocks";
 
 const meta: Meta<typeof ProductDetail> = {
   title: "components/Features/Products/ProductDetail",
@@ -21,20 +23,16 @@ export const Default: Story = {
       description: {
         content: [
           {
-            content:
-              "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+            content: defaultText,
             data: "example",
             type: "paragraph",
           },
         ],
       },
-      image: {
-        src: "https://placehold.co/1000x800",
-        alt: "Product 1 Image",
-      },
+      image: defaultImage,
       name: "Stick Up Cam Security",
       price: "$100",
-      teaserText: "Teaser text for Product 1",
+      teaserText: "",
     },
   },
 };

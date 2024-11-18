@@ -1,5 +1,6 @@
 import type { StoryObj } from "@storybook/react";
 import { Stage } from "@/components/sections/Stage";
+import { defaultImage } from "../mocks/imageMocks";
 
 const meta = {
   title: "components/Sections/Stage",
@@ -17,12 +18,9 @@ export const Default: Story = {
   args: {
     headline: "Stage",
     subline: "This is a Stage component",
-    image: {
-      src: "https://via.placeholder.com/1080",
-      alt: "placeholder",
-    },
+    image: defaultImage,
     cta: {
-      label: "CTA",
+      label: "Learn more",
       href: "#",
     },
   },

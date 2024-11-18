@@ -1,5 +1,6 @@
 import type { StoryObj } from "@storybook/react";
 import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
+import { featuredProductItemDefaultArgs } from "../features/FeaturedProducts/FeaturedProductItem.stories";
 
 const meta = {
   title: "components/Sections/FeaturedProducts",
@@ -18,33 +19,9 @@ export const Default: Story = {
     headline: "Headline",
     subline: "This is a subline",
     products: [
-      {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt text",
-        },
-        name: "Example Name",
-        abstract: "Example Abstract",
-        route: "#",
-      },
-      {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt text",
-        },
-        name: "Example Name",
-        abstract: "Example Abstract",
-        route: "#",
-      },
-      {
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt text",
-        },
-        name: "Example Name",
-        abstract: "Example Abstract",
-        route: "#",
-      },
+      featuredProductItemDefaultArgs,
+      featuredProductItemDefaultArgs,
+      featuredProductItemDefaultArgs,
     ],
   },
 };

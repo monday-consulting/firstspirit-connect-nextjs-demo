@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CategoryProductsList } from "@/components/features/ProductCategoryTeaser/CategoryProductsList";
+import { productTeaserDefaultArgs } from "./ProductTeaser.stories";
 
 const meta: Meta<typeof CategoryProductsList> = {
   title: "components/Features/ProductCategoryTeaser/CategoryProductsList",
@@ -15,19 +16,6 @@ type Story = StoryObj<typeof CategoryProductsList>;
 
 export const Default: Story = {
   args: {
-    products: [
-      {
-        name: "Product 1",
-        description: {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        },
-        route: "#",
-        image: {
-          src: "https://placehold.co/600x400",
-          alt: "Alt text",
-        },
-      },
-    ],
+    products: [productTeaserDefaultArgs, productTeaserDefaultArgs, productTeaserDefaultArgs],
   },
 };
