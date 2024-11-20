@@ -5,7 +5,7 @@ import type { RichTextElementProps } from "../globals/RichTextElement";
 import { fetcher } from "@/utils/fetcher";
 import { useLocale } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
-import { getProductDetailLink } from "@/utils/links";
+import { getFsImageData, getProductDetailLink } from "@/utils/links";
 import type { Locale } from "@/i18n/config";
 import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
 import { Suspense } from "react";
@@ -54,13 +54,7 @@ const ProductCategoryTeaser = ({
           name: item.data.ttName || "",
           description: { content: item.data.ttDescription },
           route: getProductDetailLink(item.fsId, locale),
-          image: {
-            src:
-              item.data.ttImage?.__typename === "FirstSpiritImage"
-                ? item.data.ttImage.resolutions?.original?.url
-                : "",
-            alt: item.data.ttImageAltText || "",
-          },
+          image: getFsImageData(item.data.ttImage, item.data.ttImageAltText),
         }) as ProductTeaserProps
     );
   };

@@ -10,7 +10,7 @@ import type { StepsItemProps } from "../features/Steps/StepsItem";
 import type { AccordionProps } from "../sections/Accordion";
 import type { FeatureProps } from "../features/Features/Feature";
 import { PartsTable } from "../sections/PartsTable";
-import { getConnectorLink } from "@/utils/links";
+import { getConnectorLink, getFsImageData } from "@/utils/links";
 
 export type SectionProps = {
   section: Pick<FirstSpiritSection, "__typename" | "id" | "data">;
@@ -27,13 +27,7 @@ const Section = ({ section }: SectionProps) => {
             text={section.data.stText}
             twoColumn
             layout={(section.data.stLayout?.key as TextImageLayout) || "text-image"}
-            image={{
-              src:
-                (section.data.stImage?.__typename === "FirstSpiritImage" &&
-                  section.data.stImage.resolutions?.original?.url) ||
-                "",
-              alt: section.data.stImageAltText || "",
-            }}
+            image={getFsImageData(section.data.stImage, section.data.stImageAltText)}
           />
         );
       case "FirstSpiritProductCategoryTeaser":
@@ -100,13 +94,7 @@ const Section = ({ section }: SectionProps) => {
           <Stage
             headline={section.data.stHeadline || ""}
             subline={section.data.stSubheadline || ""}
-            image={{
-              src:
-                (section.data.stImage?.__typename === "FirstSpiritImage" &&
-                  section.data.stImage.resolutions?.original?.url) ||
-                "",
-              alt: "",
-            }}
+            image={getFsImageData(section.data.stImage)}
             cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
           />
         );
@@ -124,13 +112,7 @@ const Section = ({ section }: SectionProps) => {
                 link: feature.data.stLink?.data
                   ? getConnectorLink(feature.data.stLink.data)
                   : undefined,
-                image: {
-                  src:
-                    (feature.data.stImage?.__typename === "FirstSpiritImage" &&
-                      feature.data.stImage.resolutions?.original?.url) ||
-                    "",
-                  alt: feature.data.stImageAltText,
-                },
+                image: getFsImageData(feature.data.stImage, feature.data.stImageAltText),
               } as FeatureProps;
             }
           })
@@ -149,13 +131,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             text={{ content: section.data.stText }}
             imageStart={(section.data.stLayout?.key || "text-image") === "text-image"}
-            image={{
-              src:
-                (section.data.stImage?.__typename === "FirstSpiritImage" &&
-                  section.data.stImage.resolutions?.original?.url) ||
-                "",
-              alt: section.data.stImageAltText || "",
-            }}
+            image={getFsImageData(section.data.stImage, section.data.stImageAltText)}
             cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
           />
         );

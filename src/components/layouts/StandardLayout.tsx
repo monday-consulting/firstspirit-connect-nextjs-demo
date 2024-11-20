@@ -1,6 +1,7 @@
 import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/gql/generated/graphql";
 import { Stage } from "../sections/Stage";
 import { Body } from "./Body";
+import { getFsImageData } from "@/utils/links";
 
 export type StandardLayoutProps = {
   pageInfo?: Pick<
@@ -17,13 +18,7 @@ const StandardLayout = ({ pageInfo, pageBodies }: StandardLayoutProps) => {
         <Stage
           headline={pageInfo.ptHeadline || ""}
           subline={pageInfo.ptSubheadline || ""}
-          image={{
-            src:
-              (pageInfo.ptImage.__typename === "FirstSpiritImage" &&
-                pageInfo.ptImage.resolutions?.original?.url) ||
-              "",
-            alt: pageInfo.ptMdImageAltText || "",
-          }}
+          image={getFsImageData(pageInfo.ptImage, pageInfo.ptMdImageAltText)}
           shortVersion
         />
       )}

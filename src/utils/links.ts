@@ -1,7 +1,12 @@
 import { defaultLocale, type Locale } from "@/i18n/config";
 import { removeSpecialCharacters, replaceUmlauts } from "./strings";
-import type { FirstSpiritLinkUnion } from "@/gql/generated/graphql";
-import type { LinkData } from "@/types";
+import type {
+  FirstSpiritDatasetValue,
+  FirstSpiritLinkUnion,
+  FirstSpiritReferenceUnion,
+  Maybe,
+} from "@/gql/generated/graphql";
+import type { ImageData, LinkData } from "@/types";
 
 export const stripNavigationFiles = (path: string | null | undefined): string => {
   if (!path) return "";
@@ -24,6 +29,19 @@ export const getProductDetailLink = (id: string, locale: Locale) =>
 export const getProductGroupLink = (groupName: string) => `${parseLink(groupName)}`;
 
 export const getNewsDetailLink = (name: string) => `/news/${parseLink(name)}`;
+
+export const getFsImageData = (
+  image?: Maybe<FirstSpiritReferenceUnion | FirstSpiritDatasetValue>,
+  alt?: Maybe<string>
+): ImageData => {
+  if (image && image.__typename === "FirstSpiritImage") {
+    return {
+      src: image.resolutions?.original?.url || "",
+      alt: alt || "",
+    };
+  }
+  return { src: "", alt: "" };
+};
 
 export const getConnectorLink = (link?: FirstSpiritLinkUnion | null): LinkData => {
   const defaultLink = { href: "/", label: "Home" };
