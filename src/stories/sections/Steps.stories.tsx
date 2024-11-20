@@ -20,6 +20,10 @@ export const Default: Story = {
     subline: "Subline",
     headline: "Headline",
     richtext: { content: Paragraph.args?.content || [] },
-    stepsItems: [StepsItemDefault.args, StepsItemDefault.args, StepsItemDefault.args],
+    stepsItems: [
+      { ...StepsItemDefault.args, index: 1 },
+      { ...StepsItemDefault.args, index: 2 },
+      { ...StepsItemDefault.args, index: 3 },
+    ],
   },
 };
