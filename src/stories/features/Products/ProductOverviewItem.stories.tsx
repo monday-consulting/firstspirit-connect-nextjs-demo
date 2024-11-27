@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ProductOverviewItem } from "@/components/features/Products/ProductOverviewItem";
-import { defaultImage } from "@/stories/mocks/imageMocks";
+import { Default as Product } from "./ProductDetail.stories";
 
 const meta = {
   title: "components/Features/Products/ProductOverviewItem",
@@ -13,11 +13,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    image: defaultImage,
-    category: "Category 1",
-    name: "Example Product",
-    price: "23",
+    image: Product.args?.product?.image,
+    category: "Test Category",
+    name: Product.args?.product?.name,
+    price: Product.args?.product?.price,
     route: "#",
-    id: "123",
+    id: Product.args?.product?.id,
   },
 };
