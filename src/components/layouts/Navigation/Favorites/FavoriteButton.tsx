@@ -33,6 +33,7 @@ const FavoriteButton = ({ product, classNames }: FavoriteButtonProps) => {
         classNames
       )}
       onClick={handleFavoriteState}
+      data-testid="favorite-button"
     >
       {isFavorite(product.id) ? <VscHeartFilled size={20} /> : <VscHeart size={20} />}
     </button>
