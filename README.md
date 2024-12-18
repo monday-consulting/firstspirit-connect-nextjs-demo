@@ -70,3 +70,24 @@ We use [Storybook](https://storybook.js.org/) for spot checking individual compo
 ### Types generation
 `pnpm codegen` - create GraphQL utility files and TypeScript definitions from schema
 
+## Preview Mode
+
+When the environment variable `NEXT_PUBLIC_PREVIEW_MODE` is set to `"true"`, you can use the `usePreviewId()` hook from `@/utils/hooks/usePreview`.
+This hook allows you to append a `data-preview-id` attribute to client-side components. Here's an example of how it can be used:
+
+```tsx
+"use client";
+
+import { usePreviewId } from "@/utils/hooks/usePreview";
+
+const ExampleComponent = () => {
+  const previewProps = usePreviewId("exampleId");
+
+  return (
+    <section {...previewProps}>
+      {...}
+    </section>
+  );
+};
+
+export { ExampleComponent };
