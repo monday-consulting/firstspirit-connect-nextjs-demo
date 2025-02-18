@@ -27,7 +27,7 @@ const getBackgroundImage = (srcSet = "") => {
 };
 
 const Stage = (props: StageProps) => {
-  // TODO: change to real id
+  // TODO: change to real id!
   const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
 
   const shortVersion = props.shortVersion || false;
