@@ -1,8 +1,6 @@
-"use client";
-
 import type { ImageData } from "@/types";
 import Image from "next/image";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type InterestingFactsProps = {
   backgroundImage?: ImageData;
@@ -24,7 +22,7 @@ const InterestingFacts = ({
   counters,
 }: InterestingFactsProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
 
   return (
     <section

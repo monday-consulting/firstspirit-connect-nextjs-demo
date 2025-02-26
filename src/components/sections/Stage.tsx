@@ -1,11 +1,9 @@
-"use client";
-
 import { Link } from "@/i18n/routing";
 import { getImageProps } from "next/image";
 import { LuArrowRight } from "react-icons/lu";
 import type { ImageData, LinkData } from "@/types";
 import { cn } from "@/utils/cn";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type StageProps = {
   headline: string;
@@ -28,7 +26,7 @@ const getBackgroundImage = (srcSet = "") => {
 };
 
 const Stage = (props: StageProps) => {
-  const previewProps = usePreviewId(props.previewId);
+  const previewProps = getPreviewParams(props.previewId);
 
   const shortVersion = props.shortVersion || false;
   const {

@@ -1,9 +1,7 @@
-"use client";
-
 import type { ImageData } from "@/types";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { ImageComponent } from "@/components/globals/ImageComponent";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type TextImageLayout = "text-image" | "image-text";
 
@@ -18,7 +16,7 @@ export type TextImageProps = {
 
 const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: TextImageProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
 
   if (image) {
     twoColumn = false;

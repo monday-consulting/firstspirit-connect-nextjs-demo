@@ -158,6 +158,7 @@ const Section = ({ section }: SectionProps) => {
               alt: section.data.stImageAltText || "",
             }}
             cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
+            previewId={section.id}
           />
         );
       case "FirstSpiritTable":

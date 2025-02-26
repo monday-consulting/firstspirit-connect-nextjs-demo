@@ -1,10 +1,8 @@
-"use client";
-
 import { Feature } from "@/components/features/Features/Feature";
 import type { FeatureProps } from "@/components/features/Features/Feature";
 import type { RichTextElementContent } from "../globals/RichTextElement";
 import { RichTextElement } from "../globals/RichTextElement";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type FeaturesProps = {
   headline: string;
@@ -14,7 +12,7 @@ export type FeaturesProps = {
 
 const Features = ({ headline, text, features }: FeaturesProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
 
   return (
     <section className="py-14" {...previewProps}>

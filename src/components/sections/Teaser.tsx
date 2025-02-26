@@ -1,5 +1,3 @@
-"use client";
-
 import { Link } from "@/i18n/routing";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
@@ -7,7 +5,7 @@ import type { RichTextElementProps } from "../globals/RichTextElement";
 import { RichTextElement } from "../globals/RichTextElement";
 import type { ImageData, LinkData } from "@/types";
 import { ImageComponent } from "@/components/globals/ImageComponent";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type TeaserProps = {
   headline: string;
@@ -18,6 +16,7 @@ export type TeaserProps = {
   cta?: LinkData;
   imageStart?: boolean;
   breakpoint?: "sm" | "md" | "lg" | "xl";
+  previewId?: string;
 };
 
 const Teaser = ({
@@ -29,9 +28,10 @@ const Teaser = ({
   cta,
   imageStart = true,
   breakpoint = "md",
+  previewId,
 }: TeaserProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams(previewId);
 
   return (
     <section className="py-8" {...previewProps}>

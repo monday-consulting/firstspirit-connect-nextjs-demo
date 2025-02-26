@@ -1,8 +1,6 @@
-"use client";
-
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type StepsProps = {
   subline: string;
@@ -13,7 +11,7 @@ export type StepsProps = {
 
 const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
 
   return (
     <section className="py-14" {...previewProps}>

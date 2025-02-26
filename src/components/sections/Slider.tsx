@@ -5,7 +5,7 @@ import { Button, type ButtonProps } from "../globals/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type SliderSlide = {
   button: ButtonProps;
@@ -20,7 +20,7 @@ export type SliderProps = {
 
 const Slider = ({ slides }: SliderProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeSlide, setActiveSlide] = useState<SliderSlide>(slides[activeIndex]);

@@ -1,8 +1,6 @@
-"use client";
-
 import type { ReactNode } from "react";
 import { Accordion, type AccordionProps } from "../sections/Accordion";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type FAQSectionProps = {
   headline: string;
@@ -13,7 +11,7 @@ export type FAQSectionProps = {
 
 const FAQSection = ({ headline, entries, claim, subline }: FAQSectionProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
 
   return (
     <section className="py-14" {...previewProps}>

@@ -1,8 +1,6 @@
-"use client";
-
 import type { FeaturedProductItemProps } from "../features/FeaturedProducts/FeaturedProductItem";
 import { FeaturedProductItem } from "../features/FeaturedProducts/FeaturedProductItem";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type FeaturedProductsProps = {
   headline: string;
@@ -11,7 +9,7 @@ export type FeaturedProductsProps = {
 };
 const FeaturedProducts = ({ headline, subline, products }: FeaturedProductsProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
 
   return (
     <section {...previewProps}>

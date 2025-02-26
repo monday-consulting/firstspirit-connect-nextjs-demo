@@ -1,7 +1,5 @@
-"use client";
-
 import { RichTextElement, type RichTextElementContent } from "../globals/RichTextElement";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type PartsTableProps = {
   tableContent: RichTextElementContent[];
@@ -11,7 +9,7 @@ export type PartsTableProps = {
 
 const PartsTable = ({ tableContent, headline, text }: PartsTableProps) => {
   // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
 
   return (
     <section className="flex flex-col gap-6" {...previewProps}>
