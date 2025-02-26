@@ -6,10 +6,10 @@ export type FeaturedProductsProps = {
   headline: string;
   subline: string;
   products: FeaturedProductItemProps[];
+  previewId?: string;
 };
-const FeaturedProducts = ({ headline, subline, products }: FeaturedProductsProps) => {
-  // TODO: change to real id!
-  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
+const FeaturedProducts = ({ headline, subline, products, previewId }: FeaturedProductsProps) => {
+  const previewProps = getPreviewParams(previewId);
 
   return (
     <section {...previewProps}>

@@ -5,11 +5,11 @@ export type PartsTableProps = {
   tableContent: RichTextElementContent[];
   headline?: string;
   text?: RichTextElementContent[];
+  previewId?: string;
 };
 
-const PartsTable = ({ tableContent, headline, text }: PartsTableProps) => {
-  // TODO: change to real id!
-  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
+const PartsTable = ({ tableContent, headline, text, previewId }: PartsTableProps) => {
+  const previewProps = getPreviewParams(previewId);
 
   return (
     <section className="flex flex-col gap-6" {...previewProps}>

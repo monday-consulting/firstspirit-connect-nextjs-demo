@@ -12,11 +12,19 @@ export type TextImageProps = {
   twoColumn: boolean;
   layout: TextImageLayout;
   image?: ImageData;
+  previewId?: string;
 };
 
-const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: TextImageProps) => {
-  // TODO: change to real id!
-  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
+const TextImage = ({
+  headline,
+  subheadline,
+  text,
+  twoColumn,
+  layout,
+  image,
+  previewId,
+}: TextImageProps) => {
+  const previewProps = getPreviewParams(previewId);
 
   if (image) {
     twoColumn = false;

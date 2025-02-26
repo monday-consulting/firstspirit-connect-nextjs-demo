@@ -8,11 +8,11 @@ export type FeaturesProps = {
   headline: string;
   text: RichTextElementContent[];
   features: FeatureProps[];
+  previewId?: string;
 };
 
-const Features = ({ headline, text, features }: FeaturesProps) => {
-  // TODO: change to real id!
-  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
+const Features = ({ headline, text, features, previewId }: FeaturesProps) => {
+  const previewProps = getPreviewParams(previewId);
 
   return (
     <section className="py-14" {...previewProps}>

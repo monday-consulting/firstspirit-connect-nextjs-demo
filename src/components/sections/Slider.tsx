@@ -16,11 +16,11 @@ export type SliderSlide = {
 
 export type SliderProps = {
   slides: SliderSlide[];
+  previewId?: string;
 };
 
-const Slider = ({ slides }: SliderProps) => {
-  // TODO: change to real id!
-  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
+const Slider = ({ slides, previewId }: SliderProps) => {
+  const previewProps = getPreviewParams(previewId);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeSlide, setActiveSlide] = useState<SliderSlide>(slides[activeIndex]);

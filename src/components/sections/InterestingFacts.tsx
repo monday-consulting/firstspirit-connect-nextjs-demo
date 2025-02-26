@@ -12,6 +12,7 @@ export type InterestingFactsProps = {
     number: number;
     text: string;
   }[];
+  previewId?: string;
 };
 
 const InterestingFacts = ({
@@ -20,9 +21,9 @@ const InterestingFacts = ({
   headline,
   text,
   counters,
+  previewId,
 }: InterestingFactsProps) => {
-  // TODO: change to real id!
-  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams(previewId);
 
   return (
     <section

@@ -7,11 +7,11 @@ export type FAQSectionProps = {
   entries: AccordionProps[];
   claim?: string;
   subline?: ReactNode | string;
+  previewId?: string;
 };
 
-const FAQSection = ({ headline, entries, claim, subline }: FAQSectionProps) => {
-  // TODO: change to real id!
-  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
+const FAQSection = ({ headline, entries, claim, subline, previewId }: FAQSectionProps) => {
+  const previewProps = getPreviewParams(previewId);
 
   return (
     <section className="py-14" {...previewProps}>

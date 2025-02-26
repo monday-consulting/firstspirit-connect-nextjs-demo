@@ -7,11 +7,11 @@ export type StepsProps = {
   headline: string;
   stepsItems: StepsItemProps[];
   richtext?: RichTextElementProps;
+  previewId?: string;
 };
 
-const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
-  // TODO: change to real id!
-  const previewProps = getPreviewParams("EXAMPLE_PREVIEW_ID");
+const Steps = ({ subline, headline, stepsItems, richtext, previewId }: StepsProps) => {
+  const previewProps = getPreviewParams(previewId);
 
   return (
     <section className="py-14" {...previewProps}>
