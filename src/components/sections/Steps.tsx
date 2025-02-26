@@ -1,3 +1,5 @@
+"use client";
+
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
 import { usePreviewId } from "@/utils/hooks/usePreview";

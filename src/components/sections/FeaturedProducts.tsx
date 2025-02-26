@@ -1,3 +1,5 @@
+"use client";
+
 import type { FeaturedProductItemProps } from "../features/FeaturedProducts/FeaturedProductItem";
 import { FeaturedProductItem } from "../features/FeaturedProducts/FeaturedProductItem";
 import { usePreviewId } from "@/utils/hooks/usePreview";

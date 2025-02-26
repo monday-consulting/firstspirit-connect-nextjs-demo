@@ -13,7 +13,6 @@ import { Loading } from "../layouts/Loading";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
 import type { LinkData } from "@/types";
-import { usePreviewId } from "@/utils/hooks/usePreview";
 
 export type ProductCategoryTeaserProps = {
   category: {
@@ -35,9 +34,6 @@ const ProductCategoryTeaser = ({
   text,
   teaserTextStart: teaserTextLeft = true,
 }: ProductCategoryTeaserProps) => {
-  // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
-
   const locale = useLocale() as Locale;
 
   const transformDataToProps = (
@@ -76,7 +72,7 @@ const ProductCategoryTeaser = ({
   });
 
   return (
-    <section className="bg-lightGray py-8" {...previewProps}>
+    <section className="bg-lightGray py-8">
       <div className="container mx-auto">
         <div className="m-auto">
           <Teaser

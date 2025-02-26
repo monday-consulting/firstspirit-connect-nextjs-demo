@@ -1,3 +1,5 @@
+"use client";
+
 import type { ImageData } from "@/types";
 import Image from "next/image";
 import { usePreviewId } from "@/utils/hooks/usePreview";

@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { Accordion, type AccordionProps } from "../sections/Accordion";
 import { usePreviewId } from "@/utils/hooks/usePreview";

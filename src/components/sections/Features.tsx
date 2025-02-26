@@ -1,3 +1,5 @@
+"use client";
+
 import { Feature } from "@/components/features/Features/Feature";
 import type { FeatureProps } from "@/components/features/Features/Feature";
 import type { RichTextElementContent } from "../globals/RichTextElement";

@@ -1,3 +1,5 @@
+"use client";
+
 import { Link } from "@/i18n/routing";
 import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
