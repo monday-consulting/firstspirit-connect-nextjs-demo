@@ -1,5 +1,6 @@
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
+import { usePreviewId } from "@/utils/hooks/usePreview";
 
 export type StepsProps = {
   subline: string;
@@ -9,8 +10,11 @@ export type StepsProps = {
 };
 
 const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
+  // TODO: change to real id!
+  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+
   return (
-    <section className="py-14">
+    <section className="py-14" {...previewProps}>
       <div className="container mx-auto px-4 text-center">
         <div className="mx-auto mb-16 max-w-5xl md:mb-24">
           <span className="mb-4 inline-block rounded-full bg-gray-100 px-2 py-px font-medium text-secondary text-xs uppercase leading-5 shadow-sm">

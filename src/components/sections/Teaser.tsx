@@ -5,6 +5,7 @@ import type { RichTextElementProps } from "../globals/RichTextElement";
 import { RichTextElement } from "../globals/RichTextElement";
 import type { ImageData, LinkData } from "@/types";
 import { ImageComponent } from "@/components/globals/ImageComponent";
+import { usePreviewId } from "@/utils/hooks/usePreview";
 
 export type TeaserProps = {
   headline: string;
@@ -27,8 +28,11 @@ const Teaser = ({
   imageStart = true,
   breakpoint = "md",
 }: TeaserProps) => {
+  // TODO: change to real id!
+  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+
   return (
-    <section className="py-8">
+    <section className="py-8" {...previewProps}>
       <div className="container mx-auto px-4">
         <div
           className={cn(

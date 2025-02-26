@@ -1,5 +1,6 @@
 import type { ImageData } from "@/types";
 import Image from "next/image";
+import { usePreviewId } from "@/utils/hooks/usePreview";
 
 export type InterestingFactsProps = {
   backgroundImage?: ImageData;
@@ -20,8 +21,14 @@ const InterestingFacts = ({
   text,
   counters,
 }: InterestingFactsProps) => {
+  // TODO: change to real id!
+  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+
   return (
-    <section className="relative grid items-center gap-4 p-4 py-20 text-white lg:h-[800px] lg:grid-cols-2">
+    <section
+      className="relative grid items-center gap-4 p-4 py-20 text-white lg:h-[800px] lg:grid-cols-2"
+      {...previewProps}
+    >
       {backgroundImage && <div className="-z-10 absolute inset-0 bg-black bg-opacity-75" />}
       {backgroundImage && (
         <div className="-z-20 absolute inset-0">

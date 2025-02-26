@@ -1,5 +1,6 @@
 import type { FeaturedProductItemProps } from "../features/FeaturedProducts/FeaturedProductItem";
 import { FeaturedProductItem } from "../features/FeaturedProducts/FeaturedProductItem";
+import { usePreviewId } from "@/utils/hooks/usePreview";
 
 export type FeaturedProductsProps = {
   headline: string;
@@ -7,8 +8,11 @@ export type FeaturedProductsProps = {
   products: FeaturedProductItemProps[];
 };
 const FeaturedProducts = ({ headline, subline, products }: FeaturedProductsProps) => {
+  // TODO: change to real id!
+  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+
   return (
-    <section>
+    <section {...previewProps}>
       <div className="-top-10 -z-10 absolute hidden h-full w-3/4 border-[20px] border-gray-100 md:block" />
       <div className="w-1/3 text-gray-400 sm:px-2 md:px-8">
         <h2 className="mt-4 ml-4 text-4xl uppercase" data-preview-id="#st_featured_products_title">

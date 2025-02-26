@@ -5,6 +5,7 @@ import { Button, type ButtonProps } from "../globals/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { usePreviewId } from "@/utils/hooks/usePreview";
 
 export type SliderSlide = {
   button: ButtonProps;
@@ -18,6 +19,9 @@ export type SliderProps = {
 };
 
 const Slider = ({ slides }: SliderProps) => {
+  // TODO: change to real id!
+  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeSlide, setActiveSlide] = useState<SliderSlide>(slides[activeIndex]);
 
@@ -33,7 +37,7 @@ const Slider = ({ slides }: SliderProps) => {
   };
 
   return (
-    <section className="group relative">
+    <section className="group relative" {...previewProps}>
       {activeSlide && (
         <div className="relative text-white">
           <button

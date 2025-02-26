@@ -1,6 +1,7 @@
 import type { ImageData } from "@/types";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { ImageComponent } from "@/components/globals/ImageComponent";
+import { usePreviewId } from "@/utils/hooks/usePreview";
 
 export type TextImageLayout = "text-image" | "image-text";
 
@@ -14,12 +15,15 @@ export type TextImageProps = {
 };
 
 const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: TextImageProps) => {
+  // TODO: change to real id!
+  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+
   if (image) {
     twoColumn = false;
   }
 
   return (
-    <section className="py-14">
+    <section className="py-14" {...previewProps}>
       <div className="container mx-auto px-4">
         <div className="-mx-4 flex flex-wrap">
           <div className="mb-14 w-full px-4">

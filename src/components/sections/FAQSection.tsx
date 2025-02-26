@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Accordion, type AccordionProps } from "../sections/Accordion";
+import { usePreviewId } from "@/utils/hooks/usePreview";
 
 export type FAQSectionProps = {
   headline: string;
@@ -9,8 +10,11 @@ export type FAQSectionProps = {
 };
 
 const FAQSection = ({ headline, entries, claim, subline }: FAQSectionProps) => {
+  // TODO: change to real id!
+  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+
   return (
-    <section className="py-14">
+    <section className="py-14" {...previewProps}>
       <div className="container mx-auto px-4 text-center md:max-w-4xl">
         {claim && (
           <p className="mb-7 font-semibold text-sm text-text uppercase tracking-px">{claim}</p>
