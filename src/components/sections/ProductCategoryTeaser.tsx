@@ -13,6 +13,7 @@ import { Loading } from "../layouts/Loading";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
 import type { LinkData } from "@/types";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type ProductCategoryTeaserProps = {
   category: {
@@ -25,6 +26,7 @@ export type ProductCategoryTeaserProps = {
   headline: string;
   text: RichTextElementProps;
   teaserTextStart?: boolean;
+  previewId?: string;
 };
 
 const ProductCategoryTeaser = ({
@@ -33,7 +35,9 @@ const ProductCategoryTeaser = ({
   headline,
   text,
   teaserTextStart: teaserTextLeft = true,
+  previewId,
 }: ProductCategoryTeaserProps) => {
+  const previewProps = getPreviewParams(previewId);
   const locale = useLocale() as Locale;
 
   const transformDataToProps = (
@@ -72,7 +76,7 @@ const ProductCategoryTeaser = ({
   });
 
   return (
-    <section className="bg-lightGray py-8">
+    <section className="bg-lightGray py-8" {...previewProps}>
       <div className="container mx-auto">
         <div className="m-auto">
           <Teaser

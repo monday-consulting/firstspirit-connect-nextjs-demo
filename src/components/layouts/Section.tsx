@@ -34,6 +34,7 @@ const Section = ({ section }: SectionProps) => {
                 "",
               alt: section.data.stImageAltText || "",
             }}
+            previewId={section.id}
           />
         );
       case "FirstSpiritProductCategoryTeaser":
@@ -48,6 +49,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             text={{ content: section.data.stText }}
             teaserTextStart={section.data.stTextAlignment?.key === "left"}
+            previewId={section.id}
           />
         );
       case "FirstSpiritSteps": {
@@ -70,6 +72,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             subline={section.data.stSubline || ""}
             stepsItems={stepItems || []}
+            previewId={section.id}
           />
         );
       }
@@ -92,6 +95,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             subline={section.data.stSubline}
             entries={entries || []}
+            previewId={section.id}
           />
         );
       }
@@ -141,6 +145,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             text={section.data.stText}
             features={features || []}
+            previewId={section.id}
           />
         );
       }
@@ -167,6 +172,7 @@ const Section = ({ section }: SectionProps) => {
             tableContent={section.data.stTable || []}
             headline={section.data.stHeadline || undefined}
             text={section.data.stText || undefined}
+            previewId={section.id}
           />
         );
       default:
