@@ -13,6 +13,7 @@ export type StageProps = {
   image: ImageData;
   cta?: LinkData;
   shortVersion?: boolean;
+  previewId?: string;
 };
 
 const getBackgroundImage = (srcSet = "") => {
@@ -27,8 +28,7 @@ const getBackgroundImage = (srcSet = "") => {
 };
 
 const Stage = (props: StageProps) => {
-  // TODO: change to real id!
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = usePreviewId(props.previewId);
 
   const shortVersion = props.shortVersion || false;
   const {

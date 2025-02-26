@@ -108,6 +108,7 @@ const Section = ({ section }: SectionProps) => {
               alt: "",
             }}
             cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
+            previewId={section.id}
           />
         );
       }
