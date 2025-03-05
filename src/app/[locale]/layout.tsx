@@ -52,6 +52,7 @@ const RootLayout = async (
   return (
     <html lang={locale}>
       <body className={inter.className}>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fs-tpp-api/2.4.8/snap.js" />
         <NextIntlClientProvider messages={messages}>
           <ClientProvider>
             <Navigation
