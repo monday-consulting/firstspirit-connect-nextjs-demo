@@ -11,6 +11,7 @@ import { stripNavigationFiles } from "@/utils/links";
 import { getFooter } from "@/gql/documents/gcaPage";
 import { Footer } from "@/components/layouts/Footer";
 import type { LinkData } from "@/types";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,7 +53,7 @@ const RootLayout = async (
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fs-tpp-api/2.4.8/snap.js" />
+        <Script src="https://partner.e-spirit.hosting/fs5webedit/live/live.js" />
         <NextIntlClientProvider messages={messages}>
           <ClientProvider>
             <Navigation
