@@ -13,7 +13,7 @@ import { PartsTable } from "../sections/PartsTable";
 import { getConnectorLink } from "@/utils/links";
 
 export type SectionProps = {
-  section: Pick<FirstSpiritSection, "__typename" | "id" | "data">;
+  section: Pick<FirstSpiritSection, "__typename" | "id" | "data" | "previewId">;
 };
 
 const Section = ({ section }: SectionProps) => {
@@ -34,7 +34,7 @@ const Section = ({ section }: SectionProps) => {
                 "",
               alt: section.data.stImageAltText || "",
             }}
-            previewId={section.id}
+            previewId={section.previewId}
           />
         );
       case "FirstSpiritProductCategoryTeaser":
@@ -49,7 +49,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             text={{ content: section.data.stText }}
             teaserTextStart={section.data.stTextAlignment?.key === "left"}
-            previewId={section.id}
+            previewId={section.previewId}
           />
         );
       case "FirstSpiritSteps": {
@@ -72,7 +72,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             subline={section.data.stSubline || ""}
             stepsItems={stepItems || []}
-            previewId={section.id}
+            previewId={section.previewId}
           />
         );
       }
@@ -95,7 +95,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             subline={section.data.stSubline}
             entries={entries || []}
-            previewId={section.id}
+            previewId={section.previewId}
           />
         );
       }
@@ -112,7 +112,7 @@ const Section = ({ section }: SectionProps) => {
               alt: "",
             }}
             cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
-            previewId={section.id}
+            previewId={section.previewId}
           />
         );
       }
@@ -145,7 +145,7 @@ const Section = ({ section }: SectionProps) => {
             headline={section.data.stHeadline || ""}
             text={section.data.stText}
             features={features || []}
-            previewId={section.id}
+            previewId={section.previewId}
           />
         );
       }
@@ -163,7 +163,7 @@ const Section = ({ section }: SectionProps) => {
               alt: section.data.stImageAltText || "",
             }}
             cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
-            previewId={section.id}
+            previewId={section.previewId}
           />
         );
       case "FirstSpiritTable":
@@ -172,7 +172,7 @@ const Section = ({ section }: SectionProps) => {
             tableContent={section.data.stTable || []}
             headline={section.data.stHeadline || undefined}
             text={section.data.stText || undefined}
-            previewId={section.id}
+            previewId={section.previewId}
           />
         );
       default:
