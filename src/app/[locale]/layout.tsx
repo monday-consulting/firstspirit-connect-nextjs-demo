@@ -12,6 +12,7 @@ import { getFooter } from "@/gql/documents/gcaPage";
 import { Footer } from "@/components/layouts/Footer";
 import type { LinkData } from "@/types";
 import Script from "next/script";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +28,10 @@ const RootLayout = async (
   props: Readonly<{
     children: React.ReactNode;
     params: Promise<{ locale: Locale }>;
-  }>
+  }>,
+  previewId?: string
 ) => {
+  const previewProps = getPreviewParams(previewId);
   const { children } = props;
   const { locale } = await props.params;
 
@@ -52,7 +55,7 @@ const RootLayout = async (
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>
+      <body className={inter.className} {...previewProps}>
         {/*
         TODO: Insert script only if NEXT_PUBLIC_PREVIEW_MODE is set to true.
         TODO: Make domain for fetching live.js configurable.
