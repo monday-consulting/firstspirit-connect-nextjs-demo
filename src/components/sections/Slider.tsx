@@ -56,8 +56,10 @@ const Slider = ({ slides, previewId }: SliderProps) => {
           </button>
           <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black to-transparent p-16 md:p-20">
             <div className="flex max-w-xl flex-col space-y-4 md:py-10">
-              <h1 className="font-black text-4xl md:text-6xl">{activeSlide.title}</h1>
-              <p>{activeSlide.description}</p>
+              <h1 className="font-black text-4xl md:text-6xl" data-preview-id="#st_slider_title">
+                {activeSlide.title}
+              </h1>
+              <p data-preview-id="#st_slider_description">{activeSlide.description}</p>
               <div>
                 <Button {...activeSlide.button} />
               </div>
@@ -69,6 +71,7 @@ const Slider = ({ slides, previewId }: SliderProps) => {
             alt={activeSlide.image.alt}
             width={400}
             height={400}
+            data-preview-id="st_slider_image"
           />
         </div>
       )}

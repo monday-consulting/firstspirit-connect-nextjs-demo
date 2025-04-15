@@ -18,7 +18,9 @@ const FeaturedProducts = ({ headline, subline, products, previewId }: FeaturedPr
         <h2 className="mt-4 ml-4 text-4xl uppercase" data-preview-id="#st_featured_products_title">
           {headline}
         </h2>
-        <h3 className="ml-4">{subline}</h3>
+        <h3 className="ml-4" data-preview-id="#st_featured_products_subline">
+          {subline}
+        </h3>
       </div>
       <div className="grid h-4/5 gap-2 sm:grid-cols-2 lg:grid-cols-3 lg:pl-8 2xl:grid-cols-4">
         {products.map((product) => (

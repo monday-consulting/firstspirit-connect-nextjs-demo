@@ -36,13 +36,16 @@ const TextImage = ({
         <div className="-mx-4 flex flex-wrap">
           <div className="mb-14 w-full px-4">
             {headline && (
-              <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
+              <h2
+                className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl"
+                data-preview-id="#st_text_image_headline"
+              >
                 {headline}
               </h2>
             )}
             {subheadline && (
               <div className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
-                <RichTextElement {...subheadline} />
+                <RichTextElement {...subheadline} data-preview-id="#st_text_image_subheadline" />
               </div>
             )}
           </div>
@@ -56,6 +59,7 @@ const TextImage = ({
                   alt={image.alt}
                   imageClassName="rounded-xl"
                   className="aspect-[3/2] w-full"
+                  data-preview-id="#st_text_image_image"
                 />
               </div>
             )}
@@ -63,7 +67,7 @@ const TextImage = ({
               <div
                 className={`${layout === "image-text" ? "order-2" : "order-1"} w-full break-after-column px-4 pb-4 ${twoColumn ? "lg:columns-2 " : "lg:columns-1 "}`}
               >
-                <RichTextElement {...text} />
+                <RichTextElement {...text} data-preview-id="#st_text_image_text" />
               </div>
             )}
           </div>
