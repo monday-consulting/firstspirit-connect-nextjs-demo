@@ -36,15 +36,24 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
               <span
                 key={category}
                 className="mr-1 rounded-xl bg-textDark px-3 py-1 font-semibold text-white text-xs"
+                data-preview-id="#st_product_detail_category"
               >
                 {category}
               </span>
             ))}
-            <h1 className="mt-3 font-bold font-heading text-4xl">{currentDataset?.name}</h1>
+            <h1
+              className="mt-3 font-bold font-heading text-4xl"
+              data-preview-id="#st_product_detail_name"
+            >
+              {currentDataset?.name}
+            </h1>
           </div>
           <div className="flex items-start py-4">
             <div className="mb-5 font-medium text-text">
-              <RichTextElement {...product.description} />
+              <RichTextElement
+                {...product.description}
+                data-preview-id="#st_product_detail_description"
+              />
             </div>
           </div>
           <div className="w-full px-4">
@@ -57,7 +66,12 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
             />
           </div>
           <div className="mt-10 flex items-start border-lightGray border-t py-4 pt-10">
-            <p className="text-lg text-textDark sm:text-3xl">{currentDataset.price}</p>
+            <p
+              className="text-lg text-textDark sm:text-3xl"
+              data-preview-id="#st_product_detail_price"
+            >
+              {currentDataset.price}
+            </p>
           </div>
         </div>
         {currentDataset?.image && (
@@ -66,6 +80,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
             alt={currentDataset.image.alt}
             imageClassName="rounded-xl"
             className="aspect-square w-full lg:w-1/2"
+            data-preview-id="#st_product_detail_image"
           />
         )}
       </div>

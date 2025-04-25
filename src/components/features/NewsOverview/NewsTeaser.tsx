@@ -29,22 +29,33 @@ const NewsTeaser = ({ newsEntity }: NewsTeaserProps) => {
         alt={newsEntity.image.alt}
         className="h-72 w-full"
         imageClassName="rounded-xl"
+        data-preview-id="#st_news_teaser_image"
       />
       <div className="flex flex-row flex-wrap gap-2">
         {newsEntity.categories.map((category) => (
           <span
             key={category}
             className="rounded-full bg-lightGray px-2 font-medium text-text text-xs uppercase leading-5 shadow-sm"
+            data-preview-id="#st_news_teaser_category"
           >
             {category}
           </span>
         ))}
       </div>
-      <p className="text-text">
+      <p className="text-text" data-preview-id="#st_news_meta_data">
         {newsEntity.author} · {formatDate(newsEntity.date)}
       </p>
-      <h2 className="font-bold font-heading text-2xl text-primary">{newsEntity.headline}</h2>
-      {newsEntity.teaserText && <p className="mb-3 text-text">{newsEntity.teaserText}</p>}
+      <h2
+        className="font-bold font-heading text-2xl text-primary"
+        data-preview-id="#st_news_teaser_headline"
+      >
+        {newsEntity.headline}
+      </h2>
+      {newsEntity.teaserText && (
+        <p className="mb-3 text-text" data-preview-id="#st_news_teaser_text">
+          {newsEntity.teaserText}
+        </p>
+      )}
       {newsEntity.headline && (
         <Link
           href={getNewsDetailLink(newsEntity.headline)}

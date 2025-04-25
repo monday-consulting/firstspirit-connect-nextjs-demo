@@ -43,7 +43,9 @@ const InterestingFacts = ({
         </div>
       )}
       <div className="flex w-min flex-col space-y-2 overflow-auto lg:m-10 lg:border-[12px] lg:p-12">
-        <h3 className="text-xl uppercase">{tagline}</h3>
+        <h3 className="text-xl uppercase" data-preview-id="#st_fact_tagline">
+          {tagline}
+        </h3>
         {headline && (
           <h2
             className="font-black text-3xl text-yellow-500 uppercase lg:text-5xl"

@@ -17,9 +17,17 @@ const FAQSection = ({ headline, entries, claim, subline, previewId }: FAQSection
     <section className="py-14" {...previewProps}>
       <div className="container mx-auto px-4 text-center md:max-w-4xl">
         {claim && (
-          <p className="mb-7 font-semibold text-sm text-text uppercase tracking-px">{claim}</p>
+          <p
+            className="mb-7 font-semibold text-sm text-text uppercase tracking-px"
+            data-preview-id="#st_faq_claim"
+          >
+            {claim}
+          </p>
         )}
-        <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
+        <h2
+          className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl"
+          datat-preview-id="#st_faq_headline"
+        >
           {headline}
         </h2>
         <div className="-m-1 mb-11 flex flex-wrap text-left">
@@ -33,7 +41,9 @@ const FAQSection = ({ headline, entries, claim, subline, previewId }: FAQSection
         </div>
         {subline && (
           <div>
-            <p className="mb-5 font-medium text-text">{subline}</p>
+            <p className="mb-5 font-medium text-text" data-preview-id="#st_faq_subline">
+              {subline}
+            </p>
           </div>
         )}
       </div>

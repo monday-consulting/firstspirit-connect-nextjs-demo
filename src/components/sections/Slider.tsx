@@ -71,7 +71,7 @@ const Slider = ({ slides, previewId }: SliderProps) => {
             alt={activeSlide.image.alt}
             width={400}
             height={400}
-            data-preview-id="st_slider_image"
+            data-preview-id="#st_slider_image"
           />
         </div>
       )}
