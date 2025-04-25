@@ -30,7 +30,6 @@ const Teaser = ({
   breakpoint = "md",
   previewId,
 }: TeaserProps) => {
-  // TODO: change to real id!
   const previewProps = getPreviewParams(previewId);
 
   return (

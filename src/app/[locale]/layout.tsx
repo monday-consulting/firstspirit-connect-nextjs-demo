@@ -57,11 +57,10 @@ const RootLayout = async (
   return (
     <html lang={locale}>
       <body className={inter.className} {...previewProps}>
-        {/*
-        TODO: Insert script only if NEXT_PUBLIC_PREVIEW_MODE is set to true.
-        TODO: Make domain for fetching live.js configurable.
-       */}
-        <Script src="https://partner.e-spirit.hosting/fs5webedit/live/live.js" />
+        {/* TODO: Make domain for fetching live.js configurable. */}
+        {process.env.NEXT_PUBLIC_PREVIEW_MODE === "true" && (
+          <Script src="https://partner.e-spirit.hosting/fs5webedit/live/live.js" />
+        )}
         <NextIntlClientProvider messages={messages}>
           <ClientProvider>
             <Navigation
