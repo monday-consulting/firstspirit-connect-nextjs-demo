@@ -17,11 +17,14 @@ const Features = ({ headline, text, features, previewId }: FeaturesProps) => {
   return (
     <section className="py-14" {...previewProps}>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
+        <h2
+          className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl"
+          data-preview-id="#st_feature_headline"
+        >
           {headline}
         </h2>
         <div className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
-          <RichTextElement content={text} />
+          <RichTextElement content={text} data-preview-id="#st_feature_text" />
         </div>
         <div className="-m-8 flex flex-wrap text-left">
           {features.map((feature, index) => (

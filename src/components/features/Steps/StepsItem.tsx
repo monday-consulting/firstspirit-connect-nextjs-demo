@@ -15,9 +15,14 @@ const StepsItem = ({ title, text, index }: StepsItemProps) => {
             {index}
           </div>
         </div>
-        <h3 className="mb-4 font-semibold text-primary text-xl md:text-2xl">{title}</h3>
+        <h3
+          className="mb-4 font-semibold text-primary text-xl md:text-2xl"
+          data-preview-id="#st_step_title"
+        >
+          {title}
+        </h3>
         <div className="mb-5 font-medium text-text">
-          <RichTextElement content={text} />
+          <RichTextElement content={text} data-preview-id="#st_step_text" />
         </div>
       </div>
     </div>

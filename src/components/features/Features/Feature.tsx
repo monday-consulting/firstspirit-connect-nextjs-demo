@@ -17,18 +17,26 @@ export type FeatureProps = {
 const Feature = ({ link, image, title, text }: FeatureProps) => {
   return (
     <div className="w-full p-8 md:w-1/3">
-      <Link href={link.href} className="group/feature flex flex-col items-center gap-4">
+      <Link
+        href={link.href}
+        className="group/feature flex flex-col items-center gap-4"
+        data-preview-id="#st_feature_link"
+      >
         <ImageComponent
           src={image.src}
           alt={image.alt}
           imageClassName="rounded-xl"
           className="mb-4 h-40 w-full"
+          data-preview-id="#st_feature_image"
         />
-        <h3 className="font-semibold text-text text-xl group-hover/feature:underline md:text-2xl">
+        <h3
+          className="font-semibold text-text text-xl group-hover/feature:underline md:text-2xl"
+          data-preview-id="#st_feature_title"
+        >
           {title}
         </h3>
         <div className="font-medium text-coolGray-500">
-          <RichTextElement content={text} />
+          <RichTextElement content={text} data-preview-id="#st_feature_text" />
         </div>
         <p className="flex items-center gap-2 text-text">
           <span>{link.label}</span>

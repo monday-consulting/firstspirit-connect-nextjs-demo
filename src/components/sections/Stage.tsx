@@ -56,14 +56,21 @@ const Stage = (props: StageProps) => {
               "mb-4 font-bold font-heading text-white leading-tight tracking-px-n ",
               shortVersion ? "text-3xl md:text-4xl" : "text-5xl md:text-6xl"
             )}
+            data-preview-id="#st_stage_headline"
           >
             {props.headline}
           </h2>
-          <p className="font-medium text-lg text-lightGray leading-normal">{props.subline}</p>
+          <p
+            className="font-medium text-lg text-lightGray leading-normal"
+            data-preview-id="#st_stage_subline"
+          >
+            {props.subline}
+          </p>
           {props.cta?.href && (
             <Link
               href={props.cta?.href}
               className="inline-flex flex-wrap items-center text-white hover:text-lightGray hover:underline"
+              data-preview-id="#st_stage_link"
             >
               <span className="mr-2 font-semibold leading-normal">{props.cta?.label}</span>
               <LuArrowRight />

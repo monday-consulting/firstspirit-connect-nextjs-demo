@@ -48,19 +48,33 @@ const ProductOverviewItem = ({
             alt={image.alt}
             className="aspect-square"
             imageClassName="rounded-xl"
+            data-preview-id="#st_product_item_image"
           />
         </Link>
       </div>
       <div>
         <div className="text-center">
-          <p className="m-2 inline font-medium text-gray-400 text-sm">{category}</p>
+          <p
+            className="m-2 inline font-medium text-gray-400 text-sm"
+            data-preview-id="#st_product_item_category"
+          >
+            {category}
+          </p>
 
           <Link href={route}>
-            <h3 className="my-4 font-heading font-medium text-xl leading-8 hover:underline">
+            <h3
+              className="my-4 font-heading font-medium text-xl leading-8 hover:underline"
+              data-preview-id="#st_product_item_name"
+            >
               {name}
             </h3>
           </Link>
-          <p className="font-heading font-medium text-text text-xl">{price}</p>
+          <p
+            className="font-heading font-medium text-text text-xl"
+            data-preview-id="#st_product_item_price"
+          >
+            {price}
+          </p>
         </div>
         <div className="mx-4 flex justify-between text-xl">
           <button

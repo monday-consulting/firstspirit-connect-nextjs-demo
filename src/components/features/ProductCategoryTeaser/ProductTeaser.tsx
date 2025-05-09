@@ -19,10 +19,17 @@ const ProductTeaser = ({ name, description, route, image }: ProductTeaserProps) 
           alt={image.alt}
           imageClassName="rounded-xl"
           className="aspect-square w-full"
+          data-preview-id="#st_product_image"
         />
-        <h1 className="mt-4 font-bold text-2xl">{name}</h1>
+        <h1 className="mt-4 font-bold text-2xl" data-preview-id="#st_product_name">
+          {name}
+        </h1>
       </Link>
-      <RichTextElement {...description} className="line-clamp-5 text-text" />
+      <RichTextElement
+        {...description}
+        className="line-clamp-5 text-text"
+        data-preview-id="#st_product_description"
+      />
     </div>
   );
 };
