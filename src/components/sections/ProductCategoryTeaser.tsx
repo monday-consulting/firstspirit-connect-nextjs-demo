@@ -1,7 +1,6 @@
 "use client";
 
 import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
-import type { Locale } from "@/i18n/config";
 import type { LinkData } from "@/types";
 import { fetcher } from "@/utils/fetcher";
 import { getProductDetailLink } from "@/utils/links";
@@ -34,7 +33,7 @@ const ProductCategoryTeaser = ({
   text,
   teaserTextStart: teaserTextLeft = true,
 }: ProductCategoryTeaserProps) => {
-  const locale = useLocale() as Locale;
+  const locale = useLocale();
 
   const transformDataToProps = (
     products: {

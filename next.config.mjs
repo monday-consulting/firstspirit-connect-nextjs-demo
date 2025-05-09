@@ -1,6 +1,10 @@
 import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin({
+  experimental: {
+    createMessagesDeclaration: './messages/en_GB.json'
+  }
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

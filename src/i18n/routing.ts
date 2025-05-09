@@ -26,6 +26,10 @@ export const routing = defineRouting({
   defaultLocale: defaultLocale,
   localePrefix: "always",
   pathnames: pathnames as typeof pathnames & Record<string & {}, string>,
+  localeCookie: {
+    // Expire in one year
+    maxAge: 60 * 60 * 24 * 365,
+  },
 });
 
 export const { Link, redirect, usePathname, useRouter, getPathname } = createNavigation(routing);
