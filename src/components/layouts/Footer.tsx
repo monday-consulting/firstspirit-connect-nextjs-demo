@@ -1,8 +1,8 @@
-import { Link } from "@/i18n/routing";
 import logo from "@/assets/smart_living_logo.webp";
+import { Link } from "@/i18n/routing";
+import type { LinkData } from "@/types";
 import Image from "next/image";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
-import type { LinkData } from "@/types";
 
 export type FooterProps = {
   copyrightText: RichTextElementProps;

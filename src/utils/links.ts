@@ -1,7 +1,7 @@
-import { defaultLocale, type Locale } from "@/i18n/config";
-import { removeSpecialCharacters, replaceUmlauts } from "./strings";
 import type { FirstSpiritLinkUnion } from "@/gql/generated/graphql";
+import { type Locale, defaultLocale } from "@/i18n/config";
 import type { LinkData } from "@/types";
+import { removeSpecialCharacters, replaceUmlauts } from "./strings";
 
 export const stripNavigationFiles = (path: string | null | undefined): string => {
   if (!path) return "";

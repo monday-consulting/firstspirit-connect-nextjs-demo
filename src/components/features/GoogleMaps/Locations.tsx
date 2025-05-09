@@ -1,5 +1,5 @@
-import { ContactsTable, type ContactsTableProps } from "./ContactsTable";
 import { GoogleMaps, type GoogleMapsProps } from "../../sections/GoogleMaps";
+import { ContactsTable, type ContactsTableProps } from "./ContactsTable";
 
 export type LocationsProps = {
   headline: string;

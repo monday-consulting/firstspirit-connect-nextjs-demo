@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { StepsItem } from "@/components/features/Steps/StepsItem";
 import { defaultText } from "@/stories/mocks/textMocks";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "components/Features/Steps/StepsItem",

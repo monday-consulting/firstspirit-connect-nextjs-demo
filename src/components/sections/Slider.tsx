@@ -1,10 +1,10 @@
 "use client";
 
 import type { ImageData } from "@/types";
-import { Button, type ButtonProps } from "../globals/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { Button, type ButtonProps } from "../globals/Button";
 
 export type SliderSlide = {
   button: ButtonProps;

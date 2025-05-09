@@ -1,7 +1,7 @@
 import { TextImage, type TextImageLayout } from "@/components/sections/TextImage";
 import type { Meta, StoryObj } from "@storybook/react";
-import { defaultImage } from "../mocks/imageMocks";
 import { paragraphArgs } from "../globals/RichTextElement.stories";
+import { defaultImage } from "../mocks/imageMocks";
 
 const meta = {
   title: "components/Sections/TextImage",

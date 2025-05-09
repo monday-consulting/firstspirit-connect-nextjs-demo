@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { FAQSection } from "@/components/sections/FAQSection";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Default as Accordion } from "./Accordion.stories";
 
 const meta: Meta<typeof FAQSection> = {

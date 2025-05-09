@@ -1,16 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import logo from "@/assets/smart_living_logo.webp";
-import { Link, usePathname, useRouter } from "@/i18n/routing";
-import { LuGlobe, LuMenu, LuX } from "react-icons/lu";
 import type { Locale } from "@/i18n/config";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useFavorites } from "@/utils/hooks/useFavorites";
-import { FavoriteTeaser } from "./Favorites/FavoriteTeaser";
-import { VscHeart } from "react-icons/vsc";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useParams } from "next/navigation";
+import { useState } from "react";
+import { LuGlobe, LuMenu, LuX } from "react-icons/lu";
+import { VscHeart } from "react-icons/vsc";
+import { FavoriteTeaser } from "./Favorites/FavoriteTeaser";
 import { NotificationNumber } from "./Favorites/NotificationNumber";
 
 export type NavigationRoute = {

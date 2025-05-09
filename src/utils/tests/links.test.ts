@@ -1,13 +1,13 @@
 import type { FirstSpiritLinkUnion } from "@/gql/generated/graphql";
 import {
-  stripNavigationFiles,
-  parseLink,
-  getProductDetailLink,
-  getNewsDetailLink,
-  getProductGroupLink,
   getConnectorLink,
+  getNewsDetailLink,
+  getProductDetailLink,
+  getProductGroupLink,
+  parseLink,
+  stripNavigationFiles,
 } from "../links";
-import { replaceUmlauts, removeSpecialCharacters } from "../strings";
+import { removeSpecialCharacters, replaceUmlauts } from "../strings";
 
 jest.mock("../strings", () => ({
   replaceUmlauts: jest.fn((str) => str),

@@ -26,7 +26,10 @@
     "enabled": true,
     "rules": {
       "correctness": {
-        "noUnusedImports": "warn"
+        "noUnusedImports": {
+          "level": "warn",
+          "fix": "none"
+        }
       },
       "recommended": true,
       "suspicious": {

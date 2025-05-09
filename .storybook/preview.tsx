@@ -1,9 +1,9 @@
 import type { Preview } from "@storybook/react";
 import "../src/assets/styles/globals.css";
-import { IntlProvider } from "use-intl";
-import messages from "../messages/de_DE.json";
 // biome-ignore lint/correctness/noUnusedImports: React import is needed in this file
 import React from "react";
+import { IntlProvider } from "use-intl";
+import messages from "../messages/de_DE.json";
 
 import { ClientProvider } from "../src/app/[locale]/provider";
 

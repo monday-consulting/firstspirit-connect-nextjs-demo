@@ -1,5 +1,5 @@
-import type { StoryObj } from "@storybook/react";
 import { Steps } from "@/components/sections/Steps";
+import type { StoryObj } from "@storybook/react";
 import { StepsItemDefault } from "../features/Steps/StepsItem.stories";
 import { Paragraph } from "../globals/RichTextElement.stories";
 
