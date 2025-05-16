@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { NotificationNumber } from "@/components/layouts/Navigation/Favorites/NotificationNumber";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "components/Layouts/Navigation/Favorites/NotificationNumber",

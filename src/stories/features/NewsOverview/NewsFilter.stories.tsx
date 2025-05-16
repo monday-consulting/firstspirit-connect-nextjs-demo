@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { NewsFilter } from "@/components/features/NewsOverview/NewsFilter";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Default as NewsTeaser } from "./NewsTeaser.stories";
 
 const meta = {

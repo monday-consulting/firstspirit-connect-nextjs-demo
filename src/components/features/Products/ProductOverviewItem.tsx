@@ -1,10 +1,10 @@
 import { Link } from "@/i18n/routing";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useFavorites } from "@/utils/hooks/useFavorites";
-import { LuArrowRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
-import { ImageComponent } from "../../globals/ImageComponent";
+import { useFavorites } from "@/utils/hooks/useFavorites";
 import { useTranslations } from "next-intl";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { LuArrowRight } from "react-icons/lu";
+import { ImageComponent } from "../../globals/ImageComponent";
 
 export type ProductOverviewItemProps = {
   image: ImageData;

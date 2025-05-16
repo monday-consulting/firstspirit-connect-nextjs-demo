@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { Teaser } from "@/components/sections/Teaser";
+import type { Meta, StoryObj } from "@storybook/react";
+import { paragraphArgs } from "../globals/RichTextElement.stories";
 import { defaultImage } from "../mocks/imageMocks";
-import { defaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/Teaser",
@@ -18,13 +18,7 @@ export const Default: Story = {
     headline: "Headline",
     image: defaultImage,
     text: {
-      content: [
-        {
-          content: defaultText,
-          data: "test",
-          type: "paragraph",
-        },
-      ],
+      content: paragraphArgs.content,
     },
     cta: {
       href: "Home",

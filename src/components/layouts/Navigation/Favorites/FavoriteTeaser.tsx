@@ -1,10 +1,9 @@
-import { getProductDetailLink } from "@/utils/links";
-import type { ImageData } from "@/types";
 import { Link } from "@/i18n/routing";
-import { LuTrash } from "react-icons/lu";
+import type { ImageData } from "@/types";
 import { useFavorites } from "@/utils/hooks/useFavorites";
+import { getProductDetailLink } from "@/utils/links";
 import { useLocale } from "next-intl";
-import type { Locale } from "@/i18n/config";
+import { LuTrash } from "react-icons/lu";
 import { ImageComponent } from "../../../globals/ImageComponent";
 
 export type FavoriteTeaserProps = {
@@ -15,7 +14,7 @@ export type FavoriteTeaserProps = {
 
 const FavoriteTeaser = ({ title, id, image }: FavoriteTeaserProps) => {
   const [favorites] = useFavorites();
-  const locale = useLocale() as Locale;
+  const locale = useLocale();
 
   return (
     <Link

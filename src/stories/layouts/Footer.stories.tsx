@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { Footer } from "@/components/layouts/Footer";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Footer> = {
   title: "components/Layouts/Footer",
@@ -16,7 +16,7 @@ export const Default: Story = {
       content: [
         {
           content: "Copyright",
-          data: "test",
+          data: {},
           type: "paragraph",
         },
       ],

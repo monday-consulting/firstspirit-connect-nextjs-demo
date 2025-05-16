@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { Feature } from "@/components/features/Features/Feature";
 import { defaultImage } from "@/stories/mocks/imageMocks";
 import { defaultText } from "@/stories/mocks/textMocks";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "components/Features/Features/Feature",
@@ -23,7 +23,7 @@ export const Default: Story = {
     text: [
       {
         content: defaultText,
-        data: "",
+        data: {},
         type: "",
       },
     ],

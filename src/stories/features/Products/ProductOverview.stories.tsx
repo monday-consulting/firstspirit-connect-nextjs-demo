@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { ProductOverview } from "@/components/features/Products/ProductOverview";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Default as Product } from "../Products/ProductOverviewItem.stories";
 
 const meta = {

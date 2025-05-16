@@ -1,7 +1,7 @@
 import { TextImage, type TextImageLayout } from "@/components/sections/TextImage";
 import type { Meta, StoryObj } from "@storybook/react";
+import { paragraphArgs } from "../globals/RichTextElement.stories";
 import { defaultImage } from "../mocks/imageMocks";
-import { defaultText } from "../mocks/textMocks";
 
 const meta = {
   title: "components/Sections/TextImage",
@@ -17,28 +17,11 @@ export const Default: Story = {
     twoColumn: true,
     headline: "Headline",
     subheadline: {
-      content: [
-        {
-          content: "Subheadline",
-          data: "test",
-          type: "paragraph",
-        },
-      ],
+      content: paragraphArgs.content,
     },
     image: defaultImage,
     text: {
-      content: [
-        {
-          content: defaultText,
-          data: "example",
-          type: "paragraph",
-        },
-        {
-          content: defaultText,
-          data: "example",
-          type: "block",
-        },
-      ],
+      content: paragraphArgs.content,
     },
     layout: "image-text",
   },

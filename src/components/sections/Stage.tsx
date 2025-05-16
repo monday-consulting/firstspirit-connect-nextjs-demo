@@ -1,10 +1,11 @@
 "use client";
 
 import { Link } from "@/i18n/routing";
-import { getImageProps } from "next/image";
-import { LuArrowRight } from "react-icons/lu";
 import type { ImageData, LinkData } from "@/types";
 import { cn } from "@/utils/cn";
+import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getImageProps } from "next/image";
+import { LuArrowRight } from "react-icons/lu";
 
 export type StageProps = {
   headline: string;
@@ -26,6 +27,9 @@ const getBackgroundImage = (srcSet = "") => {
 };
 
 const Stage = (props: StageProps) => {
+  // TODO: change to real id
+  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+
   const shortVersion = props.shortVersion || false;
   const {
     props: { srcSet },
@@ -40,6 +44,7 @@ const Stage = (props: StageProps) => {
         shortVersion ? "py-16" : "py-28"
       )}
       style={backgroundImageStyle}
+      {...previewProps}
     >
       <div className="container mx-auto px-4">
         <div

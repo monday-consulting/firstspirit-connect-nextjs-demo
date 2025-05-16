@@ -1,5 +1,5 @@
-import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
+import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 
 export type StepsProps = {
   subline: string;
@@ -27,7 +27,7 @@ const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
         </div>
         <div className="flex flex-wrap px-4 text-left">
           {stepsItems.map((item, index) => (
-            <StepsItem key={index} {...item} />
+            <StepsItem key={index} {...item} index={item.index ?? index} />
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
-import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from "@headlessui/react";
-import { FaChevronDown, FaCheck } from "react-icons/fa";
-import { type NewsEntity, NewsTeaser } from "./NewsTeaser";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 import { useTranslations } from "next-intl";
+import { FaCheck, FaChevronDown } from "react-icons/fa";
+import { type NewsEntity, NewsTeaser } from "./NewsTeaser";
 
 export type CategoryDropdownProps = {
   filteredNews: NewsEntity[];

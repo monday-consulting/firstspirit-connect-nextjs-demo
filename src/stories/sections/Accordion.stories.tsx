@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { Accordion } from "@/components/sections/Accordion";
+import type { Meta, StoryObj } from "@storybook/react";
 import { mediumText } from "../mocks/textMocks";
 
 const meta = {
@@ -17,7 +17,7 @@ export const Default: Story = {
     content: [
       {
         content: mediumText,
-        data: "",
+        data: {},
         type: "",
       },
     ],

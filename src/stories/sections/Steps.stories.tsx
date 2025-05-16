@@ -1,5 +1,5 @@
-import type { StoryObj } from "@storybook/react";
 import { Steps } from "@/components/sections/Steps";
+import type { StoryObj } from "@storybook/react";
 import { StepsItemDefault } from "../features/Steps/StepsItem.stories";
 import { Paragraph } from "../globals/RichTextElement.stories";
 
@@ -20,6 +20,10 @@ export const Default: Story = {
     subline: "Subline",
     headline: "Headline",
     richtext: { content: Paragraph.args?.content || [] },
-    stepsItems: [StepsItemDefault.args, StepsItemDefault.args, StepsItemDefault.args],
+    stepsItems: [
+      { ...StepsItemDefault.args, index: 1 },
+      { ...StepsItemDefault.args, index: 2 },
+      { ...StepsItemDefault.args, index: 3 },
+    ],
   },
 };
