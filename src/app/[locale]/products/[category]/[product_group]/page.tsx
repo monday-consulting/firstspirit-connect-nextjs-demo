@@ -1,7 +1,7 @@
 import { ProductOverview } from "@/components/features/Products/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
-import type { Locale } from "@/i18n/config";
 import { getProductDetailLink } from "@/utils/links";
+import type { Locale } from "next-intl";
 import { redirect } from "next/navigation";
 
 const SlugPage = async (props: {

@@ -1,10 +1,9 @@
 "use client";
 
 import logo from "@/assets/smart_living_logo.webp";
-import type { Locale } from "@/i18n/config";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useFavorites } from "@/utils/hooks/useFavorites";
-import { useTranslations } from "next-intl";
+import { type Locale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -121,14 +120,14 @@ const Navigation = ({ navStructure }: NavigationProps) => {
             <button
               type="button"
               className="hover:underline"
-              onClick={() => handleLocaleSwitch("en_GB")}
+              onClick={() => handleLocaleSwitch("en-GB")}
             >
               English
             </button>
             <button
               type="button"
               className="hover:underline"
-              onClick={() => handleLocaleSwitch("de_DE")}
+              onClick={() => handleLocaleSwitch("de-DE")}
             >
               Deutsch
             </button>

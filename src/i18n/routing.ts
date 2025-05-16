@@ -6,16 +6,16 @@ const pathnames: Pathnames<typeof locales> = {
   "/": "/",
   "/news": "/news",
   "/locations": {
-    en_GB: "/locations",
-    de_DE: "/standorte",
+    "en-GB": "/locations",
+    "de-DE": "/standorte",
   },
   "/product-detail/[id]": {
-    en_GB: "/product-detail/[id]",
-    de_DE: "/produkt-detail/[id]",
+    "en-GB": "/product-detail/[id]",
+    "de-DE": "/produkt-detail/[id]",
   },
   "/products/[category]/[product_group]": {
-    en_GB: "/products/[category]/[product_group]",
-    de_DE: "/produkte/[category]/[product_group]",
+    "en-GB": "/products/[category]/[product_group]",
+    "de-DE": "/produkte/[category]/[product_group]",
   },
 
   "/[[...slug]]": "/[[...slug]]",

@@ -44,15 +44,15 @@ describe("parseLink", () => {
 
 describe("getProductDetailLink", () => {
   it("returns product-detail link for the default locale", () => {
-    expect(getProductDetailLink("Product 123", "en_GB")).toBe("/product-detail/product-123");
+    expect(getProductDetailLink("Product 123", "en-GB")).toBe("/product-detail/product-123");
   });
 
   it("returns produkt-detail link for a non-default locale", () => {
-    expect(getProductDetailLink("Produkt 456", "de_DE")).toBe("/produkt-detail/produkt-456");
+    expect(getProductDetailLink("Produkt 456", "de-DE")).toBe("/produkt-detail/produkt-456");
   });
 
   it("calls parseLink with the product id", () => {
-    const result = getProductDetailLink("Product 123", "de_DE");
+    const result = getProductDetailLink("Product 123", "de-DE");
     expect(result).toBe("/produkt-detail/product-123");
   });
 });

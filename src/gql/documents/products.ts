@@ -1,6 +1,7 @@
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
+import { parseLocale } from "@/i18n/parseLocale";
 
 const productsDocument = graphql(`
   query products($locale: String!) {
@@ -66,11 +67,11 @@ const productDetailDocument = graphql(`
 `);
 
 export const getAllProducts = async (locale: Locale) => {
-  const res = await client.request(productsDocument, { locale });
+  const res = await client.request(productsDocument, { locale: parseLocale(locale) });
   return res.allFirstSpiritDataset.nodes;
 };
 
 export const getProductDetail = async (locale: Locale, id: string) => {
-  const res = await client.request(productDetailDocument, { locale, id });
+  const res = await client.request(productDetailDocument, { locale: parseLocale(locale), id });
   return res.firstSpiritDataset?.data;
 };

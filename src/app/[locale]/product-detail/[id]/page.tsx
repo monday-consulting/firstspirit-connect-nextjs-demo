@@ -1,6 +1,6 @@
 import { ProductDetail } from "@/components/features/Products/ProductDetail";
 import { getProductDetail } from "@/gql/documents/products";
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 
 const ProductDetailPage = async (props: { params: Promise<{ id: string; locale: Locale }> }) => {
   const params = await props.params;

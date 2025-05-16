@@ -2,7 +2,8 @@ import { Home } from "@/components/layouts/Home";
 import { StandardLayout } from "@/components/layouts/StandardLayout";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/gql/generated/graphql";
-import { type Locale, defaultLocale } from "@/i18n/config";
+import { defaultLocale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 import { redirect } from "next/navigation";
 
 const SlugPage = async (props: { params: Promise<{ slug: string[]; locale: Locale }> }) => {

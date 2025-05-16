@@ -1,6 +1,7 @@
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
+import { parseLocale } from "@/i18n/parseLocale";
 
 const sectionById = graphql(`
   query sectionById($locale: String!, $id: String!) {
@@ -51,11 +52,11 @@ const sectionByType = graphql(`
 `);
 
 export const getSectionById = async (locale: Locale, id: string) => {
-  const res = await client.request(sectionById, { locale, id });
+  const res = await client.request(sectionById, { locale: parseLocale(locale), id });
   return res.allFirstSpiritSection.nodes[0];
 };
 
 export const getSectionByType = async (locale: Locale, type: string) => {
-  const res = await client.request(sectionByType, { locale, type });
+  const res = await client.request(sectionByType, { locale: parseLocale(locale), type });
   return res.allFirstSpiritSection.nodes[0];
 };

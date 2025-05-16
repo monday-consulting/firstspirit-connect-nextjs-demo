@@ -1,6 +1,7 @@
 import type { FirstSpiritLinkUnion } from "@/gql/generated/graphql";
-import { type Locale, defaultLocale } from "@/i18n/config";
+import { defaultLocale } from "@/i18n/config";
 import type { LinkData } from "@/types";
+import type { Locale } from "next-intl";
 import { removeSpecialCharacters, replaceUmlauts } from "./strings";
 
 export const stripNavigationFiles = (path: string | null | undefined): string => {

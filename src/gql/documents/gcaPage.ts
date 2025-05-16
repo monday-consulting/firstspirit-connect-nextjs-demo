@@ -1,7 +1,8 @@
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
 import type { FirstSpiritGcaFooter } from "../generated/graphql";
+import { parseLocale } from "@/i18n/parseLocale";
 
 const gcaPageDocument = graphql(`
   query gcaPageByName($locale: String!, $name: String!) {
@@ -34,6 +35,9 @@ const gcaPageDocument = graphql(`
 `);
 
 export const getFooter = async (locale: Locale) => {
-  const res = await client.request(gcaPageDocument, { locale, name: "footer" });
+  const res = await client.request(gcaPageDocument, {
+    locale: parseLocale(locale),
+    name: "footer",
+  });
   return res.firstSpiritGcaPage?.data as FirstSpiritGcaFooter;
 };

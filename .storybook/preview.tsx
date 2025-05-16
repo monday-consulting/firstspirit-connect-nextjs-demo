@@ -3,7 +3,7 @@ import "../src/assets/styles/globals.css";
 // biome-ignore lint/correctness/noUnusedImports: React import is needed in this file
 import React from "react";
 import { IntlProvider } from "use-intl";
-import messages from "../messages/de_DE.json";
+import messages from "../messages/en-GB.json";
 
 import { ClientProvider } from "../src/app/[locale]/provider";
 
@@ -20,7 +20,7 @@ const preview: Preview = {
     (Story) => (
       <div>
         <ClientProvider>
-          <IntlProvider locale={"en_GB"} messages={messages}>
+          <IntlProvider locale={"en-GB"} messages={messages}>
             <Story />
           </IntlProvider>
         </ClientProvider>

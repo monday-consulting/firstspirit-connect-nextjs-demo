@@ -7,7 +7,7 @@ import type {
   FirstSpiritSmartLivingNewsFragmentFragment,
   FirstSpiritStandard,
 } from "@/gql/generated/graphql";
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 
 const NewsOverviewPage = async (props: { params: Promise<{ locale: Locale }> }) => {
   const params = await props.params;
