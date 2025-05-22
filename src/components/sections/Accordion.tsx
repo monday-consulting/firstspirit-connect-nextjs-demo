@@ -21,14 +21,13 @@ const Accordion = ({ title, content }: AccordionProps) => {
   };
 
   return (
-    <div className="w-full p-1">
+    <div className="w-full p-1" data-preview-id="#st_accordion">
       <div className="rounded-xl border-2 border-text bg-white bg-opacity-60 px-4 py-4 shadow-10xl md:px-8 md:py-8">
         <div className="flex cursor-pointer p-2 text-text">
           <button
             type="button"
             className="grow text-left font-semibold text-lg text-text leading-normal"
             onClick={toggle}
-            data-preview-id="#st_accordion_title"
           >
             {title}
           </button>
@@ -47,7 +46,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
           className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200"
           style={open ? { maxHeight: "364px" } : {}}
         >
-          <RichTextElement content={content} data-preview-id="#st_accordion_text" />
+          <RichTextElement content={content} />
         </div>
       </div>
     </div>
