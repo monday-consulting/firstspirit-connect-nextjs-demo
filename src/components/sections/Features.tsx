@@ -1,8 +1,8 @@
 import { Feature } from "@/components/features/Features/Feature";
 import type { FeatureProps } from "@/components/features/Features/Feature";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import type { RichTextElementContent } from "../globals/RichTextElement";
 import { RichTextElement } from "../globals/RichTextElement";
-import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type FeaturesProps = {
   headline: string;

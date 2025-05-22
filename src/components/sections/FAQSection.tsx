@@ -1,6 +1,6 @@
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import type { ReactNode } from "react";
 import { Accordion, type AccordionProps } from "../sections/Accordion";
-import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type FAQSectionProps = {
   headline: string;

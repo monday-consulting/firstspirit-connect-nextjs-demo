@@ -3,17 +3,17 @@ import { Inter } from "next/font/google";
 import "@/assets/styles/globals.css";
 import { Footer } from "@/components/layouts/Footer";
 import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
+import { getBodyPreviewId } from "@/gql/documents/bodyPreviewId";
 import { getFooter } from "@/gql/documents/gcaPage";
 import { getNavigationStructure } from "@/gql/documents/navigation";
 import type { LinkData } from "@/types";
 import { stripNavigationFiles } from "@/utils/links";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import type { Locale } from "next-intl";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { ClientProvider } from "./provider";
-import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import Script from "next/script";
-import { getBodyPreviewId } from "@/gql/documents/bodyPreviewId";
+import { ClientProvider } from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 

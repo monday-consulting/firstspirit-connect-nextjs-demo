@@ -1,5 +1,5 @@
-import { RichTextElement, type RichTextElementContent } from "../globals/RichTextElement";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
+import { RichTextElement, type RichTextElementContent } from "../globals/RichTextElement";
 
 export type PartsTableProps = {
   tableContent: RichTextElementContent[];

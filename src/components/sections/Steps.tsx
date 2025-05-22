@@ -1,5 +1,5 @@
-import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
+import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 
 export type StepsProps = {

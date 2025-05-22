@@ -1,6 +1,6 @@
 import type { ImageData } from "@/types";
-import Image from "next/image";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
+import Image from "next/image";
 
 export type InterestingFactsProps = {
   backgroundImage?: ImageData;

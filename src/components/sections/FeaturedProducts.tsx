@@ -1,6 +1,6 @@
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import type { FeaturedProductItemProps } from "../features/FeaturedProducts/FeaturedProductItem";
 import { FeaturedProductItem } from "../features/FeaturedProducts/FeaturedProductItem";
-import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type FeaturedProductsProps = {
   headline: string;

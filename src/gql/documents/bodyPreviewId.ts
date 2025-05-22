@@ -1,4 +1,4 @@
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
 
