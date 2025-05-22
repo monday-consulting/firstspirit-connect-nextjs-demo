@@ -11,8 +11,8 @@ import type { Locale } from "next-intl";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { ClientProvider } from "./provider";
-import Script from "next/script";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
+import Script from "next/script";
 import { getBodyPreviewId } from "@/gql/documents/bodyPreviewId";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -33,6 +33,8 @@ const RootLayout = async (
 ) => {
   const { children } = props;
   const { locale } = await props.params;
+  const isPreview = process.env.NEXT_PUBLIC_PREVIEW_MODE === "true";
+  const fsPreviewScriptUrl = process.env.NEXT_PUBLIC_FS_PREVIEW_SCRIPT_URL;
 
   const previewProps = getPreviewParams(await getBodyPreviewId(locale));
 
@@ -57,10 +59,7 @@ const RootLayout = async (
   return (
     <html lang={locale}>
       <body className={inter.className} {...previewProps}>
-        {/* TODO: Make domain for fetching live.js configurable. */}
-        {process.env.NEXT_PUBLIC_PREVIEW_MODE === "true" && (
-          <Script src="https://partner.e-spirit.hosting/fs5webedit/live/live.js" />
-        )}
+        {isPreview && fsPreviewScriptUrl && <Script src={fsPreviewScriptUrl} />}
         <NextIntlClientProvider messages={messages}>
           <ClientProvider>
             <Navigation

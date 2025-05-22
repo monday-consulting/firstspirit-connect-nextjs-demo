@@ -1,18 +1,18 @@
 "use client";
 
 import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
-import type { LinkData } from "@/types";
 import { fetcher } from "@/utils/fetcher";
 import { getProductDetailLink } from "@/utils/links";
 import { useQuery } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
 import { Suspense } from "react";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
+import type { LinkData } from "@/types";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import type { RichTextElementProps } from "../globals/RichTextElement";
 import { Loading } from "../layouts/Loading";
 import { Teaser } from "./Teaser";
+import { useLocale } from "next-intl";
 
 export type ProductCategoryTeaserProps = {
   category: {

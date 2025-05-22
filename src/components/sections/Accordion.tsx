@@ -28,6 +28,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
             type="button"
             className="grow text-left font-semibold text-lg text-text leading-normal"
             onClick={toggle}
+            data-preview-id="#st_accordion_title"
           >
             {title}
           </button>
@@ -46,7 +47,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
           className="max-h-0 w-auto overflow-hidden px-2 transition-[max-height] duration-200"
           style={open ? { maxHeight: "364px" } : {}}
         >
-          <RichTextElement content={content} />
+          <RichTextElement content={content} data-preview-id="#st_accordion_text" />
         </div>
       </div>
     </div>
