@@ -13,6 +13,7 @@ import { getMessages } from "next-intl/server";
 import { ClientProvider } from "./provider";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import Script from "next/script";
+import { getBodyPreviewId } from "@/gql/documents/bodyPreviewId";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,14 +29,14 @@ const RootLayout = async (
   props: Readonly<{
     children: React.ReactNode;
     params: Promise<{ locale: Locale }>;
-  }>,
-  previewId?: string
+  }>
 ) => {
-  const previewProps = getPreviewParams(previewId);
   const { children } = props;
   const { locale } = await props.params;
   const isPreview = process.env.NEXT_PUBLIC_PREVIEW_MODE === "true";
   const fsPreviewScriptUrl = process.env.NEXT_PUBLIC_FS_PREVIEW_SCRIPT_URL;
+
+  const previewProps = getPreviewParams(await getBodyPreviewId(locale));
 
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
