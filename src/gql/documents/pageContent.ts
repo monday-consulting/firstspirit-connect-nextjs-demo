@@ -1,6 +1,7 @@
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
+import { parseLocale } from "@/i18n/parseLocale";
 
 const pageContentDocument = graphql(`
   query pageByRoute($locale: String!, $route: String!) {
@@ -54,6 +55,6 @@ const pageContentDocument = graphql(`
 `);
 
 export const getPageContentByRoute = async (locale: Locale, route: string) => {
-  const res = await client.request(pageContentDocument, { locale, route });
+  const res = await client.request(pageContentDocument, { locale: parseLocale(locale), route });
   return res.firstSpiritPage;
 };

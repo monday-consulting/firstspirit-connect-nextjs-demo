@@ -1,10 +1,10 @@
+import { ImageComponent } from "@/components/globals/ImageComponent";
 import { Link } from "@/i18n/routing";
-import type { ReactNode } from "react";
+import type { ImageData, LinkData } from "@/types";
 import { cn } from "@/utils/cn";
+import type { ReactNode } from "react";
 import type { RichTextElementProps } from "../globals/RichTextElement";
 import { RichTextElement } from "../globals/RichTextElement";
-import type { ImageData, LinkData } from "@/types";
-import { ImageComponent } from "@/components/globals/ImageComponent";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type TeaserProps = {
@@ -30,7 +30,6 @@ const Teaser = ({
   breakpoint = "md",
   previewId,
 }: TeaserProps) => {
-  // TODO: change to real id!
   const previewProps = getPreviewParams(previewId);
 
   return (

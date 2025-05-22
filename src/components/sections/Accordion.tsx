@@ -1,11 +1,11 @@
 "use client";
 
 import { cn } from "@/utils/cn";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
 import type { RichTextElementContent } from "../globals/RichTextElement";
 import { RichTextElement } from "../globals/RichTextElement";
-import { useTranslations } from "next-intl";
 
 export type AccordionProps = {
   title: string;

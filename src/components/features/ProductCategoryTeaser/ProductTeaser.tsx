@@ -1,7 +1,7 @@
-import type { ImageData } from "@/types";
 import { Link } from "@/i18n/routing";
-import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";
+import type { ImageData } from "@/types";
 import { ImageComponent } from "../../globals/ImageComponent";
+import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";
 
 export type ProductTeaserProps = {
   name: string;

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { Features } from "@/components/sections/Features";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Default as Feature } from "../features/Features/Feature.stories";
 
 const meta: Meta<typeof Features> = {

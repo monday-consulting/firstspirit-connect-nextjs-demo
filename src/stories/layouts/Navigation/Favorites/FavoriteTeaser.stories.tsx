@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { FavoriteTeaser } from "@/components/layouts/Navigation/Favorites/FavoriteTeaser";
 import { defaultImage } from "@/stories/mocks/imageMocks";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "components/Layouts/Navigation/Favorites/FavoriteTeaser",

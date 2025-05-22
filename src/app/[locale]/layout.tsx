@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/assets/styles/globals.css";
+import { Footer } from "@/components/layouts/Footer";
+import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
+import { getFooter } from "@/gql/documents/gcaPage";
 import { getNavigationStructure } from "@/gql/documents/navigation";
+import type { LinkData } from "@/types";
+import { stripNavigationFiles } from "@/utils/links";
+import type { Locale } from "next-intl";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
 import { ClientProvider } from "./provider";
-import type { Locale } from "@/i18n/config";
-import { stripNavigationFiles } from "@/utils/links";
-import { getFooter } from "@/gql/documents/gcaPage";
-import { Footer } from "@/components/layouts/Footer";
-import type { LinkData } from "@/types";
-import Script from "next/script";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +34,8 @@ const RootLayout = async (
   const previewProps = getPreviewParams(previewId);
   const { children } = props;
   const { locale } = await props.params;
+  const isPreview = process.env.NEXT_PUBLIC_PREVIEW_MODE === "true";
+  const fsPreviewScriptUrl = process.env.NEXT_PUBLIC_FS_PREVIEW_SCRIPT_URL;
 
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
@@ -56,11 +58,7 @@ const RootLayout = async (
   return (
     <html lang={locale}>
       <body className={inter.className} {...previewProps}>
-        {/*
-        TODO: Insert script only if NEXT_PUBLIC_PREVIEW_MODE is set to true.
-        TODO: Make domain for fetching live.js configurable.
-       */}
-        <Script src="https://partner.e-spirit.hosting/fs5webedit/live/live.js" />
+        {isPreview && fsPreviewScriptUrl && <Script src={fsPreviewScriptUrl} />}
         <NextIntlClientProvider messages={messages}>
           <ClientProvider>
             <Navigation

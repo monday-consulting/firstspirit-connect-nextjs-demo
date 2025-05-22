@@ -1,4 +1,4 @@
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 
 export type FetchEntityType = "product" | "section";
 

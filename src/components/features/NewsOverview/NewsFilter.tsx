@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import type { NewsEntity } from "./NewsTeaser";
 import { useWindowSize } from "@/utils/hooks/useWindowSize";
-import { useTranslations } from "next-intl";
 import { fuzzySearchObjects } from "@/utils/strings";
-import { Search } from "./Search";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import { CategoryDropdown } from "./CategoryDropdown";
 import { CategoryTabs } from "./CategoryTabs";
+import type { NewsEntity } from "./NewsTeaser";
+import { Search } from "./Search";
 
 export type NewsFilterProps = {
   news: NewsEntity[];

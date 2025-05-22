@@ -1,16 +1,16 @@
-import { ProductCategoryTeaser } from "../sections/ProductCategoryTeaser";
-import { Teaser } from "../sections/Teaser";
-import { FAQSection } from "../sections/FAQSection";
-import { Steps } from "../sections/Steps";
-import { TextImage, type TextImageLayout } from "../sections/TextImage";
 import type { FirstSpiritSection } from "@/gql/generated/graphql";
-import { Stage } from "../sections/Stage";
-import { Features } from "../sections/Features";
+import { getConnectorLink } from "@/utils/links";
+import type { FeatureProps } from "../features/Features/Feature";
 import type { StepsItemProps } from "../features/Steps/StepsItem";
 import type { AccordionProps } from "../sections/Accordion";
-import type { FeatureProps } from "../features/Features/Feature";
+import { FAQSection } from "../sections/FAQSection";
+import { Features } from "../sections/Features";
 import { PartsTable } from "../sections/PartsTable";
-import { getConnectorLink } from "@/utils/links";
+import { ProductCategoryTeaser } from "../sections/ProductCategoryTeaser";
+import { Stage } from "../sections/Stage";
+import { Steps } from "../sections/Steps";
+import { Teaser } from "../sections/Teaser";
+import { TextImage, type TextImageLayout } from "../sections/TextImage";
 
 export type SectionProps = {
   section: Pick<FirstSpiritSection, "__typename" | "id" | "data" | "previewId">;

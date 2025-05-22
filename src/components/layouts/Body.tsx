@@ -1,5 +1,5 @@
-import { Section } from "./Section";
 import type { FirstSpiritPageBody, FirstSpiritPageBodyContent } from "@/gql/generated/graphql";
+import { Section } from "./Section";
 
 export type BodyProps = {
   content?: FirstSpiritPageBody[];

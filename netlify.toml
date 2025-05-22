@@ -1,2 +1,5 @@
-  [[plugins]]
-  package = "@netlify/plugin-nextjs"
+[[plugins]]
+package = "@netlify/plugin-nextjs"
+
+[build.environment]
+NODE_VERSION = "22.15.1"
