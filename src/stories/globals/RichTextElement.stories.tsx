@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { RichTextElement, type RichTextElementProps } from "@/components/globals/RichTextElement";
+import type { Meta, StoryObj } from "@storybook/react";
 import { longText, shortText } from "../mocks/textMocks";
 
 const meta: Meta<typeof RichTextElement> = {

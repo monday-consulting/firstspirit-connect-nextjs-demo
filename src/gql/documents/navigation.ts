@@ -1,6 +1,7 @@
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
+import { parseLocale } from "@/i18n/parseLocale";
 
 const navigationDocument = graphql(`
   query fsNavigationQuery($locale:String!) {
@@ -40,6 +41,6 @@ const navigationDocument = graphql(`
 `);
 
 export const getNavigationStructure = async (locale: Locale) => {
-  const res = await client.request(navigationDocument, { locale });
+  const res = await client.request(navigationDocument, { locale: parseLocale(locale) });
   return res.firstSpiritNavigationData?.structure;
 };

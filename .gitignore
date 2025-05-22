@@ -13,6 +13,9 @@
 /.next/
 /out/
 
+# next-intl
+messages/*.d.json.ts
+
 # production
 /build
 

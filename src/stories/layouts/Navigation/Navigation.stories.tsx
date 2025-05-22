@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { Navigation } from "@/components/layouts/Navigation/Navigation";
+import type { Meta, StoryObj } from "@storybook/react";
 import { mockNavigationData } from "../mockNavigationData";
 
 const meta = {

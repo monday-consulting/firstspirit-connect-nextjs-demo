@@ -1,6 +1,6 @@
+import { ImageComponent } from "@/components/globals/ImageComponent";
 import type { ImageData } from "@/types";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
-import { ImageComponent } from "@/components/globals/ImageComponent";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type TextImageLayout = "text-image" | "image-text";

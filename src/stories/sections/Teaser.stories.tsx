@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { Teaser } from "@/components/sections/Teaser";
-import { defaultImage } from "../mocks/imageMocks";
+import type { Meta, StoryObj } from "@storybook/react";
 import { paragraphArgs } from "../globals/RichTextElement.stories";
+import { defaultImage } from "../mocks/imageMocks";
 
 const meta = {
   title: "components/Sections/Teaser",

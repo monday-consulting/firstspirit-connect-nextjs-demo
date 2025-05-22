@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useWindowSize = () => {
   // Initialize state with undefined width/height so server and client renders match

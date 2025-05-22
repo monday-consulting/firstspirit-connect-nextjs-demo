@@ -1,9 +1,9 @@
 import { Link } from "@/i18n/routing";
-import { getImageProps } from "next/image";
-import { LuArrowRight } from "react-icons/lu";
 import type { ImageData, LinkData } from "@/types";
 import { cn } from "@/utils/cn";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
+import { getImageProps } from "next/image";
+import { LuArrowRight } from "react-icons/lu";
 
 export type StageProps = {
   headline: string;

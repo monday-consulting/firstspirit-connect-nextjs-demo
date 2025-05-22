@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { InterestingFacts } from "@/components/sections/InterestingFacts";
+import type { Meta, StoryObj } from "@storybook/react";
 import { defaultImage } from "../mocks/imageMocks";
 import { defaultText } from "../mocks/textMocks";
 

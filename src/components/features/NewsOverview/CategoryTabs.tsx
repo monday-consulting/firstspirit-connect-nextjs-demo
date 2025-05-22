@@ -1,6 +1,6 @@
-import { TabGroup, Tab, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { type NewsEntity, NewsTeaser } from "./NewsTeaser";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { useTranslations } from "next-intl";
+import { type NewsEntity, NewsTeaser } from "./NewsTeaser";
 
 export type CategoryTabsProps = {
   filteredNews: NewsEntity[];

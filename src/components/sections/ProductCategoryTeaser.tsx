@@ -1,19 +1,18 @@
 "use client";
 
-import { Teaser } from "./Teaser";
-import type { RichTextElementProps } from "../globals/RichTextElement";
-import { fetcher } from "@/utils/fetcher";
-import { useLocale } from "next-intl";
-import { useQuery } from "@tanstack/react-query";
-import { getProductDetailLink } from "@/utils/links";
-import type { Locale } from "@/i18n/config";
 import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
+import type { LinkData } from "@/types";
+import { fetcher } from "@/utils/fetcher";
+import { getProductDetailLink } from "@/utils/links";
+import { useQuery } from "@tanstack/react-query";
+import { useLocale } from "next-intl";
 import { Suspense } from "react";
-import { Loading } from "../layouts/Loading";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
-import type { LinkData } from "@/types";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";
+import type { RichTextElementProps } from "../globals/RichTextElement";
+import { Loading } from "../layouts/Loading";
+import { Teaser } from "./Teaser";
 
 export type ProductCategoryTeaserProps = {
   category: {
@@ -38,7 +37,7 @@ const ProductCategoryTeaser = ({
   previewId,
 }: ProductCategoryTeaserProps) => {
   const previewProps = getPreviewParams(previewId);
-  const locale = useLocale() as Locale;
+  const locale = useLocale();
 
   const transformDataToProps = (
     products: {

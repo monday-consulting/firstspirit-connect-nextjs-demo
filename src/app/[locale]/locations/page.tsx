@@ -5,7 +5,7 @@ import type {
   FirstSpiritGoogleMapsFragmentFragment,
   FirstSpiritSmartLivingLocationFragmentFragment,
 } from "@/gql/generated/graphql";
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "next-intl";
 
 const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => {
   const params = await props.params;

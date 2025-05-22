@@ -3,7 +3,7 @@
 import { FavoriteListProvider } from "@/utils/contexts/favorites";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { useState, type ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 
 export type ProviderProps = {
   children: ReactNode;

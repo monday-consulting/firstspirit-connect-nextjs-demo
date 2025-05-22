@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import {
   ProductTeaser,
   type ProductTeaserProps,
 } from "@/components/features/ProductCategoryTeaser/ProductTeaser";
 import { defaultImage } from "@/stories/mocks/imageMocks";
 import { defaultText } from "@/stories/mocks/textMocks";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof ProductTeaser> = {
   title: "components/Features/ProductCategoryTeaser/ProductTeaser",

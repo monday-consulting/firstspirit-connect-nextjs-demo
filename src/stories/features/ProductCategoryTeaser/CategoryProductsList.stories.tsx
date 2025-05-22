@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { CategoryProductsList } from "@/components/features/ProductCategoryTeaser/CategoryProductsList";
+import type { Meta, StoryObj } from "@storybook/react";
 import { productTeaserDefaultArgs } from "./ProductTeaser.stories";
 
 const meta: Meta<typeof CategoryProductsList> = {
