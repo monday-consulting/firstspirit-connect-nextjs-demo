@@ -29,9 +29,12 @@
   },
   "dependencies": {
     "@headlessui/react": "2.2.2",
+    "@modelcontextprotocol/inspector": "^0.13.0",
+    "@netlify/functions": "^3.1.10",
     "@react-google-maps/api": "2.20.6",
     "@tanstack/react-query": "5.75.7",
     "@vis.gl/react-google-maps": "1.5.2",
+    "fetch-to-node": "^2.1.0",
     "graphql": "16.11.0",
     "graphql-request": "7.1.2",
     "next": "15.3.2",
@@ -39,6 +42,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "5.5.0",
+    "sdk": "link:@modelcontextprotocol/sdk",
     "use-intl": "4.1.0"
   },
   "devDependencies": {
