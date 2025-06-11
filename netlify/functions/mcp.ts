@@ -40,7 +40,7 @@ export default async (req: Request): Promise<Response> => {
     });
 
     return toFetchResponse(nodeRes);
-  } catch (error) {
+  } catch (error: any) {
     console.error("MCP error:", error);
     return createErrorResponse(error);
   }
@@ -122,7 +122,7 @@ function registerLocaleResource(server: McpServer, locale: Locale): void {
         return await getPageResource(uri, locale, route);
       } catch (error) {
         console.error("Error getting page resource:", error);
-        throw new Error(`Failed to get resource for ${uri}: ${error.message}`);
+        throw new Error(`Failed to get resource for ${uri}: ${error}`);
       }
     }
   );
@@ -162,7 +162,7 @@ async function getPageResource(
   };
 }
 
-function createErrorResponse(error: any): Response {
+function createErrorResponse(error: Error): Response {
   const errorMessage = error instanceof Error ? error.message : "Internal server error";
 
   return new Response(
@@ -196,7 +196,7 @@ async function getNavigationEndpoints(locale: Locale): Promise<string[]> {
   }
 }
 
-function extractRoutesFromStructure(structure: any[]): string[] {
+function extractRoutesFromStructure(structure: any): string[] {
   const routes: string[] = [];
 
   if (!structure || !Array.isArray(structure)) {
