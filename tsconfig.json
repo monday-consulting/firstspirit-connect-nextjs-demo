@@ -27,6 +27,13 @@
     },
     "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "jest.config.mjs"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "jest.config.mjs",
+    "netlify/functions/mcp.mts"
+  ],
   "exclude": ["node_modules", "src/gql/generated/**/*.ts", ".next"]
 }
