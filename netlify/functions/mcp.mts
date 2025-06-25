@@ -189,10 +189,12 @@ async function getPageResource(
   // Get page content and convert to markdown
   const pageContent = await turnPageContentIntoMarkdown(locale, originalRoute);
 
+  const safeRoute = decodeURIComponent(routeString || "").replace(/\.\./g, ""); // Decode and sanitize route input
+
   return {
     contents: [
       {
-        uri: `${process.env.MCP_RESOURCE_URL}${locale}/${routeString}/`,
+        uri: `${process.env.MCP_RESOURCE_URL}${locale}/${safeRoute}/`,
         text: pageContent,
         mimeType: "text/markdown",
       },
@@ -317,9 +319,14 @@ async function getPageContent(locale: Locale, route: string): Promise<FirstSpiri
     throw new Error("Route is required");
   }
 
+  // Decode uri to get umlaut
+  const decodedRoute = decodeURIComponent(route);
+
   // Normalize route format
   const validRoute =
-    route.startsWith("/") && route.endsWith("/") ? route : `/${route.replace(/^\/|\/$/g, "")}/`;
+    decodedRoute.startsWith("/") && decodedRoute.endsWith("/")
+      ? decodedRoute
+      : `/${decodedRoute.replace(/^\/|\/$/g, "")}/`;
 
   return (await getPageContentByRoute(locale, validRoute)) as FirstSpiritPage;
 }
