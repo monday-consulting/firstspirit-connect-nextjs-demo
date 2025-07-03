@@ -45,6 +45,8 @@ const pageContentDocument = graphql(`
               ...FirstSpiritFeaturesFragment
               ...FirstSpiritGoogleMapsFragment
               ...FirstSpiritTableFragment
+              ...FirstSpiritNewsOverviewFragment
+              ...FirstSpiritSmartlivingProductOverviewFragment
             }
           }
         }

@@ -1,3 +1,11 @@
+export const renderLine = (prefix = "", content?: string | null, appendNewline = false): string => {
+  if (!content || content.trim() === "") return "";
+
+  const hasNewline = content.includes("\n");
+  const suffix = appendNewline && !hasNewline ? "\n\n" : "";
+
+  return `${prefix}${content}${suffix}`;
+};
 export const replaceUmlauts = (str: string): string => {
   const umlautMap: { [key: string]: string } = {
     ä: "ae",

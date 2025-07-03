@@ -196,6 +196,29 @@ graphql(`
     stInitialLat
     stInitialLong
   }
+
+  fragment FirstSpiritNewsOverviewFragment on FirstSpiritNewsOverview {
+    stHeadline
+    stDataPage {
+      __typename
+      ... on FirstSpiritPageRef {
+      type
+      referenceId
+      referenceType
+      page {
+        fsId
+      }
+      }
+    }
+  }
+
+  fragment FirstSpiritSmartlivingProductOverviewFragment on FirstSpiritSmartlivingProductOverview {
+    data
+  }
+
+
+
+
 `);
 
 /**

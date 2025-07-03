@@ -14,12 +14,16 @@ import { getPageContentByRoute } from "@/gql/documents/pageContent";
 import type {
   FirstSpiritInlinePageUnion8F4Ef8C0,
   FirstSpiritInlineSectionUnion638Da777,
+  FirstSpiritNavigationItem,
   FirstSpiritPage,
   FirstSpiritPageBody,
   FirstSpiritSection,
+  FirstSpiritSmartlivingProduct,
+  FirstSpiritStructureItem,
   Maybe,
 } from "@/gql/generated/graphql";
 import { templates } from "@/gql/documents/mcp";
+import { getAllProducts, getProductDetail } from "@/gql/documents/products";
 
 // ====================================================================
 // NETLIFY FUNCTION HANDLER
@@ -60,9 +64,9 @@ export default async (req: Request): Promise<Response> => {
     });
 
     return toFetchResponse(nodeRes);
-  } catch (error: any) {
+  } catch (error) {
     console.error("MCP error:", error);
-    return createErrorResponse(error);
+    return createErrorResponse(error as Error);
   }
 };
 
@@ -159,6 +163,66 @@ function registerLocaleResource(server: McpServer, locale: Locale): void {
       }
     }
   );
+  server.resource(
+    `Get Product ${locale}`,
+    new ResourceTemplate(`${process.env.MCP_RESOURCE_URL}${locale}/dataset/{slug}/`, {
+      list: async (): Promise<ListResourcesResult> => {
+        const productEndpoints = await getProductEndpoints(locale);
+        const resources = productEndpoints.map((slug) => ({
+          name: slug.slug.replace(/_/g, "-"),
+          uri: `${process.env.MCP_RESOURCE_URL}${locale}/dataset/${slug.slug.replace(/_/g, "-")}/`,
+          description: `Product detail page: ${slug.slug}`,
+        }));
+        return { resources };
+      },
+
+      // Auto-complete functionality for route parameters
+      complete: {
+        slug: async (input: string) => {
+          const productEndpoints = await getProductEndpoints(locale);
+          const flatRoutes = productEndpoints.map((route) =>
+            route.slug.replace(/\//g, "--").replace(/_/g, "-")
+          );
+          return flatRoutes.filter((s) => s.toLowerCase().includes(input.toLowerCase()));
+        },
+      },
+    }),
+
+    // Resource handler - returns markdown content for requested product
+    async (uri, { slug }) => {
+      try {
+        let decodedSlug = "";
+
+        if (typeof slug === "string") {
+          decodedSlug = slug.replace(/--/g, "/").replace(/-(?=[^/-]*$)/, "_");
+        } else {
+          throw new Error("Expected slug to be a string");
+        }
+
+        const productEndpoints = await getProductEndpoints(locale);
+        const product = productEndpoints.find((p) => p.slug === decodedSlug);
+
+        if (!product?.fsId) {
+          throw new Error("Product fsId is undefined");
+        }
+
+        const content = await turnProductContentIntoMarkdown(locale, product.fsId);
+
+        return {
+          contents: [
+            {
+              uri: `${process.env.MCP_RESOURCE_URL}${locale}/dataset/${slug}/`,
+              mimeType: "text/markdown",
+              text: `${content}`,
+            },
+          ],
+        };
+      } catch (error) {
+        console.error("Product handler failed:", error);
+        throw new Error(`Product not found: ${slug}`);
+      }
+    }
+  );
 }
 
 /**
@@ -190,13 +254,12 @@ async function getPageResource(
   const pageContent = await turnPageContentIntoMarkdown(locale, originalRoute);
 
   const safeRoute = decodeURIComponent(routeString || "").replace(/\.\./g, ""); // Decode and sanitize route input
-
   return {
     contents: [
       {
         uri: `${process.env.MCP_RESOURCE_URL}${locale}/${safeRoute}/`,
-        text: pageContent,
         mimeType: "text/markdown",
+        text: pageContent,
       },
     ],
   };
@@ -229,14 +292,25 @@ function createErrorResponse(error: Error): Response {
 // ====================================================================
 
 /**
- * Retrieves all available navigation endpoints for a given locale
- * Extracts routes from the navigation structure
+ * Retrieves all available navigation and product endpoints for a given locale
+ * Extracts routes from the navigation and product structure
  */
 async function getNavigationEndpoints(locale: Locale): Promise<string[]> {
   try {
     const structure = await getNavigationStructure(locale);
-    const routes = extractRoutesFromStructure(structure);
+    const routes = extractRoutesFromStructure(structure as FirstSpiritStructureItem[]);
     return routes;
+  } catch (error) {
+    console.error(`Error getting navigation for locale ${locale}:`, error);
+    return [];
+  }
+}
+
+async function getProductEndpoints(locale: Locale): Promise<{ slug: string; fsId: string }[]> {
+  try {
+    const structure = await getAllProducts(locale);
+
+    return extractRoutesFromProducts(structure);
   } catch (error) {
     console.error(`Error getting navigation for locale ${locale}:`, error);
     return [];
@@ -247,9 +321,8 @@ async function getNavigationEndpoints(locale: Locale): Promise<string[]> {
  * Recursively extracts routes from navigation structure
  * Handles nested navigation items up to 3 levels deep
  */
-function extractRoutesFromStructure(structure: any): string[] {
+function extractRoutesFromStructure(structure: FirstSpiritStructureItem[]): string[] {
   const routes: string[] = [];
-
   if (!structure || !Array.isArray(structure)) {
     return routes;
   }
@@ -258,8 +331,8 @@ function extractRoutesFromStructure(structure: any): string[] {
    * Processes a single navigation item and its children
    * Extracts seoRoute and processes nested structureChildren
    */
-  const processNavigationItem = (item: any) => {
-    if (item?.seoRoute) {
+  const processNavigationItem = (item: FirstSpiritNavigationItem | FirstSpiritStructureItem) => {
+    if ("seoRoute" in item && item.seoRoute) {
       const cleanRoute = stripNavigationFiles(item.seoRoute);
       if (cleanRoute) {
         const normalizedRoute = cleanRoute.replace(/^\/|\/$/g, "");
@@ -270,9 +343,11 @@ function extractRoutesFromStructure(structure: any): string[] {
     }
 
     // Recursively process children
-    if (item?.structureChildren && Array.isArray(item.structureChildren)) {
+    if ("structureChildren" in item && Array.isArray(item.structureChildren)) {
       for (const child of item.structureChildren) {
-        processNavigationItem(child);
+        if (child) {
+          processNavigationItem(child);
+        }
       }
     }
   };
@@ -303,9 +378,32 @@ function extractRoutesFromStructure(structure: any): string[] {
   }
 
   // Return unique routes only
+
   return [...new Set(routes)];
 }
 
+function extractRoutesFromProducts(
+  structure: { route: string; fsId: string }[]
+): { slug: string; fsId: string }[] {
+  const routes: { slug: string; fsId: string }[] = [];
+
+  for (const item of structure) {
+    if (item?.route && typeof item.route === "string") {
+      const cleanRoute = item.route
+        .replace(/^\/|\/$/g, "") // Trim leading/trailing slashes
+        .replace(/\.html$/, ""); // Remove .html extension
+
+      if (cleanRoute && item.fsId) {
+        routes.push({
+          slug: cleanRoute.replace(/^(products|produkte)\//, ""),
+          fsId: item.fsId,
+        });
+      }
+    }
+  }
+
+  return routes;
+}
 // ====================================================================
 // CONTENT PROCESSING & MARKDOWN GENERATION
 // ====================================================================
@@ -332,12 +430,18 @@ async function getPageContent(locale: Locale, route: string): Promise<FirstSpiri
 }
 
 /**
- * Main function to convert FirstSpirit page content to markdown
+ * Main function to convert FirstSpirit page and product content to markdown
  * Orchestrates the entire conversion process
  */
 async function turnPageContentIntoMarkdown(locale: Locale, route: string): Promise<string> {
   const pageContent: FirstSpiritPage = await getPageContent(locale, route);
   return processFirstSpiritPage(pageContent.data, pageContent);
+}
+
+async function turnProductContentIntoMarkdown(locale: Locale, id: string): Promise<string> {
+  // @ts-expect-error
+  const productDetail: FirstSpiritSmartlivingProduct = await getProductDetail(locale, id);
+  return processFirstSpiritInlineSectionUnion(productDetail);
 }
 
 /**
@@ -359,7 +463,6 @@ function processFirstSpiritPage(
   if (pageContent?.pageBodies) {
     pageMarkdown.push(processFirstSpiritPageBodies(pageContent.pageBodies));
   }
-
   return pageMarkdown.join("");
 }
 
@@ -373,6 +476,7 @@ function processFirstSpiritPageBodies(pageBodies: Maybe<FirstSpiritPageBody>[]):
   for (const pageBody of pageBodies) {
     for (const child of pageBody?.children || []) {
       // Handle regular sections
+
       if (child?.__typename === "FirstSpiritSection") {
         pageBodyMarkdown.push(sectionProcessing(child));
       }
@@ -394,10 +498,8 @@ function processFirstSpiritPageBodies(pageBodies: Maybe<FirstSpiritPageBody>[]):
       }
     }
   }
-
   return pageBodyMarkdown.join("");
 }
-
 /**
  * Processes different types of FirstSpirit sections
  * Uses template functions to generate appropriate markdown
@@ -405,47 +507,47 @@ function processFirstSpiritPageBodies(pageBodies: Maybe<FirstSpiritPageBody>[]):
 function processFirstSpiritInlineSectionUnion(
   section: FirstSpiritInlineSectionUnion638Da777
 ): string {
-  // TODO: Section Types abbilden --> es wäre schon praktisch, wenn sich das generieren lassen würde
-
   switch (section.__typename) {
     case "FirstSpiritTeaser":
       return templates.teaser(section);
 
+    case "FirstSpiritStage":
+      return templates.stage(section);
+
+    case "FirstSpiritTextImage":
+      return templates.textImage(section);
+
+    case "FirstSpiritProductCategoryTeaser":
+      return templates.productCategoryTeaser(section);
+
     case "FirstSpiritAccordion":
-      // Process nested accordion items
-      if (section.stAccordion) {
-        for (const accordionItem of section.stAccordion) {
-          if (accordionItem) {
-            return sectionProcessing(accordionItem);
-          }
-        }
-      }
       return templates.accordion(section);
 
-    case "FirstSpiritSmartlivingNews":
-      // Process nested news content
-      if (section.ttContent) {
-        for (const contentItem of section.ttContent) {
-          if (contentItem) {
-            return sectionProcessing(contentItem);
-          }
-        }
-      }
-      return templates.smartLivingNews(section);
-
     case "FirstSpiritSteps":
-      // Process nested step items
-      if (section.stSteps) {
-        for (const stepItem of section.stSteps) {
-          if (stepItem) {
-            return sectionProcessing(stepItem);
-          }
-        }
-      }
       return templates.steps(section);
 
+    case "FirstSpiritFeatures":
+      return templates.features(section);
+
+    case "FirstSpiritGoogleMaps":
+      return templates.googleMaps(section);
+
+    case "FirstSpiritNewsOverview":
+      return templates.newsOverview(section);
+
+    case "FirstSpiritSmartlivingNews":
+      return templates.smartLivingNews(section);
+
+    case "FirstSpiritSmartlivingLocation":
+      return templates.smartLivingLocation(section);
+
+    case "FirstSpiritTable":
+      return templates.table(section);
+
+    case "FirstSpiritSmartlivingProduct":
+      return templates.smartLivingProduct(section);
     default:
-      // Return empty string for unknown section types
+      console.warn("⚠️ Unhandled section type:", section.__typename);
       return "";
   }
 }
