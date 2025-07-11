@@ -1,5 +1,5 @@
 import type { FirstSpiritStructureItem } from "@/gql/generated/graphql";
-import { stripNavigationFiles } from "../../links";
+import { stripNavigationFiles } from "@/utils/links";
 
 /**
  * Recursively extracts routes from navigation structure
