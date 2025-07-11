@@ -2,7 +2,7 @@ import { McpServer } from "@effect/ai";
 import { NodeHttpClient } from "@effect/platform-node";
 import { Effect, Layer } from "effect";
 import { locales } from "@/i18n/config.js";
-import { getProductEndpoints } from "../services/productService";
+import { getProductEndpoints } from "@/utils/mcp/services/productService";
 import { Logger } from "effect";
 
 export const ProductRoutes: Effect.Effect<Layer.Layer<never, never, never>, Error> = Effect.gen(
