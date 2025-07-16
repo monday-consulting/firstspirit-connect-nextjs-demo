@@ -33,7 +33,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.config.mjs",
-    "netlify/functions/resourceBuilder.ts"
+    "netlify/functions/startMcpServer/startMcpServer.mts"
   ],
   "exclude": ["node_modules", "src/gql/generated/**/*.ts", ".next"]
 }
