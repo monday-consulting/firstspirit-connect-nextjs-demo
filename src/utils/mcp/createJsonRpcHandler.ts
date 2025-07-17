@@ -21,7 +21,7 @@ export function createJsonRpcHandler(context: {
   return (parsedBody: parsedBody) => {
     return Effect.gen(function* (_) {
       // Build the layer containing all RPC handlers
-      const handlers = yield* Layer.build(layerHandlers({ name: "my-server", version: "0.1.0" }));
+      const handlers = yield* Layer.build(layerHandlers({ name: "effect-mcp", version: "0.1.0" }));
 
       const methodKey = `@effect/rpc/Rpc/${parsedBody.method}`;
 
