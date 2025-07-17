@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 import { McpServer } from "@effect/ai";
-import { Layer, Logger, Effect, pipe } from "effect";
+import { Layer, Logger, Effect } from "effect";
 import { NodeRuntime, NodeSink, NodeStream } from "@effect/platform-node";
 import { createPageRoutesLayer } from "./utils/mcp/layers/pageLayer";
 import { createProductRoutesLayer } from "./utils/mcp/layers/productLayer";

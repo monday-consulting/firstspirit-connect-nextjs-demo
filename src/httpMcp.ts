@@ -25,8 +25,8 @@ const main = Effect.gen(function* (_) {
   ).pipe(
     Layer.provide(
       McpServer.layerHttp({
-        name: "Demo Server",
-        version: "1.0.0",
+        name: "effect-mcp",
+        version: "0.1.0",
         path: "/mcp",
       })
     ),
