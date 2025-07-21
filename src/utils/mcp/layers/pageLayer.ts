@@ -1,54 +1,57 @@
-import { McpServer } from "@effect/ai";
-import { NodeHttpClient } from "@effect/platform-node";
-import { Effect, Layer } from "effect";
-import { locales } from "@/i18n/config.js";
-import { getPageEndpoints } from "@/utils/mcp/services/pageService";
+import type { Locale } from "@/i18n/config";
+import { type McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { getPageEndpoints } from "../services/pageService";
+import type { ListResourcesResult } from "@modelcontextprotocol/sdk/types.js";
+import { decodeRoute, encodeRoute } from "../firstSpirit/extractRoutes";
+import { createEndpointFetcher } from "../helper/createEndpointFetcher";
 
-export const PageRoutes = Effect.gen(function* (_) {
-  const allPageLayers = yield* Effect.forEach(locales, (locale) =>
-    Effect.gen(function* (_) {
-      const endpoints = yield* getPageEndpoints(locale).pipe(
-        Effect.catchAll((error) =>
-          Effect.sync(() => {
-            console.error(
-              `❌ Could not build page routes for locale "${locale}": ${String(error)}`
-            );
-            throw new Error(`Page route generation failed for locale "${locale}"`);
-          })
-        )
-      );
+export const PageRoutes = (server: McpServer, locale: Locale) => {
+  const getEndpoints = createEndpointFetcher(locale, getPageEndpoints);
 
-      const layers = endpoints
-        .filter((e) => e.content)
-        .map((e) =>
-          McpServer.resource({
-            uri: e.uri,
-            name: e.name,
-            description: e.description,
-            content: Effect.succeed({
-              contents: [
-                {
-                  uri: e.uri,
-                  text: e.content,
-                  mimeType: "text/markdown",
-                },
-              ],
-            }),
-          })
-        );
+  server.resource(
+    `page-template-${locale}`,
+    new ResourceTemplate(`fs://page/${locale}/{route}/`, {
+      list: async (): Promise<ListResourcesResult> => {
+        const endpoints = await getEndpoints();
+        return {
+          resources: endpoints
+            .filter((e) => e.content)
+            .map((e) => ({
+              name: `Page ${locale} ${e.name}`,
+              uri: `fs://page/${locale}/${encodeRoute(e.uri)}/`,
+              description: `Page route for ${locale}/${e.name}`,
+              mimeType: "text/plain",
+            })),
+        };
+      },
+      complete: {
+        route: async (input: string) => {
+          const endpoints = await getEndpoints();
 
-      const merged = layers.reduce((acc, layer) => Layer.merge(acc, layer), Layer.empty);
+          return endpoints
+            .map((e) => encodeRoute(e.uri))
+            .filter((route) => route.toLowerCase().includes(input.toLowerCase()));
+        },
+      },
+    }),
+    async (_uri, { route }) => {
+      const decodedRoute = decodeURIComponent(decodeRoute(typeof route === "string" ? route : ""));
+      const endpoints = await getEndpoints();
+      const match = endpoints.find((e) => e.uri === decodedRoute);
 
-      return merged.pipe(Layer.provide(NodeHttpClient.layerUndici));
-    })
+      if (!match || !match.content) {
+        throw new Error(`Page not found for route: ${decodedRoute}`);
+      }
+
+      return {
+        contents: [
+          {
+            uri: `fs://page/${locale}/${route}/`,
+            text: match.content,
+            mimeType: "text/markdown",
+          },
+        ],
+      };
+    }
   );
-
-  const finalMergedLayer = allPageLayers.reduce(
-    (acc, layer) => Layer.merge(acc, layer),
-    Layer.empty
-  );
-
-  return finalMergedLayer;
-});
-
-export const createPageRoutesLayer = () => PageRoutes;
+};

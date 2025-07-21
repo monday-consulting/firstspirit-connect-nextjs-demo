@@ -1,79 +1,82 @@
-import { McpServer } from "@effect/ai";
-import { Effect, Layer, Logger, pipe } from "effect";
-import { createJsonRpcHandler, type parsedBody } from "@/utils/mcp/createJsonRpcHandler";
-import { NodeHttpClient } from "@effect/platform-node";
-import { createPageRoutesLayer } from "@/utils/mcp/layers/pageLayer";
-import { createProductRoutesLayer } from "@/utils/mcp/layers/productLayer";
-import { ClaudeSonnet35, ClaudeSonnet4 } from "@/utils/mcp/promptBuilder";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { toFetchResponse, toReqRes } from "fetch-to-node";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { JSONRPCError } from "@modelcontextprotocol/sdk/types.js";
+import { PageRoutes } from "@/utils/mcp/layers/pageLayer";
 
-export const handler = (event: { body?: string; headers: Record<string, string | undefined> }) =>
-  pipe(
-    Effect.scoped(
-      Effect.gen(function* (_) {
-        if (!event.body) {
-          return {
-            statusCode: 400,
-            body: JSON.stringify({ error: "Missing request body" }),
-          };
-        }
+import { ProductRoutes } from "@/utils/mcp/layers/productLayer";
+import { locales } from "@/i18n/config";
 
-        const parsedBody: parsedBody = yield* _(Effect.sync(() => JSON.parse(event.body ?? "{}")));
+// Netlify serverless function handler which handles all inbound requests
+export default async (req: Request) => {
+  try {
+    // for stateless MCP, we'll only use the POST requests that are sent
+    // with event information for the init phase and resource/tool requests
+    if (req.method === "POST") {
+      // Convert the Request object into a Node.js Request object
+      const { req: nodeReq, res: nodeRes } = toReqRes(req);
+      const server = getServer();
 
-        // Dynamically create layers for page routes and product routes
-        const pageRoutesLayer = yield* _(createPageRoutesLayer());
-        const productRoutesLayer = yield* _(createProductRoutesLayer());
+      const transport = new StreamableHTTPServerTransport({
+        sessionIdGenerator: undefined,
+      });
 
-        // Merge all layers together
-        const fullMcpLayer = Layer.mergeAll(
-          McpServer.layerHttp({
-            name: "effect-mcp",
-            version: "0.1.0",
-            path: "/mcp",
-          }),
-          pageRoutesLayer,
-          productRoutesLayer,
-          ClaudeSonnet35,
-          ClaudeSonnet4,
-          Logger.add(Logger.prettyLogger({ stderr: true })),
-          NodeHttpClient.layerUndici
-        );
+      await server.connect(transport);
 
-        // Normalize headers to lowercase and ensure no undefined values
-        const headers = Object.fromEntries(
-          Object.entries(event.headers || {}).map(([key, value]) => [
-            key.toLowerCase(),
-            value ?? "",
-          ])
-        );
+      const body = await req.json();
+      await transport.handleRequest(nodeReq, nodeRes, body);
 
-        // Header context for the JSON-RPC handler
-        const context = {
-          headers,
-          traceId: headers["x-trace-id"] ?? "default-trace-id",
-          spanId: headers["x-span-id"] ?? "default-span-id",
-          sampled: headers["x-sampled"] === "1",
-        };
+      nodeRes.on("close", () => {
+        console.log("Request closed");
+        transport.close();
+        server.close();
+      });
 
-        // Create the JSON-RPC handler with the provided context
-        const jsonRpcHandler = createJsonRpcHandler(context);
+      return toFetchResponse(nodeRes);
+    }
 
-        // Parse the JSON-RPC request body and provide the full MCP layer
-        const effect = jsonRpcHandler(parsedBody).pipe(Effect.provide(fullMcpLayer));
+    return new Response("Method not allowed", { status: 405 });
+  } catch (error) {
+    console.error("MCP error:", error);
+    return new Response(
+      JSON.stringify({
+        jsonrpc: "2.0",
+        error: {
+          code: -32603,
+          message: "Internal server error",
+        },
+        id: "",
+      } satisfies JSONRPCError),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+};
 
-        const response = yield* _(effect);
-
-        return {
-          statusCode: 200,
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(response),
-        };
-      })
-    ),
-    Effect.catchAll((error) =>
-      Effect.succeed({
-        statusCode: 500,
-        body: JSON.stringify({ error: String(error) }),
-      })
-    ),
-    Effect.runPromise
+function getServer(): McpServer {
+  // initialize our MCP Server instance that we will
+  // attach all of our functionality and data.
+  const server = new McpServer(
+    {
+      name: "firstspirit-connect-mcp-server",
+      version: "1.0.0",
+    },
+    {
+      capabilities: {
+        resources: {
+          subscribe: false,
+          listChanged: false,
+        },
+      },
+    }
   );
+
+  for (const locale of locales) {
+    PageRoutes(server, locale);
+    ProductRoutes(server, locale);
+  }
+
+  return server;
+}

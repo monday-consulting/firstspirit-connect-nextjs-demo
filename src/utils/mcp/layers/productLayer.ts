@@ -1,55 +1,57 @@
-import { McpServer } from "@effect/ai";
-import { NodeHttpClient } from "@effect/platform-node";
-import { Effect, Layer } from "effect";
-import { locales } from "@/i18n/config.js";
+import type { Locale } from "@/i18n/config.js";
 import { getProductEndpoints } from "../services/productService";
+import { type McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { ListResourcesResult } from "@modelcontextprotocol/sdk/types.js";
+import { decodeRoute, encodeRoute } from "../firstSpirit/extractRoutes";
+import { createEndpointFetcher } from "../helper/createEndpointFetcher";
 
-export const ProductRoutes = Effect.gen(function* (_) {
-  const allProductLayers = yield* Effect.forEach(locales, (locale) =>
-    Effect.gen(function* (_) {
-      const endpoints = yield* getProductEndpoints(locale).pipe(
-        Effect.catchAll((error) =>
-          Effect.sync(() => {
-            console.error(
-              `❌ Could not build product routes for locale "${locale}": ${String(error)}`
-            );
-            throw new Error(`Product route generation failed for locale "${locale}"`);
-          })
-        )
-      );
+export const ProductRoutes = (server: McpServer, locale: Locale) => {
+  const getEndpoints = createEndpointFetcher(locale, getProductEndpoints);
 
-      const layers = endpoints
-        .filter((e) => e.content)
-        .map((e) =>
-          McpServer.resource({
-            uri: e.uri,
-            name: e.name,
-            description: e.description,
-            content: Effect.succeed({
-              contents: [
-                {
-                  uri: e.uri,
-                  text: e.content,
-                  mimeType: "text/markdown",
-                },
-              ],
-            }),
-          })
-        );
+  server.resource(
+    `product-template-${locale}`,
+    new ResourceTemplate(`fs://product/${locale}/{route}/`, {
+      list: async (): Promise<ListResourcesResult> => {
+        const endpoints = await getEndpoints();
+        return {
+          resources: endpoints
+            .filter((e) => e.content)
+            .map((e) => ({
+              name: `Product ${locale} ${e.name}`,
+              uri: `fs://product/${locale}/${encodeRoute(e.uri)}/`,
+              description: e.description,
+              mimeType: "text/plain",
+            })),
+        };
+      },
+      complete: {
+        route: async (input: string) => {
+          const endpoints = await getEndpoints();
 
-      const merged = layers.reduce((acc, layer) => Layer.merge(acc, layer), Layer.empty);
+          return endpoints
+            .map((e) => encodeRoute(e.uri))
+            .filter((route) => route.toLowerCase().includes(input.toLowerCase()));
+        },
+      },
+    }),
+    async (_uri, { route }) => {
+      const decodedRoute = decodeURIComponent(decodeRoute(typeof route === "string" ? route : ""));
+      const endpoints = await getEndpoints();
+      const match = endpoints.find((e) => e.uri === decodedRoute);
 
-      return merged.pipe(Layer.provide(NodeHttpClient.layerUndici));
-    })
+      if (!match || !match.content) {
+        throw new Error(`Product not found: ${decodedRoute}`);
+      }
+
+      return {
+        contents: [
+          {
+            uri: `fs://product/${locale}/${route}/`,
+            text: match.content,
+            mimeType: "text/markdown",
+          },
+        ],
+      };
+    }
   );
-
-  const finalMergedLayer = allProductLayers.reduce(
-    (acc, layer) => Layer.merge(acc, layer),
-    Layer.empty
-  );
-
-  return finalMergedLayer;
-});
-
-// Diese Funktion gibt den Effekt zurück, um die Layer asynchron zu erzeugen
-export const createProductRoutesLayer = () => ProductRoutes;
+};

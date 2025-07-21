@@ -1,6 +1,9 @@
 import type { FirstSpiritStructureItem } from "@/gql/generated/graphql";
 import { stripNavigationFiles } from "../../links";
 
+export const encodeRoute = (route: string) => route.replace(/\//g, "--");
+export const decodeRoute = (route: string) => route.replace(/--/g, "/");
+
 /**
  * Recursively extracts routes from navigation structure
  */
