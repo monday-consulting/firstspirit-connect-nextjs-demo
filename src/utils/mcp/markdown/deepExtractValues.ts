@@ -31,7 +31,7 @@ export const deepExtractValues = (
 
     for (const item of node.content ?? []) {
       if (item.type === "listitem") {
-        const text = extractFormattedText(item.content);
+        const text = extractFormattedText(item.content ?? []);
         if (text.trim()) listItems.push(`- ${text.trim()}`);
       }
     }

@@ -8,7 +8,7 @@ import type { RichTextNode } from "./deepExtractValues";
  *   - **Actuators**: Lights and blinds
  *   - **Sensors**: Temperature
  */
-export const extractFormattedText = (content: RichTextNode): string => {
+export const extractFormattedText = (content: RichTextNode[]): string => {
   if (!Array.isArray(content)) return "";
 
   const raw = content
