@@ -2,10 +2,10 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { toFetchResponse, toReqRes } from "fetch-to-node";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { JSONRPCError } from "@modelcontextprotocol/sdk/types.js";
-import { PageRoutes } from "@/utils/mcp/layers/pageLayer";
 
-import { ProductRoutes } from "@/utils/mcp/layers/productLayer";
 import { locales } from "@/i18n/config";
+import { PageRoutes } from "../../../src/utils/mcp/resources/pageResource";
+import { ProductRoutes } from "../../../src/utils/mcp/resources/productResource";
 
 // Netlify serverless function handler which handles all inbound requests
 export default async (req: Request) => {

@@ -1,10 +1,16 @@
 import type { Locale } from "next-intl";
-import { processFirstSpiritInlineSectionUnion, processFirstSpiritPage } from "./typeHelper";
 
 import { getProductDetail } from "@/gql/documents/products";
 import { Effect } from "effect";
 import { getPageContent } from "../services/pageService";
+import { processFirstSpiritPage } from "../firstSpirit/processPage";
+import { processFirstSpirintInlineInput } from "../firstSpirit/processGenericTemplate";
+import type { FirstSpiritInlineDatasetUnionB50D929C } from "@/gql/generated/graphql";
 
+/*
+ * Get the page content for the given route and locale
+ * Transform the content into markdown
+ */
 export const turnPageContentIntoMarkdown = (
   locale: Locale,
   route: string
@@ -22,6 +28,10 @@ export const turnPageContentIntoMarkdown = (
     return yield* processFirstSpiritPage(pageContent.data, pageContent);
   });
 
+/*
+ * Get the product content for the given route and locale
+ * Transform the content into markdown
+ */
 export const turnProductContentIntoMarkdown = (
   locale: Locale,
   id: string
@@ -31,11 +41,7 @@ export const turnProductContentIntoMarkdown = (
       Effect.mapError((error) => new Error(`Failed to fetch product detail: ${String(error)}`))
     );
 
-    if (!productDetail) {
-      console.warn(`⚠️ No product detail found for "${id}" (${locale})`);
-      return "";
-    }
-
-    // @ts-expect-error:
-    return yield* processFirstSpiritInlineSectionUnion(productDetail);
+    return yield* processFirstSpirintInlineInput(
+      productDetail as FirstSpiritInlineDatasetUnionB50D929C
+    );
   });

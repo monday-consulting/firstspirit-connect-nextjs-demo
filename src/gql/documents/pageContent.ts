@@ -2,8 +2,6 @@ import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
 import { parseLocale } from "@/i18n/parseLocale";
-import type { FirstSpiritPage, PageByRouteQuery } from "../generated/graphql";
-import { Effect } from "effect";
 
 const pageContentDocument = graphql(`
   query pageByRoute($locale: String!, $route: String!) {
@@ -32,6 +30,7 @@ const pageContentDocument = graphql(`
       }
       pageBodies {
         name
+        previewId
         children {
           ... on FirstSpiritSection {
             __typename
@@ -49,6 +48,7 @@ const pageContentDocument = graphql(`
               ...FirstSpiritTableFragment
               ...FirstSpiritNewsOverviewFragment
               ...FirstSpiritSmartlivingProductOverviewFragment
+              ...FirstSpiritFsdatasettestFragment
             }
           }
         }

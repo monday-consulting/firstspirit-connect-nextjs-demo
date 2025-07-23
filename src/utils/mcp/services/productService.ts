@@ -1,9 +1,9 @@
 import { getAllProducts } from "@/gql/documents/products";
 import type { Locale } from "next-intl";
-import { turnProductContentIntoMarkdown } from "../firstSpirit/markdownConverter";
-import { generateDynamicDescription } from "../description";
-import { extractRoutesFromProducts } from "../firstSpirit/extractRoutes";
+import { generateDynamicDescription } from "../markdown/description";
 import { Effect } from "effect";
+import { turnProductContentIntoMarkdown } from "../markdown/contentToMarkdown";
+import { extractRoutesFromProducts } from "../firstSpirit/extractProductRoutes";
 
 export type ProductEndpointProps = {
   name: string;
@@ -41,10 +41,12 @@ export const processProduct = (
       Effect.catchAll(() => Effect.succeed("")) // only fallback if needed
     );
 
+    if (!content.trim()) return [];
+
     const customName = `${locale}: ${slug}`;
     const description = generateDynamicDescription({
       name: customName,
-      content: content.trim(),
+      content,
     });
 
     return [

@@ -1,11 +1,12 @@
 import { getNavigationStructure } from "@/gql/documents/navigation";
 import type { FirstSpiritPage, FirstSpiritStructureItem } from "@/gql/generated/graphql";
 import type { Locale } from "next-intl";
-import { generateDynamicDescription } from "../description";
-import { extractRoutesFromStructure } from "../firstSpirit/extractRoutes";
-import { turnPageContentIntoMarkdown } from "../firstSpirit/markdownConverter";
+import { generateDynamicDescription } from "../markdown/description";
+import { extractRoutesFromStructure } from "../firstSpirit/extractStructureRoutes";
+
 import { Effect } from "effect";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
+import { turnPageContentIntoMarkdown } from "../markdown/contentToMarkdown";
 
 export type PageEndpointProps = {
   name: string;
@@ -15,6 +16,18 @@ export type PageEndpointProps = {
   uri: string;
 };
 
+/**
+ * Retrieves and processes all available page endpoints for a given locale.
+ *
+ * This function:
+ * - Fetches the navigation structure for the specified locale.
+ * - Filters out any null entries from the structure.
+ * - Extracts all routes from the navigation structure.
+ * - Processes each route to fetch and transform its page content into Markdown.
+ * - Returns a flat list of PageEndpointProps (name, title, description, content, uri).
+ *
+ * Used by MCP resource templates to provide a list of available pages.
+ */
 export const getPageEndpoints = (locale: Locale) =>
   Effect.gen(function* () {
     const structure = yield* Effect.tryPromise(() => getNavigationStructure(locale)).pipe(
@@ -39,6 +52,16 @@ export const getPageEndpoints = (locale: Locale) =>
     return flattened;
   });
 
+/**
+ * Processes a single page route and converts it into a PageEndpointProps object.
+ *
+ * This function:
+ * - Tries to fetch and transform page content from FirstSpirit into Markdown.
+ * - Logs a warning if the content cannot be retrieved, but continues with fallback logic.
+ * - Returns a structured object with metadata and content, or an empty array if no content exists.
+ *
+ * The result is used for rendering and autocomplete in the MCP page resource.
+ */
 export const processPage = (
   locale: Locale,
   route: string
@@ -49,15 +72,18 @@ export const processPage = (
       Effect.tapError((error) =>
         Effect.sync(() => console.warn(`⚠️ Could not process ${route}: ${String(error)}`))
       ),
-      Effect.catchAll(() => Effect.succeed("")) // only fallback if needed
+      Effect.catchAll(() => Effect.succeed(""))
     );
 
     const customName = `${locale}: /${route}`;
+
+    if (!content.trim()) return [];
 
     const description = generateDynamicDescription({
       name: customName,
       content,
     });
+
     return [
       {
         name: customName,

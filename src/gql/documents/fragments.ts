@@ -216,6 +216,20 @@ graphql(`
     data
   }
 
+  fragment FirstSpiritFsdatasettestFragment on FirstSpiritFsdatasettest {
+    stProduct{
+      route
+      data{
+        __typename... on FirstSpiritSmartlivingProduct {
+          ttCategories
+          ttName
+          ttPrice
+          ttTeaserText
+        }
+      }
+    }
+  }
+
 
 
 
