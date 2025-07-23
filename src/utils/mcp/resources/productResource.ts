@@ -19,7 +19,7 @@ export const ProductRoutes = (server: McpServer, locale: Locale) => {
 
   server.resource(
     `product-template-${locale}`,
-    new ResourceTemplate(`fs://product/${locale}/{route}/`, {
+    new ResourceTemplate(`fs://${locale}/{route}/`, {
       list: async (): Promise<ListResourcesResult> => {
         const endpoints = await endpointsPromise;
         return {
@@ -27,7 +27,7 @@ export const ProductRoutes = (server: McpServer, locale: Locale) => {
             .filter((e) => e.content)
             .map((e) => ({
               name: `Product ${locale} ${e.name}`,
-              uri: `fs://product/${locale}/${encodeRoute(e.uri)}/`,
+              uri: `fs://${locale}/${encodeRoute(e.uri)}/`,
               description: e.description,
               mimeType: "text/plain",
             })),
@@ -55,7 +55,7 @@ export const ProductRoutes = (server: McpServer, locale: Locale) => {
       return {
         contents: [
           {
-            uri: `fs://product/${locale}/${route}/`,
+            uri: `fs://${locale}/${route}/`,
             text: match.content,
             mimeType: "text/markdown",
           },

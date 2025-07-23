@@ -27,7 +27,7 @@ export const PageRoutes = (server: McpServer, locale: Locale) => {
             .map((e) => ({
               name: `Page ${locale} ${e.name}`,
               uri: `fs://page/${locale}/${encodeRoute(e.uri)}/`,
-              description: `Page route for ${locale}/${e.name}`,
+              description: e.description,
               mimeType: "text/plain",
             })),
         };

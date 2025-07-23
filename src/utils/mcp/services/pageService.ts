@@ -75,22 +75,20 @@ export const processPage = (
       Effect.catchAll(() => Effect.succeed(""))
     );
 
-    const customName = `${locale}: /${route}`;
-
     if (!content.trim()) return [];
 
     const description = generateDynamicDescription({
-      name: customName,
+      name: route,
       content,
     });
 
     return [
       {
-        name: customName,
-        title: `${customName} - Markdown content`,
+        name: route,
+        title: `${route} - Markdown content`,
         description: description,
         content,
-        uri: `${locale}/${route}`,
+        uri: `${route}`,
       },
     ];
   });

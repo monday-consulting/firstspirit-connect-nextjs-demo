@@ -43,19 +43,21 @@ export const processProduct = (
 
     if (!content.trim()) return [];
 
-    const customName = `${locale}: ${slug}`;
     const description = generateDynamicDescription({
-      name: customName,
+      name: slug,
       content,
     });
 
+    const nameMatch = content.match(/\*\*Name:\*\*\s*(.+)/);
+    const productName = nameMatch?.[1].trim() ?? slug;
+
     return [
       {
-        name: customName,
-        title: `${customName} - Markdown content`,
+        name: productName,
+        title: `${slug} - Markdown content`,
         description,
-        content: content.trim(),
-        uri: `dataset/${locale}${slug}`,
+        content,
+        uri: `dataset${slug}`,
       },
     ];
   });
