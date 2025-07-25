@@ -6,6 +6,8 @@ import type { JSONRPCError } from "@modelcontextprotocol/sdk/types.js";
 import { locales } from "@/i18n/config";
 import { PageRoutes } from "../../../src/utils/mcp/resources/pageResource";
 import { ProductRoutes } from "../../../src/utils/mcp/resources/productResource";
+import { getProductsTool } from "@/utils/mcp/tools/getProducts";
+import { getPagesTool } from "@/utils/mcp/tools/getPages";
 
 // Netlify serverless function handler which handles all inbound requests
 export default async (req: Request) => {
@@ -74,8 +76,13 @@ function getServer(): McpServer {
   );
 
   for (const locale of locales) {
+    //Resources
     PageRoutes(server, locale);
     ProductRoutes(server, locale);
+
+    //Tools
+    getProductsTool(server, locale);
+    getPagesTool(server, locale);
   }
 
   return server;
