@@ -8,6 +8,7 @@ import { PageRoutes } from "../../../src/utils/mcp/resources/pageResource";
 import { ProductRoutes } from "../../../src/utils/mcp/resources/productResource";
 import { getProductsTool } from "@/utils/mcp/tools/getProducts";
 import { getPagesTool } from "@/utils/mcp/tools/getPages";
+import { checkMarkdown } from "@/utils/mcp/prompts/checkMarkdown";
 
 // Netlify serverless function handler which handles all inbound requests
 export default async (req: Request) => {
@@ -84,6 +85,8 @@ function getServer(): McpServer {
     getProductsTool(server, locale);
     getPagesTool(server, locale);
   }
+  //Prompts
+  checkMarkdown(server);
 
   return server;
 }

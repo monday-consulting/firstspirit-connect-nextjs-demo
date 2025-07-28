@@ -29,7 +29,7 @@ export const ProductRoutes = (server: McpServer, locale: Locale) => {
               name: `Product ${locale} ${e.name}`,
               uri: `fs://${locale}/${encodeRoute(e.uri)}/`,
               description: e.description,
-              mimeType: "text/plain",
+              mimeType: "text/markdown",
             })),
         };
       },
