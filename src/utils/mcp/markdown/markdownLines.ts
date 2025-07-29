@@ -17,6 +17,27 @@ export const formatMarkdownLines = (lines: string[]): string[] => {
     const value = entry.slice(splitIndex + 2);
 
     const label = formatKey(rawKey).replace(/\b\w/g, (c) => c.toUpperCase()); // Uppercase the first letter of each word
+
+    if (
+      label === "Text" ||
+      label === "Description" ||
+      label === "ImageAltText" ||
+      (rawKey.startsWith("stAccordion") && label === "Content")
+    ) {
+      return renderLine("", value);
+    }
+
+    if (
+      !rawKey.startsWith("stTable") &&
+      (label === "Headline" || label === "Title" || label === "Content")
+    ) {
+      return renderLine("## ", value);
+    }
+
+    if (label === "Url") {
+      return renderLine("[URL]: ", value);
+    }
+
     const formattedLabel = label.startsWith("-") ? `${label}: ` : `**${label}:** `;
 
     return renderLine(formattedLabel, value);

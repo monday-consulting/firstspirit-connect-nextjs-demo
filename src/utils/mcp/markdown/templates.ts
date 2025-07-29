@@ -7,7 +7,8 @@ import { renderLine } from "@/utils/strings";
 export const templates = {
   standardPage: (data: FirstSpiritStandard) =>
     assembleMarkdownParts([
-      renderLine("# ", data.ptHeadline, !data.ptSubheadline),
-      data.ptSubheadline ? renderLine("## ", `${data.ptSubheadline}\n\n`) : "",
+      data.ptHeadline && renderLine("# ", data.ptHeadline, !data.ptSubheadline),
+      data.ptSubheadline && renderLine("## ", data.ptSubheadline),
+      data.ptSubheadline && "---\n\n",
     ]),
 };

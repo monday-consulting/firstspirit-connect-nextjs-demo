@@ -12,8 +12,6 @@ export const genericTemplate = (data: FirstSpiritInlineInput): string => {
   // Extract key-value pairs from FirstSpirit data, filtering out blacklisted keys
   const lines = deepExtractValues(data, blacklist);
 
-  //console.log("lines", JSON.stringify(lines, null, 2));
-
   // Convert the extracted lines into formatted Markdown strings
   const markdownLines = formatMarkdownLines(lines);
 
