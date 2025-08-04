@@ -55,7 +55,7 @@ export const ProductRoutes = (server: McpServer, locale: Locale) => {
       return {
         contents: [
           {
-            uri: `fs://${locale}/${route}/`,
+            uri: `${decodeRoute(typeof route === "string" ? route : "")}/${locale}/`,
             text: match.content,
             mimeType: "text/markdown",
           },

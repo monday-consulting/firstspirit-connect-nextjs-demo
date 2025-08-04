@@ -53,7 +53,7 @@ export const PageRoutes = (server: McpServer, locale: Locale) => {
       return {
         contents: [
           {
-            uri: `fs://page/${locale}/${route}/`,
+            uri: `${route}/${locale}/`,
             text: match.content,
             mimeType: "text/markdown",
           },

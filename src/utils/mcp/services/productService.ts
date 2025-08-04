@@ -57,7 +57,7 @@ export const processProduct = (
         title: `${slug} - Markdown content`,
         description,
         content,
-        uri: `dataset${slug}`,
+        uri: `${slug}`,
       },
     ];
   });

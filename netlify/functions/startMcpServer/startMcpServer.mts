@@ -1,6 +1,6 @@
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { toFetchResponse, toReqRes } from "fetch-to-node";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { JSONRPCError } from "@modelcontextprotocol/sdk/types.js";
 
 import { locales } from "@/i18n/config";
@@ -9,6 +9,13 @@ import { ProductRoutes } from "../../../src/utils/mcp/resources/productResource"
 import { getProductsTool } from "@/utils/mcp/tools/getProducts";
 import { getPagesTool } from "@/utils/mcp/tools/getPages";
 import { checkMarkdown } from "@/utils/mcp/prompts/checkMarkdown";
+import { optimizeDescription } from "@/utils/mcp/prompts/optimizeDescription";
+import { getAllResourcesTool } from "@/utils/mcp/tools/getAllResources";
+import { projectDescription } from "@/utils/mcp/prompts/projectDescription";
+import { compareProducts } from "@/utils/mcp/prompts/compareProducts";
+import { orderProduct } from "@/utils/mcp/prompts/orderProduct";
+import { searchProducts } from "@/utils/mcp/prompts/searchProducts";
+import { z } from "zod";
 
 // Netlify serverless function handler which handles all inbound requests
 export default async (req: Request) => {
@@ -82,11 +89,17 @@ function getServer(): McpServer {
     ProductRoutes(server, locale);
 
     //Tools
+    getAllResourcesTool(server, locale);
     getProductsTool(server, locale);
     getPagesTool(server, locale);
   }
   //Prompts
   checkMarkdown(server);
+  optimizeDescription(server);
+  projectDescription(server);
+  compareProducts(server);
+  searchProducts(server);
+  orderProduct(server);
 
   return server;
 }
