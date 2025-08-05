@@ -6,10 +6,10 @@ export const compareProducts = (server: McpServer) => {
     "compare-products",
     "Compares products based on user input (product names or category).",
     {
-      locale: z.enum(["de-DE", "en-GB"]).optional(),
       category: z.string().optional(),
       firstProduct: z.string().optional(),
       secondProduct: z.string().optional(),
+      locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
     },
     async ({ locale, firstProduct, secondProduct, category }) => {
       const language = locale ?? "de-DE";
@@ -70,7 +70,7 @@ Present the comparison in a table or clear structure. At the end, provide a reco
             role: "assistant",
             content: {
               type: "text",
-              text: language ? messageDe : messageEn,
+              text: language === "en-GB" ? messageEn : messageDe,
             },
           },
         ],

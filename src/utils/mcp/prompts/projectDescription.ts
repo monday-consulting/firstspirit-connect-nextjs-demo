@@ -6,7 +6,7 @@ export const projectDescription = (server: McpServer) => {
     "generate-project-description",
     "Generates a description based on loaded resources.",
     {
-      locale: z.enum(["de-DE", "en-GB"]).optional(),
+      locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
     },
     async ({ locale }) => {
       const language = locale ?? "de-DE";
@@ -33,7 +33,7 @@ Then describe the content of the website based on these resources as if you were
             role: "assistant",
             content: {
               type: "text",
-              text: language ? messageDe : messageEn,
+              text: language === "en-GB" ? messageEn : messageDe,
             },
           },
         ],

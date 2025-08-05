@@ -7,7 +7,7 @@ export const searchProducts = (server: McpServer) => {
     "Searches for products based on user input.",
     {
       product: z.string(),
-      locale: z.enum(["de-DE", "en-GB"]).optional(),
+      locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
     },
 
     async ({ product, locale }) => {
@@ -43,7 +43,7 @@ Return only relevant products and explain your selection if needed. If nothing i
             role: "assistant",
             content: {
               type: "text",
-              text: language ? messageDe : messageEn,
+              text: language === "en-GB" ? messageEn : messageDe,
             },
           },
         ],

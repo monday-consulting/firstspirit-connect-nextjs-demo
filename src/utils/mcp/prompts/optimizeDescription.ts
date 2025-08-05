@@ -9,7 +9,7 @@ export const optimizeDescription = (server: McpServer) => {
       uri: z.string(),
       resourceType: z.enum(["page", "product", "Page", "Product"]).optional(),
       audience: z.string(),
-      language: z.enum(["de-DE", "en-GB"]).optional(), // ermöglicht Dropdown + Validierung
+      language: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
     },
     async ({ uri, resourceType, audience, language }) => {
       const lang = language ?? "de-DE";
@@ -48,7 +48,7 @@ Resource type: ${resourceType ?? "unknown"}
             role: "assistant",
             content: {
               type: "text",
-              text: language ? messageDe : messageEn,
+              text: language === "en-GB" ? messageEn : messageDe,
             },
           },
         ],

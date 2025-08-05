@@ -6,7 +6,7 @@ export const orderProduct = (server: McpServer) => {
     "order-product",
     "Orders the product that best fits the user.",
     {
-      locale: z.enum(["de-DE", "en-GB"]).optional(),
+      locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
     },
     async ({ locale }) => {
       const language = locale ?? "de-DE";
@@ -41,7 +41,7 @@ The output should look like a real order.
             role: "assistant",
             content: {
               type: "text",
-              text: language ? messageDe : messageEn,
+              text: language === "en-GB" ? messageEn : messageDe,
             },
           },
         ],
