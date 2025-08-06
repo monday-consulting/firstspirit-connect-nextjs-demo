@@ -48,7 +48,7 @@ Resource type: ${resourceType ?? "unknown"}
             role: "assistant",
             content: {
               type: "text",
-              text: language === "en-GB" ? messageEn : messageDe,
+              text: lang === "en-GB" ? messageEn : messageDe,
             },
           },
         ],
