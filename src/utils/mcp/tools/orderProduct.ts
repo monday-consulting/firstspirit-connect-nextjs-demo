@@ -13,9 +13,7 @@ export const orderProductTool = (server: McpServer, locale: Locale) => {
       openWorldHint: false,
       readOnlyHint: false,
     },
-    async ({ locale }) => {
-      const language = locale && locale !== "" ? locale : "de-DE";
-
+    async () => {
       const messageDe = `
 Bitte wähle das passende Produkt basierend auf den gegebenen Benutzerdaten aus und erstelle eine Beispielrechnung (Mock Invoice) mit folgenden Feldern:
 
@@ -46,7 +44,7 @@ The output should look like a real order. (With CSS & HTML formatting)
         content: [
           {
             type: "text",
-            text: language === "en-GB" ? messageEn : messageDe,
+            text: locale === "en-GB" ? messageEn : messageDe,
           },
         ],
       };
