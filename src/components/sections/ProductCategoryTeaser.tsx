@@ -1,24 +1,18 @@
-"use client";
-
-import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
+import type { FirstSpiritDataset, Maybe } from "@/gql/generated/graphql";
 import type { LinkData } from "@/types";
-import { fetcher } from "@/utils/fetcher";
-import { getProductDetailLink } from "@/utils/links";
-import { useQuery } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
-import { Suspense } from "react";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
 import type { RichTextElementProps } from "../globals/RichTextElement";
-import { Loading } from "../layouts/Loading";
 import { Teaser } from "./Teaser";
+import { getProductDetailLink } from "@/utils/links";
+import { useLocale } from "next-intl";
 
 export type ProductCategoryTeaserProps = {
   category: {
     type: string;
     id: string;
     name: string;
-    products?: FirstSpiritSmartlivingProduct[];
+    products?: Maybe<FirstSpiritDataset>[];
   };
   link: LinkData;
   headline: string;
@@ -35,40 +29,26 @@ const ProductCategoryTeaser = ({
 }: ProductCategoryTeaserProps) => {
   const locale = useLocale();
 
-  const transformDataToProps = (
-    products: {
-      data: FirstSpiritSmartlivingProduct;
-      entityType: string;
-      fsId: string;
-      route: string;
-    }[]
-  ) => {
-    const filteredProducts = products.filter((item) => {
-      return item.data.ttCategories[0].id === category.id;
+  const products: ProductTeaserProps[] = (category.products ?? [])
+    .filter((item) => item?.data?.__typename === "FirstSpiritSmartlivingProduct")
+    .map((item) => {
+      const product = item as FirstSpiritDataset & {
+        data: { __typename: "FirstSpiritSmartlivingProduct" };
+      };
+
+      return {
+        name: product.data.ttName ?? "",
+        description: { content: product.data.ttDescription },
+        route: getProductDetailLink(product.fsId, locale),
+        image: {
+          src:
+            product.data.ttImage?.__typename === "FirstSpiritImage"
+              ? (product.data.ttImage.resolutions?.original?.url ?? "")
+              : "",
+          alt: product.data.ttImageAltText ?? "",
+        },
+      };
     });
-
-    return filteredProducts.map(
-      (item) =>
-        ({
-          name: item.data.ttName || "",
-          description: { content: item.data.ttDescription },
-          route: getProductDetailLink(item.fsId, locale),
-          image: {
-            src:
-              item.data.ttImage?.__typename === "FirstSpiritImage"
-                ? item.data.ttImage.resolutions?.original?.url
-                : "",
-            alt: item.data.ttImageAltText || "",
-          },
-        }) as ProductTeaserProps
-    );
-  };
-
-  const { data: products, error } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => fetcher({ url: "/api/fetch", body: { locale, type: "product" } }),
-    select: transformDataToProps,
-  });
 
   return (
     <section className="bg-lightGray py-8">
@@ -82,9 +62,7 @@ const ProductCategoryTeaser = ({
             cta={link}
             breakpoint="xl"
             imageReplaceContent={
-              <Suspense fallback={<Loading />}>
-                {products && !error && <CategoryProductsList products={products} />}
-              </Suspense>
+              products.length > 0 ? <CategoryProductsList products={products} /> : null
             }
           />
         </div>

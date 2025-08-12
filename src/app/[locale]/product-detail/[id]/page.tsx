@@ -2,7 +2,9 @@ import { ProductDetail } from "@/components/features/Products/ProductDetail";
 import { getProductDetail } from "@/gql/documents/products";
 import type { Locale } from "next-intl";
 
-const ProductDetailPage = async (props: { params: Promise<{ id: string; locale: Locale }> }) => {
+const ProductDetailPage = async (props: {
+  params: Promise<{ id: string; locale: Locale }>;
+}) => {
   const params = await props.params;
   const product = await getProductDetail(params.locale, params.id);
 
@@ -12,7 +14,7 @@ const ProductDetailPage = async (props: { params: Promise<{ id: string; locale: 
         <ProductDetail
           product={{
             id: params.id,
-            categories: product.ttCategories,
+            categories: product.ttCategories ?? [],
             description: {
               content: product.ttDescription,
             },
