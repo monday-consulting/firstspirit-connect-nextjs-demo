@@ -4,13 +4,13 @@ import type {
   ToolResultBlockParam,
   ToolUseBlock,
 } from "@anthropic-ai/sdk/resources/messages.mjs";
-import { createSystemPrompt } from "./createSystemPrompt";
 import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
 import type { createCore } from "../lib/clientCore";
-import { executeTools } from "./tools";
+import type { ChatWithToolsOptions } from "../lib/types";
+import { createSystemPrompt } from "./createSystemPrompt";
 import { selectPromptsToLoad } from "./prompts";
 import { selectResourcesToLoad } from "./resources";
-import type { ChatWithToolsOptions } from "../lib/types";
+import { executeTools } from "./tools";
 
 export type CreateMessageProps = {
   core: ReturnType<typeof createCore>;

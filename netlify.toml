@@ -1,14 +1,14 @@
 [[plugins]]
-  package = "@netlify/plugin-nextjs"
+package = "@netlify/plugin-nextjs"
 
 [build.environment]
-  NODE_VERSION = "22.15.1"
+NODE_VERSION = "22.18.0"
 
 [functions]
-  node_bundler = "esbuild"
+node_bundler = "esbuild"
 
 [[redirects]]
-  from = "/mcp/*"
-  to = "/.netlify/functions/startMcpServer/:splat"
-  status = 200
-  force = true
+from = "/mcp/*"
+to = "/.netlify/functions/startMcpServer/:splat"
+status = 200
+force = true

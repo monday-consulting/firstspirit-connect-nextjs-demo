@@ -100,48 +100,47 @@ graphql(`
       }
     }
     stCategory {
-                  key
-                  value
-                 items {
-                  fsId
-                  previewId
-                  template
-                  data{
-                    __typename... on FirstSpiritSmartlivingCategory{
-                      ttName
-                      items{
-                        route
-                        fsId
-                        data{
-                          __typename... on FirstSpiritSmartlivingProduct{
-                            ttName
-                            ttPrice
-                            ttDescription
-                            ttImage{
-                              __typename... on FirstSpiritImage{
-                                resolutions{
-                                  original{
-                                    url
-                                  }
-                                }
-                              }
-                            }
-                            ttImageAltText
-                            ttCategories {
-                            data{
-                              __typename... on FirstSpiritSmartlivingCategory{
-                                ttName
-                                }
-                              }
-                            }
-                          }
+      key
+      value
+      items {
+        fsId
+        previewId
+        template
+        data {
+          __typename... on FirstSpiritSmartlivingCategory {
+            ttName
+            items {
+              route
+              fsId
+              data {
+                __typename... on FirstSpiritSmartlivingProduct {
+                  ttName
+                  ttPrice
+                  ttDescription
+                  ttImage {
+                    __typename... on FirstSpiritImage {
+                      resolutions {
+                        original {
+                          url
                         }
                       }
                     }
                   }
+                  ttImageAltText
+                  ttCategories {
+                    data {
+                      __typename... on FirstSpiritSmartlivingCategory {
+                        ttName
+                      }
+                    }
+                  }
                 }
-              
-                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   fragment FirstSpiritStepsFragment on FirstSpiritSteps {
@@ -250,24 +249,6 @@ graphql(`
       }
     }
   }
-
-
-  fragment FirstSpiritFsdatasettestFragment on FirstSpiritFsdatasettest {
-    stProduct{
-      route
-      data{
-        __typename... on FirstSpiritSmartlivingProduct {
-          ttName
-          ttPrice
-          ttTeaserText
-        }
-      }
-    }
-  }
-
-
-
-
 `);
 
 /**
@@ -307,5 +288,4 @@ graphql(`
     stText
     stTable
   }
-
 `);

@@ -1,9 +1,9 @@
 import { getAllProducts } from "@/gql/documents/products";
-import type { Locale } from "next-intl";
-import { generateDynamicDescription } from "../markdown/description";
 import { Effect } from "effect";
-import { turnProductContentIntoMarkdown } from "../markdown/contentToMarkdown";
+import type { Locale } from "next-intl";
 import { extractRoutesFromProducts } from "../firstSpirit/extractProductRoutes";
+import { turnProductContentIntoMarkdown } from "../markdown/contentToMarkdown";
+import { generateDynamicDescription } from "../markdown/description";
 
 export type ProductEndpointProps = {
   name: string;

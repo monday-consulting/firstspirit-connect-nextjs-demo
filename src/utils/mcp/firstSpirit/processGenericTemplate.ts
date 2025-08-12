@@ -1,6 +1,6 @@
 import type {
-  FirstSpiritInlineSectionUnion638Da777,
   FirstSpiritInlineDatasetUnionB50D929C,
+  FirstSpiritInlineSectionUnion638Da777,
 } from "@/gql/generated/graphql";
 import { Effect } from "effect";
 import { genericTemplate } from "../markdown/genericTemplate";

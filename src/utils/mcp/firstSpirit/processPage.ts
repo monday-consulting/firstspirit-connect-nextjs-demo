@@ -11,8 +11,8 @@ import type {
 } from "@/gql/generated/graphql";
 import { Effect } from "effect";
 import type { Maybe } from "graphql/jsutils/Maybe";
-import { processFirstSpirintInlineInput } from "./processGenericTemplate";
 import { templates } from "../markdown/templates";
+import { processFirstSpirintInlineInput } from "./processGenericTemplate";
 
 /**
  * Processes a FirstSpirit page and converts it to markdown

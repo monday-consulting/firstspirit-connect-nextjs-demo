@@ -1,7 +1,7 @@
+import { parseLocale } from "@/i18n/parseLocale";
 import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
-import { parseLocale } from "@/i18n/parseLocale";
 
 const pageContentDocument = graphql(`
   query pageByRoute($locale: String!, $route: String!) {
@@ -47,7 +47,6 @@ const pageContentDocument = graphql(`
               ...FirstSpiritGoogleMapsFragment
               ...FirstSpiritTableFragment
               ...FirstSpiritNewsOverviewFragment
-              ...FirstSpiritFsdatasettestFragment
             }
           }
         }

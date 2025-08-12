@@ -5,13 +5,13 @@ import { Footer } from "@/components/layouts/Footer";
 import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
 import { getFooter } from "@/gql/documents/gcaPage";
 import { getNavigationStructure } from "@/gql/documents/navigation";
+import SimpleChatUI from "@/mcpChat/components/SimpleChatUI";
 import type { LinkData } from "@/types";
 import { stripNavigationFiles } from "@/utils/links";
 import type { Locale } from "next-intl";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { ClientProvider } from "./provider";
-import SimpleChatUI from "@/mcpChat/components/SimpleChatUI";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,8 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { connectHTTP } from "./transport";
-import { getDefaultSystemPrompt } from "./prompts";
-import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
 import type { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
+import { getDefaultSystemPrompt } from "./prompts";
+import { connectHTTP } from "./transport";
 
 export const createCore = (anthropicApiKey: string, customSystemPrompt?: string) => {
   const anthropic = new Anthropic({ apiKey: anthropicApiKey, maxRetries: 2, timeout: 20000 });

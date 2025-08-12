@@ -1,11 +1,11 @@
 import type { Locale } from "next-intl";
 
 import { getProductDetail } from "@/gql/documents/products";
-import { Effect } from "effect";
-import { getPageContent } from "../services/pageService";
-import { processFirstSpiritPage } from "../firstSpirit/processPage";
-import { processFirstSpirintInlineInput } from "../firstSpirit/processGenericTemplate";
 import type { FirstSpiritInlineDatasetUnionB50D929C } from "@/gql/generated/graphql";
+import { Effect } from "effect";
+import { processFirstSpirintInlineInput } from "../firstSpirit/processGenericTemplate";
+import { processFirstSpiritPage } from "../firstSpirit/processPage";
+import { getPageContent } from "../services/pageService";
 
 /*
  * Get the page content for the given route and locale

@@ -1,9 +1,9 @@
-import { formatMarkdownLines } from "./markdownLines";
-import { extractIfContainsTable } from "./tableDetection";
 import { assembleMarkdownParts } from "@/utils/contentParser";
-import { deepExtractValues } from "./deepExtractValues";
 import { blacklist } from "../firstSpirit/blacklist";
 import type { FirstSpiritInlineInput } from "../firstSpirit/processGenericTemplate";
+import { deepExtractValues } from "./deepExtractValues";
+import { formatMarkdownLines } from "./markdownLines";
+import { extractIfContainsTable } from "./tableDetection";
 
 /**
  * Generate a markdown based on the given input

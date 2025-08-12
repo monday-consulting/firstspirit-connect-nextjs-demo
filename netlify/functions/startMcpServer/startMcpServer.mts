@@ -1,20 +1,20 @@
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
-import { toFetchResponse, toReqRes } from "fetch-to-node";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import type { JSONRPCError } from "@modelcontextprotocol/sdk/types.js";
+import { toFetchResponse, toReqRes } from "fetch-to-node";
 
 import { locales } from "@/i18n/config";
+import { checkMarkdown } from "@/utils/mcp/prompts/checkMarkdown";
+import { compareProducts } from "@/utils/mcp/prompts/compareProducts";
+import { optimizeDescription } from "@/utils/mcp/prompts/optimizeDescription";
+import { projectDescription } from "@/utils/mcp/prompts/projectDescription";
+import { searchProducts } from "@/utils/mcp/prompts/searchProducts";
+import { getAllResourcesTool } from "@/utils/mcp/tools/getAllResources";
+import { getPagesTool } from "@/utils/mcp/tools/getPages";
+import { getProductsTool } from "@/utils/mcp/tools/getProducts";
+import { orderProductTool } from "@/utils/mcp/tools/orderProduct";
 import { PageRoutes } from "../../../src/utils/mcp/resources/pageResource";
 import { ProductRoutes } from "../../../src/utils/mcp/resources/productResource";
-import { getProductsTool } from "@/utils/mcp/tools/getProducts";
-import { getPagesTool } from "@/utils/mcp/tools/getPages";
-import { checkMarkdown } from "@/utils/mcp/prompts/checkMarkdown";
-import { optimizeDescription } from "@/utils/mcp/prompts/optimizeDescription";
-import { getAllResourcesTool } from "@/utils/mcp/tools/getAllResources";
-import { projectDescription } from "@/utils/mcp/prompts/projectDescription";
-import { compareProducts } from "@/utils/mcp/prompts/compareProducts";
-import { searchProducts } from "@/utils/mcp/prompts/searchProducts";
-import { orderProductTool } from "@/utils/mcp/tools/orderProduct";
 
 // Netlify serverless function handler which handles all inbound requests
 export default async (req: Request) => {

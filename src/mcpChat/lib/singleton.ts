@@ -1,5 +1,5 @@
-import { createCore } from "./clientCore";
 import { buildChat } from "./chat";
+import { createCore } from "./clientCore";
 
 type Core = ReturnType<typeof createCore>;
 type ChatWithTools = ReturnType<typeof buildChat>;

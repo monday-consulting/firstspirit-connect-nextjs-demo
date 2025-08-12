@@ -1,11 +1,11 @@
 import { getNavigationStructure } from "@/gql/documents/navigation";
 import type { FirstSpiritPage, FirstSpiritStructureItem } from "@/gql/generated/graphql";
 import type { Locale } from "next-intl";
-import { generateDynamicDescription } from "../markdown/description";
 import { extractRoutesFromStructure } from "../firstSpirit/extractStructureRoutes";
+import { generateDynamicDescription } from "../markdown/description";
 
-import { Effect } from "effect";
 import { getPageContentByRoute } from "@/gql/documents/pageContent";
+import { Effect } from "effect";
 import { turnPageContentIntoMarkdown } from "../markdown/contentToMarkdown";
 
 export type PageEndpointProps = {
