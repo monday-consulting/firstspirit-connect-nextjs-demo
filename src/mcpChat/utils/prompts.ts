@@ -1,6 +1,6 @@
 import type { MessageParam } from "@anthropic-ai/sdk/resources/messages.mjs";
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
-import type { ChatWithToolsOptions, PromptUseRecord } from "../lib";
+import type { ChatWithToolsOptions, PromptUseRecord } from "../lib/types";
 
 export type CoreReader = {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>

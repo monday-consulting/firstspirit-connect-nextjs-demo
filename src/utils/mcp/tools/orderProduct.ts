@@ -1,6 +1,5 @@
 import type { Locale } from "@/i18n/config";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
 
 export const orderProductTool = (server: McpServer, locale: Locale) => {
   server.tool(
