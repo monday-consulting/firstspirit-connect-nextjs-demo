@@ -1,11 +1,11 @@
 "use client";
 
 import { ImageComponent } from "@/components/globals/ImageComponent";
+import type { FirstSpiritDataset } from "@/gql/generated/graphql";
 import type { ImageData } from "@/types";
 import { useMemo } from "react";
 import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";
 import { FavoriteButton } from "../../layouts/Navigation/Favorites/FavoriteButton";
-import type { FirstSpiritDataset } from "@/gql/generated/graphql";
 
 export type Product = {
   id: string;
