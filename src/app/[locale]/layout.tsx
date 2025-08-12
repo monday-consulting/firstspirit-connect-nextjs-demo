@@ -11,6 +11,7 @@ import type { Locale } from "next-intl";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { ClientProvider } from "./provider";
+import SimpleChatUI from "@/mcpChat/components/SimpleChatUI";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -76,7 +77,7 @@ const RootLayout = async (
               }
             />
             {children}
-
+            <SimpleChatUI />
             <Footer copyrightText={{ content: footer?.gcCopyright }} legalLinks={footerLinks} />
           </ClientProvider>
         </NextIntlClientProvider>

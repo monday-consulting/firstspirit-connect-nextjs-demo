@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "firstspirit": {
+      "name": "FirstSpirit Content",
+      "url": "https://mcp--smartliving-nextjs.netlify.app/mcp",
+      "description": "Provides product data and content of the webpages",
+      "enabled": true,
+      "timeout": 10000
+    }
+  },
+  "globalSettings": {
+    "autoConnect": true,
+    "maxConcurrentConnections": 5,
+    "defaultTimeout": 10000,
+    "retryAttempts": 3,
+    "retryDelay": 2000,
+    "debug": false
+  }
+}
