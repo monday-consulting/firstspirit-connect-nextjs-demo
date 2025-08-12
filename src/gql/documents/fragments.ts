@@ -100,9 +100,48 @@ graphql(`
       }
     }
     stCategory {
-      value
-      key
-    }
+                  key
+                  value
+                 items {
+                  fsId
+                  previewId
+                  template
+                  data{
+                    __typename... on FirstSpiritSmartlivingCategory{
+                      ttName
+                      items{
+                        route
+                        fsId
+                        data{
+                          __typename... on FirstSpiritSmartlivingProduct{
+                            ttName
+                            ttPrice
+                            ttDescription
+                            ttImage{
+                              __typename... on FirstSpiritImage{
+                                resolutions{
+                                  original{
+                                    url
+                                  }
+                                }
+                              }
+                            }
+                            ttImageAltText
+                            ttCategories {
+                            data{
+                              __typename... on FirstSpiritSmartlivingCategory{
+                                ttName
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              
+                }
   }
 
   fragment FirstSpiritStepsFragment on FirstSpiritSteps {
@@ -212,16 +251,12 @@ graphql(`
     }
   }
 
-  fragment FirstSpiritSmartlivingProductOverviewFragment on FirstSpiritSmartlivingProductOverview {
-    data
-  }
 
   fragment FirstSpiritFsdatasettestFragment on FirstSpiritFsdatasettest {
     stProduct{
       route
       data{
         __typename... on FirstSpiritSmartlivingProduct {
-          ttCategories
           ttName
           ttPrice
           ttTeaserText
