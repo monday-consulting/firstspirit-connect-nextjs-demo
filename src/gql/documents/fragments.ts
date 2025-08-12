@@ -100,8 +100,46 @@ graphql(`
       }
     }
     stCategory {
-      value
       key
+      value
+      items {
+        fsId
+        previewId
+        template
+        data {
+          __typename... on FirstSpiritSmartlivingCategory {
+            ttName
+            items {
+              route
+              fsId
+              data {
+                __typename... on FirstSpiritSmartlivingProduct {
+                  ttName
+                  ttPrice
+                  ttDescription
+                  ttImage {
+                    __typename... on FirstSpiritImage {
+                      resolutions {
+                        original {
+                          url
+                        }
+                      }
+                    }
+                  }
+                  ttImageAltText
+                  ttCategories {
+                    data {
+                      __typename... on FirstSpiritSmartlivingCategory {
+                        ttName
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -196,6 +234,21 @@ graphql(`
     stInitialLat
     stInitialLong
   }
+
+  fragment FirstSpiritNewsOverviewFragment on FirstSpiritNewsOverview {
+    stHeadline
+    stDataPage {
+      __typename
+      ... on FirstSpiritPageRef {
+      type
+      referenceId
+      referenceType
+      page {
+        fsId
+      }
+      }
+    }
+  }
 `);
 
 /**
@@ -235,5 +288,4 @@ graphql(`
     stText
     stTable
   }
-
 `);
