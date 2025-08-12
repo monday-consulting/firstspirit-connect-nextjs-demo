@@ -1,6 +1,6 @@
 import type { MessageParam } from "@anthropic-ai/sdk/resources/messages.mjs";
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
-import type { ChatWithToolsOptions, PromptUseRecord } from "../lib/types";
+import type { ChatWithToolsOptions, PromptUseRecord } from "../core/types";
 
 export type CoreReader = {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -29,6 +29,7 @@ export const selectPromptsToLoad = async ({
   if (shouldAutoApplyPrompts && prompts.length > 0) {
     const last = messages[messages.length - 1];
     const userContent = typeof last?.content === "string" ? last.content.toLowerCase() : "";
+
     for (const p of prompts) {
       const kws = [p.name.toLowerCase(), ...(p.description?.toLowerCase().split(" ") || [])];
       const relevant =

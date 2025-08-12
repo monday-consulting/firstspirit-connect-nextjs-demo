@@ -1,4 +1,4 @@
-import type { FirstSpiritLinkUnion } from "@/gql/generated/graphql";
+import type { FirstSpiritLinkUnion } from "@/lib/gql/generated/graphql";
 import {
   getConnectorLink,
   getNewsDetailLink,

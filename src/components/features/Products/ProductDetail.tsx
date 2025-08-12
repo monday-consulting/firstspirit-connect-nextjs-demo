@@ -1,7 +1,7 @@
 "use client";
 
 import { ImageComponent } from "@/components/globals/ImageComponent";
-import type { FirstSpiritDataset } from "@/gql/generated/graphql";
+import type { FirstSpiritDataset } from "@/lib/gql/generated/graphql";
 import type { ImageData } from "@/types";
 import { useMemo } from "react";
 import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";

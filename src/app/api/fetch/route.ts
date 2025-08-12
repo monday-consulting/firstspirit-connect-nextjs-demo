@@ -1,5 +1,5 @@
-import { getAllProducts } from "@/gql/documents/products";
-import { getSectionById } from "@/gql/documents/section";
+import { getAllProducts } from "@/lib/gql/documents/products";
+import { getSectionById } from "@/lib/gql/documents/section";
 import type { FetcherBody } from "@/utils/fetcher";
 import { type NextRequest, NextResponse } from "next/server";
 

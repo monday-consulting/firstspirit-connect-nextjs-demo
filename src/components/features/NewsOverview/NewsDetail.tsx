@@ -1,5 +1,5 @@
 import { RichTextElement } from "@/components/globals/RichTextElement";
-import type { FirstSpiritSmartLivingNewsFragmentFragment } from "@/gql/generated/graphql";
+import type { FirstSpiritSmartLivingNewsFragmentFragment } from "@/lib/gql/generated/graphql";
 import { formatDate } from "@/utils/strings";
 import Image from "next/image";
 

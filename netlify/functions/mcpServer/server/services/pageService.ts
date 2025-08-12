@@ -1,10 +1,10 @@
-import { getNavigationStructure } from "@/gql/documents/navigation";
-import type { FirstSpiritPage, FirstSpiritStructureItem } from "@/gql/generated/graphql";
+import { getNavigationStructure } from "@/lib/gql/documents/navigation";
+import type { FirstSpiritPage, FirstSpiritStructureItem } from "@/lib/gql/generated/graphql";
 import type { Locale } from "next-intl";
 import { extractRoutesFromStructure } from "../firstSpirit/extractStructureRoutes";
 import { generateDynamicDescription } from "../markdown/description";
 
-import { getPageContentByRoute } from "@/gql/documents/pageContent";
+import { getPageContentByRoute } from "@/lib/gql/documents/pageContent";
 import { Effect } from "effect";
 import { turnPageContentIntoMarkdown } from "../markdown/contentToMarkdown";
 

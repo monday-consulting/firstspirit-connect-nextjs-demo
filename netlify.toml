@@ -9,6 +9,6 @@ node_bundler = "esbuild"
 
 [[redirects]]
 from = "/mcp/*"
-to = "/.netlify/functions/startMcpServer/:splat"
+to = "/.netlify/functions/mcpServer/:splat"
 status = 200
 force = true

@@ -1,4 +1,4 @@
-import { getAllProducts } from "@/gql/documents/products";
+import { getAllProducts } from "@/lib/gql/documents/products";
 import { Effect } from "effect";
 import type { Locale } from "next-intl";
 import { extractRoutesFromProducts } from "../firstSpirit/extractProductRoutes";

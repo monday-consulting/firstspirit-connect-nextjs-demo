@@ -1,5 +1,5 @@
 import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
-import type { PromptUseRecord, ResourceUseRecord } from "../lib/types";
+import type { PromptUseRecord, ResourceUseRecord } from "./types";
 
 export type CreateSystemPromptProps = {
   sysPreset: string;

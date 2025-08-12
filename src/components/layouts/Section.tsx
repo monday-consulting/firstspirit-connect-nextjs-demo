@@ -1,4 +1,4 @@
-import type { FirstSpiritSection } from "@/gql/generated/graphql";
+import type { FirstSpiritSection } from "@/lib/gql/generated/graphql";
 import { getConnectorLink } from "@/utils/links";
 import type { FeatureProps } from "../features/Features/Feature";
 import type { StepsItemProps } from "../features/Steps/StepsItem";

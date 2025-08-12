@@ -8,7 +8,7 @@ import type {
   FirstSpiritPage,
   FirstSpiritPageBody,
   FirstSpiritSection,
-} from "@/gql/generated/graphql";
+} from "@/lib/gql/generated/graphql";
 import { Effect } from "effect";
 import type { Maybe } from "graphql/jsutils/Maybe";
 import { templates } from "../markdown/templates";

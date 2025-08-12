@@ -1,10 +1,12 @@
 import { NewsDetail } from "@/components/features/NewsOverview/NewsDetail";
-import { getDatasetsByType } from "@/gql/documents/dataset";
-import type { FirstSpiritSmartLivingNewsFragmentFragment } from "@/gql/generated/graphql";
+import { getDatasetsByType } from "@/lib/gql/documents/dataset";
+import type { FirstSpiritSmartLivingNewsFragmentFragment } from "@/lib/gql/generated/graphql";
 import { getNewsDetailLink } from "@/utils/links";
 import type { Locale } from "next-intl";
 
-const NewsDetailPage = async (props: { params: Promise<{ locale: Locale; name: string }> }) => {
+const NewsDetailPage = async (props: {
+  params: Promise<{ locale: Locale; name: string }>;
+}) => {
   const params = await props.params;
   const allNews = (await getDatasetsByType(params.locale, "news")).map(
     (entry) => entry.data as FirstSpiritSmartLivingNewsFragmentFragment
@@ -16,8 +18,10 @@ const NewsDetailPage = async (props: { params: Promise<{ locale: Locale; name: s
     }
   });
 
-  // biome-ignore lint/suspicious/noExplicitAny: Lack of types generation
-  const categories = newsEntity?.ttTags.map((tag: any) => tag.data.tt_name) as string[];
+  const categories = newsEntity?.ttTags.map(
+    // biome-ignore lint/suspicious/noExplicitAny: Lack of types generation
+    (tag: any) => tag.data.tt_name
+  ) as string[];
   const author = newsEntity?.ttAuthor[0].data;
 
   return (

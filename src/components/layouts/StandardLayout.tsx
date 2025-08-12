@@ -1,4 +1,4 @@
-import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/gql/generated/graphql";
+import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/lib/gql/generated/graphql";
 import { Stage } from "../sections/Stage";
 import { Body } from "./Body";
 

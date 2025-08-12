@@ -1,4 +1,4 @@
-import type { FirstSpiritPageBody } from "@/gql/generated/graphql";
+import type { FirstSpiritPageBody } from "@/lib/gql/generated/graphql";
 import { Body } from "./Body";
 
 export type HomeProps = {

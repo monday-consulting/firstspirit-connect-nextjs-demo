@@ -1,5 +1,5 @@
-import type { FirstSpiritLinkUnion } from "@/gql/generated/graphql";
 import { defaultLocale } from "@/i18n/config";
+import type { FirstSpiritLinkUnion } from "@/lib/gql/generated/graphql";
 import type { LinkData } from "@/types";
 import type { Locale } from "next-intl";
 import { removeSpecialCharacters, replaceUmlauts } from "./strings";

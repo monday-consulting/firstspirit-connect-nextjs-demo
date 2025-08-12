@@ -1,4 +1,4 @@
-import type { FirstSpiritStandard } from "@/gql/generated/graphql";
+import type { FirstSpiritStandard } from "@/lib/gql/generated/graphql";
 import { assembleMarkdownParts } from "@/utils/contentParser";
 import { renderLine } from "@/utils/strings";
 /**

@@ -1,6 +1,6 @@
 import { ProductOverview } from "@/components/features/Products/ProductOverview";
-import { getAllProducts } from "@/gql/documents/products";
-import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
+import { getAllProducts } from "@/lib/gql/documents/products";
+import type { FirstSpiritSmartlivingProduct } from "@/lib/gql/generated/graphql";
 import { getProductDetailLink } from "@/utils/links";
 import type { Locale } from "next-intl";
 import { redirect } from "next/navigation";

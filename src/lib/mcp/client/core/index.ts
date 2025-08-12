@@ -1,10 +1,9 @@
 import type { MessageParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages.mjs";
+import { createMessage } from "./createMessage";
 import { pickPreset } from "./prompts";
 import type { ChatWithToolsOptions, PromptUseRecord, ResourceUseRecord } from "./types";
 
-import { createMessage } from "../utils/createMessage";
-
-export const buildChat = (core: ReturnType<typeof import("./clientCore").createCore>) => {
+export const createChat = (core: ReturnType<typeof import("./clientCore").createCore>) => {
   const chatWithTools = async (
     messages: MessageParam[],
     options?: ChatWithToolsOptions

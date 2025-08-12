@@ -1,15 +1,17 @@
 import { NewsOverview } from "@/components/features/NewsOverview/NewsOverview";
 import { StandardLayout } from "@/components/layouts/StandardLayout";
-import { getDatasetsByType } from "@/gql/documents/dataset";
-import { getPageContentByRoute } from "@/gql/documents/pageContent";
+import { getDatasetsByType } from "@/lib/gql/documents/dataset";
+import { getPageContentByRoute } from "@/lib/gql/documents/pageContent";
 import type {
   FirstSpiritPageBody,
   FirstSpiritSmartLivingNewsFragmentFragment,
   FirstSpiritStandard,
-} from "@/gql/generated/graphql";
+} from "@/lib/gql/generated/graphql";
 import type { Locale } from "next-intl";
 
-const NewsOverviewPage = async (props: { params: Promise<{ locale: Locale }> }) => {
+const NewsOverviewPage = async (props: {
+  params: Promise<{ locale: Locale }>;
+}) => {
   const params = await props.params;
   const page = await getPageContentByRoute(params.locale, decodeURI("/news/"));
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];
@@ -26,8 +28,10 @@ const NewsOverviewPage = async (props: { params: Promise<{ locale: Locale }> }) 
             headline: entry.ttHeadline || "",
             date: entry.ttDate,
             author: entry.ttAuthor[0].data.tt_name,
-            // biome-ignore lint/suspicious/noExplicitAny: Lack of type generation
-            categories: entry.ttTags.map((tag: any) => tag.data.tt_name),
+            categories: entry.ttTags.map(
+              // biome-ignore lint/suspicious/noExplicitAny: Lack of type generation
+              (tag: any) => tag.data.tt_name
+            ),
             image: {
               src:
                 (entry.ttImage?.__typename === "FirstSpiritImage" &&

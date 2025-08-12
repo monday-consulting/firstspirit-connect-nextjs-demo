@@ -1,5 +1,5 @@
 import type { Resource, TextResourceContents } from "@modelcontextprotocol/sdk/types.js";
-import type { ChatWithToolsOptions, ResourceUseRecord } from "../lib/types";
+import type { ChatWithToolsOptions, ResourceUseRecord } from "../core/types";
 
 export type CoreReader = {
   readResource: (uri: string) => Promise<TextResourceContents[]>;

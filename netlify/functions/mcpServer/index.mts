@@ -4,17 +4,17 @@ import type { JSONRPCError } from "@modelcontextprotocol/sdk/types.js";
 import { toFetchResponse, toReqRes } from "fetch-to-node";
 
 import { locales } from "@/i18n/config";
-import { checkMarkdown } from "@/utils/mcp/prompts/checkMarkdown";
-import { compareProducts } from "@/utils/mcp/prompts/compareProducts";
-import { optimizeDescription } from "@/utils/mcp/prompts/optimizeDescription";
-import { projectDescription } from "@/utils/mcp/prompts/projectDescription";
-import { searchProducts } from "@/utils/mcp/prompts/searchProducts";
-import { getAllResourcesTool } from "@/utils/mcp/tools/getAllResources";
-import { getPagesTool } from "@/utils/mcp/tools/getPages";
-import { getProductsTool } from "@/utils/mcp/tools/getProducts";
-import { orderProductTool } from "@/utils/mcp/tools/orderProduct";
-import { PageRoutes } from "../../../src/utils/mcp/resources/pageResource";
-import { ProductRoutes } from "../../../src/utils/mcp/resources/productResource";
+import { checkMarkdown } from "./server/prompts/checkMarkdown";
+import { compareProducts } from "./server/prompts/compareProducts";
+import { optimizeDescription } from "./server/prompts/optimizeDescription";
+import { projectDescription } from "./server/prompts/projectDescription";
+import { searchProducts } from "./server/prompts/searchProducts";
+import { PageRoutes } from "./server/resources/pageResource";
+import { ProductRoutes } from "./server/resources/productResource";
+import { getAllResourcesTool } from "./server/tools/getAllResources";
+import { getPagesTool } from "./server/tools/getPages";
+import { getProductsTool } from "./server/tools/getProducts";
+import { orderProductTool } from "./server/tools/orderProduct";
 
 // Netlify serverless function handler which handles all inbound requests
 export default async (req: Request) => {

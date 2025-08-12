@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/assets/styles/globals.css";
+import SimpleChatUI from "@/components/features/McpChat/SimpleChatUI";
 import { Footer } from "@/components/layouts/Footer";
 import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
-import { getFooter } from "@/gql/documents/gcaPage";
-import { getNavigationStructure } from "@/gql/documents/navigation";
-import SimpleChatUI from "@/mcpChat/components/SimpleChatUI";
+import { getFooter } from "@/lib/gql/documents/gcaPage";
+import { getNavigationStructure } from "@/lib/gql/documents/navigation";
 import type { LinkData } from "@/types";
 import { stripNavigationFiles } from "@/utils/links";
 import type { Locale } from "next-intl";

@@ -1,4 +1,4 @@
-import { getMCPClientSingleton } from "@/mcpChat/lib/singleton";
+import { getMCPClientSingleton } from "@/lib/mcp/client/core/singleton";
 import { NextResponse } from "next/server";
 
 export async function GET() {

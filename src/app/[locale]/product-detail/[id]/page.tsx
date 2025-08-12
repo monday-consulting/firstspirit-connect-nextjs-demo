@@ -1,5 +1,5 @@
 import { ProductDetail } from "@/components/features/Products/ProductDetail";
-import { getProductDetail } from "@/gql/documents/products";
+import { getProductDetail } from "@/lib/gql/documents/products";
 import type { Locale } from "next-intl";
 
 const ProductDetailPage = async (props: {

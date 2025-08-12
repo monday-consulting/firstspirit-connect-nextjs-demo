@@ -1,4 +1,4 @@
-import type { FirstSpiritDataset, Maybe } from "@/gql/generated/graphql";
+import type { FirstSpiritDataset, Maybe } from "@/lib/gql/generated/graphql";
 import type { LinkData } from "@/types";
 import { getProductDetailLink } from "@/utils/links";
 import { useLocale } from "next-intl";

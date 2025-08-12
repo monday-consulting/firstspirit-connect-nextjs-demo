@@ -1,13 +1,15 @@
 import { Locations } from "@/components/features/GoogleMaps/Locations";
-import { getDatasetsByType } from "@/gql/documents/dataset";
-import { getSectionByType } from "@/gql/documents/section";
+import { getDatasetsByType } from "@/lib/gql/documents/dataset";
+import { getSectionByType } from "@/lib/gql/documents/section";
 import type {
   FirstSpiritGoogleMapsFragmentFragment,
   FirstSpiritSmartLivingLocationFragmentFragment,
-} from "@/gql/generated/graphql";
+} from "@/lib/gql/generated/graphql";
 import type { Locale } from "next-intl";
 
-const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => {
+const LocationsPage = async (props: {
+  params: Promise<{ locale: Locale }>;
+}) => {
   const params = await props.params;
   const googleMaps = await getSectionByType(params.locale, "google_maps");
   const googleMapsData = googleMaps.data as FirstSpiritGoogleMapsFragmentFragment;
@@ -16,7 +18,10 @@ const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => 
     (contact) => contact.data as FirstSpiritSmartLivingLocationFragmentFragment
   );
 
-  const center = { lat: googleMapsData.stInitialLat || 0, lng: googleMapsData.stInitialLong || 0 };
+  const center = {
+    lat: googleMapsData.stInitialLat || 0,
+    lng: googleMapsData.stInitialLong || 0,
+  };
 
   const markers = contacts
     .map((item) => {
@@ -41,7 +46,10 @@ const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => 
           contacts: contacts.map((contact) => ({
             name: contact.ttName || "",
             description: { content: contact.ttDescription || "" },
-            coordinates: { lat: contact.ttLat || 0, lng: contact.ttLong || 0 },
+            coordinates: {
+              lat: contact.ttLat || 0,
+              lng: contact.ttLong || 0,
+            },
           })),
         }}
       />
