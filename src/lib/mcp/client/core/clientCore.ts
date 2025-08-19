@@ -59,7 +59,12 @@ export const createCore = () => {
     Promise.allSettled(
       tools.map(async (tool) => {
         try {
-          await executeTool({ name: tool.name, arguments: {} });
+          if (
+            typeof tool.inputSchema.properties === "object" &&
+            Object.keys(tool.inputSchema.properties).length === 0
+          ) {
+            await executeTool({ name: tool.name, arguments: {} });
+          }
         } catch (error) {
           console.warn("Prewarm failed:", error);
         }
