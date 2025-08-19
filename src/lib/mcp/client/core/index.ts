@@ -4,8 +4,9 @@ import type { PromptUseRecord } from "../utils/selectPromptsToLoad";
 import type { ResourceUseRecord } from "../utils/selectResourcesToLoad";
 import { createMessage } from "./createMessage";
 import { pickPreset } from "./prompts";
+import type { Core } from "./singleton";
 
-export const createChat = (core: ReturnType<typeof import("./clientCore").createCore>) => {
+export const createChat = (core: Core) => {
   const chatWithTools = async (
     messages: MessageParam[],
     options?: ChatWithToolsOptions

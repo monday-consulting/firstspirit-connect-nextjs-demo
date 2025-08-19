@@ -58,7 +58,8 @@ export const createMessage = async ({
       max_tokens: 1500,
       temperature: 0,
     });
-  } catch {
+  } catch (error) {
+    console.error("First request failed:", error);
     return {
       response: "Sorry, I couldn't generate a response.",
       toolsUsed: [],
