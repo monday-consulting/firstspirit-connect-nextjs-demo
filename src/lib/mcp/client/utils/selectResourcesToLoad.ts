@@ -1,14 +1,16 @@
-import type { Resource, TextResourceContents } from "@modelcontextprotocol/sdk/types.js";
-import type { ChatWithToolsOptions, ResourceUseRecord } from "../core/types";
-
-export type CoreReader = {
-  readResource: (uri: string) => Promise<TextResourceContents[]>;
-};
+import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
+import type { Resource, ResourceContents } from "@modelcontextprotocol/sdk/types.js";
+import type { Core } from "../core/singleton";
 
 export type SelectResourcesToLoadProps = {
   resources: Resource[];
-  core: CoreReader;
+  core: Core;
   options?: ChatWithToolsOptions;
+};
+
+export type ResourceUseRecord = {
+  uri: string;
+  contents: ResourceContents[];
 };
 
 export const selectResourcesToLoad = async ({
@@ -20,16 +22,18 @@ export const selectResourcesToLoad = async ({
   const shouldAutoLoadResources = options?.autoLoadAllResources !== false;
   let resourcesToLoad = options?.useResources ?? [];
   if (shouldAutoLoadResources && resources.length > 0) {
-    resourcesToLoad = [...new Set([...resourcesToLoad, ...resources.map((r) => r.uri)])];
+    resourcesToLoad = [
+      ...new Set([...resourcesToLoad, ...resources.map((resource) => resource.uri)]),
+    ];
   }
 
   for (const uri of resourcesToLoad) {
     try {
       const content = await core.readResource(uri);
-      resourcesUsed.push({ uri, content });
-    } catch (e) {
-      if (process.env.NODE_ENV !== "production")
-        console.warn(`[MCP] readResource failed: ${uri}`, e);
+      console.log(`[MCP] Loaded resource: ${uri}`, content);
+      resourcesUsed.push({ uri, contents: content });
+    } catch (error) {
+      console.warn(`[MCP] readResource failed: ${uri}`, error);
     }
   }
 

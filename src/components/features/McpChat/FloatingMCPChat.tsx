@@ -1,0 +1,156 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+
+import { ChatConversation } from "./ChatConversation";
+import { DetailsPanel } from "./DetailsPanel";
+import { FloatingButton } from "./FloatingButton";
+import { Header } from "./Header";
+import { InputMessage } from "./InputMessage";
+import type { PresetKey } from "./PromptPreset";
+
+import { useAutoOpen } from "@/utils/hooks/useAutoOpen";
+import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
+import { useChatEngine } from "@/utils/hooks/useChatEngine";
+import { useEnterToSend } from "@/utils/hooks/useEnterToSend";
+import { useHotkey } from "@/utils/hooks/useHotkey";
+import { useMcpInit } from "@/utils/hooks/useMcpInit";
+import { useScrollToBottom } from "@/utils/hooks/useScrollToBottom";
+import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
+import { type SizeKey, Sizebar, sizeClasses } from "./Sizebar";
+
+export type FloatingMCPChatProps = {
+  enabled?: boolean;
+  autoOpenDelayMs?: number | null;
+  detailsHotkey?: string;
+  defaultPreset?: Exclude<PresetKey, "custom">;
+  defaultCustomPrompt?: string;
+  onOpenChange?: (open: boolean) => void;
+};
+
+const FloatingMCPChat = ({
+  enabled = process.env.NEXT_PUBLIC_MCP_ENABLED === "true",
+  autoOpenDelayMs = 3000,
+  detailsHotkey = "ctrl+shift+i",
+  defaultPreset = "default",
+  defaultCustomPrompt = "",
+  onOpenChange,
+}: FloatingMCPChatProps) => {
+  const [open, setOpen] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+  const [size, setSize] = useState<SizeKey>("sm");
+
+  const pathname = usePathname() ?? "/";
+
+  useEffect(() => {
+    onOpenChange?.(open);
+  }, [open, onOpenChange]);
+
+  useEffect(() => {
+    if (pathname == null) return;
+    setOpen(false);
+    setShowDetails(false);
+    setInput("");
+  }, [pathname]);
+
+  useAutoOpen(enabled, autoOpenDelayMs, open, setOpen);
+  useHotkey(detailsHotkey, () => {
+    setShowDetails((value) => !value);
+    setOpen(true);
+  });
+
+  const { availableTools, availableResources, availablePrompts, connectedServers } =
+    useMcpInit(enabled);
+
+  const { selectedPreset, customSystemPrompt, setCustomSystemPrompt, setSelectedPreset } =
+    useSystemPrompt(defaultPreset, defaultCustomPrompt);
+
+  const { messages, loading, send } = useChatEngine();
+  const [input, setInput] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  useScrollToBottom(messagesEndRef, messages, open);
+
+  const [selectedResources, setSelectedResources] = useState<string[]>([]);
+  useAutoSelectResources(availableResources, pathname, setSelectedResources);
+
+  const handleSend = async (overrideText?: string) => {
+    const text = (overrideText ?? input).trim();
+    if (!text || loading) return;
+
+    setInput("");
+
+    try {
+      await send({
+        userInput: text,
+        useResources: selectedResources.length ? selectedResources : undefined,
+        customSystemPrompt:
+          selectedPreset === "custom"
+            ? customSystemPrompt.trim() || undefined
+            : selectedPreset !== "default"
+              ? selectedPreset
+              : undefined,
+      });
+    } catch {
+      setInput(text);
+    }
+  };
+
+  const onKeyDown = useEnterToSend(handleSend);
+
+  if (!enabled) return null;
+
+  const { width, height } = sizeClasses[size];
+
+  return (
+    <>
+      <FloatingButton open={open} toggleOpen={() => setOpen((value) => !value)} />
+      {open && (
+        <div
+          className={`fixed right-6 bottom-24 z-40 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 ${width}`}
+        >
+          <Header
+            toggleDetails={() => setShowDetails((value) => !value)}
+            toggleOpen={() => setOpen((value) => !value)}
+          />
+          {showDetails && <Sizebar setSize={setSize} size={size} />}
+
+          <div className={`flex flex-col ${height}`}>
+            {showDetails && (
+              <DetailsPanel
+                availablePrompts={availablePrompts}
+                availableResources={availableResources}
+                availableTools={availableTools}
+                connectedServers={connectedServers}
+                selectedPrompts={[]}
+                setSelectedPrompts={() => []}
+                selectedResources={selectedResources}
+                setSelectedResources={setSelectedResources}
+                selectedPreset={selectedPreset}
+                setSelectedPreset={setSelectedPreset}
+                customSystemPrompt={customSystemPrompt}
+                setCustomSystemPrompt={setCustomSystemPrompt}
+              />
+            )}
+
+            <ChatConversation
+              messages={messages}
+              loading={loading}
+              messagesEndRef={messagesEndRef}
+            />
+
+            <InputMessage
+              input={input}
+              loading={loading}
+              sendMessage={handleSend}
+              setInput={setInput}
+              onKeyDown={onKeyDown}
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export { FloatingMCPChat };

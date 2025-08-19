@@ -1,18 +1,17 @@
+import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
 import type { MessageParam } from "@anthropic-ai/sdk/resources/messages.mjs";
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
-import type { ChatWithToolsOptions, PromptUseRecord } from "../core/types";
-
-export type CoreReader = {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  getPrompt: (name: string, args?: any) => Promise<any[]>;
-};
+import type { Core } from "../core/singleton";
 
 export type SelectResourcesToLoadProps = {
   messages: MessageParam[];
   prompts: Prompt[];
-  core: CoreReader;
+  core: Core;
   options?: ChatWithToolsOptions;
 };
+
+// biome-ignore lint/suspicious/noExplicitAny: Should be implemented in the future
+export type PromptUseRecord = { name: string; args: any; content: any };
 
 export const selectPromptsToLoad = async ({
   messages,
@@ -22,7 +21,7 @@ export const selectPromptsToLoad = async ({
 }: SelectResourcesToLoadProps) => {
   const promptsUsed: PromptUseRecord[] = [];
   const shouldAutoApplyPrompts = options?.autoApplyRelevantPrompts !== false;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: Should be implemented in the future
   const promptsToLoad: Array<{ name: string; args?: any }> = options?.usePrompts
     ? [...options.usePrompts]
     : [];
@@ -30,25 +29,28 @@ export const selectPromptsToLoad = async ({
     const last = messages[messages.length - 1];
     const userContent = typeof last?.content === "string" ? last.content.toLowerCase() : "";
 
-    for (const p of prompts) {
-      const kws = [p.name.toLowerCase(), ...(p.description?.toLowerCase().split(" ") || [])];
+    for (const prompt of prompts) {
+      const kws = [
+        prompt.name.toLowerCase(),
+        ...(prompt.description?.toLowerCase().split(" ") || []),
+      ];
       const relevant =
         kws.some((k) => k.length > 3 && userContent.includes(k)) ||
-        p.name.includes("summary") ||
-        p.name.includes("advisory");
-      if (relevant && !promptsToLoad.some((x) => x.name === p.name))
-        promptsToLoad.push({ name: p.name });
+        prompt.name.includes("summary") ||
+        prompt.name.includes("advisory");
+      if (relevant && !promptsToLoad.some((loadedPrompt) => loadedPrompt.name === prompt.name))
+        promptsToLoad.push({ name: prompt.name });
     }
   }
 
-  for (const p of promptsToLoad) {
+  for (const prompt of promptsToLoad) {
     try {
-      const content = await core.getPrompt(p.name, p.args);
-      promptsUsed.push({ name: p.name, args: p.args || {}, content });
-    } catch (e) {
-      if (process.env.NODE_ENV !== "production")
-        console.warn(`[MCP] getPrompt failed: ${p.name}`, e);
+      const content = await core.getPrompt(prompt.name, prompt.args);
+      promptsUsed.push({ name: prompt.name, args: prompt.args || {}, content });
+    } catch (error) {
+      console.warn(`[MCP] getPrompt failed: ${prompt.name}`, error);
     }
   }
+
   return promptsUsed;
 };

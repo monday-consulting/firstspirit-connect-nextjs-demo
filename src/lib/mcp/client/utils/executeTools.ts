@@ -1,18 +1,12 @@
 import type { ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages.mjs";
-
-export type CoreReader = {
-  executeTool: (name: string, args?: ToolUseBlock["input"]) => Promise<ToolResultBlockParam>;
-};
+import type { Core } from "../core/singleton";
 
 export type ExecuteToolsProps = {
-  core: CoreReader;
+  core: Core;
   block: ToolUseBlock;
 };
 
-export const executeTools = async ({
-  core,
-  block,
-}: ExecuteToolsProps): Promise<{ used: ToolUseBlock; result: ToolResultBlockParam }> => {
+export const executeTools = async ({ core, block }: ExecuteToolsProps) => {
   const used: ToolUseBlock = {
     id: block.id,
     name: block.name,
@@ -20,17 +14,29 @@ export const executeTools = async ({
     type: "tool_use",
   };
 
-  const result: ToolResultBlockParam = {
-    tool_use_id: block.id,
-    type: "tool_result",
-    content: "",
-  };
-
   try {
-    const raw = await core.executeTool(block.name, block.input);
-    result.content = JSON.stringify(raw?.content);
+    const args =
+      block.input && typeof block.input === "object" && !Array.isArray(block.input)
+        ? (block.input as Record<string, unknown>)
+        : {};
+
+    const raw = await core.executeTool({ name: block.name, arguments: args });
+
+    const result: ToolResultBlockParam = {
+      tool_use_id: block.id,
+      type: "tool_result",
+      content: JSON.stringify(raw),
+    };
+
+    return { used, result };
   } catch (err) {
-    result.content = err instanceof Error ? err.message : String(err);
+    const result: ToolResultBlockParam = {
+      tool_use_id: block.id,
+      type: "tool_result",
+      is_error: true,
+      content: err instanceof Error ? err.message : String(err),
+    };
+
+    return { used, result };
   }
-  return { used, result };
 };

@@ -1,22 +1,16 @@
-import type {
-  Message,
-  MessageParam,
-  ToolResultBlockParam,
-  ToolUseBlock,
-} from "@anthropic-ai/sdk/resources/messages.mjs";
+import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
+import type { Message, MessageParam } from "@anthropic-ai/sdk/resources/messages.js";
 import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
-import { executeTools } from "../utils/executeTools";
 import { selectPromptsToLoad } from "../utils/selectPromptsToLoad";
 import { selectResourcesToLoad } from "../utils/selectResourcesToLoad";
-import type { createCore } from "./clientCore";
 import { createSystemPrompt } from "./createSystemPrompt";
-import type { ChatWithToolsOptions } from "./types";
+import { CreateToolResponse } from "./createToolResponse";
+import type { Core } from "./singleton";
 
 export type CreateMessageProps = {
-  core: ReturnType<typeof createCore>;
+  core: Core;
   sysPreset: string;
   chatMessages: MessageParam[];
-  messages: MessageParam[];
   tools: Tool[];
   resources: Resource[];
   prompts: Prompt[];
@@ -27,16 +21,14 @@ export const createMessage = async ({
   core,
   sysPreset,
   chatMessages,
-  messages,
   tools,
   resources,
   prompts,
   options,
 }: CreateMessageProps) => {
-  const toolsUsed: ToolUseBlock[] = [];
   const [resourcesUsed, promptsUsed] = await Promise.all([
     selectResourcesToLoad({ options, resources, core }),
-    selectPromptsToLoad({ messages, prompts, core, options }),
+    selectPromptsToLoad({ messages: chatMessages, prompts, core, options }),
   ]);
 
   const system = createSystemPrompt({
@@ -48,76 +40,46 @@ export const createMessage = async ({
     promptsUsed,
   });
 
-  // Prepare chat messages and map MCP tools → Anthropic tool schema
-  const anthropicTools = tools.map((t) => ({
+  // Prepare chat messages and map MCP tools
+  const possibleTools = tools.map((t) => ({
     name: t.name,
     description: t.description,
     input_schema: t.inputSchema,
   }));
 
-  // First model call (may emit text + tool_use blocks)
-  let first: Message;
+  // First request
+  let response: Message;
   try {
-    first = await core.anthropic.messages.create({
-      model: "claude-3-5-sonnet-20241022",
-      max_tokens: 2000,
+    response = await core.anthropic.messages.create({
+      model: "claude-sonnet-4-20250514",
       system,
+      tools: possibleTools.length ? possibleTools : undefined,
       messages: chatMessages,
-      tools: anthropicTools,
+      max_tokens: 1500,
+      temperature: 0,
     });
-  } catch (error) {
-    console.error("[chatWithTools] first model call failed:", error);
+  } catch {
     return {
-      response: "The model could not generate a response right now.",
+      response: "Sorry, I couldn't generate a response.",
       toolsUsed: [],
-      resourcesUsed: [],
-      promptsUsed: [],
+      resourcesUsed,
+      promptsUsed,
     };
   }
 
-  let finalResponse = "";
-  const toolResults: ToolResultBlockParam[] = [];
+  // After the first response, we need to handle tool uses
+  const { finalResponse, usedTools } = await CreateToolResponse({
+    response,
+    system,
+    chatMessages,
+    possibleTools,
+    core,
+  });
 
-  // Walk through the content: accumulate text; execute each tool_use and collect tool results
-  const content = Array.isArray(first.content) ? first.content : [];
-  for (const c of content) {
-    if (c.type === "text") finalResponse += c.text;
-    else if (c.type === "tool_use") {
-      try {
-        const { used, result } = await executeTools({ core, block: c });
-        toolsUsed.push(used);
-        toolResults.push(result);
-      } catch (error) {
-        console.warn("[chatWithTools] tool execution failed:", error);
-        toolResults.push({
-          tool_use_id: c.id,
-          type: "tool_result",
-          content: error instanceof Error ? `Tool failed: ${error.message}` : "Tool failed",
-        });
-      }
-    }
-  }
-
-  // If tools were used, make a follow-up call with the tool_result blocks
-  if (toolResults.length > 0) {
-    const followUp: MessageParam[] = [
-      ...chatMessages,
-      { role: "assistant", content: first.content },
-      { role: "user", content: toolResults },
-    ];
-    try {
-      const second = await core.anthropic.messages.create({
-        model: "claude-3-5-sonnet-20241022",
-        max_tokens: 2000,
-        messages: followUp,
-        tools: anthropicTools,
-      });
-      for (const c of second.content ?? []) if (c.type === "text") finalResponse += c.text ?? "";
-    } catch (error) {
-      console.warn("[chatWithTools] follow-up model call failed:", error);
-      finalResponse ||= "I had trouble processing tool results.";
-    }
-  }
-
-  return { response: finalResponse, toolsUsed, resourcesUsed, promptsUsed };
+  return {
+    response: finalResponse.trim(),
+    toolsUsed: usedTools,
+    resourcesUsed,
+    promptsUsed,
+  };
 };

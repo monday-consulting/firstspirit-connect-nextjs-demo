@@ -1,3 +1,6 @@
+import type { Locale } from "@/i18n/config";
+import type { ToolResultBlockParam } from "@anthropic-ai/sdk/resources/messages.mjs";
+
 export const renderLine = (prefix = "", content?: string | null, appendNewline = false): string => {
   if (!content || content.trim() === "") return "";
 
@@ -81,4 +84,46 @@ export const fuzzySearchObjects = <T>(
       return a.distance - b.distance;
     })
     .map((item) => item.obj);
+};
+
+export const sanitizeSlug = (slug: string) => {
+  return decodeURIComponent(slug)
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+};
+
+export const isLocale = (segment: string): segment is Locale => {
+  return segment === "de-DE" || segment === "en-GB";
+};
+
+export const normalizePath = (pathname: string): { locale: Locale; segments: string[] } => {
+  const parts = pathname.split("/").filter(Boolean);
+  const first = parts[0] ?? "";
+  const firstIsLocale = isLocale(first);
+
+  const locale = firstIsLocale ? first : "en-GB";
+  const segments = firstIsLocale ? parts.slice(1) : parts;
+  return { locale, segments };
+};
+
+// Stable key (flattened and sorted)
+export const stableKey = (name: string, input: unknown): string => {
+  if (!input || typeof input !== "object" || Array.isArray(input)) {
+    return `${name}:${JSON.stringify(input)}`;
+  }
+  const obj = input as Record<string, unknown>;
+  const sorted = Object.keys(obj)
+    .sort()
+    .reduce<Record<string, unknown>>((acc, k) => {
+      acc[k] = obj[k];
+      return acc;
+    }, {});
+  return `${name}:${JSON.stringify(sorted)}`;
+};
+
+// Normalize tool content
+export const normalizeToolContent = (c: ToolResultBlockParam["content"]): string => {
+  if (typeof c === "string") return c;
+  if (c == null) return "";
+  return JSON.stringify(c);
 };

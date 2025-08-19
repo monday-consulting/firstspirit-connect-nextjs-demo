@@ -1,8 +1,8 @@
 import { createChat } from ".";
 import { createCore } from "./clientCore";
 
-type Core = ReturnType<typeof createCore>;
-type ChatWithTools = ReturnType<typeof createChat>;
+export type Core = ReturnType<typeof createCore>;
+export type ChatWithTools = ReturnType<typeof createChat>;
 
 let instance: { core: Core; chatWithTools: ChatWithTools } | null = null;
 

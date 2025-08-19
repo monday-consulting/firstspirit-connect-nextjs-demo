@@ -1,7 +1,9 @@
+import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
 import type { MessageParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages.mjs";
+import type { PromptUseRecord } from "../utils/selectPromptsToLoad";
+import type { ResourceUseRecord } from "../utils/selectResourcesToLoad";
 import { createMessage } from "./createMessage";
 import { pickPreset } from "./prompts";
-import type { ChatWithToolsOptions, PromptUseRecord, ResourceUseRecord } from "./types";
 
 export const createChat = (core: ReturnType<typeof import("./clientCore").createCore>) => {
   const chatWithTools = async (
@@ -42,7 +44,6 @@ export const createChat = (core: ReturnType<typeof import("./clientCore").create
         core,
         sysPreset,
         chatMessages,
-        messages,
         tools,
         resources,
         prompts,

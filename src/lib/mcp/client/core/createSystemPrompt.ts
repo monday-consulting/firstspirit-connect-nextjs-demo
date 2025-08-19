@@ -1,5 +1,6 @@
 import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
-import type { PromptUseRecord, ResourceUseRecord } from "./types";
+import type { PromptUseRecord } from "../utils/selectPromptsToLoad";
+import type { ResourceUseRecord } from "../utils/selectResourcesToLoad";
 
 export type CreateSystemPromptProps = {
   sysPreset: string;
@@ -47,7 +48,7 @@ const renderPrompts = (prompts: Prompt[]) =>
 const renderLoadedResources = (used: ResourceUseRecord[]) =>
   section(
     "LOADED RESOURCES:",
-    used.map((r) => `RESOURCE "${r.uri}":\n${safePretty(r.content)}`)
+    used.map((r) => `RESOURCE "${r.uri}":\n${safePretty(r.contents)}`)
   );
 
 const renderLoadedPrompts = (used: PromptUseRecord[]) =>

@@ -1,12 +1,11 @@
 import { getAllProducts } from "@/lib/gql/documents/products";
 import { getSectionById } from "@/lib/gql/documents/section";
-import type { FetcherBody } from "@/utils/fetcher";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-static";
 
 export async function POST(req: NextRequest) {
-  const body = (await req.json()) as FetcherBody;
+  const body = await req.json();
   console.log("API-HANDLER: /api/fetch", body);
 
   let data = undefined;
