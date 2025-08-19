@@ -1,10 +1,17 @@
 import type { Locale } from "@/i18n/config";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
 
 export const orderProductTool = (server: McpServer, locale: Locale) => {
   server.tool(
     `order-product-${locale}`,
     "Generate a mock order/invoice for the best fitting product.",
+    {
+      product: z.string(),
+      street: z.string(),
+      city: z.string(),
+      postalCode: z.string(),
+    },
     {
       title: "Order a product",
       destructiveHint: false,

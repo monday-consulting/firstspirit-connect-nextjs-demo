@@ -1,6 +1,6 @@
 import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
 import type { Resource, ResourceContents } from "@modelcontextprotocol/sdk/types.js";
-import type { Core } from "../core/singleton";
+import type { Core } from "../core/clientCore";
 
 export type SelectResourcesToLoadProps = {
   resources: Resource[];

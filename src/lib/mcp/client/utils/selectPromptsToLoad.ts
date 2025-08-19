@@ -1,10 +1,10 @@
 import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
-import type { MessageParam } from "@anthropic-ai/sdk/resources/messages.mjs";
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
-import type { Core } from "../core/singleton";
+import type { ModelMessage } from "ai";
+import type { Core } from "../core/clientCore";
 
 export type SelectResourcesToLoadProps = {
-  messages: MessageParam[];
+  messages: ModelMessage[];
   prompts: Prompt[];
   core: Core;
   options?: ChatWithToolsOptions;

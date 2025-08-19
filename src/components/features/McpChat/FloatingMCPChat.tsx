@@ -40,6 +40,9 @@ const FloatingMCPChat = ({
   const [open, setOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [size, setSize] = useState<SizeKey>("sm");
+  const [input, setInput] = useState("");
+  const [selectedPrompts, setSelectedPrompts] = useState<{ name: string }[]>([]);
+  const [selectedResources, setSelectedResources] = useState<string[]>([]);
 
   const pathname = usePathname() ?? "/";
 
@@ -67,11 +70,9 @@ const FloatingMCPChat = ({
     useSystemPrompt(defaultPreset, defaultCustomPrompt);
 
   const { messages, loading, send } = useChatEngine();
-  const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   useScrollToBottom(messagesEndRef, messages, open);
 
-  const [selectedResources, setSelectedResources] = useState<string[]>([]);
   useAutoSelectResources(availableResources, pathname, setSelectedResources);
 
   const handleSend = async (overrideText?: string) => {
@@ -122,8 +123,8 @@ const FloatingMCPChat = ({
                 availableResources={availableResources}
                 availableTools={availableTools}
                 connectedServers={connectedServers}
-                selectedPrompts={[]}
-                setSelectedPrompts={() => []}
+                selectedPrompts={selectedPrompts}
+                setSelectedPrompts={setSelectedPrompts}
                 selectedResources={selectedResources}
                 setSelectedResources={setSelectedResources}
                 selectedPreset={selectedPreset}

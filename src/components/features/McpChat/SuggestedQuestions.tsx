@@ -4,11 +4,11 @@ import { normalizePath } from "@/utils/strings";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
-export function SuggestedQuestions({
+export const SuggestedQuestions = ({
   onSend,
 }: {
   onSend: (question: string) => void;
-}) {
+}) => {
   const pathname = usePathname() ?? "/";
   const { locale, segments } = useMemo(() => normalizePath(pathname), [pathname]);
 
@@ -29,4 +29,4 @@ export function SuggestedQuestions({
       ))}
     </div>
   );
-}
+};

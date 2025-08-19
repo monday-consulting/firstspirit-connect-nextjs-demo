@@ -1,10 +1,11 @@
-import { type Core, getMCPClientSingleton } from "@/lib/mcp/client/core/singleton";
+import { type Core, createCore } from "@/lib/mcp/client/core/clientCore";
+import { createMessage } from "@/lib/mcp/client/core/createMessage";
+import { pickPreset } from "@/lib/mcp/client/core/prompts";
 import { NextResponse } from "next/server";
 
-export const ensureConnected = async (core: Core) => {
+const ensureConnected = async (core: Core) => {
   if (!core.isConnected()) {
     const url = process.env.MCP_SERVER_URL?.trim();
-    console.log("Connecting to MCP server...");
     if (!url) throw new Error("MCP_SERVER_URL not set");
     await core.connectToMCPServer(url);
   }
@@ -12,27 +13,18 @@ export const ensureConnected = async (core: Core) => {
 
 export async function GET() {
   try {
-    const { core } = getMCPClientSingleton();
-
+    const core = createCore();
     await ensureConnected(core);
 
     return NextResponse.json({
       tools: core.getAvailableTools(),
       resources: core.getAvailableResources(),
-      prompts: core.getAvailablePrompts?.() ?? [],
+      prompts: core.getAvailablePrompts(),
       connected: core.isConnected(),
     });
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+  } catch (e) {
     return NextResponse.json(
-      {
-        tools: [],
-        resources: [],
-        prompts: [],
-        connected: false,
-        cached: false,
-        error: errorMessage,
-      },
+      { tools: [], resources: [], prompts: [], connected: false, error: String(e) },
       { status: 500 }
     );
   }
@@ -41,28 +33,29 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const {
-      messages,
-      useResources,
-      usePrompts,
-      customSystemPrompt,
-      autoLoadAllResources = false,
-      autoApplyRelevantPrompts = true,
-    } = body || {};
-    const { core, chatWithTools } = getMCPClientSingleton();
 
+    const { messages, customSystemPrompt, useResources, autoLoadAllResources } = body || {};
+
+    const core = createCore();
     await ensureConnected(core);
 
-    const result = await chatWithTools(messages, {
-      useResources,
-      usePrompts,
-      customSystemPrompt,
-      autoLoadAllResources,
-      autoApplyRelevantPrompts,
+    const sysPreset = customSystemPrompt ? pickPreset(customSystemPrompt) : core.getSystemPrompt();
+
+    const result = await createMessage({
+      core,
+      sysPreset,
+      chatMessages: messages,
+      tools: core.getAvailableTools(),
+      resources: core.getAvailableResources(),
+      prompts: core.getAvailablePrompts(),
+      options: { useResources, autoLoadAllResources },
     });
 
     return NextResponse.json({
-      ...result,
+      response: result.response,
+      toolsUsed: result.toolsUsed,
+      resourcesUsed: result.resourcesUsed,
+      promptsUsed: result.promptsUsed,
       availableTools: core.getAvailableTools(),
       availableResources: core.getAvailableResources(),
       availablePrompts: core.getAvailablePrompts(),

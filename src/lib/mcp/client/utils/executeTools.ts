@@ -1,5 +1,5 @@
 import type { ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages.mjs";
-import type { Core } from "../core/singleton";
+import type { Core } from "../core/clientCore";
 
 export type ExecuteToolsProps = {
   core: Core;

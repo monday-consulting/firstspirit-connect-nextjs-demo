@@ -1,16 +1,17 @@
 import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
-import type { Message, MessageParam } from "@anthropic-ai/sdk/resources/messages.js";
+import { createAnthropic } from "@ai-sdk/anthropic";
 import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
+import { type ModelMessage, generateText, stepCountIs } from "ai";
 import { selectPromptsToLoad } from "../utils/selectPromptsToLoad";
 import { selectResourcesToLoad } from "../utils/selectResourcesToLoad";
+import type { Core } from "./clientCore";
 import { createSystemPrompt } from "./createSystemPrompt";
-import { CreateToolResponse } from "./createToolResponse";
-import type { Core } from "./singleton";
+import { processTools } from "./tools";
 
 export type CreateMessageProps = {
   core: Core;
   sysPreset: string;
-  chatMessages: MessageParam[];
+  chatMessages: ModelMessage[];
   tools: Tool[];
   resources: Resource[];
   prompts: Prompt[];
@@ -40,46 +41,45 @@ export const createMessage = async ({
     promptsUsed,
   });
 
-  // Prepare chat messages and map MCP tools
-  const possibleTools = tools.map((t) => ({
-    name: t.name,
-    description: t.description,
-    input_schema: t.inputSchema,
-  }));
+  const claude = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-  // First request
-  let response: Message;
-  try {
-    response = await core.anthropic.messages.create({
-      model: "claude-sonnet-4-20250514",
-      system,
-      tools: possibleTools.length ? possibleTools : undefined,
-      messages: chatMessages,
-      max_tokens: 1500,
-      temperature: 0,
-    });
-  } catch (error) {
-    console.error("First request failed:", error);
-    return {
-      response: "Sorry, I couldn't generate a response.",
-      toolsUsed: [],
-      resourcesUsed,
-      promptsUsed,
-    };
-  }
+  const mcpTools = processTools(tools, (name, args) => core.callMcp(name, args));
 
-  // After the first response, we need to handle tool uses
-  const { finalResponse, usedTools } = await CreateToolResponse({
-    response,
+  const result = await generateText({
+    model: claude("claude-sonnet-4-20250514"),
+    tools: mcpTools,
+    messages: chatMessages,
     system,
-    chatMessages,
-    possibleTools,
-    core,
+    stopWhen: stepCountIs(5),
   });
 
+  const steps = await result.steps;
+
+  const toolsUsed = steps.flatMap((s) => {
+    const blocks = s.content || [];
+    return blocks
+      .filter((block) => block.type === "tool-result")
+      .map((result) => {
+        const call = blocks.find(
+          (c) => c.type === "tool-call" && c.toolCallId === result.toolCallId
+        );
+
+        return {
+          step: s.finishReason ?? "step",
+          toolCallId: result.toolCallId,
+          name: result.toolName,
+          arguments: call?.type === "tool-call" ? call?.input : {},
+          output: result.output?.value ?? result.output?.content ?? result.output ?? null,
+          isError: result.output?.isError,
+        };
+      });
+  });
+
+  console.log("Used tool(s):", JSON.stringify(toolsUsed, null, 2));
+
   return {
-    response: finalResponse.trim(),
-    toolsUsed: usedTools,
+    response: result.text,
+    toolsUsed,
     resourcesUsed,
     promptsUsed,
   };

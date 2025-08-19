@@ -2,7 +2,7 @@ import parse from "html-react-parser";
 import Markdown from "react-markdown";
 
 export const StyledMessage = ({ content }: { content: string }) => {
-  if (/<!DOCTYPE|<html|<body|<head/i.test(content)) {
+  if (/<!DOCTYPE|<html|<body|<div|<head/i.test(content)) {
     const cleaned = content
       .replace(/<!DOCTYPE[^>]*>/gi, "")
       .replace(/<(html|body|head)(\s[^>]*)?>/gi, "<div>")

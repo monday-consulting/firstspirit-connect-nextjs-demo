@@ -29,12 +29,14 @@
     "netlify": "netlify dev"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.5",
     "@anthropic-ai/sdk": "^0.24.3",
     "@headlessui/react": "2.2.2",
     "@modelcontextprotocol/sdk": "^1.13.3",
     "@netlify/functions": "^3.1.10",
     "@react-google-maps/api": "2.20.6",
     "@vis.gl/react-google-maps": "1.5.2",
+    "ai": "^5.0.16",
     "fetch-to-node": "^2.1.0",
     "graphql": "16.11.0",
     "graphql-request": "7.1.2",
