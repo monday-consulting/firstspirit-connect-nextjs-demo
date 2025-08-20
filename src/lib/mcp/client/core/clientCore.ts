@@ -45,6 +45,7 @@ export const createCore = () => {
     mcp = handles;
 
     const [{ tools: t }, { resources: r }, { prompts: p }] = await Promise.all([
+      // Discovery/Bind
       mcp.client.listTools(),
       mcp.client.listResources(),
       mcp.client.listPrompts(),

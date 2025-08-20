@@ -1,21 +1,18 @@
-import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
+import type { Prompt, Tool } from "@modelcontextprotocol/sdk/types.js";
 import type { PromptUseRecord } from "../utils/selectPromptsToLoad";
-import type { ResourceUseRecord } from "../utils/selectResourcesToLoad";
 
 export type CreateSystemPromptProps = {
   sysPreset: string;
   tools: Tool[];
-  resources: Resource[];
   prompts: Prompt[];
-  resourcesUsed: ResourceUseRecord[];
   promptsUsed: PromptUseRecord[];
 };
 
-const safePretty = (v: unknown) => {
+export const toJSONSafe = (value: unknown) => {
   try {
-    return JSON.stringify(v, null, 2);
+    return JSON.stringify(value, null, 2);
   } catch {
-    return String(v);
+    return String(value);
   }
 };
 
@@ -26,12 +23,6 @@ const renderTools = (tools: Tool[]) =>
   section(
     `TOOLS (${tools.length}):`,
     tools.map((t) => `- ${t.name}: ${t.description ?? ""}`)
-  );
-
-const renderResources = (resources: Resource[]) =>
-  section(
-    `RESOURCES (${resources.length}):`,
-    resources.map((r) => `- ${r.name} (${r.uri}): ${r.description || "No description"}`)
   );
 
 const renderPrompts = (prompts: Prompt[]) =>
@@ -45,26 +36,18 @@ const renderPrompts = (prompts: Prompt[]) =>
     })
   );
 
-const renderLoadedResources = (used: ResourceUseRecord[]) =>
-  section(
-    "LOADED RESOURCES:",
-    used.map((r) => `RESOURCE "${r.uri}":\n${safePretty(r.contents)}`)
-  );
-
 const renderLoadedPrompts = (used: PromptUseRecord[]) =>
   section(
     "LOADED PROMPT TEMPLATES:",
     used.map(
-      (p) => `PROMPT TEMPLATE "${p.name}" (args: ${safePretty(p.args)}):\n${safePretty(p.content)}`
+      (p) => `PROMPT TEMPLATE "${p.name}" (args: ${toJSONSafe(p.args)}):\n${toJSONSafe(p.content)}`
     )
   );
 
 export const createSystemPrompt = ({
   sysPreset,
   tools,
-  resources,
   prompts,
-  resourcesUsed,
   promptsUsed,
 }: CreateSystemPromptProps): string => {
   const header = `${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`;
@@ -73,9 +56,7 @@ export const createSystemPrompt = ({
   const parts = [
     header,
     tools.length ? renderTools(tools) : "",
-    resources.length ? renderResources(resources) : "",
     prompts.length ? renderPrompts(prompts) : "",
-    resourcesUsed.length ? renderLoadedResources(resourcesUsed) : "",
     promptsUsed.length ? renderLoadedPrompts(promptsUsed) : "",
   ].filter(Boolean);
 

@@ -5,7 +5,7 @@ import { type ModelMessage, generateText, stepCountIs } from "ai";
 import { selectPromptsToLoad } from "../utils/selectPromptsToLoad";
 import { selectResourcesToLoad } from "../utils/selectResourcesToLoad";
 import type { Core } from "./clientCore";
-import { createSystemPrompt } from "./createSystemPrompt";
+import { createSystemPrompt, toJSONSafe } from "./createSystemPrompt";
 import { processTools } from "./tools";
 
 export type CreateMessageProps = {
@@ -35,11 +35,16 @@ export const createMessage = async ({
   const system = createSystemPrompt({
     sysPreset,
     tools,
-    resources,
     prompts,
-    resourcesUsed,
     promptsUsed,
   });
+
+  const resourceMessages: ModelMessage[] = resourcesUsed.map((res) => ({
+    role: "system",
+    content: `RESOURCE (${res.uri}):\n${toJSONSafe(res.content)}`,
+  }));
+
+  const finalMessages = [...chatMessages, ...resourceMessages];
 
   const claude = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -48,12 +53,11 @@ export const createMessage = async ({
   const result = await generateText({
     model: claude("claude-sonnet-4-20250514"),
     tools: mcpTools,
-    messages: chatMessages,
+    messages: finalMessages,
     system,
     stopWhen: stepCountIs(5),
   });
-
-  const steps = await result.steps;
+  const steps = (await result.steps) ?? [];
 
   const toolsUsed = steps.flatMap((s) => {
     const blocks = s.content || [];
@@ -74,8 +78,6 @@ export const createMessage = async ({
         };
       });
   });
-
-  console.log("Used tool(s):", JSON.stringify(toolsUsed, null, 2));
 
   return {
     response: result.text,

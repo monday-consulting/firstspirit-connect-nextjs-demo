@@ -10,7 +10,7 @@ export type SelectResourcesToLoadProps = {
 
 export type ResourceUseRecord = {
   uri: string;
-  contents: ResourceContents[];
+  content: ResourceContents[];
 };
 
 export const selectResourcesToLoad = async ({
@@ -31,7 +31,7 @@ export const selectResourcesToLoad = async ({
     try {
       const content = await core.readResource(uri);
       console.log(`[MCP] Loaded resource: ${uri}`, content);
-      resourcesUsed.push({ uri, contents: content });
+      resourcesUsed.push({ uri, content });
     } catch (error) {
       console.warn(`[MCP] readResource failed: ${uri}`, error);
     }
