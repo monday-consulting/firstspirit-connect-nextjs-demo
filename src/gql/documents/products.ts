@@ -1,7 +1,7 @@
+import { parseLocale } from "@/i18n/parseLocale";
 import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
-import { parseLocale } from "@/i18n/parseLocale";
 
 const productsDocument = graphql(`
   query products($locale: String!) {
@@ -18,7 +18,23 @@ const productsDocument = graphql(`
             ttName
             ttPrice
             ttTeaserText
-            ttCategories
+            ttImage{
+              __typename... on FirstSpiritImage{
+                resolutions{
+                  original{
+                    url
+                  }
+                }
+              }
+            }
+            ttImageAltText
+            ttCategories {
+            data{
+              __typename... on FirstSpiritSmartlivingCategory{
+                ttName
+                }
+              }
+            }
             ttDescription
             ttImageAltText
             ttImage {
@@ -47,7 +63,23 @@ const productDetailDocument = graphql(`
           ttName
           ttPrice
           ttTeaserText
-          ttCategories
+          ttImage{
+            __typename... on FirstSpiritImage{
+              resolutions{
+                original{
+                  url
+                }
+              }
+            }
+          }
+          ttImageAltText
+          ttCategories {
+            data{
+              __typename... on FirstSpiritSmartlivingCategory{
+                ttName
+                }
+              }
+            }
           ttDescription
           ttImageAltText
           ttImage {

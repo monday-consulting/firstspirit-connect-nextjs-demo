@@ -19,7 +19,7 @@ export const Default: Story = {
   args: {
     product: {
       id: "123",
-      categories: [{ data: { tt_name: "Test Category" } }],
+      categories: [{ data: { ttName: "Test Category" } }],
       description: {
         content: [
           {

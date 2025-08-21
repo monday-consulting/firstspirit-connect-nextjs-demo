@@ -43,6 +43,7 @@ const Section = ({ section }: SectionProps) => {
               type: section.data.stCategory?.key || "",
               name: section.data.stCategory?.value || "",
               id: section.data.stCategory?.key || "",
+              products: section.data.stCategory?.items?.[0]?.data.items || [],
             }}
             link={getConnectorLink(section.data.stCategoryLink?.data)}
             headline={section.data.stHeadline || ""}

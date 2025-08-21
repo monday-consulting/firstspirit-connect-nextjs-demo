@@ -1,5 +1,6 @@
 import { ProductOverview } from "@/components/features/Products/ProductOverview";
 import { getAllProducts } from "@/gql/documents/products";
+import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
 import { getProductDetailLink } from "@/utils/links";
 import type { Locale } from "next-intl";
 import { redirect } from "next/navigation";
@@ -12,8 +13,14 @@ const SlugPage = async (props: {
 
   const filteredProducts = allProducts.filter((item) => {
     if (item.data.__typename === "FirstSpiritSmartlivingProduct") {
-      const ttName = item.data.ttCategories[0].data.tt_name;
-      return ttName?.toLowerCase().replaceAll(" ", "-") === decodeURI(params.product_group);
+      return item.data.ttCategories?.some(
+        (category) =>
+          category?.data?.__typename === "FirstSpiritSmartlivingCategory" &&
+          category.data.ttName
+            ?.toLowerCase()
+            .replaceAll(" ", "-")
+            .includes(decodeURI(params.product_group))
+      );
     }
   });
 
@@ -33,6 +40,19 @@ const SlugPage = async (props: {
     })
     .filter((item) => item != null);
 
+  const categoryNames = (item: FirstSpiritSmartlivingProduct) =>
+    item.ttCategories
+      ?.filter(
+        (category) =>
+          category?.data?.__typename === "FirstSpiritSmartlivingCategory" &&
+          typeof category.data.ttName === "string"
+      )
+      .map(
+        (category) =>
+          category?.data.__typename === "FirstSpiritSmartlivingCategory" && category.data.ttName
+      )
+      .join(", ") || "";
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-4 sm:px-12 md:px-24">
       <ProductOverview
@@ -44,7 +64,7 @@ const SlugPage = async (props: {
               "",
             alt: item.data.ttImageAltText || "",
           },
-          category: item.data.ttCategories[0].data.tt_name,
+          category: categoryNames(item.data as FirstSpiritSmartlivingProduct),
           name: item.data.ttName || "",
           price: item.data.ttPrice || "",
           id: item.id,

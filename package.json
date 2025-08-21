@@ -5,10 +5,10 @@
   "engines": {
     "node": ">= 22.9.0"
   },
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@10.14.0",
   "volta": {
-    "node": "22.15.1",
-    "pnpm": "10.11.0"
+    "node": "22.18.0",
+    "pnpm": "10.14.0"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -21,7 +21,7 @@
     "check:format": "biome format --write ./",
     "check:imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write ./",
     "check:ts": "tsc --noEmit",
-    "check:all": "bun check:imports && bun check:format && bun check:lint && bun check:ts",
+    "check:all": "pnpm check:imports && pnpm check:format && pnpm check:lint && pnpm check:ts",
     "test": "jest",
     "codegen": "graphql-codegen --config codegen.ts",
     "prepare": "husky",
@@ -30,7 +30,6 @@
   "dependencies": {
     "@headlessui/react": "2.2.2",
     "@react-google-maps/api": "2.20.6",
-    "@tanstack/react-query": "5.75.7",
     "@vis.gl/react-google-maps": "1.5.2",
     "graphql": "16.11.0",
     "graphql-request": "7.1.2",
