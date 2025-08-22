@@ -12,7 +12,7 @@ const ProductDetailPage = async (props: { params: Promise<{ id: string; locale: 
         <ProductDetail
           product={{
             id: params.id,
-            categories: product.ttCategories,
+            categories: product.ttCategories ?? [],
             description: {
               content: product.ttDescription,
             },
