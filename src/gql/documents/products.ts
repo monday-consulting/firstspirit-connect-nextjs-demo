@@ -18,7 +18,23 @@ const productsDocument = graphql(`
             ttName
             ttPrice
             ttTeaserText
-            ttCategories
+            ttImage{
+              __typename... on FirstSpiritImage{
+                resolutions{
+                  original{
+                    url
+                  }
+                }
+              }
+            }
+            ttImageAltText
+            ttCategories {
+            data{
+              __typename... on FirstSpiritSmartlivingCategory{
+                ttName
+                }
+              }
+            }
             ttDescription
             ttImageAltText
             ttImage {
@@ -47,7 +63,23 @@ const productDetailDocument = graphql(`
           ttName
           ttPrice
           ttTeaserText
-          ttCategories
+          ttImage{
+            __typename... on FirstSpiritImage{
+              resolutions{
+                original{
+                  url
+                }
+              }
+            }
+          }
+          ttImageAltText
+          ttCategories {
+            data{
+              __typename... on FirstSpiritSmartlivingCategory{
+                ttName
+                }
+              }
+            }
           ttDescription
           ttImageAltText
           ttImage {

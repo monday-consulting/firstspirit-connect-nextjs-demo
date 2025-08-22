@@ -4,7 +4,7 @@
     "enabled": true
   },
   "files": {
-    "ignore": [".next/", "storybook-static/", "node_modules/", "src/gql/generated/"]
+    "ignore": [".next/", ".netlify/", "storybook-static/", "node_modules/", "src/gql/generated/"]
   },
   "javascript": {
     "formatter": {
