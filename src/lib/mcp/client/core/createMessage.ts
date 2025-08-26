@@ -43,7 +43,7 @@ export const createMessage = async ({
   });
 
   const resourceMessages: ModelMessage[] = resourcesUsed.map((res) => ({
-    role: "system",
+    role: "user",
     content: `RESOURCE (${res.uri}):\n${toJSONSafe(res.content)}`,
   }));
 
