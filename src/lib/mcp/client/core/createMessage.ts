@@ -40,7 +40,6 @@ export const createMessage = async ({
   const system = createSystemPrompt({
     sysPreset,
     tools,
-    prompts,
   });
 
   const resourceMessages: ModelMessage[] = resourcesUsed.map((res) => ({
