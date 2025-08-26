@@ -1,6 +1,7 @@
 import type { FirstSpiritStandard } from "@/lib/gql/generated/graphql";
-import { assembleMarkdownParts } from "@/utils/contentParser";
+
 import { renderLine } from "@/utils/strings";
+import { assembleMarkdownParts } from "./assembleMarkdownParts";
 /**
  * Template function for rendering a standard page layout in Markdown.
  */

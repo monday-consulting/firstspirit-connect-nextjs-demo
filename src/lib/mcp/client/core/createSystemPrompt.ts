@@ -1,11 +1,9 @@
 import type { Prompt, Tool } from "@modelcontextprotocol/sdk/types.js";
-import type { PromptUseRecord } from "../utils/selectPromptsToLoad";
 
 export type CreateSystemPromptProps = {
   sysPreset: string;
   tools: Tool[];
   prompts: Prompt[];
-  promptsUsed: PromptUseRecord[];
 };
 
 export const toJSONSafe = (value: unknown) => {
@@ -36,19 +34,10 @@ const renderPrompts = (prompts: Prompt[]) =>
     })
   );
 
-const renderLoadedPrompts = (used: PromptUseRecord[]) =>
-  section(
-    "LOADED PROMPT TEMPLATES:",
-    used.map(
-      (p) => `PROMPT TEMPLATE "${p.name}" (args: ${toJSONSafe(p.args)}):\n${toJSONSafe(p.content)}`
-    )
-  );
-
 export const createSystemPrompt = ({
   sysPreset,
   tools,
   prompts,
-  promptsUsed,
 }: CreateSystemPromptProps): string => {
   const header = `${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`;
 
@@ -57,7 +46,6 @@ export const createSystemPrompt = ({
     header,
     tools.length ? renderTools(tools) : "",
     prompts.length ? renderPrompts(prompts) : "",
-    promptsUsed.length ? renderLoadedPrompts(promptsUsed) : "",
   ].filter(Boolean);
 
   return parts.join("\n\n");

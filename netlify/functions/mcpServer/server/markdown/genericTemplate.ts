@@ -1,6 +1,6 @@
-import { assembleMarkdownParts } from "@/utils/contentParser";
 import { blacklist } from "../firstSpirit/blacklist";
 import type { FirstSpiritInlineInput } from "../firstSpirit/processGenericTemplate";
+import { assembleMarkdownParts } from "./assembleMarkdownParts";
 import { deepExtractValues } from "./deepExtractValues";
 import { formatMarkdownLines } from "./markdownLines";
 import { extractIfContainsTable } from "./tableDetection";

@@ -1,11 +1,25 @@
 import type { ToolResultBlockParam } from "@anthropic-ai/sdk/resources/messages.js";
 import type { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import type { CallToolRequest, Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
+import QuickLRU from "quick-lru";
 import { getDefaultSystemPrompt } from "./prompts";
 import { connectHTTP } from "./transport";
 
+export type CacheValue = { ts: number; value: ToolResultBlockParam["content"] };
+let lruInstance: QuickLRU<string, CacheValue> | undefined;
+
+const getLru = () => {
+  if (!lruInstance) {
+    lruInstance = new QuickLRU<string, CacheValue>({ maxSize: 500 });
+  }
+  return lruInstance;
+};
+
+const defaultTtlMs = 60 * 60 * 1000; // 1h
+
+const keyFor = (name: string, args: unknown) => `tool:${name}:${args ?? {}}`;
+
 export type Core = ReturnType<typeof createCore>;
-export type CacheEntry = { ts: number; value: ToolResultBlockParam["content"] };
 
 export const createCore = () => {
   let mcp: { client: Client; close: () => void } | null = null;
@@ -14,27 +28,9 @@ export const createCore = () => {
   let resources: Resource[] = [];
   let prompts: Prompt[] = [];
   let connected = false;
+
   const systemPrompt = getDefaultSystemPrompt();
-
-  const cache = new Map<string, CacheEntry>();
-  const defaultTtl = 3_600_000; // 1 hour
-
-  const keyFor = (name: string, args: unknown) => `${name}:${JSON.stringify(args)}`;
-
-  const cacheGet = (name: string, args: unknown) => {
-    const key = keyFor(name, args);
-    const cachedEntry = cache.get(key);
-    if (!cachedEntry) return null;
-    if (defaultTtl > 0 && Date.now() - cachedEntry.ts > defaultTtl) {
-      cache.delete(key);
-      return null;
-    }
-    return cachedEntry.value;
-  };
-
-  const cacheSet = (name: string, args: unknown, value: ToolResultBlockParam["content"]) => {
-    cache.set(keyFor(name, args), { ts: Date.now(), value });
-  };
+  const lru = getLru();
 
   const ensure = () => {
     if (!connected || !mcp) throw new Error("Not connected to MCP server");
@@ -45,24 +41,24 @@ export const createCore = () => {
     mcp = handles;
 
     const [{ tools: t }, { resources: r }, { prompts: p }] = await Promise.all([
-      // Discovery/Bind
       mcp.client.listTools(),
       mcp.client.listResources(),
       mcp.client.listPrompts(),
     ]);
-
     tools = t;
     resources = r;
-    //TODO:
-    prompts = [];
+    prompts = p;
     connected = true;
 
+    // Prewarm
     Promise.allSettled(
       tools.map(async (tool) => {
         try {
+          const properties = tool.inputSchema?.properties;
           if (
-            typeof tool.inputSchema.properties === "object" &&
-            Object.keys(tool.inputSchema.properties).length === 0
+            properties &&
+            typeof properties === "object" &&
+            Object.keys(properties).length === 0
           ) {
             await executeTool({ name: tool.name, arguments: {} });
           }
@@ -75,8 +71,8 @@ export const createCore = () => {
 
   const readResource = async (uri: string) => {
     ensure();
-    const res = await mcp?.client.readResource({ uri });
-    return res?.contents ?? [];
+    const result = await mcp?.client.readResource({ uri });
+    return result?.contents ?? [];
   };
 
   // Without cache
@@ -86,18 +82,28 @@ export const createCore = () => {
     return mcp?.client.callTool({ name, arguments: args });
   };
 
+  // IN-Memory (LRU)
   const executeTool = async (params: CallToolRequest["params"]) => {
     ensure();
-    const { name, arguments: args } = params;
+    const { name, arguments: args = {} } = params;
+    const key = keyFor(name, args);
+    const cachedEntry = lru.get(key);
 
-    const hit = cacheGet(name, args);
-    if (hit) return { content: hit, isError: false as const };
+    if (cachedEntry) {
+      console.log("[MCP-Tool execution]: Cache Hit for Entry:", cachedEntry);
+      const isExpired = Date.now() - cachedEntry.ts > defaultTtlMs;
+      if (!isExpired) {
+        return { content: cachedEntry.value, isError: false as const };
+      }
+      lru.delete(key);
+    }
 
-    const res = await executeToolRaw({ name, arguments: args });
-    const content = Array.isArray(res?.content) ? res.content : [{ type: "text", text: "" }];
-
-    cacheSet(name, args, content);
-    return { content, isError: !!res?.isError };
+    const result = await executeToolRaw({ name, arguments: args });
+    const content: ToolResultBlockParam["content"] = Array.isArray(result?.content)
+      ? result?.content
+      : [{ type: "text", text: "" }];
+    lru.set(key, { ts: Date.now(), value: content });
+    return { content, isError: !!result?.isError };
   };
 
   const callMcp = async (name: string, args: unknown) => {
@@ -116,10 +122,11 @@ export const createCore = () => {
 
     // mcp ops
     readResource,
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    getPrompt: async (name: string, args?: any) => {
+
+    getPrompt: async (params: Prompt) => {
       ensure();
-      return mcp?.client.getPrompt({ name, arguments: args || {} });
+      //@ts-expect-error
+      return mcp?.client.getPrompt({ name: params.name, arguments: params.arguments || {} });
     },
 
     // tools

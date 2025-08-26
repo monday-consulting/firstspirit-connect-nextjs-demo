@@ -21,7 +21,6 @@ export const useChatEngine = (initial: Message[] = []) => {
       setLoading(true);
       abortRef.current?.abort();
       abortRef.current = new AbortController();
-
       try {
         const data = await postMcpChat(
           {
@@ -30,7 +29,7 @@ export const useChatEngine = (initial: Message[] = []) => {
               content: m.content,
             })),
             useResources: payload.useResources,
-            usePrompts: payload.usePrompts,
+            usedUserPrompt: payload.usedUserPrompt,
             customSystemPrompt: payload.customSystemPrompt,
             autoLoadAllResources: false,
             autoApplyRelevantPrompts: true,

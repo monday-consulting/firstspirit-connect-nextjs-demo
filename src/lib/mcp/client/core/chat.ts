@@ -1,8 +1,9 @@
+import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
+
 export type McpChatRequest = {
   messages: Array<{ role: "user" | "assistant" | "system"; content: string }>;
   useResources?: string[];
-  // biome-ignore lint/suspicious/noExplicitAny: Should be implemented in the future
-  usePrompts?: Array<{ name: string; args?: any }>;
+  usedUserPrompt?: Prompt;
   customSystemPrompt?: string;
   autoLoadAllResources?: boolean;
   autoApplyRelevantPrompts?: boolean;

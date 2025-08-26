@@ -1,3 +1,5 @@
+import type { PromptMessage } from "@modelcontextprotocol/sdk/types.js";
+
 const getDefaultSystemPrompt = (): string => {
   return `You are Claude, an AI assistant with powerful external capabilities through the Model Context Protocol (MCP).
   
@@ -74,4 +76,10 @@ const pickPreset = (name: string): string => {
   return name;
 };
 
-export { pickPreset, getDefaultSystemPrompt };
+const processUsedPrompts = (messages: PromptMessage[]) =>
+  messages.map((message) => ({
+    role: "user",
+    content: message?.content?.type === "text" ? message.content.text : "",
+  }));
+
+export { pickPreset, getDefaultSystemPrompt, processUsedPrompts };

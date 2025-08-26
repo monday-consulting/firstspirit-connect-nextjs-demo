@@ -15,9 +15,11 @@ import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 import { useChatEngine } from "@/utils/hooks/useChatEngine";
 import { useEnterToSend } from "@/utils/hooks/useEnterToSend";
 import { useHotkey } from "@/utils/hooks/useHotkey";
+import { useInitialPromptSelect } from "@/utils/hooks/useInitialPromptSelect";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useScrollToBottom } from "@/utils/hooks/useScrollToBottom";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
+import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
 import { type SizeKey, Sizebar, sizeClasses } from "./Sizebar";
 
 export type FloatingMCPChatProps = {
@@ -75,7 +77,9 @@ const FloatingMCPChat = ({
 
   useAutoSelectResources(availableResources, pathname, setSelectedResources);
 
-  const handleSend = async (overrideText?: string) => {
+  useInitialPromptSelect(availablePrompts, setSelectedPrompts);
+
+  const handleSend = async (overrideText?: string, usedUserPrompt?: Prompt) => {
     const text = (overrideText ?? input).trim();
     if (!text || loading) return;
 
@@ -91,6 +95,7 @@ const FloatingMCPChat = ({
             : selectedPreset !== "default"
               ? selectedPreset
               : undefined,
+        usedUserPrompt,
       });
     } catch {
       setInput(text);
@@ -146,6 +151,9 @@ const FloatingMCPChat = ({
               sendMessage={handleSend}
               setInput={setInput}
               onKeyDown={onKeyDown}
+              prompts={availablePrompts.filter((prompt) =>
+                selectedPrompts.some((selectedPrompt) => selectedPrompt.name === prompt.name)
+              )}
             />
           </div>
         </div>

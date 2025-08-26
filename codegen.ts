@@ -14,9 +14,9 @@ const config: CodegenConfig = {
       },
     },
   ],
-  documents: "src/gql/documents/**/*.ts",
+  documents: "src/lib/gql/documents/**/*.ts",
   generates: {
-    "src/gql/generated/": {
+    "src/lib/gql/generated/": {
       preset: "client",
       plugins: [
         {

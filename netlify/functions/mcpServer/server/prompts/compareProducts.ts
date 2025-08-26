@@ -12,7 +12,7 @@ export const compareProducts = (server: McpServer) => {
       locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
     },
     async ({ locale, firstProduct, secondProduct, category }) => {
-      const language = locale ?? "de-DE";
+      const lang = locale ?? "de-DE";
 
       const linesDe: string[] = [];
       const linesEn: string[] = [];
@@ -45,23 +45,17 @@ export const compareProducts = (server: McpServer) => {
       }
 
       const messageDe = `
-Du hast Zugriff auf alle geladenen Ressourcen im Projektkontext.
 
-Wenn noch keine Ressourcen geladen sind, nutze das Tool \`get-all-resources-de-DE\`.
+      ${linesDe.join("\n\n")}
 
-${linesDe.join("\n\n")}
-
-Stelle den Vergleich tabellarisch oder klar strukturiert dar. Gib am Ende eine Empfehlung ab, welches Produkt für den typischen Anwendungsfall am besten geeignet ist.
+      Stelle den Vergleich tabellarisch oder klar strukturiert dar. Gib am Ende eine Empfehlung ab, welches Produkt für den typischen Anwendungsfall am besten geeignet ist.
       `.trim();
 
       const messageEn = `
-You have access to all loaded resources in the project context.
+      
+      ${linesEn.join("\n\n")}
 
-If no resources have been loaded yet, use the tool \`get-all-resources-en-GB\`.
-
-${linesEn.join("\n\n")}
-
-Present the comparison in a table or clear structure. At the end, provide a recommendation for which product is best suited for the typical use case.
+      Present the comparison in a table or clear structure. At the end, provide a recommendation for which product is best suited for the typical use case.
       `.trim();
 
       return {
@@ -70,7 +64,7 @@ Present the comparison in a table or clear structure. At the end, provide a reco
             role: "assistant",
             content: {
               type: "text",
-              text: language === "en-GB" ? messageEn : messageDe,
+              text: lang === "en-GB" ? messageEn : messageDe,
             },
           },
         ],

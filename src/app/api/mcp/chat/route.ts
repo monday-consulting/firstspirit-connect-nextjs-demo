@@ -3,17 +3,34 @@ import { createMessage } from "@/lib/mcp/client/core/createMessage";
 import { pickPreset } from "@/lib/mcp/client/core/prompts";
 import { NextResponse } from "next/server";
 
-const ensureConnected = async (core: Core) => {
-  if (!core.isConnected()) {
-    const url = process.env.MCP_SERVER_URL?.trim();
-    if (!url) throw new Error("MCP_SERVER_URL not set");
-    await core.connectToMCPServer(url);
+let coreSingleton: Core | null = null;
+let connectPromise: Promise<void> | null = null;
+
+const getCore = (): Core => {
+  if (coreSingleton === null) {
+    coreSingleton = createCore();
   }
+  return coreSingleton;
+};
+
+const ensureConnected = async (core: Core) => {
+  if (core.isConnected()) return true;
+
+  const url = process.env.MCP_SERVER_URL?.trim();
+  if (!url) throw new Error("MCP_SERVER_URL not set");
+
+  if (!connectPromise) {
+    connectPromise = core.connectToMCPServer(url).finally(() => {
+      connectPromise = null;
+    });
+  }
+  await connectPromise;
+  return core.isConnected();
 };
 
 export async function GET() {
   try {
-    const core = createCore();
+    const core = getCore();
     await ensureConnected(core);
 
     return NextResponse.json({
@@ -22,9 +39,9 @@ export async function GET() {
       prompts: core.getAvailablePrompts(),
       connected: core.isConnected(),
     });
-  } catch (e) {
+  } catch (error) {
     return NextResponse.json(
-      { tools: [], resources: [], prompts: [], connected: false, error: String(e) },
+      { tools: [], resources: [], prompts: [], connected: false, error: String(error) },
       { status: 500 }
     );
   }
@@ -33,11 +50,11 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const { messages, customSystemPrompt, useResources, autoLoadAllResources, usedUserPrompt } =
+      body || {};
 
-    const { messages, customSystemPrompt, useResources, autoLoadAllResources } = body || {};
-
-    const core = createCore();
-    await ensureConnected(core);
+    const core = getCore();
+    const isConnected = await ensureConnected(core);
 
     const sysPreset = customSystemPrompt ? pickPreset(customSystemPrompt) : core.getSystemPrompt();
 
@@ -48,6 +65,7 @@ export async function POST(req: Request) {
       tools: core.getAvailableTools(),
       resources: core.getAvailableResources(),
       prompts: core.getAvailablePrompts(),
+      usedUserPrompt,
       options: { useResources, autoLoadAllResources },
     });
 
