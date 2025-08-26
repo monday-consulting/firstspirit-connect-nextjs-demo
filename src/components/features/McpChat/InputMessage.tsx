@@ -108,7 +108,7 @@ export const InputMessage = ({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder='Type your message… (Tippe "/" für Prompts)'
+          placeholder='Type your message… (Type "/" for prompts)'
           disabled={loading}
           rows={2}
           className="flex-1 resize-none rounded-md border border-gray-300 px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
