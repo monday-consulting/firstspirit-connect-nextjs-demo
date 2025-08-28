@@ -99,11 +99,36 @@ const productDetailDocument = graphql(`
 `);
 
 export const getAllProducts = async (locale: Locale) => {
-  const res = await client.request(productsDocument, { locale: parseLocale(locale) });
-  return res.allFirstSpiritDataset.nodes;
+  try {
+    const res = await client.request(productsDocument, { locale: parseLocale(locale) });
+    return res.allFirstSpiritDataset.nodes;
+  } catch (error: any) {
+    const connection = error?.cause ?? {};
+    console.error("[getAllProducts] fetch failed", {
+      name: error?.name,
+      message: error?.message,
+      cause: {
+        code: connection.code,
+        errno: connection.errno,
+        syscall: connection.syscall,
+        address: connection.address,
+        port: connection.port,
+        type: connection.type,
+      },
+    });
+    const err = new Error(
+      `Upstream network error (getAllProducts): ${connection.code ?? error.message}`
+    );
+    (err as any).status =
+      connection.code === "ETIMEDOUT" || error?.name === "AbortError" ? 504 : 502;
+    throw err;
+  }
 };
 
 export const getProductDetail = async (locale: Locale, id: string) => {
   const res = await client.request(productDetailDocument, { locale: parseLocale(locale), id });
+  if (!res.firstSpiritDataset?.data) {
+    throw new Error(`No product dataset for id="${id}" (locale ${locale})`);
+  }
   return res.firstSpiritDataset?.data;
 };

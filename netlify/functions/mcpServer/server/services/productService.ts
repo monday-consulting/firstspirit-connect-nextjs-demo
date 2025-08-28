@@ -17,7 +17,7 @@ export const getProductEndpoints = (locale: Locale) =>
   Effect.gen(function* () {
     const structure = yield* Effect.tryPromise({
       try: () => getAllProducts(locale),
-      catch: (e) => new Error(`Failed to fetch products for locale ${locale}: ${String(e)}`),
+      catch: (error) => (error instanceof Error ? error : new Error(String(error))),
     });
     const routes = extractRoutesFromProducts(structure);
 
