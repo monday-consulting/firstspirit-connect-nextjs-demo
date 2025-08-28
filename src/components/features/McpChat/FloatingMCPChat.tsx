@@ -21,6 +21,7 @@ import { useScrollToBottom } from "@/utils/hooks/useScrollToBottom";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
 import { type SizeKey, Sizebar, sizeClasses } from "./Sizebar";
+import { AvailableModels, type ModelId } from "./AvailableModels";
 
 export type FloatingMCPChatProps = {
   enabled?: boolean;
@@ -45,7 +46,7 @@ const FloatingMCPChat = ({
   const [input, setInput] = useState("");
   const [selectedPrompts, setSelectedPrompts] = useState<{ name: string }[]>([]);
   const [selectedResources, setSelectedResources] = useState<string[]>([]);
-
+  const [selectedModel, setSelectedModel] = useState<ModelId>("claude-sonnet-4-20250514");
   const pathname = usePathname() ?? "/";
 
   useEffect(() => {
@@ -96,6 +97,7 @@ const FloatingMCPChat = ({
               ? selectedPreset
               : undefined,
         usedUserPrompt,
+        selectedModel,
       });
     } catch {
       setInput(text);
@@ -119,7 +121,12 @@ const FloatingMCPChat = ({
             toggleDetails={() => setShowDetails((value) => !value)}
             toggleOpen={() => setOpen((value) => !value)}
           />
-          {showDetails && <Sizebar setSize={setSize} size={size} />}
+          {showDetails && (
+            <div className="flex w-full justify-between">
+              <AvailableModels selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
+              <Sizebar setSize={setSize} size={size} />
+            </div>
+          )}
 
           <div className={`flex flex-col ${height}`}>
             {showDetails && (

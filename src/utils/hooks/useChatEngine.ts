@@ -33,6 +33,7 @@ export const useChatEngine = (initial: Message[] = []) => {
             customSystemPrompt: payload.customSystemPrompt,
             autoLoadAllResources: false,
             autoApplyRelevantPrompts: true,
+            selectedModel: payload.selectedModel,
           },
           abortRef.current.signal
         );

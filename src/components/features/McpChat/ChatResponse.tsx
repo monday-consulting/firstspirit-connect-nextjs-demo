@@ -22,7 +22,6 @@ export const ChatResponse = ({ messages }: MessageProps) => {
               <div className="whitespace-pre-wrap ">
                 <StyledMessage content={message.content} />
               </div>
-
               {!!message.toolsUsed?.length && (
                 <details className="mt-2 text-xs opacity-80">
                   <summary>🧰 {message.toolsUsed.length} tool(s)</summary>

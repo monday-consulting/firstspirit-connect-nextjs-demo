@@ -50,11 +50,17 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { messages, customSystemPrompt, useResources, autoLoadAllResources, usedUserPrompt } =
-      body || {};
+    const {
+      messages,
+      customSystemPrompt,
+      useResources,
+      autoLoadAllResources,
+      usedUserPrompt,
+      selectedModel,
+    } = body || {};
 
     const core = getCore();
-    const isConnected = await ensureConnected(core);
+    await ensureConnected(core);
 
     const sysPreset = customSystemPrompt ? pickPreset(customSystemPrompt) : core.getSystemPrompt();
 
@@ -67,6 +73,7 @@ export async function POST(req: Request) {
       prompts: core.getAvailablePrompts(),
       usedUserPrompt,
       options: { useResources, autoLoadAllResources },
+      selectedModel,
     });
 
     return NextResponse.json({

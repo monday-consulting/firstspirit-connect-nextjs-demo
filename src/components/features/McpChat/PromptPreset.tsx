@@ -3,7 +3,6 @@ export type PresetKey =
   | "ultra_aggressive"
   | "aggressive"
   | "balanced"
-  | "weatherExpert"
   | "assistant"
   | "custom";
 
@@ -12,7 +11,6 @@ export const SYSTEM_PROMPT_PRESETS: Record<Exclude<PresetKey, "custom">, string>
   ultra_aggressive: "Ultra Aggressive: Use EVERY MCP feature for EVERY response 🚨",
   aggressive: "Aggressive: Use ALL available MCP features for every response 🔥",
   balanced: "Balanced: Use MCP when clearly beneficial ⚖️",
-  weatherExpert: "Weather Expert: Specialized for weather queries 🌤️",
   assistant: "Assistant: General purpose with MCP when helpful 🤖",
 };
 
