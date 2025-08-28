@@ -4,7 +4,7 @@ import { client } from "../client";
 import { graphql } from "../generated";
 
 const navigationDocument = graphql(`
-  query fsNavigationQuery($locale:String!) {
+  query fsNavigationQuery($locale: String!) {
     firstSpiritNavigationData(_locale: {eq: $locale}) {
       structure {
         navigationItem {
