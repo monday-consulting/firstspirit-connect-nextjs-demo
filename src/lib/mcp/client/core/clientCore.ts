@@ -49,24 +49,6 @@ export const createCore = () => {
     resources = r;
     prompts = p;
     connected = true;
-
-    // Prewarm
-    Promise.allSettled(
-      tools.map(async (tool) => {
-        try {
-          const properties = tool.inputSchema?.properties;
-          if (
-            properties &&
-            typeof properties === "object" &&
-            Object.keys(properties).length === 0
-          ) {
-            await executeTool({ name: tool.name, arguments: {} });
-          }
-        } catch (error) {
-          console.warn("Prewarm failed:", error);
-        }
-      })
-    );
   };
 
   const readResource = async (uri: string) => {
