@@ -91,11 +91,20 @@ export const createMessage = async ({
     usedPrompt = [usedUserPrompt];
   }
 
-  const finalMessages: ModelMessage[] = [
-    ...chatMessages,
-    ...injectedPromptMessages,
-    ...resourceMessages,
-  ];
+  const messages: ModelMessage[] =
+    injectedPromptMessages.length && chatMessages.length
+      ? [
+          ...chatMessages.slice(0, -1),
+          {
+            role: "user",
+            content: injectedPromptMessages
+              .map((message) => String(message.content ?? ""))
+              .join("\n\n"),
+          },
+        ]
+      : chatMessages;
+
+  const finalMessages = [...messages, ...resourceMessages];
 
   const mcpTools = processTools(tools, (name, args) => core.callMcp(name, args));
 
@@ -107,7 +116,7 @@ export const createMessage = async ({
       result = await generateText({
         model: claude("claude-sonnet-4-20250514"),
         tools: mcpTools,
-        messages: finalMessages,
+        messages: finalMessages.slice(-5), // To reduce token input. Can be removed, if we want the total history every time.
         temperature: 0,
         system,
         stopWhen: stepCountIs(5),
