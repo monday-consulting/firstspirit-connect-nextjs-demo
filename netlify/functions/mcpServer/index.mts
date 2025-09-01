@@ -26,13 +26,18 @@ export default async (req: Request) => {
       const { req: nodeReq, res: nodeRes } = toReqRes(req);
       const server = getServer();
 
+      // Transport layer: bridge between HTTP and MCP (JSON-RPC)
       const transport = new StreamableHTTPServerTransport({
         sessionIdGenerator: undefined,
       });
 
       await server.connect(transport);
 
+      // Read the incoming JSON-RPC frame (contains method/params/id)
       const body = await req.json();
+
+      // Let the transport handle the JSON-RPC call.
+      // Under the hood it routes to the right MCP handlers (tools/list, tools/call, resources/read...)
       await transport.handleRequest(nodeReq, nodeRes, body);
 
       nodeRes.on("close", () => {
@@ -41,6 +46,7 @@ export default async (req: Request) => {
         server.close();
       });
 
+      // Convert the Node response back to a Fetch Response (Netlify expects Fetch Response)
       return toFetchResponse(nodeRes);
     }
 

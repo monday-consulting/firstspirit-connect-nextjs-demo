@@ -21,6 +21,9 @@ export async function connectHTTP(serverUrl: string): Promise<MCPHandles> {
   );
 
   await client.connect(transport);
+
+  console.log("Client connected with:", serverUrl);
+
   return {
     client,
     close: () => {
