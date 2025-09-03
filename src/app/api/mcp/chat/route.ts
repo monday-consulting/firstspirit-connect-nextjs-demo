@@ -3,9 +3,19 @@ import { createMessage } from "@/lib/mcp/client/core/createMessage";
 import { pickPreset } from "@/lib/mcp/client/core/prompts";
 import { NextResponse } from "next/server";
 
+/**
+ * Module-scoped singleton for the MCP "core"
+ * This persists only for the lifetime of a warm function instance
+ */
 let coreSingleton: Core | null = null;
+
+/**
+ * Shared promise to de-duplicate concurrent connect attempts
+ * Ensures we only perform one connect at a time per instance
+ */
 let connectPromise: Promise<void> | null = null;
 
+// Lazily create or return the current core instance
 const getCore = (): Core => {
   if (coreSingleton === null) {
     coreSingleton = createCore();
@@ -13,6 +23,7 @@ const getCore = (): Core => {
   return coreSingleton;
 };
 
+// Ensure the core is connected to the MCP server
 const ensureConnected = async (core: Core) => {
   if (core.isConnected()) return true;
 
@@ -21,13 +32,23 @@ const ensureConnected = async (core: Core) => {
 
   if (!connectPromise) {
     connectPromise = core.connectToMCPServer(url).finally(() => {
+      // Always clear the promise so a future reconnect can be attempted
       connectPromise = null;
     });
   }
+
+  // Await the shared connection attempt (or the existing in-flight one)
   await connectPromise;
+
+  // Report final connection state
   return core.isConnected();
 };
 
+/**
+ * GET handler:
+ * - Ensures connection to the MCP server
+ * - Returns currently available tools/resources/prompts and connection status
+ */
 export async function GET() {
   try {
     const core = getCore();
@@ -47,8 +68,16 @@ export async function GET() {
   }
 }
 
+/**
+ * POST handler:
+ * - Accepts chat payload + options from the client
+ * - Ensures connection and constructs a system preset
+ * - Calls createMessage to run the LLM with MCP tools/resources/prompts
+ * - Returns the model response plus metadata about used/available capabilities
+ */
 export async function POST(req: Request) {
   try {
+    // Parse the request body
     const body = await req.json();
     const {
       messages,
@@ -62,8 +91,10 @@ export async function POST(req: Request) {
     const core = getCore();
     await ensureConnected(core);
 
+    // Choose the system prompt: either a user-provided preset or the default from core
     const sysPreset = customSystemPrompt ? pickPreset(customSystemPrompt) : core.getSystemPrompt();
 
+    // Execute the chat turn
     const result = await createMessage({
       core,
       sysPreset,
@@ -76,6 +107,7 @@ export async function POST(req: Request) {
       selectedModel,
     });
 
+    // Return the model response and a snapshot of used + available capabilities
     return NextResponse.json({
       response: result.response,
       toolsUsed: result.toolsUsed,

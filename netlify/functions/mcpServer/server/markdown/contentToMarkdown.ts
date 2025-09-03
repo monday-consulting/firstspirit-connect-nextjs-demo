@@ -21,7 +21,7 @@ export const turnPageContentIntoMarkdown = (
     );
 
     if (!pageContent?.data) {
-      console.warn(`⚠️ Page content is missing 'data' for "${route}" (${locale})`);
+      // console.warn(`⚠️ Page content is missing 'data' for "${route}" (${locale})`);
       return "";
     }
 

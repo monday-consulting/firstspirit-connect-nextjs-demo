@@ -29,11 +29,10 @@ export const selectResourcesToLoad = async ({
 
   for (const uri of resourcesToLoad) {
     try {
-      const content = await core.readResource(uri);
-      console.log(`[MCP] Loaded resource: ${uri}`, content);
+      const content = await core.executeResource(uri);
       resourcesUsed.push({ uri, content });
     } catch (error) {
-      console.warn(`[MCP] readResource failed: ${uri}`, error);
+      console.warn(`[MCP] Read resource failed: ${uri}`, error);
     }
   }
 

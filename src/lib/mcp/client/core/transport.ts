@@ -6,7 +6,7 @@ export type MCPHandles = {
   close: () => void;
 };
 
-export async function connectHTTP(serverUrl: string): Promise<MCPHandles> {
+export async function createMcpClient(serverUrl: string): Promise<MCPHandles> {
   const base = serverUrl.replace(/\/$/, "");
   let url: URL;
   try {

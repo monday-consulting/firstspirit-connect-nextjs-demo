@@ -82,7 +82,7 @@ export const createMessage = async ({
   let injectedPromptMessages: ModelMessage[] = [];
 
   if (usedUserPrompt) {
-    const promptResult = await core.getPrompt(usedUserPrompt);
+    const promptResult = await core.executePrompt(usedUserPrompt);
     //@ts-expect-error:
     const usedPrompts: ModelMessage[] = processUsedPrompts(
       promptResult?.messages as PromptMessage[]
@@ -106,20 +106,23 @@ export const createMessage = async ({
 
   const finalMessages = [...messages, ...resourceMessages];
 
-  const mcpTools = processTools(tools, (name, args) => core.callMcp(name, args));
+  //@ts-expect-error
+  const mcpTools = processTools(tools, (name, args) => core.executeTool({ name, arguments: args }));
 
   try {
     let result: GenerateTextResult<typeof mcpTools, unknown>;
     console.log(`Using LLM-Model: ${selectedModel}`);
 
     if (selectedModel === "claude-sonnet-4-20250514") {
+      // Generate a response with tool use enabled.
+      // The AI SDK runs a loop: model proposes a tool call → SDK validates and executes it → result is fed back → repeat → final text.
       result = await generateText({
-        model: claude("claude-sonnet-4-20250514"),
-        tools: mcpTools,
-        messages: finalMessages.slice(-5), // To reduce token input. Can be removed, if we want the total history every time.
-        temperature: 0,
-        system,
-        stopWhen: stepCountIs(5),
+        model: claude("claude-sonnet-4-20250514"), // Select the model via the provider adapter.
+        tools: mcpTools, // Tool registry: name → { parameters (JSON Schema), description, execute() }.
+        messages: finalMessages.slice(-5), // Provide only the recent context to control token usage.
+        temperature: 0, // Deterministic planning and stable tool calling.
+        system, // System prompt: instructions, rules, and tool affordances.
+        stopWhen: stepCountIs(5), // Hard stop after 5 steps (reasoning turns or tool calls) to cap cost/latency.
       });
     } else {
       result = await generateText({

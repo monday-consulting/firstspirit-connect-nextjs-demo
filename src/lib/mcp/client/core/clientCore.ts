@@ -2,7 +2,7 @@ import type { ToolResultBlockParam } from "@anthropic-ai/sdk/resources/messages.
 import type { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import type { CallToolRequest, Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
 import { getDefaultSystemPrompt } from "./prompts";
-import { connectHTTP } from "./transport";
+import { createMcpClient } from "./transport";
 
 export type CacheValue = { ts: number; value: ToolResultBlockParam["content"] };
 
@@ -22,7 +22,7 @@ export const createCore = () => {
   };
 
   const connectToMCPServer = async (serverUrl: string) => {
-    const handles = await connectHTTP(serverUrl);
+    const handles = await createMcpClient(serverUrl);
     mcp = handles;
 
     const [{ tools: t }, { resources: r }, { prompts: p }] = await Promise.all([
@@ -36,57 +36,120 @@ export const createCore = () => {
     connected = true;
   };
 
-  const readResource = async (uri: string) => {
+  const executeResource = async (resourceUri: string) => {
     ensure();
-    const result = await mcp?.client.readResource({ uri });
-    return result?.contents ?? [];
+    const startTimestamp = Date.now();
+
+    try {
+      const result = await mcp?.client.readResource({ uri: resourceUri });
+      const contents = result?.contents ?? [];
+      const duration = `${Date.now() - startTimestamp}ms`;
+
+      const contentsJsonString = JSON.stringify(contents);
+      const contentByteLength =
+        typeof Buffer !== "undefined"
+          ? Buffer.byteLength(contentsJsonString, "utf8")
+          : new TextEncoder().encode(contentsJsonString).length;
+
+      console.log("[MCP→SDK] Read Resource: ", {
+        resourceUri,
+        duration,
+        itemCount: Array.isArray(contents) ? contents.length : 0,
+        contentBytes: contentByteLength,
+      });
+
+      return contents;
+    } catch (error) {
+      const duration = `${Date.now() - startTimestamp}ms`;
+      console.warn("[MCP→SDK] Read Resource Error: ", {
+        resourceUri,
+        duration,
+        errorMessage: String(error),
+      });
+      throw error;
+    }
   };
 
   const executeTool = async (params: CallToolRequest["params"]) => {
     ensure();
-    const { name, arguments: args = {} } = params;
+    const { name, arguments: argumentMap = {} } = params;
+    const startTimestamp = Date.now();
 
-    console.log("[SDK→MCP] callTool", name, args);
-    const res = await mcp?.client.callTool({ name, arguments: args });
+    try {
+      const result = await mcp?.client.callTool({ name, arguments: argumentMap });
 
-    const content: ToolResultBlockParam["content"] = Array.isArray(res?.content)
-      ? res.content
-      : [{ type: "text", text: "" }];
+      const content: ToolResultBlockParam["content"] = Array.isArray(result?.content)
+        ? result.content
+        : [{ type: "text", text: "" }];
 
-    const isError = !!res?.isError;
-    console.log("[MCP→SDK] result", name, isError ? "ERROR" : "OK");
+      const isError = !!result?.isError;
+      const duration = `${Date.now() - startTimestamp}ms`;
 
-    return { content, isError };
+      const contentJsonString = JSON.stringify(content);
+      const contentByteLength =
+        typeof Buffer !== "undefined"
+          ? Buffer.byteLength(contentJsonString, "utf8")
+          : new TextEncoder().encode(contentJsonString).length;
+
+      const logLabel = "[MCP → SDK] Tool Response: ";
+
+      (isError ? console.warn : console.log)(logLabel, {
+        toolName: name,
+        duration,
+        isError,
+        argumentKeys: Object.keys(argumentMap),
+        contentBytes: contentByteLength,
+      });
+
+      return { content, isError };
+    } catch (error) {
+      const duration = `${Date.now() - startTimestamp}ms`;
+      console.warn("[MCP→SDK] Tool Response Error:", {
+        toolName: name,
+        duration,
+        errorMessage: String(error),
+      });
+      throw error;
+    }
   };
 
-  const callMcp = async (name: string, args: unknown) => {
-    const { content, isError } = await executeTool({
-      name,
-      arguments: args as Record<string, unknown>,
-    });
-    return { content, isError };
+  const executePrompt = async (params: Prompt) => {
+    ensure();
+    const promptName = params.name;
+    const promptArguments = params.arguments || {};
+    const startTimestamp = Date.now();
+
+    try {
+      const result = await mcp?.client.getPrompt({
+        name: promptName,
+        arguments: promptArguments,
+      });
+      const duration = `${Date.now() - startTimestamp}ms`;
+      console.log("[MCP → SDK] getPrompt", { promptName, duration });
+      return result;
+    } catch (error) {
+      const duration = `${Date.now() - startTimestamp}ms`;
+      console.warn("[MCP → SDK] getPrompt error", {
+        promptName,
+        duration,
+        errorMessage: String(error),
+      });
+      throw error;
+    }
   };
 
   return {
-    // lifecycle/config
+    // Lifecycle/Config
     connectToMCPServer,
     isConnected: () => connected,
     getSystemPrompt: () => systemPrompt,
 
-    // mcp ops
-    readResource,
-
-    getPrompt: async (params: Prompt) => {
-      ensure();
-      //@ts-expect-error
-      return mcp?.client.getPrompt({ name: params.name, arguments: params.arguments || {} });
-    },
-
-    // tools
+    // Execution
+    executeResource,
+    executePrompt,
     executeTool,
-    callMcp,
 
-    // info
+    // Capabilities Info
     getAvailableTools: () => tools.slice(),
     getAvailableResources: () => resources.slice(),
     getAvailablePrompts: () => prompts.slice(),

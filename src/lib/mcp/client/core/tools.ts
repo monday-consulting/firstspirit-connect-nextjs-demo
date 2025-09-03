@@ -4,7 +4,7 @@ import { type JSONSchema7, type StepResult, type ToolSet, jsonSchema, tool } fro
 export const processTools = (
   toolsFromMcp: MCPTool[],
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  callMcp: (name: string, args: unknown) => Promise<any>
+  executeTool: (name: string, args: unknown) => Promise<any>
 ) => {
   const entries = toolsFromMcp.map((t) => {
     return [
@@ -16,8 +16,8 @@ export const processTools = (
           : jsonSchema({ type: "object", properties: {} }),
 
         execute: async (args) => {
-          console.log(`Calling MCP tool: ${t.name} with args:`, args);
-          return callMcp(t.name, args);
+          console.log(`[SDK → MCP] Calling MCP tool: ${t.name} with args:`, args);
+          return executeTool(t.name, args);
         },
       }),
     ] as const;
@@ -27,17 +27,17 @@ export const processTools = (
 };
 
 export const getUsedTools = (steps: StepResult<ToolSet>[]) => {
-  return steps.flatMap((s) => {
-    const blocks = s.content || [];
+  return steps.flatMap((step) => {
+    const blocks = step.content || [];
     return blocks
       .filter((block) => block.type === "tool-result")
       .map((result) => {
         const call = blocks.find(
-          (c) => c.type === "tool-call" && c.toolCallId === result.toolCallId
+          (call) => call.type === "tool-call" && call.toolCallId === result.toolCallId
         );
 
         return {
-          step: s.finishReason ?? "step",
+          step: step.finishReason ?? "step",
           toolCallId: result.toolCallId,
           name: result.toolName,
           arguments: call?.type === "tool-call" ? call?.input : {},
