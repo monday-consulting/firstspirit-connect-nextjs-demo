@@ -28,17 +28,17 @@
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
-    "@headlessui/react": "2.2.2",
-    "@react-google-maps/api": "2.20.6",
-    "@vis.gl/react-google-maps": "1.5.2",
+    "@headlessui/react": "2.2.7",
+    "@react-google-maps/api": "2.20.7",
+    "@vis.gl/react-google-maps": "1.5.5",
     "graphql": "16.11.0",
-    "graphql-request": "7.1.2",
-    "next": "15.3.2",
-    "next-intl": "4.1.0",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "graphql-request": "7.2.0",
+    "next": "15.5.2",
+    "next-intl": "4.3.6",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-icons": "5.5.0",
-    "use-intl": "4.1.0"
+    "use-intl": "4.3.6"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
