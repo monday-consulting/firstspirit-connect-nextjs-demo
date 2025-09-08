@@ -1,16 +1,21 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
+  "$schema": "https://biomejs.dev/schemas/2.2.3/schema.json",
   "files": {
-    "ignore": [
-      ".next/",
-      ".netlify/",
-      "storybook-static/",
-      "node_modules/",
-      "src/lib/gql/generated/"
+    "includes": [
+      "**",
+      "!**/.next/",
+      "!**/.netlify/",
+      "!**/storybook-static/",
+      "!**/node_modules/",
+      "!**/src/lib/gql/generated/"
     ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "lineEnding": "lf"
   },
   "javascript": {
     "formatter": {
@@ -22,22 +27,12 @@
       "trailingCommas": "es5"
     }
   },
-  "formatter": {
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 100,
-    "lineEnding": "lf"
-  },
   "linter": {
     "enabled": true,
     "rules": {
       "correctness": {
-        "noUnusedImports": {
-          "level": "warn",
-          "fix": "none"
-        }
+        "noUnusedImports": "warn"
       },
-      "recommended": true,
       "suspicious": {
         "noArrayIndexKey": "off"
       },
@@ -45,11 +40,7 @@
         "noUselessFragments": "off"
       },
       "nursery": {
-        "useSortedClasses": {
-          "level": "info",
-          "fix": "safe",
-          "options": {}
-        }
+        "useSortedClasses": "info"
       }
     }
   }
