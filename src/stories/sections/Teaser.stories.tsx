@@ -1,5 +1,5 @@
-import { Teaser } from "@/components/sections/Teaser";
 import type { Meta, StoryObj } from "@storybook/react";
+import { Teaser } from "@/components/sections/Teaser";
 import { paragraphArgs } from "../globals/RichTextElement.stories";
 import { defaultImage } from "../mocks/imageMocks";
 

@@ -1,8 +1,8 @@
 "use client";
 
-import { mcpInit } from "@/lib/mcp/client/core/init";
 import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
 import { useEffect, useState } from "react";
+import { mcpInit } from "@/lib/mcp/client/core/init";
 
 export const useMcpInit = (enabled: boolean) => {
   const [availableTools, setAvailableTools] = useState<Tool[]>([]);

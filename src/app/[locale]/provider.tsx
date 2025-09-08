@@ -1,8 +1,7 @@
 "use client";
 
+import { createContext, type ReactNode } from "react";
 import { FavoriteListProvider } from "@/utils/contexts/favorites";
-
-import { type ReactNode, createContext } from "react";
 
 export type ProviderProps = {
   children: ReactNode;

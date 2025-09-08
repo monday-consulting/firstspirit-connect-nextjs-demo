@@ -1,5 +1,5 @@
-import type { Locale } from "@/i18n/config.js";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { Locale } from "@/i18n/config.js";
 import { fetchPageEndpoints } from "../helper/createEndpointFetcher";
 
 export const getPagesTool = (server: McpServer, locale: Locale) => {

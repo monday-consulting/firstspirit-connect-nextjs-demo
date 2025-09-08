@@ -1,12 +1,10 @@
+import type { Locale } from "next-intl";
 import { NewsDetail } from "@/components/features/NewsOverview/NewsDetail";
 import { getDatasetsByType } from "@/lib/gql/documents/dataset";
 import type { FirstSpiritSmartLivingNewsFragmentFragment } from "@/lib/gql/generated/graphql";
 import { getNewsDetailLink } from "@/utils/links";
-import type { Locale } from "next-intl";
 
-const NewsDetailPage = async (props: {
-  params: Promise<{ locale: Locale; name: string }>;
-}) => {
+const NewsDetailPage = async (props: { params: Promise<{ locale: Locale; name: string }> }) => {
   const params = await props.params;
   const allNews = (await getDatasetsByType(params.locale, "news")).map(
     (entry) => entry.data as FirstSpiritSmartLivingNewsFragmentFragment

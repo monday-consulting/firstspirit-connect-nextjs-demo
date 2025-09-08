@@ -1,5 +1,5 @@
-import { FloatingMCPChat } from "@/components/features/McpChat/FloatingMCPChat";
 import type { Meta, StoryObj } from "@storybook/react";
+import { FloatingMCPChat } from "@/components/features/McpChat/FloatingMCPChat";
 
 const meta = {
   title: "components/Features/McpChat/FloatingMCPChat",

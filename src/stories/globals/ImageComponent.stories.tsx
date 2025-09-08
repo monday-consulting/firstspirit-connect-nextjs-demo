@@ -1,5 +1,5 @@
-import { ImageComponent } from "@/components/globals/ImageComponent";
 import type { Meta, StoryObj } from "@storybook/react";
+import { ImageComponent } from "@/components/globals/ImageComponent";
 
 const meta = {
   title: "components/Globals/ImageComponent",

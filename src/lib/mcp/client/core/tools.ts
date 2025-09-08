@@ -1,9 +1,9 @@
 import type { Tool as MCPTool } from "@modelcontextprotocol/sdk/types.js";
-import { type JSONSchema7, type StepResult, type ToolSet, jsonSchema, tool } from "ai";
+import { type JSONSchema7, jsonSchema, type StepResult, type ToolSet, tool } from "ai";
 
 export const processTools = (
   toolsFromMcp: MCPTool[],
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: We don't know what the LLM will return
   executeTool: (name: string, args: unknown) => Promise<any>
 ) => {
   const entries = toolsFromMcp.map((t) => {

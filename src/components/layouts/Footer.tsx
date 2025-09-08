@@ -1,7 +1,7 @@
+import Image from "next/image";
 import logo from "@/assets/smart_living_logo.webp";
 import { Link } from "@/i18n/routing";
 import type { LinkData } from "@/types";
-import Image from "next/image";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 
 export type FooterProps = {

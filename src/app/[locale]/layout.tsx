@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/assets/styles/globals.css";
+import type { Locale } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { FloatingMCPChat } from "@/components/features/McpChat/FloatingMCPChat";
 import { Footer } from "@/components/layouts/Footer";
 import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
@@ -8,9 +11,6 @@ import { getFooter } from "@/lib/gql/documents/gcaPage";
 import { getNavigationStructure } from "@/lib/gql/documents/navigation";
 import type { LinkData } from "@/types";
 import { stripNavigationFiles } from "@/utils/links";
-import type { Locale } from "next-intl";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 import { ClientProvider } from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -47,6 +47,7 @@ const RootLayout = async (
               : "/",
         };
       }
+      return undefined;
     })
     .filter((link) => link !== undefined) as LinkData[];
 

@@ -1,5 +1,5 @@
-import type { ImageData } from "@/types";
 import Image from "next/image";
+import type { ImageData } from "@/types";
 
 export type InterestingFactsProps = {
   backgroundImage?: ImageData;

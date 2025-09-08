@@ -1,7 +1,7 @@
-import type { Locale } from "@/i18n/config";
 import { Effect } from "effect";
-import { type PageEndpointProps, getPageEndpoints } from "../services/pageService";
-import { type ProductEndpointProps, getProductEndpoints } from "../services/productService";
+import type { Locale } from "@/i18n/config";
+import { getPageEndpoints, type PageEndpointProps } from "../services/pageService";
+import { getProductEndpoints, type ProductEndpointProps } from "../services/productService";
 
 export const fetchPageEndpoints = (locale: Locale): Promise<PageEndpointProps[]> => {
   return Effect.runPromise(getPageEndpoints(locale));

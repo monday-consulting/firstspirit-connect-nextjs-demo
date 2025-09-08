@@ -1,9 +1,9 @@
-import { Link } from "@/i18n/routing";
-import type { ImageData } from "@/types";
-import { useFavorites } from "@/utils/hooks/useFavorites";
 import { useTranslations } from "next-intl";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { LuArrowRight } from "react-icons/lu";
+import { Link } from "@/i18n/routing";
+import type { ImageData } from "@/types";
+import { useFavorites } from "@/utils/hooks/useFavorites";
 import { ImageComponent } from "../../globals/ImageComponent";
 
 export type ProductOverviewItemProps = {

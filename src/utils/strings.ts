@@ -1,5 +1,5 @@
-import type { Locale } from "@/i18n/config";
 import type { ToolResultBlockParam } from "@anthropic-ai/sdk/resources/messages.mjs";
+import type { Locale } from "@/i18n/config";
 
 export const renderLine = (prefix = "", content?: string | null, appendNewline = false): string => {
   if (!content || content.trim() === "") return "";
@@ -24,7 +24,7 @@ export const replaceUmlauts = (str: string): string => {
 };
 
 export const removeSpecialCharacters = (str: string) => {
-  return str.replace(/[^a-zA-Z0-9\-]/g, "");
+  return str.replace(/[^a-zA-Z0-9-]/g, "");
 };
 
 export const formatDate = (isoDate: string): string => {

@@ -1,11 +1,11 @@
 "use client";
 
+import { getImageProps } from "next/image";
+import { LuArrowRight } from "react-icons/lu";
 import { Link } from "@/i18n/routing";
 import type { ImageData, LinkData } from "@/types";
 import { cn } from "@/utils/cn";
 import { usePreviewId } from "@/utils/hooks/usePreview";
-import { getImageProps } from "next/image";
-import { LuArrowRight } from "react-icons/lu";
 
 export type StageProps = {
   headline: string;

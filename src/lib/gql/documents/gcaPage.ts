@@ -1,5 +1,5 @@
-import { parseLocale } from "@/i18n/parseLocale";
 import type { Locale } from "next-intl";
+import { parseLocale } from "@/i18n/parseLocale";
 import { client } from "../client";
 import { graphql } from "../generated";
 import type { FirstSpiritGcaFooter } from "../generated/graphql";

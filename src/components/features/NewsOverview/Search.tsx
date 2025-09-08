@@ -1,6 +1,6 @@
-import { cn } from "@/utils/cn";
 import { useTranslations } from "next-intl";
 import { LuSearch } from "react-icons/lu";
+import { cn } from "@/utils/cn";
 
 export type SearchProps = {
   input: string;

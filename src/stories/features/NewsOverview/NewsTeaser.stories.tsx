@@ -1,7 +1,7 @@
+import type { Meta, StoryObj } from "@storybook/react";
 import { NewsTeaser } from "@/components/features/NewsOverview/NewsTeaser";
 import { defaultImage } from "@/stories/mocks/imageMocks";
 import { defaultText } from "@/stories/mocks/textMocks";
-import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "components/Features/NewsOverview/NewsTeaser",

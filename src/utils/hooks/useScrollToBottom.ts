@@ -1,5 +1,5 @@
-import type { Message } from "@/components/features/McpChat/ChatConversation";
 import { type RefObject, useEffect } from "react";
+import type { Message } from "@/components/features/McpChat/ChatConversation";
 
 export const useScrollToBottom = (
   ref: RefObject<HTMLElement | null>,

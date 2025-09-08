@@ -1,7 +1,6 @@
-import type { Locale } from "@/i18n/config.js";
-
 import { type McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { ListResourcesResult } from "@modelcontextprotocol/sdk/types.js";
+import type { Locale } from "@/i18n/config.js";
 import { decodeRoute, encodeRoute } from "../firstSpirit/extractStructureRoutes";
 import { fetchProductEndpoints } from "../helper/createEndpointFetcher";
 

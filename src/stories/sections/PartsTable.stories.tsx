@@ -1,5 +1,5 @@
-import { PartsTable } from "@/components/sections/PartsTable";
 import type { Meta, StoryObj } from "@storybook/react";
+import { PartsTable } from "@/components/sections/PartsTable";
 
 const meta = {
   title: "components/Sections/PartsTable",

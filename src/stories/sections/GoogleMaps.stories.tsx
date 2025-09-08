@@ -1,5 +1,5 @@
-import { GoogleMaps } from "@/components/sections/GoogleMaps";
 import type { Meta, StoryObj } from "@storybook/react";
+import { GoogleMaps } from "@/components/sections/GoogleMaps";
 
 const meta = {
   title: "components/Sections/GoogleMaps",

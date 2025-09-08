@@ -1,6 +1,6 @@
+import type { Meta, StoryObj } from "@storybook/react";
 import { ProductOverviewItem } from "@/components/features/Products/ProductOverviewItem";
 import { defaultImage } from "@/stories/mocks/imageMocks";
-import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "components/Features/Products/ProductOverviewItem",

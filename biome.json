@@ -7,7 +7,8 @@
       "!**/.netlify/",
       "!**/storybook-static/",
       "!**/node_modules/",
-      "!**/src/lib/gql/generated/"
+      "!**/src/lib/gql/generated/",
+      "!**/storybook-static/"
     ]
   },
   "formatter": {
@@ -41,6 +42,13 @@
       },
       "nursery": {
         "useSortedClasses": "info"
+      }
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
       }
     }
   }

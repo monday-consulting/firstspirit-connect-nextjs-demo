@@ -1,9 +1,9 @@
 "use client";
 
-import { fuzzySearchObjects } from "@/utils/strings";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { LuSearch } from "react-icons/lu";
+import { fuzzySearchObjects } from "@/utils/strings";
 import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";
 
 export type Contact = {

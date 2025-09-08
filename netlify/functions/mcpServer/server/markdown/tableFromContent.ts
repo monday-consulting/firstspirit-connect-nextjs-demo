@@ -19,7 +19,7 @@ export function extractTableFromContent(lines: string[]): string | null {
     const nextMatch = next.match(/^\*\*Content:\*\* (.+)$/);
 
     // If both entries are "Content" and the second one looks like a value (for example -> %)
-    if (currentMatch && nextMatch && /^[\d.,]+\%?$/.test(nextMatch[1])) {
+    if (currentMatch && nextMatch && /^[\d.,]+%?$/.test(nextMatch[1])) {
       contentPairs.push([currentMatch[1], nextMatch[1]]);
       i++;
     }

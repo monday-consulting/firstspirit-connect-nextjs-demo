@@ -1,3 +1,4 @@
+import type { Locale } from "next-intl";
 import { NewsOverview } from "@/components/features/NewsOverview/NewsOverview";
 import { StandardLayout } from "@/components/layouts/StandardLayout";
 import { getDatasetsByType } from "@/lib/gql/documents/dataset";
@@ -7,11 +8,8 @@ import type {
   FirstSpiritSmartLivingNewsFragmentFragment,
   FirstSpiritStandard,
 } from "@/lib/gql/generated/graphql";
-import type { Locale } from "next-intl";
 
-const NewsOverviewPage = async (props: {
-  params: Promise<{ locale: Locale }>;
-}) => {
+const NewsOverviewPage = async (props: { params: Promise<{ locale: Locale }> }) => {
   const params = await props.params;
   const page = await getPageContentByRoute(params.locale, decodeURI("/news/"));
   const pageBodies = page?.pageBodies?.map((body) => body) as FirstSpiritPageBody[];

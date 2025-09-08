@@ -1,5 +1,5 @@
-import { PreviewContext } from "@/app/[locale]/provider";
 import { useContext } from "react";
+import { PreviewContext } from "@/app/[locale]/provider";
 
 export const usePreview = () => useContext(PreviewContext);
 

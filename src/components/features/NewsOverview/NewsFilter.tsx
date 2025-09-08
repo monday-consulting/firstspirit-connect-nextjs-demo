@@ -1,9 +1,9 @@
 "use client";
 
-import { useWindowSize } from "@/utils/hooks/useWindowSize";
-import { fuzzySearchObjects } from "@/utils/strings";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { useWindowSize } from "@/utils/hooks/useWindowSize";
+import { fuzzySearchObjects } from "@/utils/strings";
 import { CategoryDropdown } from "./CategoryDropdown";
 import { CategoryTabs } from "./CategoryTabs";
 import type { NewsEntity } from "./NewsTeaser";

@@ -1,6 +1,6 @@
-import type { ResourceUseRecord } from "@/lib/mcp/client/utils/selectResourcesToLoad";
 import type { ToolUseBlock } from "@anthropic-ai/sdk/resources/messages.mjs";
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
+import type { ResourceUseRecord } from "@/lib/mcp/client/utils/selectResourcesToLoad";
 import { ChatResponse } from "./ChatResponse";
 import { LoadingMessage } from "./LoadingMessage";
 import { StartingMessage } from "./StartingMessage";
@@ -23,7 +23,7 @@ export type ChatConversationProps = {
 
 export type ChatWithToolsOptions = {
   useResources?: string[];
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: We don't know what the LLM  will return
   usePrompts?: Array<{ name: string; args?: any }>;
   customSystemPrompt?: string;
   autoLoadAllResources?: boolean;

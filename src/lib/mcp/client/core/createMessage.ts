@@ -1,16 +1,16 @@
-import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
+import { createAnthropic } from "@ai-sdk/anthropic";
+import { createOpenAI } from "@ai-sdk/openai";
 import type { Prompt, PromptMessage, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
-import type { ModelId } from "@/components/features/McpChat/AvailableModels";
 import {
   type GenerateTextResult,
+  generateText,
   InvalidToolInputError,
   type ModelMessage,
   NoSuchToolError,
-  generateText,
   stepCountIs,
 } from "ai";
-import { createAnthropic } from "@ai-sdk/anthropic";
-import { createOpenAI } from "@ai-sdk/openai";
+import type { ModelId } from "@/components/features/McpChat/AvailableModels";
+import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
 import { selectResourcesToLoad } from "../utils/selectResourcesToLoad";
 import type { Core } from "./clientCore";
 import { createSystemPrompt, toJSONSafe } from "./createSystemPrompt";

@@ -1,5 +1,5 @@
-import type { ModelId } from "@/components/features/McpChat/AvailableModels";
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
+import type { ModelId } from "@/components/features/McpChat/AvailableModels";
 
 export type McpChatRequest = {
   messages: Array<{ role: "user" | "assistant" | "system"; content: string }>;

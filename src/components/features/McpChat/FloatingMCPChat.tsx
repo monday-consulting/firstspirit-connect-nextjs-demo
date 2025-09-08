@@ -1,15 +1,8 @@
 "use client";
 
+import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-
-import { ChatConversation } from "./ChatConversation";
-import { DetailsPanel } from "./DetailsPanel";
-import { FloatingButton } from "./FloatingButton";
-import { Header } from "./Header";
-import { InputMessage } from "./InputMessage";
-import type { PresetKey } from "./PromptPreset";
-
 import { useAutoOpen } from "@/utils/hooks/useAutoOpen";
 import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 import { useChatEngine } from "@/utils/hooks/useChatEngine";
@@ -19,9 +12,14 @@ import { useInitialPromptSelect } from "@/utils/hooks/useInitialPromptSelect";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useScrollToBottom } from "@/utils/hooks/useScrollToBottom";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
-import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
-import { type SizeKey, Sizebar, sizeClasses } from "./Sizebar";
 import { AvailableModels, type ModelId } from "./AvailableModels";
+import { ChatConversation } from "./ChatConversation";
+import { DetailsPanel } from "./DetailsPanel";
+import { FloatingButton } from "./FloatingButton";
+import { Header } from "./Header";
+import { InputMessage } from "./InputMessage";
+import type { PresetKey } from "./PromptPreset";
+import { Sizebar, type SizeKey, sizeClasses } from "./Sizebar";
 
 export type FloatingMCPChatProps = {
   enabled?: boolean;

@@ -1,6 +1,6 @@
-import { getAllProducts } from "@/lib/gql/documents/products";
 import { Effect } from "effect";
 import type { Locale } from "next-intl";
+import { getAllProducts } from "@/lib/gql/documents/products";
 import { extractRoutesFromProducts } from "../firstSpirit/extractProductRoutes";
 import { turnProductContentIntoMarkdown } from "../markdown/contentToMarkdown";
 import { generateDynamicDescription } from "../markdown/description";

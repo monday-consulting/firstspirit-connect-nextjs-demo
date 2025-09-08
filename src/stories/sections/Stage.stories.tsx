@@ -1,5 +1,5 @@
-import { Stage } from "@/components/sections/Stage";
 import type { StoryObj } from "@storybook/react";
+import { Stage } from "@/components/sections/Stage";
 import { defaultImage } from "../mocks/imageMocks";
 
 const meta = {

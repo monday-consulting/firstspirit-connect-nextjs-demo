@@ -1,7 +1,7 @@
+import { NextResponse } from "next/server";
 import { type Core, createCore } from "@/lib/mcp/client/core/clientCore";
 import { createMessage } from "@/lib/mcp/client/core/createMessage";
 import { pickPreset } from "@/lib/mcp/client/core/prompts";
-import { NextResponse } from "next/server";
 
 /**
  * Module-scoped singleton for the MCP "core"

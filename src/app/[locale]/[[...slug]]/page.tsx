@@ -1,14 +1,12 @@
+import { redirect } from "next/navigation";
+import type { Locale } from "next-intl";
 import { Home } from "@/components/layouts/Home";
 import { StandardLayout } from "@/components/layouts/StandardLayout";
 import { defaultLocale } from "@/i18n/config";
 import { getPageContentByRoute } from "@/lib/gql/documents/pageContent";
 import type { FirstSpiritPageBody, FirstSpiritStandard } from "@/lib/gql/generated/graphql";
-import type { Locale } from "next-intl";
-import { redirect } from "next/navigation";
 
-const SlugPage = async (props: {
-  params: Promise<{ slug: string[]; locale: Locale }>;
-}) => {
+const SlugPage = async (props: { params: Promise<{ slug: string[]; locale: Locale }> }) => {
   const params = await props.params;
   const path = params.slug
     ? `/${params.slug.join("/")}/`

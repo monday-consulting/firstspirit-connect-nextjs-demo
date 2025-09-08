@@ -1,14 +1,14 @@
 "use client";
 
-import logo from "@/assets/smart_living_logo.webp";
-import { Link, usePathname, useRouter } from "@/i18n/routing";
-import { useFavorites } from "@/utils/hooks/useFavorites";
-import { type Locale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { type Locale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { LuGlobe, LuMenu, LuX } from "react-icons/lu";
 import { VscHeart } from "react-icons/vsc";
+import logo from "@/assets/smart_living_logo.webp";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
+import { useFavorites } from "@/utils/hooks/useFavorites";
 import { FavoriteTeaser } from "./Favorites/FavoriteTeaser";
 import { NotificationNumber } from "./Favorites/NotificationNumber";
 

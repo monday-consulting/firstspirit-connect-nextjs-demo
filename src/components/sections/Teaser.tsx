@@ -1,8 +1,8 @@
+import type { ReactNode } from "react";
 import { ImageComponent } from "@/components/globals/ImageComponent";
 import { Link } from "@/i18n/routing";
 import type { ImageData, LinkData } from "@/types";
 import { cn } from "@/utils/cn";
-import type { ReactNode } from "react";
 import type { RichTextElementProps } from "../globals/RichTextElement";
 import { RichTextElement } from "../globals/RichTextElement";
 

@@ -1,14 +1,10 @@
 "use client";
-import { defaultQuestions } from "@/utils/questions";
-import { normalizePath } from "@/utils/strings";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
+import { defaultQuestions } from "@/utils/questions";
+import { normalizePath } from "@/utils/strings";
 
-export const SuggestedQuestions = ({
-  onSend,
-}: {
-  onSend: (question: string) => void;
-}) => {
+export const SuggestedQuestions = ({ onSend }: { onSend: (question: string) => void }) => {
   const pathname = usePathname() ?? "/";
   const { locale, segments } = useMemo(() => normalizePath(pathname), [pathname]);
 

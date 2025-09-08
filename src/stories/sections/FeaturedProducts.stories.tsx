@@ -1,5 +1,5 @@
-import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
 import type { StoryObj } from "@storybook/react";
+import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
 import { featuredProductItemDefaultArgs } from "../features/FeaturedProducts/FeaturedProductItem.stories";
 
 const meta = {

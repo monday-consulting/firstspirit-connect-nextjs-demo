@@ -1,8 +1,7 @@
+import { Effect } from "effect";
 import type { Locale } from "next-intl";
-
 import { getProductDetail } from "@/lib/gql/documents/products";
 import type { FirstSpiritInlineDatasetUnionB50D929C } from "@/lib/gql/generated/graphql";
-import { Effect } from "effect";
 import { processFirstSpirintInlineInput } from "../firstSpirit/processGenericTemplate";
 import { processFirstSpiritPage } from "../firstSpirit/processPage";
 import { getPageContent } from "../services/pageService";

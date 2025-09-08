@@ -1,14 +1,14 @@
+import type { Locale } from "next-intl";
 import { defaultLocale } from "@/i18n/config";
 import type { FirstSpiritLinkUnion } from "@/lib/gql/generated/graphql";
 import type { LinkData } from "@/types";
-import type { Locale } from "next-intl";
 import { removeSpecialCharacters, replaceUmlauts } from "./strings";
 
 export const stripNavigationFiles = (path: string | null | undefined): string => {
   if (!path) return "";
 
   // Remove the last part if it has a file extension
-  return path.replace(/\/[^\/]*\.[^\/]*$/, "/");
+  return path.replace(/\/[^/]*\.[^/]*$/, "/");
 };
 
 export const parseLink = (str: string) => {

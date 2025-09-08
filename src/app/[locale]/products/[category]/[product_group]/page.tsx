@@ -1,13 +1,11 @@
+import { redirect } from "next/navigation";
+import type { Locale } from "next-intl";
 import { ProductOverview } from "@/components/features/Products/ProductOverview";
 import { getAllProducts } from "@/lib/gql/documents/products";
 import type { FirstSpiritSmartlivingProduct } from "@/lib/gql/generated/graphql";
 import { getProductDetailLink } from "@/utils/links";
-import type { Locale } from "next-intl";
-import { redirect } from "next/navigation";
 
-const SlugPage = async (props: {
-  params: Promise<{ locale: Locale; product_group: string }>;
-}) => {
+const SlugPage = async (props: { params: Promise<{ locale: Locale; product_group: string }> }) => {
   const params = await props.params;
   const allProducts = await getAllProducts(params.locale);
 

@@ -3,14 +3,14 @@
  * Orchestrates the entire conversion process
  */
 
+import { Effect } from "effect";
+import type { Maybe } from "graphql/jsutils/Maybe";
 import type {
   FirstSpiritInlinePageUnion8F4Ef8C0,
   FirstSpiritPage,
   FirstSpiritPageBody,
   FirstSpiritSection,
 } from "@/lib/gql/generated/graphql";
-import { Effect } from "effect";
-import type { Maybe } from "graphql/jsutils/Maybe";
 import { templates } from "../markdown/templates";
 import { processFirstSpirintInlineInput } from "./processGenericTemplate";
 

@@ -1,5 +1,5 @@
-import { type PresetKey, SYSTEM_PROMPT_PRESETS } from "@/components/features/McpChat/PromptPreset";
 import { useMemo, useState } from "react";
+import { type PresetKey, SYSTEM_PROMPT_PRESETS } from "@/components/features/McpChat/PromptPreset";
 
 export const useSystemPrompt = (defaultPreset: PresetKey, defaultCustom: string) => {
   const [selectedPreset, setSelectedPreset] = useState<PresetKey>(defaultPreset);

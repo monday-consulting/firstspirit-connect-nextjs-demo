@@ -1,10 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { cn } from "@/utils/cn";
 import type { Product } from "@/utils/contexts/favorites";
 import { useFavorites } from "@/utils/hooks/useFavorites";
-import { useTranslations } from "next-intl";
-import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 
 export type FavoriteButtonProps = {
   product: Product;

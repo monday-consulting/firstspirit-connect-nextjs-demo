@@ -1,8 +1,8 @@
 "use client";
 
+import { createContext, type ReactNode, useState } from "react";
 import type { ImageData } from "@/types";
 import { useLocalStorage } from "@/utils/hooks/useLocalStorage";
-import { type ReactNode, createContext, useState } from "react";
 
 export type Product = {
   id: string;

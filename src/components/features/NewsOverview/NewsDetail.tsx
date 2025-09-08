@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { RichTextElement } from "@/components/globals/RichTextElement";
 import type { FirstSpiritSmartLivingNewsFragmentFragment } from "@/lib/gql/generated/graphql";
 import { formatDate } from "@/utils/strings";
-import Image from "next/image";
 
 export type NewsDetailProps = {
   categories: string[];

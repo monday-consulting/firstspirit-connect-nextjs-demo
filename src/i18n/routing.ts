@@ -1,5 +1,5 @@
 import { createNavigation } from "next-intl/navigation";
-import { type Pathnames, defineRouting } from "next-intl/routing";
+import { defineRouting, type Pathnames } from "next-intl/routing";
 import { defaultLocale, locales } from "./config";
 
 const pathnames: Pathnames<typeof locales> = {

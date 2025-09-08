@@ -1,7 +1,7 @@
+import { useLocale } from "next-intl";
 import type { FirstSpiritDataset, Maybe } from "@/lib/gql/generated/graphql";
 import type { LinkData } from "@/types";
 import { getProductDetailLink } from "@/utils/links";
-import { useLocale } from "next-intl";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
 import type { RichTextElementProps } from "../globals/RichTextElement";

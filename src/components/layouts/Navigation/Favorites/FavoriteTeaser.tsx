@@ -1,9 +1,9 @@
+import { useLocale } from "next-intl";
+import { LuTrash } from "react-icons/lu";
 import { Link } from "@/i18n/routing";
 import type { ImageData } from "@/types";
 import { useFavorites } from "@/utils/hooks/useFavorites";
 import { getProductDetailLink } from "@/utils/links";
-import { useLocale } from "next-intl";
-import { LuTrash } from "react-icons/lu";
 import { ImageComponent } from "../../../globals/ImageComponent";
 
 export type FavoriteTeaserProps = {

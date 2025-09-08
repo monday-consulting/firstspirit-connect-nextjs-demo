@@ -1,5 +1,5 @@
-import { Slider } from "@/components/sections/Slider";
 import type { Meta, StoryObj } from "@storybook/react";
+import { Slider } from "@/components/sections/Slider";
 import { defaultImage, smallImage } from "../mocks/imageMocks";
 import { defaultText } from "../mocks/textMocks";
 

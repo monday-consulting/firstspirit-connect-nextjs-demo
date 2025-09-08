@@ -19,7 +19,7 @@
     "start:next": "next start",
     "check:lint": "biome lint --write ./",
     "check:format": "biome format --write ./",
-    "check:imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write ./",
+    "check:imports": "biome check --formatter-enabled=false --linter-enabled=false --write ./",
     "check:ts": "tsc --noEmit",
     "check:all": "pnpm check:imports && pnpm check:format && pnpm check:lint && pnpm check:ts",
     "test": "jest",

@@ -1,10 +1,10 @@
+import { useLocale, useTranslations } from "next-intl";
+import { LuArrowRight } from "react-icons/lu";
 import { ImageComponent } from "@/components/globals/ImageComponent";
 import { Link } from "@/i18n/routing";
 import type { ImageData } from "@/types";
 import { getNewsDetailLink } from "@/utils/links";
 import { formatDate } from "@/utils/strings";
-import { useLocale, useTranslations } from "next-intl";
-import { LuArrowRight } from "react-icons/lu";
 
 export type NewsEntity = {
   image: ImageData;

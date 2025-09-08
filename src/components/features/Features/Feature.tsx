@@ -1,7 +1,7 @@
-import { Link } from "@/i18n/routing";
-import type { ImageData, LinkData } from "@/types";
 import type { ReactNode } from "react";
 import { LuArrowRight } from "react-icons/lu";
+import { Link } from "@/i18n/routing";
+import type { ImageData, LinkData } from "@/types";
 import { ImageComponent } from "../../globals/ImageComponent";
 import type { RichTextElementContent } from "../../globals/RichTextElement";
 import { RichTextElement } from "../../globals/RichTextElement";

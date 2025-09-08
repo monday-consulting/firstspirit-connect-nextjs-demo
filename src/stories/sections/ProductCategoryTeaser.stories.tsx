@@ -1,6 +1,6 @@
+import type { Meta, StoryObj } from "@storybook/react";
 import { ProductCategoryTeaser } from "@/components/sections/ProductCategoryTeaser";
 import type { FirstSpiritDataset, Maybe } from "@/lib/gql/generated/graphql";
-import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof ProductCategoryTeaser> = {
   title: "components/Sections/ProductCategoryTeaser",

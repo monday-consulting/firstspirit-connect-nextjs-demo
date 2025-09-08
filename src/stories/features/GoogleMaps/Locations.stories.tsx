@@ -1,6 +1,6 @@
+import type { Meta, StoryObj } from "@storybook/react";
 import { Locations } from "@/components/features/GoogleMaps/Locations";
 import { Default as ContactsTableStory } from "@/stories/features/GoogleMaps/ContactsTable.stories";
-import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "components/Features/GoogleMaps/Locations",

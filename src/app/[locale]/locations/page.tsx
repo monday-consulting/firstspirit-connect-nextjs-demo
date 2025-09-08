@@ -1,3 +1,4 @@
+import type { Locale } from "next-intl";
 import { Locations } from "@/components/features/GoogleMaps/Locations";
 import { getDatasetsByType } from "@/lib/gql/documents/dataset";
 import { getSectionByType } from "@/lib/gql/documents/section";
@@ -5,11 +6,8 @@ import type {
   FirstSpiritGoogleMapsFragmentFragment,
   FirstSpiritSmartLivingLocationFragmentFragment,
 } from "@/lib/gql/generated/graphql";
-import type { Locale } from "next-intl";
 
-const LocationsPage = async (props: {
-  params: Promise<{ locale: Locale }>;
-}) => {
+const LocationsPage = async (props: { params: Promise<{ locale: Locale }> }) => {
   const params = await props.params;
   const googleMaps = await getSectionByType(params.locale, "google_maps");
   const googleMapsData = googleMaps.data as FirstSpiritGoogleMapsFragmentFragment;

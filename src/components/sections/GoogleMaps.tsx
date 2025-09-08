@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/utils/cn";
 import { APIProvider, Map as GoogleMap, Marker } from "@vis.gl/react-google-maps";
+import { cn } from "@/utils/cn";
 
 export type GoogleMapsProps = {
   center: google.maps.LatLngLiteral;
