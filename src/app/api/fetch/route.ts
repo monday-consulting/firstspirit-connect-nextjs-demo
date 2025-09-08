@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   console.log("API-HANDLER: /api/fetch", body);
 
-  let data ;
+  let data;
 
   if (body) {
     try {
