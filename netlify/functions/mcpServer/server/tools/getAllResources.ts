@@ -14,8 +14,10 @@ export const getAllResourcesTool = (server: McpServer, locale: Locale) => {
       readOnlyHint: true,
     },
     async () => {
-      const pageEndpoints = await fetchPageEndpoints(locale);
-      const productEndpoints = await fetchProductEndpoints(locale);
+      const [pageEndpoints, productEndpoints] = await Promise.all([
+        fetchPageEndpoints(locale),
+        fetchProductEndpoints(locale),
+      ]);
 
       const combined = [
         ...pageEndpoints.map((p) => ({ ...p, type: "Page" })),

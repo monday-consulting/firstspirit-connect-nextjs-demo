@@ -17,6 +17,10 @@ import { getProductsTool } from "./server/tools/getProducts";
 import { orderProductTool } from "./server/tools/orderProduct";
 
 // Netlify serverless function handler which handles all inbound requests
+// Reuse a single MCP server instance across requests to avoid re-registering
+// tools/resources and refetching data on every invocation.
+let serverSingleton: McpServer | null = null;
+
 export default async (req: Request) => {
   try {
     // for stateless MCP, we'll only use the POST requests that are sent
@@ -42,8 +46,8 @@ export default async (req: Request) => {
 
       nodeRes.on("close", () => {
         console.log("Request closed");
+        // Close only the per-request transport; keep the singleton server alive
         transport.close();
-        server.close();
       });
 
       // Convert the Node response back to a Fetch Response (Netlify expects Fetch Response)
@@ -71,6 +75,8 @@ export default async (req: Request) => {
 };
 
 function getServer(): McpServer {
+  if (serverSingleton) return serverSingleton;
+
   // initialize our MCP Server instance that we will
   // attach all of our functionality and data.
   const server = new McpServer(
@@ -106,5 +112,6 @@ function getServer(): McpServer {
   compareProducts(server);
   searchProducts(server);
 
-  return server;
+  serverSingleton = server;
+  return serverSingleton;
 }

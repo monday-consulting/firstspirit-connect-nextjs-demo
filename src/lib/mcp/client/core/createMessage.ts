@@ -39,7 +39,7 @@ export const createMessage = async ({
   usedUserPrompt,
   selectedModel,
 }: CreateMessageProps) => {
-  const [resourcesUsed] = await Promise.all([selectResourcesToLoad({ options, resources, core })]);
+  const resourcesUsed = await selectResourcesToLoad({ options, resources, core });
 
   const system = createSystemPrompt({
     sysPreset,
@@ -129,7 +129,8 @@ export const createMessage = async ({
         //@ts-expect-error
         model: openai.chat(selectedModel),
         tools: mcpTools,
-        messages: finalMessages,
+        // Trim OpenAI context like Claude to reduce tokens and latency
+        messages: finalMessages.slice(-5),
         temperature: 0,
         system,
         stopWhen: stepCountIs(5),

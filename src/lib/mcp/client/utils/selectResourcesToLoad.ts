@@ -17,8 +17,7 @@ export const selectResourcesToLoad = async ({
   resources,
   core,
   options,
-}: SelectResourcesToLoadProps) => {
-  const resourcesUsed: ResourceUseRecord[] = [];
+}: SelectResourcesToLoadProps): Promise<ResourceUseRecord[]> => {
   const shouldAutoLoadResources = options?.autoLoadAllResources !== false;
   let resourcesToLoad = options?.useResources ?? [];
   if (shouldAutoLoadResources && resources.length > 0) {
@@ -27,14 +26,18 @@ export const selectResourcesToLoad = async ({
     ];
   }
 
-  for (const uri of resourcesToLoad) {
-    try {
-      const content = await core.executeResource(uri);
-      resourcesUsed.push({ uri, content });
-    } catch (error) {
-      console.warn(`[MCP] Read resource failed: ${uri}`, error);
-    }
-  }
+  const results = await Promise.all(
+    resourcesToLoad.map((uri) =>
+      core
+        .executeResource(uri)
+        .then((content) => ({ uri, content }))
+        .catch((error) => {
+          console.warn(`[MCP] Read resource failed: ${uri}`, error);
+          return null;
+        })
+    )
+  );
 
-  return resourcesUsed;
+  // Filter out nulls, then cast to ResourceUseRecord[]
+  return results.filter((r): r is NonNullable<typeof r> => r !== null) as ResourceUseRecord[];
 };
