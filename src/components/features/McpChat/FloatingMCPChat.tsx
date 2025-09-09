@@ -14,9 +14,9 @@ import { useScrollToBottom } from "@/utils/hooks/useScrollToBottom";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
 import { AvailableModels, type ModelId } from "./AvailableModels";
 import { ChatConversation } from "./ChatConversation";
+import { ChatHeader } from "./ChatHeader";
 import { DetailsPanel } from "./DetailsPanel";
 import { FloatingButton } from "./FloatingButton";
-import { Header } from "./Header";
 import { InputMessage } from "./InputMessage";
 import type { PresetKey } from "./PromptPreset";
 import { Sizebar, type SizeKey, sizeClasses } from "./Sizebar";
@@ -115,7 +115,7 @@ const FloatingMCPChat = ({
         <div
           className={`fixed right-6 bottom-24 z-40 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 ${width}`}
         >
-          <Header
+          <ChatHeader
             toggleDetails={() => setShowDetails((value) => !value)}
             toggleOpen={() => setOpen((value) => !value)}
           />

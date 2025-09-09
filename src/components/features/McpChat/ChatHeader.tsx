@@ -1,9 +1,9 @@
-export type HeaderProps = {
+export type ChatHeaderProps = {
   toggleDetails: () => void;
   toggleOpen: () => void;
 };
 
-export const Header = ({ toggleDetails, toggleOpen }: HeaderProps) => {
+export const ChatHeader = ({ toggleDetails, toggleOpen }: ChatHeaderProps) => {
   return (
     <div className="flex items-center justify-between border-b px-3 py-2">
       <div className="font-medium text-gray-800">MCP Chat</div>

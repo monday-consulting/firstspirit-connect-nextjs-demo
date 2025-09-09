@@ -51,6 +51,7 @@ export const Modal: React.FC<{
   return (
     <div
       className="fixed inset-0 z-30 flex items-end justify-center sm:items-center"
+      role="dialog"
       aria-modal="true"
     >
       <button
@@ -67,9 +68,7 @@ export const Modal: React.FC<{
       />
       <div className="relative z-40 w-full rounded-t-2xl bg-white p-4 shadow-xl sm:max-w-lg sm:rounded-2xl">
         <div className="mb-3 flex items-center justify-between">
-          <h3 id="modal-title" className="font-semibold text-lg">
-            {title}
-          </h3>
+          <h3 className="font-semibold text-lg">{title}</h3>
           <button
             type="button"
             onClick={onClose}

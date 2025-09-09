@@ -1,18 +1,12 @@
-export type PresetKey =
-  | "default"
-  | "ultra_aggressive"
-  | "aggressive"
-  | "balanced"
-  | "assistant"
-  | "custom";
-
-export const SYSTEM_PROMPT_PRESETS: Record<Exclude<PresetKey, "custom">, string> = {
+const SYSTEM_PROMPT_PRESETS = {
   default: "Default MCP-First: Always use MCP features proactively ⚡",
   ultra_aggressive: "Ultra Aggressive: Use EVERY MCP feature for EVERY response 🚨",
   aggressive: "Aggressive: Use ALL available MCP features for every response 🔥",
   balanced: "Balanced: Use MCP when clearly beneficial ⚖️",
   assistant: "Assistant: General purpose with MCP when helpful 🤖",
-};
+} as const;
+
+export type PresetKey = keyof typeof SYSTEM_PROMPT_PRESETS | "custom";
 
 export type PromptPresetProps = {
   selectedPreset: PresetKey;
@@ -36,9 +30,9 @@ export const PromptPreset = ({
           value={selectedPreset}
           onChange={(e) => setSelectedPreset(e.target.value as PresetKey)}
         >
-          {Object.entries(SYSTEM_PROMPT_PRESETS).map(([key, label]) => (
+          {Object.entries(SYSTEM_PROMPT_PRESETS).map(([key, value]) => (
             <option key={key} value={key}>
-              {label}
+              {value}
             </option>
           ))}
           <option value="custom">Custom</option>

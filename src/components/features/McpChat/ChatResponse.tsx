@@ -19,7 +19,7 @@ export const ChatResponse = ({ messages }: MessageProps) => {
                 isUser ? "bg-blue-500 text-white" : "bg-white text-gray-800"
               }`}
             >
-              <div className="whitespace-pre-wrap ">
+              <div className="whitespace-pre-wrap">
                 <StyledMessage content={message.content} />
               </div>
               {!!message.toolsUsed?.length && (

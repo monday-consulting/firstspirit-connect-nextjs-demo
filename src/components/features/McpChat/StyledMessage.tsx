@@ -1,7 +1,11 @@
 import parse from "html-react-parser";
 import Markdown from "react-markdown";
 
-export const StyledMessage = ({ content }: { content: string }) => {
+type StyledMessageProps = {
+  content: string;
+};
+
+export const StyledMessage = ({ content }: StyledMessageProps) => {
   if (/<!DOCTYPE|<html|<body|<div|<table|<head/i.test(content)) {
     const cleaned = content
       .replace(/<!DOCTYPE[^>]*>/gi, "")

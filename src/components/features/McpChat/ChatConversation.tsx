@@ -23,8 +23,6 @@ export type ChatConversationProps = {
 
 export type ChatWithToolsOptions = {
   useResources?: string[];
-  // biome-ignore lint/suspicious/noExplicitAny: We don't know what the LLM  will return
-  usePrompts?: Array<{ name: string; args?: any }>;
   customSystemPrompt?: string;
   autoLoadAllResources?: boolean;
   autoApplyRelevantPrompts?: boolean;
@@ -36,7 +34,6 @@ export const ChatConversation = ({ messages, loading, messagesEndRef }: ChatConv
       <StartingMessage messages={messages} />
       <ChatResponse messages={messages} />
       <LoadingMessage loading={loading} />
-
       <div ref={messagesEndRef} />
     </div>
   );
