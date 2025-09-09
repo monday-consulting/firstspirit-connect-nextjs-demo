@@ -3,12 +3,8 @@
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 import { useChatEngine } from "@/utils/hooks/useChatEngine";
-import { useEnterToSend } from "@/utils/hooks/useEnterToSend";
-import { useInitialPromptSelect } from "@/utils/hooks/useInitialPromptSelect";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
-import { useScrollToBottom } from "@/utils/hooks/useScrollToBottom";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
 import { AvailableModels, type ModelId } from "./AvailableModels";
 import { ChatConversation } from "./ChatConversation";
@@ -61,11 +57,6 @@ const FloatingMCPChat = ({
 
   const { messages, loading, send } = useChatEngine();
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  useScrollToBottom(messagesEndRef, messages, open);
-
-  useAutoSelectResources(availableResources, pathname, setSelectedResources);
-
-  useInitialPromptSelect(availablePrompts, setSelectedPrompts);
 
   const handleSend = async (overrideText?: string, usedUserPrompt?: Prompt) => {
     const text = (overrideText ?? input).trim();
@@ -91,7 +82,12 @@ const FloatingMCPChat = ({
     }
   };
 
-  const onKeyDown = useEnterToSend(handleSend);
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSend();
+    }
+  };
 
   if (!enabled) return null;
 
