@@ -44,7 +44,7 @@ const FloatingMCPChat = ({
   const [input, setInput] = useState("");
   const [selectedPrompts, setSelectedPrompts] = useState<{ name: string }[]>([]);
   const [selectedResources, setSelectedResources] = useState<string[]>([]);
-  const [selectedModel, setSelectedModel] = useState<ModelId>("claude-sonnet-4-20250514");
+  const [selectedModel, setSelectedModel] = useState<ModelId>("gpt-oss:20b");
   const pathname = usePathname() ?? "/";
 
   useEffect(() => {
