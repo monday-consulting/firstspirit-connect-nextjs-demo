@@ -3,11 +3,9 @@
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { useAutoOpen } from "@/utils/hooks/useAutoOpen";
 import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 import { useChatEngine } from "@/utils/hooks/useChatEngine";
 import { useEnterToSend } from "@/utils/hooks/useEnterToSend";
-import { useHotkey } from "@/utils/hooks/useHotkey";
 import { useInitialPromptSelect } from "@/utils/hooks/useInitialPromptSelect";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useScrollToBottom } from "@/utils/hooks/useScrollToBottom";
@@ -23,7 +21,6 @@ import { Sizebar, type SizeKey, sizeClasses } from "./Sizebar";
 
 export type FloatingMCPChatProps = {
   enabled?: boolean;
-  autoOpenDelayMs?: number | null;
   detailsHotkey?: string;
   defaultPreset?: Exclude<PresetKey, "custom">;
   defaultCustomPrompt?: string;
@@ -32,8 +29,6 @@ export type FloatingMCPChatProps = {
 
 const FloatingMCPChat = ({
   enabled = process.env.NEXT_PUBLIC_MCP_ENABLED === "true",
-  autoOpenDelayMs = 3000,
-  detailsHotkey = "ctrl+shift+i",
   defaultPreset = "default",
   defaultCustomPrompt = "",
   onOpenChange,
@@ -57,12 +52,6 @@ const FloatingMCPChat = ({
     setShowDetails(false);
     setInput("");
   }, [pathname]);
-
-  useAutoOpen(enabled, autoOpenDelayMs, open, setOpen);
-  useHotkey(detailsHotkey, () => {
-    setShowDetails((value) => !value);
-    setOpen(true);
-  });
 
   const { availableTools, availableResources, availablePrompts, connectedServers } =
     useMcpInit(enabled);

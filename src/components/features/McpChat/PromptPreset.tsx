@@ -1,4 +1,4 @@
-const SYSTEM_PROMPT_PRESETS = {
+export const SYSTEM_PROMPT_PRESETS = {
   default: "Default MCP-First: Always use MCP features proactively ⚡",
   ultra_aggressive: "Ultra Aggressive: Use EVERY MCP feature for EVERY response 🚨",
   aggressive: "Aggressive: Use ALL available MCP features for every response 🔥",

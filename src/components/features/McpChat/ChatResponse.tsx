@@ -1,5 +1,5 @@
 import type { Message } from "./ChatConversation";
-import { StyledMessage } from "./Message";
+import { StyledMessage } from "./StyledMessage";
 
 export type MessageProps = {
   messages: Message[];
