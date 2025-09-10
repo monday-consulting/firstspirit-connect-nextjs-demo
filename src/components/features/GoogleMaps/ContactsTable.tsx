@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { fuzzySearchObjects } from "@/utils/strings";
 import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";
@@ -19,6 +19,7 @@ export type ContactsTableProps = {
 const ContactsTable = ({ contacts }: ContactsTableProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredContacts, setFilteredContacts] = useState<Contact[]>(contacts);
+  const contactsTableSearchInputId = useId();
 
   const t = useTranslations();
 
@@ -35,7 +36,7 @@ const ContactsTable = ({ contacts }: ContactsTableProps) => {
 
   return (
     <div className="mb-6 rounded-xl bg-white p-4 shadow-lg sm:p-8">
-      <div className="flex flex-col gap-4 bg-white pb-4 sm:flex-row sm:items-center sm:justify-between ">
+      <div className="flex flex-col gap-4 bg-white pb-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="font-bold text-3xl text-text tracking-tight">{t("locations.searchInfo")}</h2>
         <div>
           <div className="relative mx-auto flex md:w-80">
@@ -44,7 +45,7 @@ const ContactsTable = ({ contacts }: ContactsTableProps) => {
               className="w-full rounded-lg border border-textLighter py-3 pr-4 pl-12 text-text leading-tight placeholder-text shadow-xsm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-2"
               type="text"
               placeholder={t("locations.searchPlaceholder")}
-              id="search_locations"
+              id={contactsTableSearchInputId}
               name="search_locations"
               onChange={(e) => setSearchInput(e.target.value)}
             />

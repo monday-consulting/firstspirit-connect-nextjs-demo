@@ -1,4 +1,4 @@
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { LuArrowRight } from "react-icons/lu";
 import { ImageComponent } from "@/components/globals/ImageComponent";
 import { Link } from "@/i18n/routing";
@@ -20,7 +20,6 @@ export type NewsTeaserProps = {
 };
 
 const NewsTeaser = ({ newsEntity }: NewsTeaserProps) => {
-  const locale = useLocale();
   const t = useTranslations();
   return (
     <div className="flex flex-col items-center gap-4 text-center">

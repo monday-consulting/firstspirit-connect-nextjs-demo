@@ -6,9 +6,9 @@ export type ButtonProps = {
 };
 
 const Button = ({ text, link }: ButtonProps) => {
-  const clickHandler = () => {
-    const router = useRouter();
+  const router = useRouter();
 
+  const clickHandler = () => {
     if (link) {
       router.push(link);
     }

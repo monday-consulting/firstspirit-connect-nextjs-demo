@@ -9,34 +9,33 @@ const SlugPage = async (props: { params: Promise<{ locale: Locale; product_group
   const params = await props.params;
   const allProducts = await getAllProducts(params.locale);
 
-  const filteredProducts = allProducts.filter((item) => {
-    if (item.data.__typename === "FirstSpiritSmartlivingProduct") {
-      return item.data.ttCategories?.some(
+  function isSmartlivingProduct(
+    item: (typeof allProducts)[number],
+    productGroup: string
+  ): item is typeof item & { data: { __typename: "FirstSpiritSmartlivingProduct" } } {
+    return (
+      item.data.__typename === "FirstSpiritSmartlivingProduct" &&
+      item.data.ttCategories?.some(
         (category) =>
           category?.data?.__typename === "FirstSpiritSmartlivingCategory" &&
-          category.data.ttName
-            ?.toLowerCase()
-            .replaceAll(" ", "-")
-            .includes(decodeURI(params.product_group))
-      );
-    }
-  });
+          category.data.ttName?.toLowerCase().replaceAll(" ", "-").includes(decodeURI(productGroup))
+      ) === true
+    );
+  }
+
+  const filteredProducts = allProducts.filter((item) =>
+    isSmartlivingProduct(item, params.product_group)
+  );
 
   if (filteredProducts.length < 1) {
     redirect("/");
   }
 
-  const products = filteredProducts
-    .map((item) => {
-      if (item && item.data.__typename === "FirstSpiritSmartlivingProduct") {
-        return {
-          route: item.route,
-          data: item.data,
-          id: item.fsId,
-        };
-      }
-    })
-    .filter((item) => item != null);
+  const products = filteredProducts.map((item) => ({
+    route: item.route,
+    data: item.data,
+    id: item.fsId,
+  }));
 
   const categoryNames = (item: FirstSpiritSmartlivingProduct) =>
     item.ttCategories

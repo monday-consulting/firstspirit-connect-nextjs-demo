@@ -9,7 +9,7 @@ import { formatKey } from "./formatKey";
  *   Output: ["**Name:** Outdoor Camera"]
  */
 export const formatMarkdownLines = (lines: string[]): string[] => {
-  return lines.map((entry, index) => {
+  return lines.map((entry) => {
     const splitIndex = entry.indexOf(": ");
     if (splitIndex === -1) return "";
 

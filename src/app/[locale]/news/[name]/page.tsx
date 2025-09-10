@@ -14,6 +14,7 @@ const NewsDetailPage = async (props: { params: Promise<{ locale: Locale; name: s
     if (entry.__typename === "FirstSpiritSmartlivingNews") {
       return getNewsDetailLink(entry.ttHeadline || "") === getNewsDetailLink(params.name);
     }
+    return false;
   });
 
   const categories = newsEntity?.ttTags.map(
@@ -23,7 +24,7 @@ const NewsDetailPage = async (props: { params: Promise<{ locale: Locale; name: s
   const author = newsEntity?.ttAuthor[0].data;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between py-12 ">
+    <main className="flex min-h-screen flex-col items-center justify-between py-12">
       {newsEntity && <NewsDetail categories={categories} newsEntity={newsEntity} author={author} />}
     </main>
   );

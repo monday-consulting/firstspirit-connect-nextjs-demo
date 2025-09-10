@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { useId } from "react";
 import { LuSearch } from "react-icons/lu";
 import { cn } from "@/utils/cn";
 
@@ -10,6 +11,7 @@ export type SearchProps = {
 
 const Search = ({ input, setInput, className }: SearchProps) => {
   const t = useTranslations();
+  const searchInputId = useId();
 
   return (
     <div
@@ -24,7 +26,7 @@ const Search = ({ input, setInput, className }: SearchProps) => {
         placeholder={t("news.search")}
         className="w-full p-2 placeholder:text-text focus-visible:outline-none"
         name="searchInput"
-        id="searchInput"
+        id={searchInputId}
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />

@@ -11,6 +11,11 @@
       "!**/storybook-static/"
     ]
   },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
@@ -35,7 +40,8 @@
         "noUnusedImports": "warn"
       },
       "suspicious": {
-        "noArrayIndexKey": "off"
+        "noArrayIndexKey": "off",
+        "noUnknownAtRules": "off"
       },
       "complexity": {
         "noUselessFragments": "off"

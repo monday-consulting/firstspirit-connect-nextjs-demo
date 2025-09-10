@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { useWindowSize } from "@/utils/hooks/useWindowSize";
 import { fuzzySearchObjects } from "@/utils/strings";
@@ -17,7 +16,6 @@ export type NewsFilterProps = {
 const NewsFilter = ({ news, categories }: NewsFilterProps) => {
   const noFilterActiveCategory = categories[0];
 
-  const t = useTranslations();
   const size = useWindowSize();
 
   const [selectedCategory, setSelectedCategory] = useState(noFilterActiveCategory);
