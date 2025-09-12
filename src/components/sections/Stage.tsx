@@ -55,7 +55,7 @@ const Stage = (props: StageProps) => {
         >
           <h2
             className={cn(
-              "mb-4 font-bold font-heading text-white leading-tight tracking-px-n ",
+              "mb-4 font-bold font-heading text-white leading-tight tracking-px-n",
               shortVersion ? "text-3xl md:text-4xl" : "text-5xl md:text-6xl"
             )}
           >

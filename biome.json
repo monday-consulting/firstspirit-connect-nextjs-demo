@@ -47,7 +47,11 @@
         "noUselessFragments": "off"
       },
       "nursery": {
-        "useSortedClasses": "info"
+        "useSortedClasses": {
+          "level": "info",
+          "fix": "safe",
+          "options": {}
+        }
       }
     }
   },

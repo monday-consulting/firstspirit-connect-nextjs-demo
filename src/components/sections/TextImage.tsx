@@ -49,7 +49,7 @@ const TextImage = ({ headline, subheadline, text, twoColumn, layout, image }: Te
             )}
             {text && (
               <div
-                className={`${layout === "image-text" ? "order-2" : "order-1"} w-full break-after-column px-4 pb-4 ${twoColumn ? "lg:columns-2 " : "lg:columns-1 "}`}
+                className={`${layout === "image-text" ? "order-2" : "order-1"} w-full break-after-column px-4 pb-4 ${twoColumn ? "lg:columns-2" : "lg:columns-1"}`}
               >
                 <RichTextElement {...text} />
               </div>
