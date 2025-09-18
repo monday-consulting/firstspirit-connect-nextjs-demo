@@ -3,7 +3,7 @@
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { useChatStreamEngine } from "@/utils/hooks/useChatStreamEngine";
+import { useChatEngine } from "@/utils/hooks/useChatEngine";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
 import { AvailableModels, type ModelId } from "./AvailableModels";
@@ -56,7 +56,7 @@ const FloatingMCPChat = ({
     useSystemPrompt(defaultPreset, defaultCustomPrompt);
 
   // Always use streaming for better performance and to avoid timeout issues
-  const { messages, loading, send } = useChatStreamEngine();
+  const { messages, loading, send } = useChatEngine();
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
