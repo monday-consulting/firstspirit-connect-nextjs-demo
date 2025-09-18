@@ -1,4 +1,4 @@
-# FirstSpirit Connect MCP Server
+# MCP Server
 
 A comprehensive **Model Context Protocol (MCP) Server** implementation running as a Netlify serverless function. This server provides AI assistants with structured access to FirstSpirit CMS content, enabling intelligent content management, product comparisons, and automated content operations.
 
