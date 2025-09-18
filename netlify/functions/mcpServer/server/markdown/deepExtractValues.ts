@@ -12,12 +12,12 @@ export type RichTextNode = {
 
 /**
  * Traverses a deeply nested FirstSpirit data object,
- * extracts meaningful text content while skipping blacklisted fields,
+ * extracts meaningful text content while skipping denied fields,
  * and returns it as an array of formatted strings.
  */
 export const deepExtractValues = (
   data: FirstSpiritInlineInput,
-  blacklist: string[],
+  denylist: string[],
   path: string[] = []
 ): string[] => {
   const result: string[] = [];
@@ -60,7 +60,7 @@ export const deepExtractValues = (
 
   /**
    * Recursively traverses any kind of input node (array, object, or primitive),
-   * collecting values unless the key is blacklisted.
+   * collecting values unless the key is denied.
    */
   // biome-ignore lint/suspicious/noExplicitAny: the node could contain every type
   const collectValues = (node: any, currentPath: string[]): void => {
@@ -78,7 +78,7 @@ export const deepExtractValues = (
       }
 
       for (const [key, value] of Object.entries(node)) {
-        if (blacklist.includes(key)) continue;
+        if (denylist.includes(key)) continue;
         collectValues(value, [...currentPath, key]);
       }
     } else if (["string", "number", "boolean"].includes(typeof node)) {

@@ -69,7 +69,7 @@ export const processPage = (
     // Get page content and convert to markdown
     const content = yield* turnPageContentIntoMarkdown(locale, route).pipe(
       Effect.tapError((error) =>
-        Effect.sync(() => console.warn(`⚠️ Could not process ${route}: ${String(error)}`))
+        Effect.sync(() => console.warn(`⚠️ Could not process page ${route}: ${String(error)}`))
       ),
       Effect.catchAll(() => Effect.succeed(""))
     );

@@ -1,4 +1,4 @@
-import { blacklist } from "../firstSpirit/blacklist";
+import { denylist } from "../firstSpirit/denylist";
 import type { FirstSpiritInlineInput } from "../firstSpirit/processGenericTemplate";
 import { assembleMarkdownParts } from "./assembleMarkdownParts";
 import { deepExtractValues } from "./deepExtractValues";
@@ -9,8 +9,8 @@ import { extractIfContainsTable } from "./tableDetection";
  * Generate a markdown based on the given input
  */
 export const genericTemplate = (data: FirstSpiritInlineInput): string => {
-  // Extract key-value pairs from FirstSpirit data, filtering out blacklisted keys
-  const lines = deepExtractValues(data, blacklist);
+  // Extract key-value pairs from FirstSpirit data, filtering out denied keys
+  const lines = deepExtractValues(data, denylist);
 
   // Convert the extracted lines into formatted Markdown strings
   const markdownLines = formatMarkdownLines(lines);

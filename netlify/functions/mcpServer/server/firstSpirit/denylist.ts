@@ -1,5 +1,5 @@
-export const blacklist = [
-  // technical fields
+export const denylist = [
+  // Technical fields
   "id",
   "fsId",
   "refId",
@@ -21,7 +21,7 @@ export const blacklist = [
   "format",
   "value",
 
-  // payloads
+  // Payloads
   "fsai_facesPayload",
   "fsai_focusPreference",
   "fsai_objectsPayload",
@@ -29,7 +29,7 @@ export const blacklist = [
   "fsai_textPayload",
   "fsai_unsafeContentPayload",
 
-  // meta-fields
+  // Meta-fields
   "md_fts_do_not_translate_element",
   "md_fts_exclude_from_translation",
   "md_fts_ref_worfklow_on_import",
@@ -37,11 +37,11 @@ export const blacklist = [
   "pt_fts_gen_task_queue",
   "pt_fts_mappings_standard",
 
-  // structure
+  // Structure
   "meta",
   "metaPageRef",
 
-  // interactive fields
+  // Interactive fields
   "pt_createSection",
   "pt_createSectionDrop",
 ];

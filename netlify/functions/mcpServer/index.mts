@@ -2,7 +2,6 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import type { JSONRPCError } from "@modelcontextprotocol/sdk/types.js";
 import { toFetchResponse, toReqRes } from "fetch-to-node";
-
 import { locales } from "@/i18n/config";
 import { checkMarkdown } from "./server/prompts/checkMarkdown";
 import { compareProducts } from "./server/prompts/compareProducts";
@@ -16,9 +15,7 @@ import { getPagesTool } from "./server/tools/getPages";
 import { getProductsTool } from "./server/tools/getProducts";
 import { orderProductTool } from "./server/tools/orderProduct";
 
-// Netlify serverless function handler which handles all inbound requests
-// Reuse a single MCP server instance across requests to avoid re-registering
-// tools/resources and refetching data on every invocation.
+// Module-scoped singleton MCP server instance
 let serverSingleton: McpServer | null = null;
 
 export default async (req: Request) => {
