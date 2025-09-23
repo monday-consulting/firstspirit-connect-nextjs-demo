@@ -19,16 +19,20 @@ const NewsDetail = ({ categories, newsEntity, author }: NewsDetailProps) => {
             <span
               key={category}
               className="rounded-full bg-lightGray px-4 py-1 text-sm text-text uppercase leading-5 shadow-sm"
+              data-preview-id="#st_detail_category"
             >
               {category}
             </span>
           ))}
         </div>
         <p className="text-text">{formatDate(newsEntity?.ttDate)}</p>
-        <h1 className="mt-2 text-center font-bold text-3xl text-textDark">
+        <h1
+          className="mt-2 text-center font-bold text-3xl text-textDark"
+          data-preview-id="#st_detail_headline"
+        >
           {newsEntity?.ttHeadline}
         </h1>
-        <p>{newsEntity?.ttSubheadline}</p>
+        <p data-preview-id="#st_detail_subheadline">{newsEntity?.ttSubheadline}</p>
         <div className="mt-4 flex items-center gap-4">
           <div className="h-16 w-16 overflow-hidden rounded-full">
             <Image
@@ -37,9 +41,12 @@ const NewsDetail = ({ categories, newsEntity, author }: NewsDetailProps) => {
               width={80}
               height={80}
               objectFit="cover"
+              data-preview-id="#st_detail_author_image"
             />
           </div>
-          <p className="font-semibold text-lg text-text">{author.tt_name}</p>
+          <p className="font-semibold text-lg text-text" data-preview-id="#st_detail_author_name">
+            {author.tt_name}
+          </p>
         </div>
       </div>
       <div className="relative my-8 h-32 w-screen md:h-72">
@@ -53,13 +60,21 @@ const NewsDetail = ({ categories, newsEntity, author }: NewsDetailProps) => {
           layout="fill"
           objectFit="cover"
           objectPosition="center"
+          data-preview-id="#st_detail_image"
         />
       </div>
       <div className="flex flex-col items-center px-4 text-text sm:px-12 md:px-24">
-        <p className="border-gray border-b-[1px] py-4 font-medium text-lg">
+        <p
+          className="border-gray border-b-[1px] py-4 font-medium text-lg"
+          data-preview-id="#st_detail_teaser"
+        >
           {newsEntity?.ttTeaserText}
         </p>
-        <RichTextElement className="mt pt-4 text-text" content={newsEntity?.ttArticleText} />
+        <RichTextElement
+          className="mt pt-4 text-text"
+          content={newsEntity?.ttArticleText}
+          data-preview-id="#st_detail_article"
+        />
       </div>
     </section>
   );

@@ -35,6 +35,7 @@ const pageContentDocument = graphql(`
           ... on FirstSpiritSection {
             __typename
             id
+            previewId
             data {
               __typename
               ...FirstSpiritTeaserFragment

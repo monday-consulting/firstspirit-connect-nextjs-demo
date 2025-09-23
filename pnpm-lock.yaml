@@ -42,6 +42,9 @@ importers:
       fetch-to-node:
         specifier: ^2.1.0
         version: 2.1.0
+      fs-tpp-api:
+        specifier: ^2.4.8
+        version: 2.4.8
       graphql:
         specifier: 16.11.0
         version: 16.11.0
@@ -4784,6 +4787,9 @@ packages:
 
   fs-monkey@1.1.0:
     resolution: {integrity: sha512-QMUezzXWII9EV5aTFXW1UBVUO77wYPpjqIF8/AviUCThNeSYZykpoTixUeaNNBwmCev0AMDWMAni+f8Hxb1IFw==}
+
+  fs-tpp-api@2.4.8:
+    resolution: {integrity: sha512-3fDR8nq6awRM4RMwV7lgPRRz95sC+3HUe4kbmvIeYRUKYTijdoEzStfFQvKdScSPV9OoZ69So8o512yjXbubaA==}
 
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
@@ -13476,6 +13482,8 @@ snapshots:
       minipass: 3.3.6
 
   fs-monkey@1.1.0: {}
+
+  fs-tpp-api@2.4.8: {}
 
   fs.realpath@1.0.0: {}
 

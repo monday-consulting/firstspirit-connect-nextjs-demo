@@ -98,17 +98,14 @@ pnpm check:all      # Executes all styling and linting scripts at once
 pnpm codegen  # create GraphQL utility files and TypeScript definitions from schema
 ```
 
-## 👁️ Preview Mode
-
-When the environment variable `NEXT_PUBLIC_PREVIEW_MODE` is set to `"true"`, you can use the `usePreviewId()` hook from `@/utils/hooks/usePreview`. This hook allows you to append a `data-preview-id` attribute to client-side components. Here's an example of how it can be used:
+When the environment variable `NEXT_PUBLIC_PREVIEW_MODE` is set to `"true"`, you can use the `getPreviewParams()` function from `@/utils/preview/getPreviewParams`.
+This hook allows you to append a `data-preview-id` attribute to client-side components. Here's an example of how it can be used:
 
 ```tsx
-"use client";
-
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 const ExampleComponent = () => {
-  const previewProps = usePreviewId("exampleId");
+  const previewProps = getPreviewParams("exampleId");
 
   return (
     <section {...previewProps}>

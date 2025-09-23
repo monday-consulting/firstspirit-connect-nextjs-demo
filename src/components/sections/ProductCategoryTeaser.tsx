@@ -1,7 +1,9 @@
+import type { Maybe } from "graphql/jsutils/Maybe";
 import { useLocale } from "next-intl";
-import type { FirstSpiritDataset, Maybe } from "@/lib/gql/generated/graphql";
+import type { FirstSpiritDataset } from "@/gql/generated/graphql";
 import type { LinkData } from "@/types";
 import { getProductDetailLink } from "@/utils/links";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
 import type { RichTextElementProps } from "../globals/RichTextElement";
@@ -18,6 +20,7 @@ export type ProductCategoryTeaserProps = {
   headline: string;
   text: RichTextElementProps;
   teaserTextStart?: boolean;
+  previewId?: string;
 };
 
 const ProductCategoryTeaser = ({
@@ -26,7 +29,9 @@ const ProductCategoryTeaser = ({
   headline,
   text,
   teaserTextStart: teaserTextLeft = true,
+  previewId,
 }: ProductCategoryTeaserProps) => {
+  const previewProps = getPreviewParams(previewId);
   const locale = useLocale();
 
   const products: ProductTeaserProps[] = (category.products ?? [])
@@ -51,7 +56,7 @@ const ProductCategoryTeaser = ({
     });
 
   return (
-    <section className="bg-lightGray py-8">
+    <section className="bg-lightGray py-8" {...previewProps}>
       <div className="container mx-auto">
         <div className="m-auto">
           <Teaser

@@ -1,3 +1,4 @@
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import { StepsItem, type StepsItemProps } from "../features/Steps/StepsItem";
 import { RichTextElement, type RichTextElementProps } from "../globals/RichTextElement";
 
@@ -6,21 +7,33 @@ export type StepsProps = {
   headline: string;
   stepsItems: StepsItemProps[];
   richtext?: RichTextElementProps;
+  previewId?: string;
 };
 
-const Steps = ({ subline, headline, stepsItems, richtext }: StepsProps) => {
+const Steps = ({ subline, headline, stepsItems, richtext, previewId }: StepsProps) => {
+  const previewProps = getPreviewParams(previewId);
+
   return (
-    <section className="py-14">
+    <section className="py-14" {...previewProps}>
       <div className="container mx-auto px-4 text-center">
         <div className="mx-auto mb-16 max-w-5xl md:mb-24">
-          <span className="mb-4 inline-block rounded-full bg-gray-100 px-2 py-px font-medium text-secondary text-xs uppercase leading-5 shadow-sm">
+          <span
+            className="mb-4 inline-block rounded-full bg-gray-100 px-2 py-px font-medium text-secondary text-xs uppercase leading-5 shadow-sm"
+            data-preview-id="#st_steps_subline"
+          >
             {subline}
           </span>
-          <h2 className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl">
+          <h2
+            className="mb-8 font-bold font-heading text-3xl text-primary leading-none tracking-px-n md:text-4xl"
+            data-preview-id="#st_steps_headline"
+          >
             {headline}
           </h2>
           {richtext && (
-            <div className="mb-6 font-semibold text-coolGray-500 text-xl leading-7">
+            <div
+              className="mb-6 font-semibold text-coolGray-500 text-xl leading-7"
+              data-preview-id="#st_steps_text"
+            >
               <RichTextElement {...richtext} />
             </div>
           )}

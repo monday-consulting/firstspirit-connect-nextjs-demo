@@ -13,4 +13,3 @@ from = "/mcp/*"
 to = "/.netlify/functions/mcpServer/:splat"
 status = 200
 force = true
-

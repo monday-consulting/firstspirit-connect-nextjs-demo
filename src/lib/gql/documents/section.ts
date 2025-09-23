@@ -21,6 +21,7 @@ const sectionById = graphql(`
         }
         name
         fsId
+        previewId
       }
     }
   }
@@ -46,6 +47,7 @@ const sectionByType = graphql(`
         }
         name
         fsId
+        previewId
       }
     }
   }

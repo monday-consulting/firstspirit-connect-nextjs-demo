@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ImageData } from "@/types";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type InterestingFactsProps = {
   backgroundImage?: ImageData;
@@ -11,6 +12,7 @@ export type InterestingFactsProps = {
     number: number;
     text: string;
   }[];
+  previewId?: string;
 };
 
 const InterestingFacts = ({
@@ -19,9 +21,15 @@ const InterestingFacts = ({
   headline,
   text,
   counters,
+  previewId,
 }: InterestingFactsProps) => {
+  const previewProps = getPreviewParams(previewId);
+
   return (
-    <section className="relative grid items-center gap-4 p-4 py-20 text-white lg:h-[800px] lg:grid-cols-2">
+    <section
+      className="relative grid items-center gap-4 p-4 py-20 text-white lg:h-[800px] lg:grid-cols-2"
+      {...previewProps}
+    >
       {backgroundImage && <div className="-z-10 absolute inset-0 bg-black bg-opacity-75" />}
       {backgroundImage && (
         <div className="-z-20 absolute inset-0">
@@ -30,15 +38,27 @@ const InterestingFacts = ({
             alt={backgroundImage.alt}
             fill
             className="object-cover"
+            data-preview-id="#st_fact_image"
           />
         </div>
       )}
       <div className="flex w-min flex-col space-y-2 overflow-auto lg:m-10 lg:border-[12px] lg:p-12">
-        <h3 className="text-xl uppercase">{tagline}</h3>
+        <h3 className="text-xl uppercase" data-preview-id="#st_fact_tagline">
+          {tagline}
+        </h3>
         {headline && (
-          <h2 className="font-black text-3xl text-yellow-500 uppercase lg:text-5xl">{headline}</h2>
+          <h2
+            className="font-black text-3xl text-yellow-500 uppercase lg:text-5xl"
+            data-preview-id="#st_fact_headline"
+          >
+            {headline}
+          </h2>
         )}
-        {text && <p className="text-gray-300">{text}</p>}
+        {text && (
+          <p className="text-gray-300" data-preview-id="#st_fact_text">
+            {text}
+          </p>
+        )}
       </div>
       <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         {counters.map((counter) => (

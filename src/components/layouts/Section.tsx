@@ -13,7 +13,7 @@ import { Teaser } from "../sections/Teaser";
 import { TextImage, type TextImageLayout } from "../sections/TextImage";
 
 export type SectionProps = {
-  section: Pick<FirstSpiritSection, "__typename" | "id" | "data">;
+  section: Pick<FirstSpiritSection, "__typename" | "id" | "data" | "previewId">;
 };
 
 function getSectionComponent(section: SectionProps["section"]) {
@@ -33,6 +33,7 @@ function getSectionComponent(section: SectionProps["section"]) {
               "",
             alt: section.data.stImageAltText || "",
           }}
+          previewId={section.previewId}
         />
       );
     case "FirstSpiritProductCategoryTeaser":
@@ -48,6 +49,7 @@ function getSectionComponent(section: SectionProps["section"]) {
           headline={section.data.stHeadline || ""}
           text={{ content: section.data.stText }}
           teaserTextStart={section.data.stTextAlignment?.key === "left"}
+          previewId={section.previewId}
         />
       );
     case "FirstSpiritSteps": {
@@ -63,14 +65,14 @@ function getSectionComponent(section: SectionProps["section"]) {
               index: index + 1,
             } as StepsItemProps;
           }
-          return null;
         })
-        .filter((item): item is StepsItemProps => item != null);
+        .filter((item) => item != null);
       return (
         <Steps
           headline={section.data.stHeadline || ""}
           subline={section.data.stSubline || ""}
           stepsItems={stepItems || []}
+          previewId={section.previewId}
         />
       );
     }
@@ -86,14 +88,14 @@ function getSectionComponent(section: SectionProps["section"]) {
               content: entry.data.stContent,
             } as AccordionProps;
           }
-          return null;
         })
-        .filter((item): item is AccordionProps => item != null);
+        .filter((item) => item != null);
       return (
         <FAQSection
           headline={section.data.stHeadline || ""}
           subline={section.data.stSubline}
           entries={entries || []}
+          previewId={section.previewId}
         />
       );
     }
@@ -110,6 +112,7 @@ function getSectionComponent(section: SectionProps["section"]) {
             alt: "",
           }}
           cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
+          previewId={section.previewId}
         />
       );
     }
@@ -135,14 +138,14 @@ function getSectionComponent(section: SectionProps["section"]) {
               },
             } as FeatureProps;
           }
-          return null;
         })
-        .filter((item): item is FeatureProps => item != null);
+        .filter((item) => item != null);
       return (
         <Features
           headline={section.data.stHeadline || ""}
           text={section.data.stText}
           features={features || []}
+          previewId={section.previewId}
         />
       );
     }
@@ -160,6 +163,7 @@ function getSectionComponent(section: SectionProps["section"]) {
             alt: section.data.stImageAltText || "",
           }}
           cta={section.data.stCta?.data ? getConnectorLink(section.data.stCta.data) : undefined}
+          previewId={section.previewId}
         />
       );
     case "FirstSpiritTable":
@@ -168,6 +172,7 @@ function getSectionComponent(section: SectionProps["section"]) {
           tableContent={section.data.stTable || []}
           headline={section.data.stHeadline || undefined}
           text={section.data.stText || undefined}
+          previewId={section.previewId}
         />
       );
     default:

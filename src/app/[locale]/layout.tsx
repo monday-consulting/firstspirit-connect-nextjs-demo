@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/assets/styles/globals.css";
+import Script from "next/script";
 import type { Locale } from "next-intl";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { FloatingMCPChat } from "@/components/features/McpChat/FloatingMCPChat";
 import { Footer } from "@/components/layouts/Footer";
 import { Navigation, type NavigationStructure } from "@/components/layouts/Navigation/Navigation";
+import { getBodyPreviewId } from "@/lib/gql/documents/bodyPreviewId";
 import { getFooter } from "@/lib/gql/documents/gcaPage";
 import { getNavigationStructure } from "@/lib/gql/documents/navigation";
 import type { LinkData } from "@/types";
 import { stripNavigationFiles } from "@/utils/links";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import { ClientProvider } from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -31,6 +34,10 @@ const RootLayout = async (
 ) => {
   const { children } = props;
   const { locale } = await props.params;
+  const isPreview = process.env.NEXT_PUBLIC_PREVIEW_MODE === "true";
+  const fsPreviewScriptUrl = process.env.NEXT_PUBLIC_FS_PREVIEW_SCRIPT_URL;
+
+  const previewProps = getPreviewParams(await getBodyPreviewId(locale));
 
   const messages = await getMessages();
   const structure = await getNavigationStructure(locale);
@@ -53,7 +60,8 @@ const RootLayout = async (
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>
+      <body className={inter.className} {...previewProps}>
+        {isPreview && fsPreviewScriptUrl && <Script src={fsPreviewScriptUrl} />}
         <NextIntlClientProvider messages={messages}>
           <ClientProvider>
             <Navigation

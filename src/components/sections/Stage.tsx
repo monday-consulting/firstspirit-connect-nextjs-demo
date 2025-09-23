@@ -5,7 +5,7 @@ import { LuArrowRight } from "react-icons/lu";
 import { Link } from "@/i18n/routing";
 import type { ImageData, LinkData } from "@/types";
 import { cn } from "@/utils/cn";
-import { usePreviewId } from "@/utils/hooks/usePreview";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 
 export type StageProps = {
   headline: string;
@@ -13,6 +13,7 @@ export type StageProps = {
   image: ImageData;
   cta?: LinkData;
   shortVersion?: boolean;
+  previewId?: string;
 };
 
 const getBackgroundImage = (srcSet = "") => {
@@ -27,8 +28,7 @@ const getBackgroundImage = (srcSet = "") => {
 };
 
 const Stage = (props: StageProps) => {
-  // TODO: change to real id
-  const previewProps = usePreviewId("EXAMPLE_PREVIEW_ID");
+  const previewProps = getPreviewParams(props.previewId);
 
   const shortVersion = props.shortVersion || false;
   const {
@@ -58,14 +58,21 @@ const Stage = (props: StageProps) => {
               "mb-4 font-bold font-heading text-white leading-tight tracking-px-n",
               shortVersion ? "text-3xl md:text-4xl" : "text-5xl md:text-6xl"
             )}
+            data-preview-id="#st_stage_headline"
           >
             {props.headline}
           </h2>
-          <p className="font-medium text-lg text-lightGray leading-normal">{props.subline}</p>
+          <p
+            className="font-medium text-lg text-lightGray leading-normal"
+            data-preview-id="#st_stage_subline"
+          >
+            {props.subline}
+          </p>
           {props.cta?.href && (
             <Link
               href={props.cta?.href}
               className="inline-flex flex-wrap items-center text-white hover:text-lightGray hover:underline"
+              data-preview-id="#st_stage_link"
             >
               <span className="mr-2 font-semibold leading-normal">{props.cta?.label}</span>
               <LuArrowRight />

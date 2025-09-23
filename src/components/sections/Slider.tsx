@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import type { ImageData } from "@/types";
+import { getPreviewParams } from "@/utils/preview/getPreviewParams";
 import { Button, type ButtonProps } from "../globals/Button";
 
 export type SliderSlide = {
@@ -15,9 +16,12 @@ export type SliderSlide = {
 
 export type SliderProps = {
   slides: SliderSlide[];
+  previewId?: string;
 };
 
-const Slider = ({ slides }: SliderProps) => {
+const Slider = ({ slides, previewId }: SliderProps) => {
+  const previewProps = getPreviewParams(previewId);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeSlide, setActiveSlide] = useState<SliderSlide>(slides[activeIndex]);
 
@@ -33,7 +37,7 @@ const Slider = ({ slides }: SliderProps) => {
   };
 
   return (
-    <section className="group relative">
+    <section className="group relative" {...previewProps}>
       {activeSlide && (
         <div className="relative text-white">
           <button
@@ -52,8 +56,10 @@ const Slider = ({ slides }: SliderProps) => {
           </button>
           <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black to-transparent p-16 md:p-20">
             <div className="flex max-w-xl flex-col space-y-4 md:py-10">
-              <h1 className="font-black text-4xl md:text-6xl">{activeSlide.title}</h1>
-              <p>{activeSlide.description}</p>
+              <h1 className="font-black text-4xl md:text-6xl" data-preview-id="#st_slider_title">
+                {activeSlide.title}
+              </h1>
+              <p data-preview-id="#st_slider_description">{activeSlide.description}</p>
               <div>
                 <Button {...activeSlide.button} />
               </div>
@@ -65,6 +71,7 @@ const Slider = ({ slides }: SliderProps) => {
             alt={activeSlide.image.alt}
             width={400}
             height={400}
+            data-preview-id="#st_slider_image"
           />
         </div>
       )}

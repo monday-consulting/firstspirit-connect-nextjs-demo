@@ -1,6 +1,6 @@
 /* eslint-disable */
 // @ts-nocheck
-import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -3085,6 +3085,15 @@ export type StringQueryOperatorInput = {
   regex?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type BodyPreviewIdQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type BodyPreviewIdQuery = {
+  __typename?: "Query";
+  firstSpiritPage?: { __typename?: "FirstSpiritPage"; previewId: string } | null;
+};
+
 export type DatasetsByTypeQueryVariables = Exact<{
   locale: Scalars["String"]["input"];
   type: Scalars["String"]["input"];
@@ -3765,6 +3774,7 @@ export type PageByRouteQuery = {
         | {
             __typename: "FirstSpiritSection";
             id: string;
+            previewId: string;
             data:
               | ({ __typename: "FirstSpiritAccordion" } & {
                   " $fragmentRefs"?: {
@@ -3986,6 +3996,7 @@ export type SectionByIdQuery = {
       __typename?: "FirstSpiritSection";
       name?: string | null;
       fsId: string;
+      previewId: string;
       data:
         | ({ __typename: "FirstSpiritAccordion" } & {
             " $fragmentRefs"?: {
@@ -4082,6 +4093,7 @@ export type SectionByTypeQuery = {
       __typename?: "FirstSpiritSection";
       name?: string | null;
       fsId: string;
+      previewId: string;
       data:
         | ({ __typename: "FirstSpiritAccordion" } & {
             " $fragmentRefs"?: {
@@ -5278,6 +5290,52 @@ export const FirstSpiritTableFragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<FirstSpiritTableFragmentFragment, unknown>;
+export const BodyPreviewIdDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "bodyPreviewId" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "locale" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "firstSpiritPage" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_locale" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "eq" },
+                      value: { kind: "Variable", name: { kind: "Name", value: "locale" } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [{ kind: "Field", name: { kind: "Name", value: "previewId" } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<BodyPreviewIdQuery, BodyPreviewIdQueryVariables>;
 export const DatasetsByTypeDocument = {
   kind: "Document",
   definitions: [
@@ -5972,6 +6030,7 @@ export const PageByRouteDocument = {
                                 selections: [
                                   { kind: "Field", name: { kind: "Name", value: "__typename" } },
                                   { kind: "Field", name: { kind: "Name", value: "id" } },
+                                  { kind: "Field", name: { kind: "Name", value: "previewId" } },
                                   {
                                     kind: "Field",
                                     name: { kind: "Name", value: "data" },
@@ -7650,6 +7709,7 @@ export const SectionByIdDocument = {
                       },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
                       { kind: "Field", name: { kind: "Name", value: "fsId" } },
+                      { kind: "Field", name: { kind: "Name", value: "previewId" } },
                     ],
                   },
                 },
@@ -8718,6 +8778,7 @@ export const SectionByTypeDocument = {
                       },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
                       { kind: "Field", name: { kind: "Name", value: "fsId" } },
+                      { kind: "Field", name: { kind: "Name", value: "previewId" } },
                     ],
                   },
                 },

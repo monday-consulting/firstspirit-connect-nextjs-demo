@@ -1,4 +1,4 @@
-import type { Locale } from "use-intl";
+import type { Locale } from "next-intl";
 import { sanitizeSlug } from "./strings";
 
 export const TEMPLATES = {

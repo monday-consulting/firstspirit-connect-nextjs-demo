@@ -2,10 +2,10 @@
 
 import { useMemo } from "react";
 import { ImageComponent } from "@/components/globals/ImageComponent";
-import type { FirstSpiritDataset } from "@/lib/gql/generated/graphql";
+import { RichTextElement, type RichTextElementProps } from "@/components/globals/RichTextElement";
+import { FavoriteButton } from "@/components/layouts/Navigation/Favorites/FavoriteButton";
+import type { FirstSpiritDataset } from "@/gql/generated/graphql";
 import type { ImageData } from "@/types";
-import { RichTextElement, type RichTextElementProps } from "../../globals/RichTextElement";
-import { FavoriteButton } from "../../layouts/Navigation/Favorites/FavoriteButton";
 
 export type Product = {
   id: string;
@@ -50,7 +50,10 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
           </div>
           <div className="flex items-start py-4">
             <div className="mb-5 font-medium text-text">
-              <RichTextElement {...product.description} />
+              <RichTextElement
+                {...product.description}
+                data-preview-id="#st_product_detail_description"
+              />
             </div>
           </div>
           <div className="w-full px-4">
@@ -72,6 +75,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
             alt={product.image.alt}
             imageClassName="rounded-xl"
             className="aspect-square w-full lg:w-1/2"
+            data-preview-id="#st_product_detail_image"
           />
         )}
       </div>
