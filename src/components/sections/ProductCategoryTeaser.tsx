@@ -1,6 +1,6 @@
 import type { Maybe } from "graphql/jsutils/Maybe";
 import { useLocale } from "next-intl";
-import type { FirstSpiritDataset } from "@/gql/generated/graphql";
+import type { FirstSpiritDataset } from "@/lib/gql/generated/graphql";
 import type { LinkData } from "@/types";
 import { getProductDetailLink } from "@/utils/links";
 import { getPreviewParams } from "@/utils/preview/getPreviewParams";

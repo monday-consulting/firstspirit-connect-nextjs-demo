@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { ImageComponent } from "@/components/globals/ImageComponent";
 import { RichTextElement, type RichTextElementProps } from "@/components/globals/RichTextElement";
 import { FavoriteButton } from "@/components/layouts/Navigation/Favorites/FavoriteButton";
-import type { FirstSpiritDataset } from "@/gql/generated/graphql";
+import type { FirstSpiritDataset } from "@/lib/gql/generated/graphql";
 import type { ImageData } from "@/types";
 
 export type Product = {

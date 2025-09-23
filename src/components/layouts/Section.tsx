@@ -53,20 +53,22 @@ function getSectionComponent(section: SectionProps["section"]) {
         />
       );
     case "FirstSpiritSteps": {
-      const stepItems = section.data.stSteps
-        ?.map((step, index) => {
-          if (
-            step?.__typename === "FirstSpiritSection" &&
-            step.data.__typename === "FirstSpiritStepsItem"
-          ) {
-            return {
+      let stepIndex = 0;
+      const stepItems = section.data.stSteps?.flatMap((step) => {
+        if (
+          step?.__typename === "FirstSpiritSection" &&
+          step.data.__typename === "FirstSpiritStepsItem"
+        ) {
+          return [
+            {
               title: step.data.stTitle,
               text: step.data.stText,
-              index: index + 1,
-            } as StepsItemProps;
-          }
-        })
-        .filter((item) => item != null);
+              index: ++stepIndex,
+            },
+          ];
+        }
+        return [];
+      }) as StepsItemProps[];
       return (
         <Steps
           headline={section.data.stHeadline || ""}
@@ -77,19 +79,20 @@ function getSectionComponent(section: SectionProps["section"]) {
       );
     }
     case "FirstSpiritAccordion": {
-      const entries = section.data.stAccordion
-        ?.map((entry) => {
-          if (
-            entry?.__typename === "FirstSpiritSection" &&
-            entry.data.__typename === "FirstSpiritAccordionItem"
-          ) {
-            return {
+      const entries = section.data.stAccordion?.flatMap((entry) => {
+        if (
+          entry?.__typename === "FirstSpiritSection" &&
+          entry.data.__typename === "FirstSpiritAccordionItem"
+        ) {
+          return [
+            {
               title: entry.data.stTitle,
               content: entry.data.stContent,
-            } as AccordionProps;
-          }
-        })
-        .filter((item) => item != null);
+            },
+          ];
+        }
+        return [];
+      }) as AccordionProps[];
       return (
         <FAQSection
           headline={section.data.stHeadline || ""}
@@ -117,13 +120,13 @@ function getSectionComponent(section: SectionProps["section"]) {
       );
     }
     case "FirstSpiritFeatures": {
-      const features = section.data.stFeatures
-        ?.map((feature) => {
-          if (
-            feature?.__typename === "FirstSpiritSection" &&
-            feature.data.__typename === "FirstSpiritFeature"
-          ) {
-            return {
+      const features = section.data.stFeatures?.flatMap((feature) => {
+        if (
+          feature?.__typename === "FirstSpiritSection" &&
+          feature.data.__typename === "FirstSpiritFeature"
+        ) {
+          return [
+            {
               title: feature.data.stTitle,
               text: feature.data.stText,
               link: feature.data.stLink?.data
@@ -136,10 +139,11 @@ function getSectionComponent(section: SectionProps["section"]) {
                   "",
                 alt: feature.data.stImageAltText,
               },
-            } as FeatureProps;
-          }
-        })
-        .filter((item) => item != null);
+            },
+          ];
+        }
+        return [];
+      }) as FeatureProps[];
       return (
         <Features
           headline={section.data.stHeadline || ""}
