@@ -6,14 +6,15 @@ export type FloatingButtonProps = {
 };
 
 export const FloatingButton = ({ open, toggleOpen }: FloatingButtonProps) => {
+  const iconSize = 24;
   return (
     <button
       type="button"
       aria-label="Open chat"
       onClick={toggleOpen}
-      className="fixed right-6 bottom-6 z-40 rounded-full bg-blue-600 p-4 text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+      className="fixed right-6 bottom-6 z-40 rounded-full bg-primary p-4 text-white"
     >
-      {open ? <BiRedo /> : <BiMessageRounded />}
+      {open ? <BiRedo size={iconSize} /> : <BiMessageRounded size={iconSize} />}
     </button>
   );
 };

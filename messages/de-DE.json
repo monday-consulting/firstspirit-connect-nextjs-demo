@@ -27,5 +27,10 @@
     "removeFavorite": "Als Favorit entfernen",
     "closeAccordion": "Akkordion schließen",
     "openAccordion": "Akkordion öffnen"
+  },
+  "chat": {
+    "headline": "KI-Chat",
+    "placeholder": "Gib deine Frage ein...",
+    "startingMessage": "Hallo! Ich bin dein persönlicher Assistent für SmartLiving."
   }
 }

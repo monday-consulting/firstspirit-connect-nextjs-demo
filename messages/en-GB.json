@@ -27,5 +27,10 @@
     "removeFavorite": "Remove from favorites",
     "closeAccordion": "Close accordion",
     "openAccordion": "Open accordion"
+  },
+  "chat": {
+    "headline": "AI Chat",
+    "placeholder": "Type your question...",
+    "startingMessage": "Hello! I'll be your personal assistant for SmartLiving."
   }
 }

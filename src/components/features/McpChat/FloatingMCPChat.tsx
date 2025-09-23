@@ -29,6 +29,9 @@ const FloatingMCPChat = ({
   defaultCustomPrompt = "",
   onOpenChange,
 }: FloatingMCPChatProps) => {
+  const pathname = usePathname() ?? "/";
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
   const [open, setOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [size, setSize] = useState<SizeKey>("sm");
@@ -36,7 +39,12 @@ const FloatingMCPChat = ({
   const [selectedPrompts, setSelectedPrompts] = useState<{ name: string }[]>([]);
   const [selectedResources, setSelectedResources] = useState<string[]>([]);
   const [selectedModel, setSelectedModel] = useState<ModelId>("gpt-oss:20b");
-  const pathname = usePathname() ?? "/";
+
+  const { availableTools, availableResources, availablePrompts, connectedServers } =
+    useMcpInit(enabled);
+  const { selectedPreset, customSystemPrompt, setCustomSystemPrompt, setSelectedPreset } =
+    useSystemPrompt(defaultPreset, defaultCustomPrompt);
+  const { messages, loading, send } = useChatEngine();
 
   useEffect(() => {
     onOpenChange?.(open);
@@ -48,17 +56,6 @@ const FloatingMCPChat = ({
     setShowDetails(false);
     setInput("");
   }, [pathname]);
-
-  const { availableTools, availableResources, availablePrompts, connectedServers } =
-    useMcpInit(enabled);
-
-  const { selectedPreset, customSystemPrompt, setCustomSystemPrompt, setSelectedPreset } =
-    useSystemPrompt(defaultPreset, defaultCustomPrompt);
-
-  // Always use streaming for better performance and to avoid timeout issues
-  const { messages, loading, send } = useChatEngine();
-
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const handleSend = async (overrideText?: string, usedUserPrompt?: Prompt) => {
     const text = (overrideText ?? input).trim();
@@ -100,7 +97,7 @@ const FloatingMCPChat = ({
       <FloatingButton open={open} toggleOpen={() => setOpen((value) => !value)} />
       {open && (
         <div
-          className={`fixed right-6 bottom-24 z-40 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 ${width}`}
+          className={`fixed right-6 bottom-24 z-40 overflow-hidden rounded-xl bg-white shadow-2xl ${width}`}
         >
           <ChatHeader
             toggleDetails={() => setShowDetails((value) => !value)}

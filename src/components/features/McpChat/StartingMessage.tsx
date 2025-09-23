@@ -1,15 +1,13 @@
-import type { Message } from "./ChatConversation";
+import { useTranslations } from "next-intl";
+import { VscRobot } from "react-icons/vsc";
 
-export type StartingMessage = {
-  messages: Message[];
-};
-export const StartingMessage = ({ messages }: StartingMessage) => {
-  if (messages.length > 0) return null;
+export const StartingMessage = () => {
+  const t = useTranslations();
 
   return (
-    <div className="py-6 text-center text-gray-500">
-      <div className="mb-2 text-5xl">🤖</div>
-      <div>Start a conversation with MondAI</div>
+    <div className="my-12 flex flex-col items-center gap-4 text-center">
+      <VscRobot size={30} />
+      <div>{t("chat.startingMessage")}</div>
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
+import { useTranslations } from "next-intl";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { VscSend } from "react-icons/vsc";
 import { Modal } from "./PromptModal";
 import { SuggestedQuestions } from "./SuggestedQuestions";
 
@@ -21,6 +23,8 @@ export const InputMessage = ({
   onKeyDown,
   prompts = [],
 }: InputMessageProps) => {
+  const t = useTranslations();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [filter, setFilter] = useState("");
@@ -96,7 +100,7 @@ export const InputMessage = ({
   };
 
   return (
-    <div className="flex flex-col gap-2 border-t p-3" ref={wrapperRef}>
+    <div className="flex flex-col gap-2 p-3" ref={wrapperRef}>
       <SuggestedQuestions
         onSend={(text) => {
           setInput(text);
@@ -108,18 +112,18 @@ export const InputMessage = ({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Type your message..."
+          placeholder={t("chat.placeholder")}
           disabled={loading}
           rows={2}
-          className="flex-1 resize-none rounded-md border border-gray-300 px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 resize-none rounded-md border border-gray p-2 text-text"
         />
         <button
           type="button"
           onClick={() => sendMessage()}
           disabled={loading || !input.trim()}
-          className="ml-2 rounded-md bg-blue-600 px-3 py-2 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="ml-2 rounded-md bg-secondary px-4 py-2 text-white hover:bg-opacity-90 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-secondary"
         >
-          Send
+          <VscSend />
         </button>
 
         {menuOpen && filteredPrompts.length > 0 && (
