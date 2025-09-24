@@ -83,7 +83,7 @@ async function processMcpRequest(req: Request): Promise<Response> {
 
   // Create streaming transport layer for HTTP-MCP bridge
   const transport = new StreamableHTTPServerTransport({
-    sessionIdGenerator: () => crypto.randomUUID(),
+    sessionIdGenerator: undefined
   });
 
   // Connect server to transport layer
