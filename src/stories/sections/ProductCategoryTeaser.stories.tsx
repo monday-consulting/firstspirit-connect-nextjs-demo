@@ -1,5 +1,5 @@
 import { ProductCategoryTeaser } from "@/components/sections/ProductCategoryTeaser";
-import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
+import type { FirstSpiritDataset } from "@/gql/generated/graphql";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof ProductCategoryTeaser> = {
@@ -151,7 +151,7 @@ export const Default: Story = {
       type: "category",
       id: "category-key",
       name: "Category Name",
-      products: mockProducts as FirstSpiritSmartlivingProduct[],
+      products: mockProducts as unknown as FirstSpiritDataset[],
     },
     link: {
       href: "/",
