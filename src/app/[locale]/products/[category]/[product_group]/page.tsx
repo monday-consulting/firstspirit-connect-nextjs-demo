@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import type { Locale } from "next-intl";
 import { ProductOverview } from "@/components/features/Products/ProductOverview";
-import type { FirstSpiritSmartlivingProduct } from "@/gql/generated/graphql";
 import { getAllProducts } from "@/lib/gql/documents/products";
 import { getProductDetailLink } from "@/utils/links";
+import { FirstSpiritSmartlivingProduct } from "@/lib/gql/generated/graphql";
 
 const SlugPage = async (props: { params: Promise<{ locale: Locale; product_group: string }> }) => {
   const params = await props.params;
