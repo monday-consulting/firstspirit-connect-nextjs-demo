@@ -31,7 +31,7 @@ export type ChatWithToolsOptions = {
 export const ChatConversation = ({ messages, loading, messagesEndRef }: ChatConversationProps) => {
   return (
     <div className="flex-1 space-y-3 overflow-y-auto p-3">
-      {messages.length === 0 && <StartingMessage messages={messages} />}
+      {messages.length === 0 && <StartingMessage />}
       <ChatResponse messages={messages} />
       <LoadingMessage loading={loading} />
       <div ref={messagesEndRef} />
