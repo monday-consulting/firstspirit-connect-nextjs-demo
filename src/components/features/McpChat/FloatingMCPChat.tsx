@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useChatEngine } from "@/utils/hooks/useChatEngine";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
-import { AvailableModels, type ModelId } from "./AvailableModels";
+import { AvailableModels, MODEL_IDS, type ModelId } from "./AvailableModels";
 import { ChatConversation } from "./ChatConversation";
 import { ChatHeader } from "./ChatHeader";
 import { DetailsPanel } from "./DetailsPanel";
@@ -38,7 +38,7 @@ const FloatingMCPChat = ({
   const [input, setInput] = useState("");
   const [selectedPrompts, setSelectedPrompts] = useState<{ name: string }[]>([]);
   const [selectedResources, setSelectedResources] = useState<string[]>([]);
-  const [selectedModel, setSelectedModel] = useState<ModelId>("gpt-oss:20b");
+  const [selectedModel, setSelectedModel] = useState<ModelId>(MODEL_IDS.GPT_OSS_20B);
 
   const { availableTools, availableResources, availablePrompts, connectedServers } =
     useMcpInit(enabled);

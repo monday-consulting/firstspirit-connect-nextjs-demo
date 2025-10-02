@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^2.0.5",
+    "@ai-sdk/google": "^2.0.17",
     "@ai-sdk/openai": "^2.0.22",
     "@anthropic-ai/sdk": "^0.24.3",
     "@headlessui/react": "2.2.7",

@@ -2,6 +2,7 @@ export const MODEL_IDS = {
   CLAUDE: "claude-sonnet-4-20250514",
   GPT_OSS_20B: "gpt-oss:20b",
   GPT_OSS_120B: "gpt-oss:120b",
+  GEMINI: "gemini-2.5-pro",
 } as const;
 
 export type ModelId = (typeof MODEL_IDS)[keyof typeof MODEL_IDS];
