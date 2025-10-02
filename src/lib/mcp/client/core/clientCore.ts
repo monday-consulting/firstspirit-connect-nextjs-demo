@@ -8,23 +8,36 @@ export type CacheValue = { ts: number; value: ToolResultBlockParam["content"] };
 
 export type Core = ReturnType<typeof createCore>;
 
+/**
+ * Creates an MCP (Model Context Protocol) client core instance
+ * @returns Core instance with methods for connecting to MCP servers and executing tools/resources/prompts
+ */
 export const createCore = () => {
+  // MCP client connection handle
   let mcp: { client: Client; close: () => void } | null = null;
 
+  // Available capabilities from the MCP server
   let tools: Tool[] = [];
   let resources: Resource[] = [];
   let prompts: Prompt[] = [];
   let connected = false;
 
   const systemPrompt = getDefaultSystemPrompt();
+
+  // Ensure connection exists before operations
   const ensure = () => {
     if (!connected || !mcp) throw new Error("Not connected to MCP server");
   };
 
+  /**
+   * Connects to an MCP server and loads available capabilities
+   * @param serverUrl - URL of the MCP server to connect to
+   */
   const connectToMCPServer = async (serverUrl: string) => {
-    const handles = await createMcpClient(serverUrl);
-    mcp = handles;
+    // Establish connection to MCP server
+    mcp = await createMcpClient(serverUrl);
 
+    // Load all available capabilities in parallel
     const [{ tools: t }, { resources: r }, { prompts: p }] = await Promise.all([
       mcp.client.listTools(),
       mcp.client.listResources(),
@@ -36,6 +49,11 @@ export const createCore = () => {
     connected = true;
   };
 
+  /**
+   * Reads content from an MCP resource
+   * @param resourceUri - URI of the resource to read
+   * @returns Promise resolving to resource contents
+   */
   const executeResource = async (resourceUri: string) => {
     ensure();
     const startTimestamp = Date.now();
@@ -70,6 +88,11 @@ export const createCore = () => {
     }
   };
 
+  /**
+   * Executes an MCP tool with given parameters
+   * @param params - Tool execution parameters (name and arguments)
+   * @returns Promise resolving to tool result with content and error status
+   */
   const executeTool = async (params: CallToolRequest["params"]) => {
     ensure();
     const { name, arguments: argumentMap = {} } = params;
@@ -78,6 +101,7 @@ export const createCore = () => {
     try {
       const result = await mcp?.client.callTool({ name, arguments: argumentMap });
 
+      // Normalize tool result content to expected format
       const content: ToolResultBlockParam["content"] = Array.isArray(result?.content)
         ? result.content
         : [{ type: "text", text: "" }];
@@ -113,6 +137,11 @@ export const createCore = () => {
     }
   };
 
+  /**
+   * Executes an MCP prompt template with given arguments
+   * @param params - Prompt parameters including name and arguments
+   * @returns Promise resolving to prompt result with generated messages
+   */
   const executePrompt = async (params: Prompt) => {
     ensure();
     const promptName = params.name;
@@ -139,17 +168,17 @@ export const createCore = () => {
   };
 
   return {
-    // Lifecycle/Config
+    // Connection lifecycle and configuration
     connectToMCPServer,
     isConnected: () => connected,
     getSystemPrompt: () => systemPrompt,
 
-    // Execution
+    // MCP capability execution
     executeResource,
     executePrompt,
     executeTool,
 
-    // Capabilities Info
+    // Available capabilities (returns copies to prevent mutation)
     getAvailableTools: () => tools.slice(),
     getAvailableResources: () => resources.slice(),
     getAvailablePrompts: () => prompts.slice(),

@@ -1,17 +1,14 @@
-export const MODEL_IDS = [
-  "claude-sonnet-4-20250514",
-  "mistral:latest",
-  "gpt-oss:20b",
-  "gpt-oss:120b",
-  "qwen3:32b",
-  "llama3.3:latest",
-] as const;
+export const MODEL_IDS = {
+  CLAUDE: "claude-sonnet-4-20250514",
+  GPT_OSS_20B: "gpt-oss:20b",
+  GPT_OSS_120B: "gpt-oss:120b",
+} as const;
 
-export type ModelId = (typeof MODEL_IDS)[number];
+export type ModelId = (typeof MODEL_IDS)[keyof typeof MODEL_IDS];
 
-export const MODEL_OPTIONS = MODEL_IDS.map((id) => ({
-  value: id,
-  label: id,
+export const MODEL_OPTIONS = Object.entries(MODEL_IDS).map(([key, value]) => ({
+  key,
+  value,
 }));
 
 export interface AvailableModelsProps {
@@ -37,9 +34,9 @@ export const AvailableModels: React.FC<AvailableModelsProps> = ({
       onChange={(e) => setSelectedModel(e.target.value as ModelId)}
       className="w-full truncate rounded-md border border-gray-300 px-2 text-sm"
     >
-      {MODEL_OPTIONS.map(({ value, label }) => (
+      {MODEL_OPTIONS.map(({ key, value }) => (
         <option key={value} value={value}>
-          {label}
+          {key}
         </option>
       ))}
     </select>

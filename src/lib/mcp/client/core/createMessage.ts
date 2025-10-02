@@ -10,6 +10,7 @@ import {
   stepCountIs,
 } from "ai";
 import type { ModelId } from "@/components/features/McpChat/AvailableModels";
+import { MODEL_IDS } from "@/components/features/McpChat/AvailableModels";
 import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
 import { selectResourcesToLoad } from "../utils/selectResourcesToLoad";
 import type { Core } from "./clientCore";
@@ -29,6 +30,20 @@ export type CreateMessageProps = {
   selectedModel?: ModelId;
 };
 
+/**
+ * Creates an AI-powered chat response with MCP tool integration
+ * @param props - Configuration object containing core, messages, tools, and options
+ * @param props.core - MCP core instance for tool/resource execution
+ * @param props.sysPreset - System prompt preset or custom prompt text
+ * @param props.chatMessages - Conversation history messages
+ * @param props.tools - Available MCP tools for the AI to use
+ * @param props.resources - Available MCP resources to load as context
+ * @param props.prompts - Available MCP prompt templates
+ * @param props.options - Chat options like resource selection and auto-loading
+ * @param props.usedUserPrompt - Optional user-selected prompt template to inject
+ * @param props.selectedModel - AI model to use (Claude or OpenAI variants)
+ * @returns Promise resolving to response text and usage metadata
+ */
 export const createMessage = async ({
   core,
   sysPreset,
@@ -39,18 +54,27 @@ export const createMessage = async ({
   usedUserPrompt,
   selectedModel,
 }: CreateMessageProps) => {
+  // Load relevant resources based on user options and query context
   const resourcesUsed = await selectResourcesToLoad({ options, resources, core });
 
+  // Create system prompt with tool descriptions for the AI
   const system = createSystemPrompt({
     sysPreset,
     tools,
   });
 
+  // Convert loaded resources into chat messages for context injection
   const resourceMessages: ModelMessage[] = resourcesUsed.map((res) => ({
     role: "user",
     content: `RESOURCE (${res.uri}):\n${toJSONSafe(res.content)}`,
   }));
 
+  /**
+   * Fetch wrapper that logs API call timing and performance metrics
+   * @param input - Fetch request input (URL or Request object)
+   * @param init - Fetch request options
+   * @returns Promise resolving to Response with timing logged
+   */
   const timedFetch: typeof fetch = async (input, init) => {
     const url = typeof input === "string" && input;
     const method = init?.method ?? "GET";
@@ -58,8 +82,6 @@ export const createMessage = async ({
 
     const res = await fetch(input, init);
     const ms = Math.round(performance.now() - start);
-
-    // optional: Server-Processtime
     const serverMs = res.headers.get("x-process-time");
 
     console.log(
@@ -70,8 +92,8 @@ export const createMessage = async ({
     return res;
   };
 
+  // Initialize AI model clients with timing instrumentation
   const claude = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY, fetch: timedFetch });
-
   const openai = createOpenAI({
     baseURL: process.env.OPENAI_BASE_URL,
     apiKey: process.env.OPENAI_API_KEY,
@@ -81,55 +103,75 @@ export const createMessage = async ({
   let usedPrompt: Prompt[] = [];
   let injectedPromptMessages: ModelMessage[] = [];
 
+  // Execute and inject user-selected prompt templates
   if (usedUserPrompt) {
     const promptResult = await core.executePrompt(usedUserPrompt);
-    //@ts-expect-error:
-    const usedPrompts: ModelMessage[] = processUsedPrompts(
+    const usedPrompts = processUsedPrompts(
       promptResult?.messages as PromptMessage[]
-    );
+    ) as ModelMessage[];
+
     injectedPromptMessages = usedPrompts;
     usedPrompt = [usedUserPrompt];
   }
 
+  // Ensure a model is selected
+  if (!selectedModel) {
+    console.error("[MCP-Client]: No model selected!");
+
+    return {
+      response: "No model selected. Please select a model and try again.",
+      toolsUsed: [],
+      resourcesUsed,
+      promptsUsed: usedPrompt,
+    };
+  }
+
+  // Merge chat history with injected prompt messages
   const messages: ModelMessage[] =
     injectedPromptMessages.length && chatMessages.length
       ? [
+          // Keep all messages except the last user message
           ...chatMessages.slice(0, -1),
           {
             role: "user",
-            content: injectedPromptMessages
-              .map((message) => String(message.content ?? ""))
-              .join("\n\n"),
+            // Combine prompt content with the last user message
+            content: [
+              ...injectedPromptMessages.map((message) => String(message.content ?? "")),
+              chatMessages[chatMessages.length - 1]?.content ?? "",
+            ].join("\n\n"),
           },
         ]
       : chatMessages;
 
+  // Combine all messages: chat + prompts + resources
   const finalMessages = [...messages, ...resourceMessages];
 
-  //@ts-expect-error
-  const mcpTools = processTools(tools, (name, args) => core.executeTool({ name, arguments: args }));
+  // Convert MCP tools into AI SDK format with execution callbacks
+  const mcpTools = processTools(tools, (name, args) =>
+    core.executeTool({
+      name,
+      arguments: args as { [x: string]: unknown } | undefined,
+    })
+  );
 
   try {
     let result: GenerateTextResult<typeof mcpTools, unknown>;
     console.log(`Using LLM-Model: ${selectedModel}`);
 
-    if (selectedModel === "claude-sonnet-4-20250514") {
-      // Generate a response with tool use enabled.
-      // The AI SDK runs a loop: model proposes a tool call → SDK validates and executes it → result is fed back → repeat → final text.
+    // Route to appropriate AI model with tool support
+    if (selectedModel === MODEL_IDS.CLAUDE) {
       result = await generateText({
-        model: claude("claude-sonnet-4-20250514"), // Select the model via the provider adapter.
-        tools: mcpTools, // Tool registry: name → { parameters (JSON Schema), description, execute() }.
-        messages: finalMessages.slice(-5), // Provide only the recent context to control token usage.
-        temperature: 0, // Deterministic planning and stable tool calling.
-        system, // System prompt: instructions, rules, and tool affordances.
-        stopWhen: stepCountIs(5), // Hard stop after 5 steps (reasoning turns or tool calls) to cap cost/latency.
+        model: claude(MODEL_IDS.CLAUDE),
+        tools: mcpTools,
+        messages: finalMessages.slice(-5), // Last 5 messages for token efficiency
+        temperature: 0,
+        system,
+        stopWhen: stepCountIs(5),
       });
     } else {
       result = await generateText({
-        //@ts-expect-error
         model: openai.chat(selectedModel),
         tools: mcpTools,
-        // Trim OpenAI context like Claude to reduce tokens and latency
         messages: finalMessages.slice(-5),
         temperature: 0,
         system,
@@ -137,10 +179,11 @@ export const createMessage = async ({
       });
     }
 
-    const steps = (await result.steps) ?? [];
-
+    // Extract tool usage from generation steps
+    const steps = result.steps ?? [];
     const toolsUsed = getUsedTools(steps);
 
+    // Return response with usage metadata
     return {
       response: result.text,
       toolsUsed,

@@ -9,14 +9,16 @@ export type MCPHandles = {
 export async function createMcpClient(serverUrl: string): Promise<MCPHandles> {
   const base = serverUrl.replace(/\/$/, "");
   let url: URL;
+
   try {
     url = new URL(base);
   } catch {
     throw new Error(`connectHTTP: invalid URL "${serverUrl}"`);
   }
+
   const transport = new StreamableHTTPClientTransport(new URL(url));
   const client = new Client(
-    { name: "claude-mcp-client", version: "1.0.0" },
+    { name: "mcp-client", version: "1.0.0" },
     { capabilities: { sampling: {} } }
   );
 
