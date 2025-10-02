@@ -31,7 +31,9 @@ export async function createMcpClient(serverUrl: string): Promise<MCPHandles> {
     close: () => {
       try {
         transport.close?.();
-      } catch {}
+      } catch (error) {
+        console.warn("Failed to close MCP transport:", error);
+      }
     },
   };
 }

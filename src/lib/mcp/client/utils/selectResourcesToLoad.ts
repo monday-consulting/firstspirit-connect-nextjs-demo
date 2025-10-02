@@ -28,13 +28,17 @@ export const selectResourcesToLoad = async ({
 
   const results = await Promise.all(
     resourcesToLoad.map((uri) =>
-      core
-        .executeResource(uri)
-        .then((content) => ({ uri, content }))
-        .catch((error) => {
-          console.warn(`[MCP] Read resource failed: ${uri}`, error);
-          return null;
-        })
+      Promise.race([
+        core
+          .executeResource(uri)
+          .then((content) => ({ uri, content }))
+          .catch((error) => {
+            console.warn(`[MCP-Client] Read resource failed: ${uri}`, error);
+            return null;
+          }),
+        // 10-second timeout for resource loading
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), 10000)),
+      ])
     )
   );
 
