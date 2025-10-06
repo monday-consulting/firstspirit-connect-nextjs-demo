@@ -1,7 +1,7 @@
 import { useLocale } from "next-intl";
 import { useEffect, useState } from "react";
 
-export const Modal: React.FC<{
+type PromptModalProps = {
   title?: string;
   description?: string;
   arguments?: { name: string; required?: boolean }[];
@@ -9,7 +9,9 @@ export const Modal: React.FC<{
   onSubmit: (values: Record<string, string>) => void | Promise<void>;
   submitLabel?: string;
   cancelLabel?: string;
-}> = ({
+};
+
+export const PromptModal = ({
   title,
   description,
   arguments: promptArgs = [],
@@ -17,7 +19,7 @@ export const Modal: React.FC<{
   onSubmit,
   submitLabel = "Submit",
   cancelLabel = "Cancel",
-}) => {
+}: PromptModalProps) => {
   const [values, setValues] = useState<Record<string, string>>({});
   const locale = useLocale();
 

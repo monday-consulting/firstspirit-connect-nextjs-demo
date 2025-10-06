@@ -19,12 +19,12 @@ export interface AvailableModelsProps {
   label?: string;
 }
 
-export const AvailableModels: React.FC<AvailableModelsProps> = ({
+export const AvailableModels = ({
   selectedModel,
   setSelectedModel,
   id = "model-select",
   label = "Model",
-}) => (
+}: AvailableModelsProps) => (
   <div className="inline-flex items-center gap-2 px-2 py-1">
     <label htmlFor={id} className="text-gray-700 text-sm">
       {label}

@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { VscSend } from "react-icons/vsc";
-import { Modal } from "./PromptModal";
+import { PromptModal } from "./PromptModal";
 import { SuggestedQuestions } from "./SuggestedQuestions";
 
 export type InputMessageProps = {
@@ -149,7 +149,7 @@ export const InputMessage = ({
       </div>
 
       {modalOpen && selectedPrompt && (
-        <Modal
+        <PromptModal
           title={selectedPrompt.name}
           description={selectedPrompt.description}
           arguments={selectedPrompt.arguments}
