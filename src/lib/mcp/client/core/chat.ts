@@ -24,7 +24,13 @@ type StreamEvent = {
  * @throws Error if the request fails or returns non-ok status
  */
 export const postMcpChat = async (body: McpChatRequest, signal?: AbortSignal) => {
+  const requestId = Math.random().toString(36).substr(2, 9);
+  console.log(
+    `[MCP Client] Starting non-streaming chat request [${requestId}] - Model: ${body.selectedModel}`
+  );
+
   try {
+    const startTime = performance.now();
     const res = await fetch("/api/mcp/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,11 +40,16 @@ export const postMcpChat = async (body: McpChatRequest, signal?: AbortSignal) =>
 
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
+      console.error(
+        `[MCP Client] Chat request failed [${requestId}] - HTTP ${res.status} ${res.statusText}`
+      );
       throw new Error(
         `MCP chat request failed: HTTP ${res.status} ${res.statusText} - ${errorText}`
       );
     }
 
+    const duration = Math.round(performance.now() - startTime);
+    console.log(`[MCP Client] Chat request completed [${requestId}] in ${duration}ms`);
     return res.json();
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
@@ -60,9 +71,14 @@ export const postMcpChatStream = async (
   onEvent: (event: StreamEvent) => void,
   signal?: AbortSignal
 ) => {
-  let reader: ReadableStreamDefaultReader<Uint8Array> | null = null;
+  const requestId = Math.random().toString(36).substr(2, 9);
+  console.log(
+    `[MCP Client] Starting streaming chat request [${requestId}] - Model: ${body.selectedModel}`
+  );
 
+  let reader: ReadableStreamDefaultReader<Uint8Array> | null = null;
   try {
+    const startTime = performance.now();
     const res = await fetch("/api/mcp/chat/stream", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -72,6 +88,9 @@ export const postMcpChatStream = async (
 
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
+      console.error(
+        `[MCP Client] Streaming chat request failed [${requestId}] - HTTP ${res.status} ${res.statusText}`
+      );
       throw new Error(
         `MCP streaming chat request failed: HTTP ${res.status} ${res.statusText} - ${errorText}`
       );
@@ -81,6 +100,7 @@ export const postMcpChatStream = async (
       throw new Error("[MCP Client] MCP streaming response has no body");
     }
 
+    console.log(`[MCP Client] Streaming connection established [${requestId}]`);
     reader = res.body.getReader();
     const decoder = new TextDecoder();
 
@@ -114,10 +134,15 @@ export const postMcpChatStream = async (
         }
       }
     }
+
+    const duration = Math.round(performance.now() - startTime);
+    console.log(`[MCP Client] Streaming chat completed [${requestId}] in ${duration}ms`);
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
+      console.log(`[MCP Client] Streaming chat cancelled [${requestId}]`);
       throw new Error("[MCP Client] MCP streaming chat request was cancelled");
     }
+    console.error(`[MCP Client] Streaming chat error [${requestId}]:`, error);
     throw error;
   } finally {
     if (reader) {

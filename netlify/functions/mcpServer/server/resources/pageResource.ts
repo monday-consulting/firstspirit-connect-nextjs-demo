@@ -20,16 +20,21 @@ export const PageRoutes = (server: McpServer, locale: Locale) => {
     `page-template-${locale}`,
     new ResourceTemplate(`fs://page/${locale}/{route}/`, {
       list: async (): Promise<ListResourcesResult> => {
+        console.log(`[MCP Server] Listing page resources for locale: ${locale}`);
         const endpoints = await endpointsPromise;
+        const availablePages = endpoints.filter((e) => e.content);
+
+        console.log(
+          `[MCP Server] Found ${availablePages.length} available pages for locale: ${locale}`
+        );
+
         return {
-          resources: endpoints
-            .filter((e) => e.content)
-            .map((e) => ({
-              name: `Page ${locale} ${e.name}`,
-              uri: `fs://page/${locale}/${encodeRoute(e.uri)}/`,
-              description: e.description,
-              mimeType: "text/markdown",
-            })),
+          resources: availablePages.map((e) => ({
+            name: `Page ${locale} ${e.name}`,
+            uri: `fs://page/${locale}/${encodeRoute(e.uri)}/`,
+            description: e.description,
+            mimeType: "text/markdown",
+          })),
         };
       },
       complete: {
@@ -44,11 +49,22 @@ export const PageRoutes = (server: McpServer, locale: Locale) => {
     }),
     async (_uri, { route }) => {
       const decodedRoute = decodeURIComponent(decodeRoute(typeof route === "string" ? route : ""));
+      console.log(
+        `[MCP Server] Retrieving page content for route: ${decodedRoute} (locale: ${locale})`
+      );
+
       const endpoints = await endpointsPromise;
       const match = endpoints.find((e) => e.uri === decodedRoute);
+
       if (!match || !match.content) {
+        console.error(`[MCP Server] Page not found for route: ${decodedRoute} (locale: ${locale})`);
         throw new Error(`[MCP Server] Page not found for route: ${decodedRoute}`);
       }
+
+      const contentLength = match.content.length;
+      console.log(
+        `[MCP Server] Successfully retrieved page content for route: ${decodedRoute} (${contentLength} chars)`
+      );
 
       return {
         contents: [

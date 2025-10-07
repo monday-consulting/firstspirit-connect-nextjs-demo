@@ -6,6 +6,7 @@ import { getProductEndpoints, type ProductEndpointProps } from "../services/prod
 // Simple in-memory TTL cache + request de-duplication to avoid
 // repeatedly fetching the same expensive data during warm function lifetime.
 type CacheEntry<T> = { value: T; ts: number };
+
 const ttlMs = 5 * 60 * 1000; // 5 minutes
 const cache = new Map<string, CacheEntry<unknown>>();
 const pending = new Map<string, Promise<unknown>>();

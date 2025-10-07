@@ -13,6 +13,9 @@ export type McpInitResponse = {
  * @returns Promise resolving to MCP initialization response with tools, resources, prompts, and connection status
  */
 export const mcpInit = async (): Promise<McpInitResponse> => {
+  console.log(`[MCP Client] Starting MCP initialization`);
+  const startTime = performance.now();
+
   const defaultResponse: McpInitResponse = {
     tools: [],
     resources: [],
@@ -22,6 +25,7 @@ export const mcpInit = async (): Promise<McpInitResponse> => {
   };
 
   try {
+    console.log(`[MCP Client] Fetching MCP capabilities from server`);
     const res = await fetch("/api/mcp/chat", {
       method: "GET",
       headers: { Accept: "application/json" },
@@ -57,13 +61,20 @@ export const mcpInit = async (): Promise<McpInitResponse> => {
     }
 
     const response = parsed as Record<string, unknown>;
-    return {
+    const result = {
       tools: Array.isArray(response.tools) ? response.tools : [],
       resources: Array.isArray(response.resources) ? response.resources : [],
       prompts: Array.isArray(response.prompts) ? response.prompts : [],
       connected: Boolean(response.connected),
       cached: Boolean(response.cached),
     };
+
+    const duration = Math.round(performance.now() - startTime);
+    console.log(
+      `[MCP Client] MCP initialization completed in ${duration}ms - Tools: ${result.tools.length}, Resources: ${result.resources.length}, Prompts: ${result.prompts.length}, Connected: ${result.connected}`
+    );
+
+    return result;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error("[MCP Client] MCP initialization failed:", errorMessage);

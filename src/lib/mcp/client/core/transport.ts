@@ -56,7 +56,7 @@ export async function createMcpClient(serverUrl: string): Promise<MCPHandles> {
         console.log("[MCP Client] Transport closed successfully");
       } catch (error) {
         console.warn(
-          "[MCP Client] Failed to close transport:",
+          "[MCP Client] Failed to close MCP transport:",
           error instanceof Error ? error.message : String(error)
         );
       }

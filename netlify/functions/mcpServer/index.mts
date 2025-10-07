@@ -37,14 +37,23 @@ let serverSingleton: McpServer | null = null;
  * @returns Promise<Response> - The HTTP response containing MCP protocol data
  */
 export default async function handleMcpRequest(req: Request): Promise<Response> {
+  const requestId = Math.random().toString(36).substr(2, 9);
+  console.log(
+    `[MCP Server] Incoming request [${requestId}] - Method: ${req.method}, URL: ${req.url}`
+  );
+
   try {
     // Only accept POST requests for MCP protocol calls
     if (!isAllowedMethod(req.method)) {
+      console.warn(`[MCP Server] Method not allowed [${requestId}] - ${req.method}`);
       return createMethodNotAllowedResponse();
     }
 
     // Process the MCP request through the protocol stack
-    return await processMcpRequest(req);
+    console.log(`[MCP Server] Processing MCP request [${requestId}]`);
+    const response = await processMcpRequest(req);
+    console.log(`[MCP Server] Request completed successfully [${requestId}]`);
+    return response;
   } catch (error) {
     console.error("[MCP Server] MCP Server Error:", error);
     return createInternalErrorResponse(error);
@@ -91,10 +100,16 @@ async function processMcpRequest(req: Request): Promise<Response> {
 
   // Parse the incoming JSON-RPC request body
   const requestBody = await req.json();
+  const method = requestBody?.method || "unknown";
+  const id = requestBody?.id || "no-id";
+
+  console.log(`[MCP Server] Processing JSON-RPC call - Method: ${method}, ID: ${id}`);
 
   // Process the JSON-RPC call through the transport layer
   // This routes to appropriate MCP handlers (tools, resources, prompts)
   await transport.handleRequest(nodeRequest, nodeResponse, requestBody);
+
+  console.log(`[MCP Server] JSON-RPC call completed - Method: ${method}, ID: ${id}`);
 
   // Handle connection cleanup when request closes
   nodeResponse.on("close", () => {
@@ -159,8 +174,11 @@ function createInternalErrorResponse(error: unknown): Response {
 function getOrCreateServer(): McpServer {
   // Return existing instance if already created
   if (serverSingleton) {
+    console.log(`[MCP Server] Using existing server instance`);
     return serverSingleton;
   }
+
+  console.log(`[MCP Server] Creating new server instance - ${SERVER_NAME} v${SERVER_VERSION}`);
 
   // Create new MCP server instance with configuration
   const server = new McpServer(
@@ -178,8 +196,10 @@ function getOrCreateServer(): McpServer {
     }
   );
 
+  console.log(`[MCP Server] Registering components for ${locales.length} locales`);
   registerLocaleSpecificComponents(server);
   registerGlobalComponents(server);
+  console.log(`[MCP Server] Server initialization completed`);
 
   serverSingleton = server;
   return serverSingleton;

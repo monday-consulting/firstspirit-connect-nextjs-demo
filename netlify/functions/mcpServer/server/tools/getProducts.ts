@@ -14,7 +14,15 @@ export const getProductsTool = (server: McpServer, locale: Locale) => {
       readOnlyHint: true,
     },
     async () => {
+      console.log(`[MCP Server] Executing getProducts tool for locale: ${locale}`);
+      const startTime = performance.now();
+
       const endpoints = await fetchProductEndpoints(locale);
+
+      const duration = Math.round(performance.now() - startTime);
+      console.log(
+        `[MCP Server] getProducts completed in ${duration}ms - Found ${endpoints.length} products for locale: ${locale}`
+      );
 
       return {
         content: [

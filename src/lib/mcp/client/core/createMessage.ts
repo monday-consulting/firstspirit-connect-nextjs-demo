@@ -55,14 +55,23 @@ export const createMessage = async ({
   usedUserPrompt,
   selectedModel,
 }: CreateMessageProps) => {
+  const sessionId = Math.random().toString(36).substr(2, 9);
+  console.log(
+    `[MCP Client] Starting message creation [${sessionId}] - Model: ${selectedModel}, Tools: ${tools.length}, Resources: ${resources.length}`
+  );
+
   // Load relevant resources based on user options and query context
+  console.log(`[MCP Client] Loading resources [${sessionId}]`);
   const resourcesUsed = await selectResourcesToLoad({ options, resources, core });
+  console.log(`[MCP Client] Loaded ${resourcesUsed.length} resources [${sessionId}]`);
 
   // Create system prompt with tool descriptions for the AI
+  console.log(`[MCP Client] Creating system prompt [${sessionId}]`);
   const system = createSystemPrompt({
     sysPreset,
     tools,
   });
+  console.log(`[MCP Client] System prompt created (${system.length} chars) [${sessionId}]`);
 
   // Convert loaded resources into chat messages for context injection
   const resourceMessages: ModelMessage[] = resourcesUsed.map((res) => ({
@@ -110,6 +119,7 @@ export const createMessage = async ({
 
   // Execute and inject user-selected prompt templates
   if (usedUserPrompt) {
+    console.log(`[MCP Client] Processing user prompt: ${usedUserPrompt.name} [${sessionId}]`);
     const promptResult = await core.executePrompt(usedUserPrompt);
     const usedPrompts = processUsedPrompts(
       promptResult?.messages as PromptMessage[]
@@ -117,6 +127,11 @@ export const createMessage = async ({
 
     injectedPromptMessages = usedPrompts;
     usedPrompt = [usedUserPrompt];
+    console.log(
+      `[MCP Client] User prompt processed, generated ${usedPrompts.length} messages [${sessionId}]`
+    );
+  } else {
+    console.log(`[MCP Client] No user prompt selected [${sessionId}]`);
   }
 
   // Ensure a model is selected
@@ -152,6 +167,7 @@ export const createMessage = async ({
   const finalMessages = [...messages, ...resourceMessages];
 
   // Convert MCP tools into AI SDK format with execution callbacks
+  console.log(`[MCP Client] Processing ${tools.length} tools for AI model [${sessionId}]`);
   const mcpTools = processTools(tools, (name, args) =>
     core.executeTool({
       name,
@@ -159,9 +175,14 @@ export const createMessage = async ({
     })
   );
 
+  console.log(
+    `[MCP Client] Final message count: ${finalMessages.length} (chat: ${messages.length}, resources: ${resourceMessages.length}) [${sessionId}]`
+  );
+
   try {
     let result: GenerateTextResult<typeof mcpTools, unknown>;
-    console.log(`[MCP Client] Using model: ${selectedModel}`);
+    console.log(`[MCP Client] Executing AI model: ${selectedModel} [${sessionId}]`);
+    const aiStartTime = performance.now();
 
     // Route to appropriate AI model with tool support
     if (selectedModel === MODEL_IDS.CLAUDE) {
@@ -193,10 +214,18 @@ export const createMessage = async ({
       });
     }
 
+    const aiDuration = performance.now() - aiStartTime;
+    console.log(
+      `[MCP Client] AI model execution completed in ${Math.round(aiDuration)}ms [${sessionId}]`
+    );
+
     // Extract tool usage from generation steps
     const steps = result.steps ?? [];
     const toolsUsed = getUsedTools(steps);
 
+    console.log(
+      `[MCP Client] Message creation completed [${sessionId}] - Tools used: ${toolsUsed.length}, Response length: ${result.text.length} chars`
+    );
     // Return response with usage metadata
     return {
       response: result.text,

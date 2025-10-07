@@ -34,9 +34,13 @@ export const createCore = () => {
    * @param serverUrl - URL of the MCP server to connect to
    */
   const connectToMCPServer = async (serverUrl: string) => {
+    console.log(`[MCP Client] Connecting to MCP server: ${serverUrl}`);
+
     // Establish connection to MCP server
     mcp = await createMcpClient(serverUrl);
+    console.log(`[MCP Client] Successfully connected to MCP server`);
 
+    console.log(`[MCP Client] Loading available capabilities from server`);
     // Load all available capabilities in parallel
     const [{ tools: t }, { resources: r }, { prompts: p }] = await Promise.all([
       mcp.client.listTools(),
@@ -47,6 +51,10 @@ export const createCore = () => {
     resources = r;
     prompts = p;
     connected = true;
+
+    console.log(
+      `[MCP Client] Capabilities loaded - Tools: ${tools.length}, Resources: ${resources.length}, Prompts: ${prompts.length}`
+    );
   };
 
   /**
@@ -97,6 +105,10 @@ export const createCore = () => {
     ensure();
     const { name, arguments: argumentMap = {} } = params;
     const startTimestamp = Date.now();
+
+    console.log(
+      `[MCP Client] Executing tool: ${name} with ${Object.keys(argumentMap).length} arguments`
+    );
 
     try {
       const result = await mcp?.client.callTool({ name, arguments: argumentMap });
