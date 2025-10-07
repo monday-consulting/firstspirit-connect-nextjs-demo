@@ -48,7 +48,7 @@ export const ProductRoutes = (server: McpServer, locale: Locale) => {
       const match = endpoints.find((e) => e.uri === decodedRoute);
 
       if (!match || !match.content) {
-        throw new Error(`Product not found: ${decodedRoute}`);
+        throw new Error(`[MCP Server] Product not found: ${decodedRoute}`);
       }
 
       return {

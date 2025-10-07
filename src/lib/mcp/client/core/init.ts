@@ -29,14 +29,14 @@ export const mcpInit = async (): Promise<McpInitResponse> => {
 
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
-      const errorMessage = `MCP initialization failed: HTTP ${res.status} ${res.statusText} - ${errorText.slice(0, 400)}`;
+      const errorMessage = `[MCP Client] MCP initialization failed: HTTP ${res.status} ${res.statusText} - ${errorText.slice(0, 400)}`;
       console.error(errorMessage);
       throw new Error(errorMessage);
     }
 
     const raw = await res.text();
     if (!raw.trim()) {
-      console.warn("MCP initialization returned empty response");
+      console.warn("[MCP Client] MCP initialization returned empty response");
       return defaultResponse;
     }
 
@@ -44,7 +44,7 @@ export const mcpInit = async (): Promise<McpInitResponse> => {
     try {
       parsed = JSON.parse(raw);
     } catch (parseError) {
-      console.error("Failed to parse MCP initialization response:", parseError);
+      console.error("[MCP Client] Failed to parse MCP initialization response:", parseError);
       throw new Error(
         `Invalid JSON response: ${parseError instanceof Error ? parseError.message : String(parseError)}`
       );
@@ -52,7 +52,7 @@ export const mcpInit = async (): Promise<McpInitResponse> => {
 
     // Validate and normalize the response structure
     if (typeof parsed !== "object" || parsed === null) {
-      console.error("MCP initialization response is not an object:", parsed);
+      console.error("[MCP Client] MCP initialization response is not an object:", parsed);
       return defaultResponse;
     }
 
@@ -66,7 +66,7 @@ export const mcpInit = async (): Promise<McpInitResponse> => {
     };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error("MCP initialization failed:", errorMessage);
+    console.error("[MCP Client] MCP initialization failed:", errorMessage);
     return defaultResponse;
   }
 };

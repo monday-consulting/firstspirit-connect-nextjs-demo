@@ -46,7 +46,7 @@ export default async function handleMcpRequest(req: Request): Promise<Response> 
     // Process the MCP request through the protocol stack
     return await processMcpRequest(req);
   } catch (error) {
-    console.error("MCP Server Error:", error);
+    console.error("[MCP Server] MCP Server Error:", error);
     return createInternalErrorResponse(error);
   }
 }
@@ -98,7 +98,7 @@ async function processMcpRequest(req: Request): Promise<Response> {
 
   // Handle connection cleanup when request closes
   nodeResponse.on("close", () => {
-    console.log("MCP request connection closed");
+    console.log("[MCP Server] MCP request connection closed");
     transport.close();
   });
 

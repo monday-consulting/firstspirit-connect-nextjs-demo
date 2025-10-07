@@ -15,7 +15,7 @@ export const toJSONSafe = (value: unknown): string => {
     return JSON.stringify(value, null, 2);
   } catch (error) {
     console.warn(
-      "Failed to stringify value to JSON:",
+      "[MCP Client] Failed to stringify value to JSON:",
       error instanceof Error ? error.message : String(error)
     );
     return String(value);
@@ -49,7 +49,7 @@ const renderTools = (tools: Tool[]): string =>
  */
 export const createSystemPrompt = ({ sysPreset, tools }: CreateSystemPromptProps): string => {
   if (!sysPreset || typeof sysPreset !== "string") {
-    throw new Error("System preset must be a non-empty string");
+    throw new Error("[MCP Client] System preset must be a non-empty string");
   }
 
   const header = `${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`;

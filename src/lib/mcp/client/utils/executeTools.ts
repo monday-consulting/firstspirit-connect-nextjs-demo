@@ -13,11 +13,11 @@ export type ExecuteToolsProps = {
  */
 export const executeTools = async ({ core, block }: ExecuteToolsProps) => {
   if (!core) {
-    throw new Error("MCP core instance is required for tool execution");
+    throw new Error("[MCP Client] MCP core instance is required for tool execution");
   }
 
   if (!block || !block.name || !block.id) {
-    throw new Error("Valid tool block with name and ID is required");
+    throw new Error("[MCP Client] Valid tool block with name and ID is required");
   }
 
   const used: ToolUseBlock = {
@@ -41,7 +41,10 @@ export const executeTools = async ({ core, block }: ExecuteToolsProps) => {
     try {
       content = JSON.stringify(raw);
     } catch (serializeError) {
-      console.warn(`Failed to serialize tool result for ${block.name}:`, serializeError);
+      console.warn(
+        `[MCP Client] Failed to serialize tool result for ${block.name}:`,
+        serializeError
+      );
       content = String(raw);
     }
 

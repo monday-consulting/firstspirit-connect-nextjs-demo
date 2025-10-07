@@ -47,7 +47,7 @@ export const PageRoutes = (server: McpServer, locale: Locale) => {
       const endpoints = await endpointsPromise;
       const match = endpoints.find((e) => e.uri === decodedRoute);
       if (!match || !match.content) {
-        throw new Error(`Page not found for route: ${decodedRoute}`);
+        throw new Error(`[MCP Server] Page not found for route: ${decodedRoute}`);
       }
 
       return {

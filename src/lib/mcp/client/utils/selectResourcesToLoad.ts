@@ -24,7 +24,7 @@ export const selectResourcesToLoad = async ({
   options,
 }: SelectResourcesToLoadProps): Promise<ResourceUseRecord[]> => {
   if (!core) {
-    throw new Error("MCP core instance is required for resource loading");
+    throw new Error("[MCP Client] MCP core instance is required for resource loading");
   }
 
   const shouldAutoLoadResources = options?.autoLoadAllResources !== false;

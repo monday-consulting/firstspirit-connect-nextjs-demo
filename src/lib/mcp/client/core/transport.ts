@@ -14,7 +14,7 @@ export type MCPHandles = {
  */
 export async function createMcpClient(serverUrl: string): Promise<MCPHandles> {
   if (!serverUrl || typeof serverUrl !== "string") {
-    throw new Error("Server URL must be a non-empty string");
+    throw new Error("[MCP Client] Server URL must be a non-empty string");
   }
 
   const base = serverUrl.replace(/\/$/, "");
@@ -24,7 +24,7 @@ export async function createMcpClient(serverUrl: string): Promise<MCPHandles> {
     url = new URL(base);
   } catch (error) {
     throw new Error(
-      `Invalid URL "${serverUrl}": ${error instanceof Error ? error.message : String(error)}`
+      `[MCP Client] Invalid URL "${serverUrl}": ${error instanceof Error ? error.message : String(error)}`
     );
   }
 
@@ -42,7 +42,9 @@ export async function createMcpClient(serverUrl: string): Promise<MCPHandles> {
     console.log("[MCP Client] Connected successfully to:", serverUrl);
   } catch (error) {
     throw new Error(
-      `Failed to connect to MCP server at "${serverUrl}": ${error instanceof Error ? error.message : String(error)}`
+      `[MCP Client] Failed to connect to MCP server at "${serverUrl}": ${
+        error instanceof Error ? error.message : String(error)
+      }`
     );
   }
 

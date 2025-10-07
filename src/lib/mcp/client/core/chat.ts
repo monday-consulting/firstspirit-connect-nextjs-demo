@@ -42,7 +42,7 @@ export const postMcpChat = async (body: McpChatRequest, signal?: AbortSignal) =>
     return res.json();
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
-      throw new Error("MCP chat request was cancelled");
+      throw new Error("[MCP Client] MCP chat request was cancelled");
     }
     throw error;
   }
@@ -78,7 +78,7 @@ export const postMcpChatStream = async (
     }
 
     if (!res.body) {
-      throw new Error("MCP streaming response has no body");
+      throw new Error("[MCP Client] MCP streaming response has no body");
     }
 
     reader = res.body.getReader();
@@ -105,7 +105,7 @@ export const postMcpChatStream = async (
               const parsedData = JSON.parse(data);
               onEvent({ event: currentEvent, data: parsedData });
             } catch (parseError) {
-              console.warn("Failed to parse SSE data:", {
+              console.warn("[MCP Client] Failed to parse SSE data:", {
                 data,
                 error: parseError instanceof Error ? parseError.message : String(parseError),
               });
@@ -116,7 +116,7 @@ export const postMcpChatStream = async (
     }
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
-      throw new Error("MCP streaming chat request was cancelled");
+      throw new Error("[MCP Client] MCP streaming chat request was cancelled");
     }
     throw error;
   } finally {
@@ -124,7 +124,7 @@ export const postMcpChatStream = async (
       try {
         reader.releaseLock();
       } catch (releaseError) {
-        console.warn("Failed to release stream reader:", releaseError);
+        console.warn("[MCP Client] Failed to release stream reader:", releaseError);
       }
     }
   }

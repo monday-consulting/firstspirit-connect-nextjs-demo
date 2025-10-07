@@ -36,7 +36,9 @@ export const processProduct = (
   Effect.gen(function* (_) {
     const content = yield* turnProductContentIntoMarkdown(locale, fsId).pipe(
       Effect.tapError((error) =>
-        Effect.sync(() => console.warn(`⚠️ Could not process product: ${String(error)}`))
+        Effect.sync(() =>
+          console.warn(`[MCP Server] ⚠️ Could not process product: ${String(error)}`)
+        )
       ),
       Effect.catchAll(() => Effect.succeed("")) // only fallback if needed
     );

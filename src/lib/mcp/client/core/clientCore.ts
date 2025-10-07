@@ -26,7 +26,7 @@ export const createCore = () => {
 
   // Ensure connection exists before operations
   const ensure = () => {
-    if (!connected || !mcp) throw new Error("Not connected to MCP server");
+    if (!connected || !mcp) throw new Error("[MCP Client] Not connected to MCP server");
   };
 
   /**
@@ -69,7 +69,7 @@ export const createCore = () => {
           ? Buffer.byteLength(contentsJsonString, "utf8")
           : new TextEncoder().encode(contentsJsonString).length;
 
-      console.log("[MCP→SDK] Read Resource: ", {
+      console.log("[MCP Client] Read Resource: ", {
         resourceUri,
         duration,
         itemCount: Array.isArray(contents) ? contents.length : 0,
@@ -79,7 +79,7 @@ export const createCore = () => {
       return contents;
     } catch (error) {
       const duration = `${Date.now() - startTimestamp}ms`;
-      console.warn("[MCP→SDK] Read Resource Error: ", {
+      console.warn("[MCP Client] Read Resource Error: ", {
         resourceUri,
         duration,
         errorMessage: String(error),
@@ -115,7 +115,7 @@ export const createCore = () => {
           ? Buffer.byteLength(contentJsonString, "utf8")
           : new TextEncoder().encode(contentJsonString).length;
 
-      const logLabel = "[MCP → SDK] Tool Response: ";
+      const logLabel = "[MCP Client] Tool Response: ";
 
       (isError ? console.warn : console.log)(logLabel, {
         toolName: name,
@@ -128,7 +128,7 @@ export const createCore = () => {
       return { content, isError };
     } catch (error) {
       const duration = `${Date.now() - startTimestamp}ms`;
-      console.warn("[MCP→SDK] Tool Response Error:", {
+      console.warn("[MCP Client] Tool Response Error:", {
         toolName: name,
         duration,
         errorMessage: String(error),
@@ -154,11 +154,11 @@ export const createCore = () => {
         arguments: promptArguments,
       });
       const duration = `${Date.now() - startTimestamp}ms`;
-      console.log("[MCP → SDK] getPrompt", { promptName, duration });
+      console.log("[MCP Client] getPrompt", { promptName, duration });
       return result;
     } catch (error) {
       const duration = `${Date.now() - startTimestamp}ms`;
-      console.warn("[MCP → SDK] getPrompt error", {
+      console.warn("[MCP Client] getPrompt error", {
         promptName,
         duration,
         errorMessage: String(error),
