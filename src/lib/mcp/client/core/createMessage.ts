@@ -1,6 +1,6 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
-import { createOpenAI } from "@ai-sdk/openai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createOpenAI } from "@ai-sdk/openai";
 import type { Prompt, PromptMessage, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
 import {
   type GenerateTextResult,
@@ -121,7 +121,7 @@ export const createMessage = async ({
 
   // Ensure a model is selected
   if (!selectedModel) {
-    console.error("[MCP-Client]: No model selected!");
+    console.error("[MCP Client] No model selected!");
 
     return {
       response: "No model selected. Please select a model and try again.",
@@ -161,7 +161,7 @@ export const createMessage = async ({
 
   try {
     let result: GenerateTextResult<typeof mcpTools, unknown>;
-    console.log(`[MCP-Client]: Using ${selectedModel}`);
+    console.log(`[MCP Client] Using model: ${selectedModel}`);
 
     // Route to appropriate AI model with tool support
     if (selectedModel === MODEL_IDS.CLAUDE) {
@@ -171,9 +171,9 @@ export const createMessage = async ({
         messages: finalMessages.slice(-5), // Last 5 messages for token efficiency
         temperature: 0,
         system,
-        stopWhen: stepCountIs(5), 
+        stopWhen: stepCountIs(5),
       });
-    } else if (selectedModel === MODEL_IDS.GEMINI) {      
+    } else if (selectedModel === MODEL_IDS.GEMINI) {
       result = await generateText({
         model: google(MODEL_IDS.GEMINI),
         tools: mcpTools,

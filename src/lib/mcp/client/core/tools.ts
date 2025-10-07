@@ -1,9 +1,15 @@
 import type { Tool as MCPTool } from "@modelcontextprotocol/sdk/types.js";
 import { type JSONSchema7, jsonSchema, type StepResult, type ToolSet, tool } from "ai";
 
+/**
+ * Processes MCP tools and converts them into AI SDK compatible tool format
+ * @param toolsFromMcp - Array of MCP tools to process
+ * @param executeTool - Function to execute a tool by name with arguments
+ * @returns Object mapping tool names to AI SDK tool definitions
+ */
 export const processTools = (
   toolsFromMcp: MCPTool[],
-  // biome-ignore lint/suspicious/noExplicitAny: We don't know what the LLM will return
+  // biome-ignore lint/suspicious/noExplicitAny: AI SDK requires any for tool execution return type
   executeTool: (name: string, args: unknown) => Promise<any>
 ) => {
   const entries = toolsFromMcp.map((t) => {
@@ -16,7 +22,7 @@ export const processTools = (
           : jsonSchema({ type: "object", properties: {} }),
 
         execute: async (args) => {
-          console.log(`[SDK → MCP] Calling MCP tool: ${t.name} with args:`, args);
+          console.log(`[MCP Client] Calling tool: ${t.name} with args:`, args);
           return executeTool(t.name, args);
         },
       }),
@@ -26,6 +32,11 @@ export const processTools = (
   return Object.fromEntries(entries);
 };
 
+/**
+ * Extracts and formats used tools from AI SDK step results
+ * @param steps - Array of step results from AI SDK containing tool calls and results
+ * @returns Array of formatted tool usage information including calls, results, and errors
+ */
 export const getUsedTools = (steps: StepResult<ToolSet>[]) => {
   return steps.flatMap((step) => {
     const blocks = step.content || [];
@@ -42,7 +53,7 @@ export const getUsedTools = (steps: StepResult<ToolSet>[]) => {
           name: result.toolName,
           arguments: call?.type === "tool-call" ? call?.input : {},
           output: result.output?.value ?? result.output?.content ?? result.output ?? null,
-          isError: result.output?.isError,
+          isError: Boolean(result.output?.isError),
         };
       });
   });
