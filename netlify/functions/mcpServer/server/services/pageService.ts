@@ -70,7 +70,7 @@ export const processPage = (
     const content = yield* turnPageContentIntoMarkdown(locale, route).pipe(
       Effect.tapError((error) =>
         Effect.sync(() =>
-          console.warn(`[MCP Server] ⚠️ Could not process page ${route}: ${String(error)}`)
+          console.debug(`[MCP Server] ⚠️ Could not process page ${route}: ${String(error)}`)
         )
       ),
       Effect.catchAll(() => Effect.succeed(""))
