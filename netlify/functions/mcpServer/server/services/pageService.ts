@@ -1,9 +1,9 @@
-import { Effect } from "effect";
 import type { Locale } from "next-intl";
 import { getNavigationStructure } from "@/lib/gql/documents/navigation";
 import { getPageContentByRoute } from "@/lib/gql/documents/pageContent";
 import type { FirstSpiritPage, FirstSpiritStructureItem } from "@/lib/gql/generated/graphql";
 import { extractRoutesFromStructure } from "../firstSpirit/extractStructureRoutes";
+import { handleGraphQLError } from "../helper/graphqlErrorHandler";
 import { turnPageContentIntoMarkdown } from "../markdown/contentToMarkdown";
 import { generateDynamicDescription } from "../markdown/description";
 
@@ -27,29 +27,22 @@ export type PageEndpointProps = {
  *
  * Used by MCP resource templates to provide a list of available pages.
  */
-export const getPageEndpoints = (locale: Locale) =>
-  Effect.gen(function* () {
-    const structure = yield* Effect.tryPromise(() => getNavigationStructure(locale)).pipe(
-      Effect.mapError(
-        (error) =>
-          new Error(`Failed to fetch navigation structure for locale ${locale}: ${String(error)}`)
-      )
-    );
+export const getPageEndpoints = async (locale: Locale): Promise<PageEndpointProps[]> => {
+  const structure = await getNavigationStructure(locale);
 
-    const cleanedStructure = (structure ?? []).filter(
-      // TypeScript type guard to filter out null values
-      // Ensures the resulting array is typed as FirstSpiritStructureItem[], not (FirstSpiritStructureItem | null)[]
-      (item): item is FirstSpiritStructureItem => item !== null
-    );
+  const cleanedStructure = (structure ?? []).filter(
+    // TypeScript type guard to filter out null values
+    // Ensures the resulting array is typed as FirstSpiritStructureItem[], not (FirstSpiritStructureItem | null)[]
+    (item): item is FirstSpiritStructureItem => item !== null
+  );
 
-    const routes = extractRoutesFromStructure(cleanedStructure);
+  const routes = extractRoutesFromStructure(cleanedStructure);
 
-    const flattened = yield* Effect.forEach(routes, (route) => processPage(locale, route)).pipe(
-      Effect.map((results) => results.flat())
-    );
+  // Process all routes in parallel for better performance
+  const results = await Promise.all(routes.map((route) => processPage(locale, route)));
 
-    return flattened;
-  });
+  return results.flat();
+};
 
 /**
  * Processes a single page route and converts it into a PageEndpointProps object.
@@ -61,20 +54,10 @@ export const getPageEndpoints = (locale: Locale) =>
  *
  * The result is used for rendering and autocomplete in the MCP page resource.
  */
-export const processPage = (
-  locale: Locale,
-  route: string
-): Effect.Effect<PageEndpointProps[], Error> =>
-  Effect.gen(function* (_) {
+export const processPage = async (locale: Locale, route: string): Promise<PageEndpointProps[]> => {
+  try {
     // Get page content and convert to markdown
-    const content = yield* turnPageContentIntoMarkdown(locale, route).pipe(
-      Effect.tapError((error) =>
-        Effect.sync(() =>
-          console.warn(`[MCP Server] ⚠️ Could not process page ${route}: ${String(error)}`)
-        )
-      ),
-      Effect.catchAll(() => Effect.succeed(""))
-    );
+    const content = await turnPageContentIntoMarkdown(locale, route);
 
     if (!content.trim()) return [];
 
@@ -92,26 +75,22 @@ export const processPage = (
         uri: `${route}`,
       },
     ];
-  });
+  } catch (error) {
+    handleGraphQLError(error, "Page processing", route);
+    return [];
+  }
+};
 
 /**
  * Retrieves page content from FirstSpirit by route and locale
  */
-export const getPageContent = (
-  locale: Locale,
-  route: string
-): Effect.Effect<FirstSpiritPage, Error> =>
-  Effect.gen(function* () {
-    const decodedRoute = decodeURIComponent(route);
-    const validRoute =
-      decodedRoute.startsWith("/") && decodedRoute.endsWith("/")
-        ? decodedRoute
-        : `/${decodedRoute.replace(/^\/|\/$/g, "")}/`;
+export const getPageContent = async (locale: Locale, route: string): Promise<FirstSpiritPage> => {
+  const decodedRoute = decodeURIComponent(route);
+  const validRoute =
+    decodedRoute.startsWith("/") && decodedRoute.endsWith("/")
+      ? decodedRoute
+      : `/${decodedRoute.replace(/^\/|\/$/g, "")}/`;
 
-    const result = yield* Effect.tryPromise({
-      try: () => getPageContentByRoute(locale, validRoute),
-      catch: () => new Error("Failed to fetch page content"),
-    });
-
-    return result as FirstSpiritPage;
-  });
+  const result = await getPageContentByRoute(locale, validRoute);
+  return result as FirstSpiritPage;
+};

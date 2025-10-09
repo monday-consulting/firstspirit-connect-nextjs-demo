@@ -1,7 +1,7 @@
-import { Effect } from "effect";
 import type { Locale } from "next-intl";
 import { getAllProducts } from "@/lib/gql/documents/products";
 import { extractRoutesFromProducts } from "../firstSpirit/extractProductRoutes";
+import { handleGraphQLError } from "../helper/graphqlErrorHandler";
 import { turnProductContentIntoMarkdown } from "../markdown/contentToMarkdown";
 import { generateDynamicDescription } from "../markdown/description";
 
@@ -13,35 +13,25 @@ export type ProductEndpointProps = {
   uri: string;
 };
 
-export const getProductEndpoints = (locale: Locale) =>
-  Effect.gen(function* () {
-    const structure = yield* Effect.tryPromise({
-      try: () => getAllProducts(locale),
-      catch: (e) => new Error(`Failed to fetch products for locale ${locale}: ${String(e)}`),
-    });
-    const routes = extractRoutesFromProducts(structure);
+export const getProductEndpoints = async (locale: Locale): Promise<ProductEndpointProps[]> => {
+  const structure = await getAllProducts(locale);
+  const routes = extractRoutesFromProducts(structure);
 
-    const flattened = yield* Effect.forEach(routes, ({ slug, fsId }) =>
-      processProduct(locale, slug, fsId)
-    ).pipe(Effect.map((results) => results.flat()));
+  // Process all products in parallel for better performance
+  const results = await Promise.all(
+    routes.map(({ slug, fsId }) => processProduct(locale, slug, fsId))
+  );
 
-    return flattened;
-  });
+  return results.flat();
+};
 
-export const processProduct = (
+export const processProduct = async (
   locale: Locale,
   slug: string,
   fsId: string
-): Effect.Effect<ProductEndpointProps[], Error> =>
-  Effect.gen(function* (_) {
-    const content = yield* turnProductContentIntoMarkdown(locale, fsId).pipe(
-      Effect.tapError((error) =>
-        Effect.sync(() =>
-          console.warn(`[MCP Server] ⚠️ Could not process product: ${String(error)}`)
-        )
-      ),
-      Effect.catchAll(() => Effect.succeed("")) // only fallback if needed
-    );
+): Promise<ProductEndpointProps[]> => {
+  try {
+    const content = await turnProductContentIntoMarkdown(locale, fsId);
 
     if (!content.trim()) return [];
 
@@ -62,4 +52,8 @@ export const processProduct = (
         uri: `${slug}`,
       },
     ];
-  });
+  } catch (error) {
+    handleGraphQLError(error, "Product processing", slug);
+    return [];
+  }
+};

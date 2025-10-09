@@ -1,4 +1,3 @@
-import { Effect } from "effect";
 import type { Locale } from "@/i18n/config";
 import { getPageEndpoints, type PageEndpointProps } from "../services/pageService";
 import { getProductEndpoints, type ProductEndpointProps } from "../services/productService";
@@ -10,8 +9,6 @@ type CacheEntry<T> = { value: T; ts: number };
 const ttlMs = 5 * 60 * 1000; // 5 minutes
 const cache = new Map<string, CacheEntry<unknown>>();
 const pending = new Map<string, Promise<unknown>>();
-
-const getCacheKey = (type: "pages" | "products", locale: Locale) => `${type}:${locale}`;
 
 async function withCache<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
   const now = Date.now();
@@ -33,11 +30,9 @@ async function withCache<T>(key: string, fetcher: () => Promise<T>): Promise<T> 
 }
 
 export const fetchPageEndpoints = (locale: Locale): Promise<PageEndpointProps[]> => {
-  const key = getCacheKey("pages", locale);
-  return withCache(key, () => Effect.runPromise(getPageEndpoints(locale)));
+  return withCache(`pages:${locale}`, () => getPageEndpoints(locale));
 };
 
 export const fetchProductEndpoints = (locale: Locale): Promise<ProductEndpointProps[]> => {
-  const key = getCacheKey("products", locale);
-  return withCache(key, () => Effect.runPromise(getProductEndpoints(locale)));
+  return withCache(`products:${locale}`, () => getProductEndpoints(locale));
 };

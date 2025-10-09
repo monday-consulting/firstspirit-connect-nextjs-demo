@@ -3,7 +3,6 @@
  * Orchestrates the entire conversion process
  */
 
-import { Effect } from "effect";
 import type { Maybe } from "graphql/jsutils/Maybe";
 import type {
   FirstSpiritInlinePageUnion8F4Ef8C0,
@@ -18,74 +17,70 @@ import { processFirstSpirintInlineInput } from "./processGenericTemplate";
  * Processes a FirstSpirit page and converts it to markdown
  * Handles different page types and their content structure
  */
-export const processFirstSpiritPage = (
+export const processFirstSpiritPage = async (
   pageData: FirstSpiritInlinePageUnion8F4Ef8C0,
   pageContent: Maybe<FirstSpiritPage>
-): Effect.Effect<string> => {
-  return Effect.all([
-    ...(pageData.__typename === "FirstSpiritStandard"
-      ? [Effect.succeed(templates.standardPage(pageData))]
-      : []),
+): Promise<string> => {
+  const parts: string[] = [];
 
-    ...(pageContent?.pageBodies ? [processFirstSpiritPageBodies(pageContent.pageBodies)] : []),
-  ]).pipe(Effect.map((parts) => parts.join("")));
+  // Process standard page template if applicable
+  if (pageData.__typename === "FirstSpiritStandard") {
+    parts.push(templates.standardPage(pageData));
+  }
+
+  // Process page bodies if they exist
+  if (pageContent?.pageBodies) {
+    const pageBodyMarkdown = await processFirstSpiritPageBodies(pageContent.pageBodies);
+    parts.push(pageBodyMarkdown);
+  }
+
+  return parts.join("");
 };
 
 /**
  * Processes page body sections and converts them to markdown
  */
-export const processFirstSpiritPageBodies = (
+export const processFirstSpiritPageBodies = async (
   pageBodies: Maybe<FirstSpiritPageBody>[]
-): Effect.Effect<string> =>
-  Effect.gen(function* (_) {
-    const pageBodyMarkdown: string[] = [];
+): Promise<string> => {
+  const sectionPromises: Promise<string>[] = [];
 
-    for (const pageBody of pageBodies) {
-      const children = pageBody?.children ?? [];
-      for (const child of children) {
-        if (!child) continue;
-        if (child.__typename === "FirstSpiritSection") {
-          const sectionMd = yield* sectionProcessing(child);
-          pageBodyMarkdown.push(sectionMd);
-        }
+  for (const pageBody of pageBodies) {
+    const children = pageBody?.children ?? [];
+    for (const child of children) {
+      if (child && child.__typename === "FirstSpiritSection") {
+        sectionPromises.push(sectionProcessing(child));
       }
     }
+  }
 
-    return pageBodyMarkdown.join("");
-  });
+  const results = await Promise.all(sectionPromises);
+  return results.join("");
+};
 
 /**
  * Processes a FirstSpirit section and its nested subsections
  * Handles both section data and nested section hierarchies
  */
-export const sectionProcessing = (section: FirstSpiritSection): Effect.Effect<string> =>
-  Effect.gen(function* (_) {
-    const markdownParts: string[] = [];
+export const sectionProcessing = async (section: FirstSpiritSection): Promise<string> => {
+  const markdownParts: string[] = [];
 
-    // Process section data
-    if (section.data) {
-      const dataMarkdown = yield* _(processFirstSpirintInlineInput(section.data));
-      markdownParts.push(dataMarkdown);
-    }
+  // Process section data
+  if (section.data) {
+    const dataMarkdown = processFirstSpirintInlineInput(section.data);
+    markdownParts.push(dataMarkdown);
+  }
 
-    // Process nested subsections
-    if (section.section) {
-      for (const subsection of section.section) {
-        if (subsection) {
-          const subMarkdown = yield* _(sectionProcessing(subsection));
-          markdownParts.push(subMarkdown);
-        }
-      }
-    }
+  // Process nested subsections in parallel
+  if (section.section) {
+    const validSubsections = section.section.filter(
+      (subsection): subsection is FirstSpiritSection => subsection !== null
+    );
+    const subsectionPromises = validSubsections.map((subsection) => sectionProcessing(subsection));
 
-    if (section.section) {
-      for (const subsection of section.section) {
-        if (subsection) {
-          const subMarkdown = yield* _(sectionProcessing(subsection));
-          markdownParts.push(subMarkdown);
-        }
-      }
-    }
+    const subsectionResults = await Promise.all(subsectionPromises);
+    markdownParts.push(...subsectionResults);
+  }
 
-    return markdownParts.join("");
-  });
+  return markdownParts.join("");
+};

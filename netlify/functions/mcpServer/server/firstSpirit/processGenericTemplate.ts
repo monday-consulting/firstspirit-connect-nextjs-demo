@@ -1,4 +1,3 @@
-import { Effect } from "effect";
 import type {
   FirstSpiritInlineDatasetUnionB50D929C,
   FirstSpiritInlineSectionUnion638Da777,
@@ -10,11 +9,9 @@ export type FirstSpiritInlineInput =
   | FirstSpiritInlineDatasetUnionB50D929C;
 
 /**
- * Processes a FirstSpirit inline input and returns markdown output wrapped in an Effect.
+ * Processes a FirstSpirit inline input and returns markdown output.
  * This is a simple wrapper that transforms the input into markdown using the generic template.
  */
-export const processFirstSpirintInlineInput = (
-  data: FirstSpiritInlineInput
-): Effect.Effect<string> => {
-  return Effect.succeed(genericTemplate(data));
+export const processFirstSpirintInlineInput = (data: FirstSpiritInlineInput): string => {
+  return genericTemplate(data);
 };

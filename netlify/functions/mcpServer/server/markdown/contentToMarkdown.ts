@@ -1,4 +1,3 @@
-import { Effect } from "effect";
 import type { Locale } from "next-intl";
 import { getProductDetail } from "@/lib/gql/documents/products";
 import type { FirstSpiritInlineDatasetUnionB50D929C } from "@/lib/gql/generated/graphql";
@@ -6,41 +5,31 @@ import { processFirstSpirintInlineInput } from "../firstSpirit/processGenericTem
 import { processFirstSpiritPage } from "../firstSpirit/processPage";
 import { getPageContent } from "../services/pageService";
 
-/*
+/**
  * Get the page content for the given route and locale
  * Transform the content into markdown
  */
-export const turnPageContentIntoMarkdown = (
+export const turnPageContentIntoMarkdown = async (
   locale: Locale,
   route: string
-): Effect.Effect<string, Error> =>
-  Effect.gen(function* () {
-    const pageContent = yield* getPageContent(locale, route).pipe(
-      Effect.mapError((error) => new Error(`Failed to fetch page content: ${String(error)}`))
-    );
+): Promise<string> => {
+  const pageContent = await getPageContent(locale, route);
 
-    if (!pageContent?.data) {
-      // console.warn(`[MCP Server] ⚠️ Page content is missing 'data' for "${route}" (${locale})`);
-      return "";
-    }
+  if (!pageContent?.data) {
+    return "";
+  }
 
-    return yield* processFirstSpiritPage(pageContent.data, pageContent);
-  });
+  return await processFirstSpiritPage(pageContent.data, pageContent);
+};
 
-/*
+/**
  * Get the product content for the given route and locale
  * Transform the content into markdown
  */
-export const turnProductContentIntoMarkdown = (
+export const turnProductContentIntoMarkdown = async (
   locale: Locale,
   id: string
-): Effect.Effect<string, Error> =>
-  Effect.gen(function* () {
-    const productDetail = yield* Effect.tryPromise(() => getProductDetail(locale, id)).pipe(
-      Effect.mapError((error) => new Error(`Failed to fetch product detail: ${String(error)}`))
-    );
-
-    return yield* processFirstSpirintInlineInput(
-      productDetail as FirstSpiritInlineDatasetUnionB50D929C
-    );
-  });
+): Promise<string> => {
+  const productDetail = await getProductDetail(locale, id);
+  return processFirstSpirintInlineInput(productDetail as FirstSpiritInlineDatasetUnionB50D929C);
+};
