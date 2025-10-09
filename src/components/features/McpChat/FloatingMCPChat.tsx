@@ -3,7 +3,9 @@
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 import { useChatEngine } from "@/utils/hooks/useChatEngine";
+import { useInitialPromptSelect } from "@/utils/hooks/useInitialPromptSelect";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
 import { AvailableModels, MODEL_IDS, type ModelId } from "./AvailableModels";
@@ -14,7 +16,6 @@ import { FloatingButton } from "./FloatingButton";
 import { InputMessage } from "./InputMessage";
 import type { PresetKey } from "./PromptPreset";
 import { Sizebar, type SizeKey, sizeClasses } from "./Sizebar";
-import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 
 export type FloatingMCPChatProps = {
   enabled?: boolean;
@@ -46,8 +47,10 @@ const FloatingMCPChat = ({
   const { selectedPreset, customSystemPrompt, setCustomSystemPrompt, setSelectedPreset } =
     useSystemPrompt(defaultPreset, defaultCustomPrompt);
   const { messages, loading, send } = useChatEngine();
-  
+
   useAutoSelectResources(availableResources, pathname, setSelectedResources);
+
+  useInitialPromptSelect(availablePrompts, setSelectedPrompts);
 
   useEffect(() => {
     onOpenChange?.(open);
