@@ -14,6 +14,7 @@ import { FloatingButton } from "./FloatingButton";
 import { InputMessage } from "./InputMessage";
 import type { PresetKey } from "./PromptPreset";
 import { Sizebar, type SizeKey, sizeClasses } from "./Sizebar";
+import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 
 export type FloatingMCPChatProps = {
   enabled?: boolean;
@@ -45,6 +46,8 @@ const FloatingMCPChat = ({
   const { selectedPreset, customSystemPrompt, setCustomSystemPrompt, setSelectedPreset } =
     useSystemPrompt(defaultPreset, defaultCustomPrompt);
   const { messages, loading, send } = useChatEngine();
+  
+  useAutoSelectResources(availableResources, pathname, setSelectedResources);
 
   useEffect(() => {
     onOpenChange?.(open);
