@@ -117,9 +117,11 @@ const ExampleComponent = () => {
 export { ExampleComponent };
 ```
 
-## 🤖 MCP Server
+## 🤖 MCP Chat
 
-This project includes a **Model Context Protocol (MCP) Server** that enables AI assistants to interact directly with FirstSpirit CMS content. The MCP Server provides:
+### MCP Server
+
+This project includes a **Model Context Protocol (MCP) Server** inside `/netlify/functions/mcpServer` that enables AI assistants to interact directly with FirstSpirit CMS content. The MCP Server provides:
 
 - **🔧 Interactive Tools**: Search products, retrieve content, and perform operations
 - **📚 Content Resources**: Access to pages and products as structured data
@@ -129,3 +131,32 @@ This project includes a **Model Context Protocol (MCP) Server** that enables AI 
 The MCP Server runs as a Netlify serverless function and supports real-time streaming for complex AI interactions without timeout limitations.
 
 **📖 [Read the complete MCP Server documentation →](./netlify/functions/mcpServer/README.md)**
+
+### MCP Client
+
+The frontend communicates with the MCP Server through two Next.js API routes in `src/app/api/mcp/chat/`:
+
+#### **`/api/mcp/chat` - Standard Chat Interface**
+
+**GET**: Returns available MCP capabilities (tools, resources, prompts) and connection status.  
+**POST**: Executes complete chat interactions with multi-model support (Claude, GPT, Gemini), resource loading, and tool execution.
+
+#### **`/api/mcp/chat/stream` - Streaming Chat Interface**
+
+**How Streaming Works:**
+The streaming route uses **Server-Sent Events (SSE)** to deliver real-time chat responses. Instead of waiting for the entire response to complete, the server establishes a persistent connection and sends data in chunks as it becomes available:
+
+1. **Connection Setup**: Client opens an EventSource connection to `/api/mcp/chat/stream`
+2. **Initial Event**: Server sends `"start"` event with available MCP capabilities  
+3. **Response Chunking**: AI response is split into word-level chunks sent as `"chunk"` events
+4. **Progressive Display**: Frontend receives and displays each chunk immediately, creating a typewriter effect
+5. **Completion**: Server sends `"complete"` event with final metadata and closes connection
+6. **Error Handling**: Any errors trigger an `"error"` event with details
+
+**Benefits:**
+- **Better UX**: Users see responses appear progressively instead of waiting
+- **Timeout Prevention**: Long responses don't trigger serverless function timeouts
+- **Progress Indication**: Users know the system is working on complex requests
+
+**Technical Implementation:**
+Both routes maintain MCP server connections using a singleton pattern for performance, with automatic reconnection handling and concurrent request safety.
