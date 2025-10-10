@@ -3,7 +3,9 @@
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 import { useChatEngine } from "@/utils/hooks/useChatEngine";
+import { useInitialPromptSelect } from "@/utils/hooks/useInitialPromptSelect";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
 import { AvailableModels, MODEL_IDS, type ModelId } from "./AvailableModels";
@@ -45,6 +47,10 @@ const FloatingMCPChat = ({
   const { selectedPreset, customSystemPrompt, setCustomSystemPrompt, setSelectedPreset } =
     useSystemPrompt(defaultPreset, defaultCustomPrompt);
   const { messages, loading, send } = useChatEngine();
+
+  useAutoSelectResources(availableResources, pathname, setSelectedResources);
+
+  useInitialPromptSelect(availablePrompts, setSelectedPrompts);
 
   useEffect(() => {
     onOpenChange?.(open);
