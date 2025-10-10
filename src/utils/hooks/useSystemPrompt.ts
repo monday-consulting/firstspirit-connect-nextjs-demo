@@ -9,7 +9,7 @@ export const useSystemPrompt = (defaultPreset: PresetKey, defaultCustom: string)
     if (selectedPreset === "custom") return customSystemPrompt.trim();
     if (selectedPreset in SYSTEM_PROMPT_PRESETS)
       return SYSTEM_PROMPT_PRESETS[selectedPreset as keyof typeof SYSTEM_PROMPT_PRESETS];
-    return SYSTEM_PROMPT_PRESETS.default;
+    return SYSTEM_PROMPT_PRESETS.balanced;
   }, [selectedPreset, customSystemPrompt]);
 
   return {

@@ -27,7 +27,7 @@ export type FloatingMCPChatProps = {
 
 const FloatingMCPChat = ({
   enabled = process.env.NEXT_PUBLIC_MCP_ENABLED === "true",
-  defaultPreset = "default",
+  defaultPreset = "balanced",
   defaultCustomPrompt = "",
   onOpenChange,
 }: FloatingMCPChatProps) => {
@@ -76,7 +76,7 @@ const FloatingMCPChat = ({
         customSystemPrompt:
           selectedPreset === "custom"
             ? customSystemPrompt.trim() || undefined
-            : selectedPreset !== "default"
+            : selectedPreset !== "balanced"
               ? selectedPreset
               : undefined,
         usedUserPrompt,
