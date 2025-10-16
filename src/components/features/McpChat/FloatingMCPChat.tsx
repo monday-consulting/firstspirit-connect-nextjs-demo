@@ -33,6 +33,7 @@ const FloatingMCPChat = ({
 }: FloatingMCPChatProps) => {
   const pathname = usePathname() ?? "/";
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -62,6 +63,22 @@ const FloatingMCPChat = ({
     setShowDetails(false);
     setInput("");
   }, [pathname]);
+
+  // Close chat with ESC key when focus is inside
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && open) {
+        setOpen(false);
+      }
+    };
+
+    if (open && chatContainerRef.current) {
+      chatContainerRef.current.addEventListener("keydown", handleKeyDown);
+      return () => {
+        chatContainerRef.current?.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [open]);
 
   const handleSend = async (overrideText?: string, usedUserPrompt?: Prompt) => {
     const text = (overrideText ?? input).trim();
@@ -103,6 +120,8 @@ const FloatingMCPChat = ({
       <FloatingButton open={open} toggleOpen={() => setOpen((value) => !value)} />
       {open && (
         <div
+          ref={chatContainerRef}
+          tabIndex={-1}
           className={`fixed inset-x-0 bottom-0 z-40 overflow-hidden bg-white shadow-2xl sm:inset-x-4 sm:bottom-4 sm:rounded-xl md:inset-x-auto md:right-6 md:bottom-20 md:left-auto md:w-[500px] ${width}`}
         >
           <ChatHeader

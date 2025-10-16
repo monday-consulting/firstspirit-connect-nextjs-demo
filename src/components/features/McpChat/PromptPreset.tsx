@@ -1,5 +1,5 @@
-import { useId } from "react";
 import { useTranslations } from "next-intl";
+import { useId } from "react";
 
 export const SYSTEM_PROMPT_PRESETS = {
   proactive: "Default MCP-First: Always use MCP features proactively",
