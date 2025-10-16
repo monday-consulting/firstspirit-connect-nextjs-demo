@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 export type ResourcesListProps = {
   availableResources: { uri: string; name: string }[];
   selectedResources: string[];
@@ -9,11 +11,13 @@ export const ResourcesList = ({
   selectedResources,
   setSelectedResources,
 }: ResourcesListProps) => {
+  const t = useTranslations();
+
   if (availableResources.length === 0) return null;
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="font-semibold text-gray-600">Resources</div>
+      <div className="font-semibold text-gray-600">{t("chat.resources")}</div>
       <div className="flex flex-col gap-1 rounded border border-gray p-2">
         {availableResources.map((resource) => (
           <label

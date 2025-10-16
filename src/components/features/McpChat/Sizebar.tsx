@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 // Desktop sizes - on mobile/tablet, the chat will be full-screen responsive
 export const sizeClasses = {
   sm: { width: "lg:w-[420px]", height: "lg:h-[720px]" },
@@ -13,9 +15,11 @@ export type SizebarProps = {
 };
 
 export const Sizebar = ({ size, setSize }: SizebarProps) => {
+  const t = useTranslations();
+
   return (
     <div className="hidden items-center gap-2 lg:flex">
-      <span className="text-gray-600">Size:</span>
+      <span className="text-gray-600">{t("chat.size")}:</span>
       <div className="flex gap-1">
         {(["sm", "md", "lg"] as SizeKey[]).map((key) => (
           <button

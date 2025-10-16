@@ -31,6 +31,35 @@
   "chat": {
     "headline": "KI-Chat",
     "placeholder": "Gib / für Vorschläge ein ...",
-    "startingMessage": "Hallo! Ich bin dein persönlicher Assistent für SmartLiving."
+    "startingMessage": "Hallo! Ich bin dein persönlicher Assistent für SmartLiving.",
+    "technicalDetails": "Technische Details",
+    "close": "Schließen",
+    "model": "Modell",
+    "size": "Größe",
+    "preset": "Voreinstellung",
+    "customSystemPrompt": "Benutzerdefinierter System-Prompt",
+    "customPromptPlaceholder": "Benutzerdefinierter System-Prompt…",
+    "connected": "Verbunden",
+    "tools": "Werkzeuge",
+    "resources": "Ressourcen",
+    "prompts": "Prompts",
+    "presets": {
+      "proactive": "Standard MCP-First: MCP-Features immer proaktiv nutzen ⚡",
+      "ultra_aggressive": "Ultra Aggressiv: ALLE MCP-Features bei JEDER Antwort nutzen 🚨",
+      "aggressive": "Aggressiv: ALLE verfügbaren MCP-Features bei jeder Antwort nutzen 🔥",
+      "balanced": "Ausgewogen: MCP nutzen, wenn es eindeutig vorteilhaft ist ⚖️",
+      "assistant": "Assistent: Allgemeiner Zweck mit MCP wenn hilfreich 🤖",
+      "custom": "Benutzerdefiniert"
+    },
+    "loading": "Denke nach...",
+    "send": "Senden",
+    "suggestedQuestions": {
+      "question1": "Welche Produkte sind verfügbar?",
+      "question2": "Erzähl mir über SmartLiving",
+      "question3": "Zeig mir die neuesten Nachrichten"
+    },
+    "promptMenu": {
+      "hint": "Enter/Klicken: Auswählen - ESC: Schließen"
+    }
   }
 }

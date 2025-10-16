@@ -15,16 +15,16 @@ export const ChatHeader = ({ toggleDetails, toggleOpen }: ChatHeaderProps) => {
       <div className="flex items-center gap-1 sm:gap-2">
         <button
           type="button"
-          title="Technical details"
+          title={t("chat.technicalDetails")}
           onClick={toggleDetails}
           className="rounded p-1.5 transition-colors hover:bg-white/10"
-          aria-label="Toggle technical details"
+          aria-label={t("chat.technicalDetails")}
         >
           <VscSettingsGear size={18} className="sm:h-4 sm:w-4" />
         </button>
         <button
           type="button"
-          aria-label="Close"
+          aria-label={t("chat.close")}
           onClick={toggleOpen}
           className="rounded p-1.5 transition-colors hover:bg-white/10"
         >

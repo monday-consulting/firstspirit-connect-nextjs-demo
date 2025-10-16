@@ -1,4 +1,5 @@
 import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
+import { useTranslations } from "next-intl";
 
 export type PromptsListProps = {
   availablePrompts: Prompt[];
@@ -11,11 +12,13 @@ export const PromptsList = ({
   selectedPrompts,
   setSelectedPrompts,
 }: PromptsListProps) => {
+  const t = useTranslations();
+
   if (availablePrompts.length === 0) return null;
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="font-semibold text-gray-600">Prompts</div>
+      <div className="font-semibold text-gray-600">{t("chat.prompts")}</div>
       <div className="flex flex-col gap-1 rounded border border-gray p-2">
         {availablePrompts.map((p) => {
           const checked = selectedPrompts.some((x) => x.name === p.name);

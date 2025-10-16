@@ -142,7 +142,7 @@ export const InputMessage = ({
               ))}
             </div>
             <div className="border-t px-3 py-1 text-gray-500 text-xs">
-              Enter/Click: Pick - ESC: Close
+              {t("chat.promptMenu.hint")}
             </div>
           </div>
         )}

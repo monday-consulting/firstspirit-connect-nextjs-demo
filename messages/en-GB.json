@@ -31,6 +31,35 @@
   "chat": {
     "headline": "AI Chat",
     "placeholder": "Type / for example prompts ...",
-    "startingMessage": "Hello! I'll be your personal assistant for SmartLiving."
+    "startingMessage": "Hello! I'll be your personal assistant for SmartLiving.",
+    "technicalDetails": "Technical details",
+    "close": "Close",
+    "model": "Model",
+    "size": "Size",
+    "preset": "Preset",
+    "customSystemPrompt": "Custom System Prompt",
+    "customPromptPlaceholder": "Custom system prompt…",
+    "connected": "Connected",
+    "tools": "Tools",
+    "resources": "Resources",
+    "prompts": "Prompts",
+    "presets": {
+      "proactive": "Default MCP-First: Always use MCP features proactively ⚡",
+      "ultra_aggressive": "Ultra Aggressive: Use EVERY MCP feature for EVERY response 🚨",
+      "aggressive": "Aggressive: Use ALL available MCP features for every response 🔥",
+      "balanced": "Balanced: Use MCP when clearly beneficial ⚖️",
+      "assistant": "Assistant: General purpose with MCP when helpful 🤖",
+      "custom": "Custom"
+    },
+    "loading": "Thinking...",
+    "send": "Send",
+    "suggestedQuestions": {
+      "question1": "What products are available?",
+      "question2": "Tell me about SmartLiving",
+      "question3": "Show me the latest news"
+    },
+    "promptMenu": {
+      "hint": "Enter/Click: Pick - ESC: Close"
+    }
   }
 }
