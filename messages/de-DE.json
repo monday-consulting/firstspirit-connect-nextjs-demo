@@ -60,6 +60,13 @@
     },
     "promptMenu": {
       "hint": "Enter/Klicken: Auswählen - ESC: Schließen"
+    },
+    "promptModal": {
+      "submit": "Absenden",
+      "cancel": "Abbrechen",
+      "close": "Schließen",
+      "required": "erforderlich",
+      "optional": "optional"
     }
   }
 }

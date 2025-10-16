@@ -29,6 +29,7 @@ export const InputMessage = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -48,11 +49,13 @@ export const InputMessage = ({
       if (isTrigger) {
         setFilter(after.trim());
         setMenuOpen(true);
+        setSelectedIndex(0);
         return;
       }
     }
     setMenuOpen(false);
     setFilter("");
+    setSelectedIndex(0);
   }, [input]);
 
   const filteredPrompts = useMemo(() => {
@@ -92,6 +95,30 @@ export const InputMessage = ({
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (event) => {
+    // Handle prompt menu navigation
+    if (menuOpen && filteredPrompts.length > 0) {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setSelectedIndex((prev) => (prev + 1) % filteredPrompts.length);
+        return;
+      }
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setSelectedIndex((prev) => (prev - 1 + filteredPrompts.length) % filteredPrompts.length);
+        return;
+      }
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        pickPrompt(filteredPrompts[selectedIndex]);
+        return;
+      }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMenuOpen(false);
+        return;
+      }
+    }
+
     onKeyDown?.(event);
     if (event.key === "Escape") {
       if (modalOpen) setModalOpen(false);
@@ -127,21 +154,33 @@ export const InputMessage = ({
         </button>
 
         {menuOpen && filteredPrompts.length > 0 && (
-          <div className="absolute bottom-12 left-0 z-20 w-full overflow-hidden rounded-md border bg-white shadow-xl">
-            <div className="max-h-72 overflow-auto">
-              {filteredPrompts.map((p) => (
+          <div className="absolute bottom-12 left-0 z-20 w-full overflow-hidden rounded-md border border-gray bg-white shadow-xl">
+            <div>
+              {filteredPrompts.map((p, index) => (
                 <button
                   key={p.name}
                   type="button"
                   onClick={() => pickPrompt(p)}
-                  className="block w-full cursor-pointer px-3 py-2 text-left hover:bg-gray-50"
+                  onMouseEnter={() => setSelectedIndex(index)}
+                  className={`block w-full cursor-pointer px-3 py-2 text-left transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset ${
+                    index === selectedIndex
+                      ? "bg-primary/10 text-primary"
+                      : "text-textDark hover:bg-lightGray"
+                  }`}
+                  aria-current={index === selectedIndex ? "true" : undefined}
                 >
-                  <div className="font-medium">/{p.name}</div>
-                  <div className="text-gray-500 text-sm">{p.description}</div>
+                  <div className={`font-medium ${index === selectedIndex ? "text-primary" : ""}`}>
+                    /{p.name}
+                  </div>
+                  <div
+                    className={`text-sm ${index === selectedIndex ? "text-primary" : "text-textLight"}`}
+                  >
+                    {p.description}
+                  </div>
                 </button>
               ))}
             </div>
-            <div className="border-t px-3 py-1 text-gray-500 text-xs">
+            <div className="border-gray border-t bg-lightGray px-3 py-1.5 text-textLight text-xs">
               {t("chat.promptMenu.hint")}
             </div>
           </div>

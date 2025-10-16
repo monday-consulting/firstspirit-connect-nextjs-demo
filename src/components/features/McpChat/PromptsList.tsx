@@ -18,7 +18,7 @@ export const PromptsList = ({
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="font-semibold text-gray-600">{t("chat.prompts")}</div>
+      <div className="font-semibold">{t("chat.prompts")}</div>
       <div className="flex flex-col gap-1 rounded border border-gray p-2">
         {availablePrompts.map((p) => {
           const checked = selectedPrompts.some((x) => x.name === p.name);
@@ -44,8 +44,8 @@ export const PromptsList = ({
                 }
                 className="cursor-pointer"
               />
-              <span className="font-mono text-gray-900">{p.name}</span>
-              {p.description && <span className="text-gray-500">– {p.description}</span>}
+              <span>{p.name}</span>
+              {p.description && <span>- {p.description}</span>}
             </label>
           );
         })}

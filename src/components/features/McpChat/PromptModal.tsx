@@ -1,5 +1,5 @@
-import { useLocale } from "next-intl";
-import { useEffect, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useId, useRef, useState } from "react";
 
 type PromptModalProps = {
   title?: string;
@@ -7,8 +7,6 @@ type PromptModalProps = {
   arguments?: { name: string; required?: boolean }[];
   onClose: () => void;
   onSubmit: (values: Record<string, string>) => void | Promise<void>;
-  submitLabel?: string;
-  cancelLabel?: string;
 };
 
 export const PromptModal = ({
@@ -17,11 +15,12 @@ export const PromptModal = ({
   arguments: promptArgs = [],
   onClose,
   onSubmit,
-  submitLabel = "Submit",
-  cancelLabel = "Cancel",
 }: PromptModalProps) => {
+  const t = useTranslations();
+  const titleId = useId();
   const [values, setValues] = useState<Record<string, string>>({});
   const locale = useLocale();
+  const firstInputRef = useRef<HTMLInputElement>(null);
 
   // Initial value
   useEffect(() => {
@@ -33,6 +32,11 @@ export const PromptModal = ({
     }
     setValues(init);
   }, [promptArgs, locale]);
+
+  // Focus first input on mount
+  useEffect(() => {
+    firstInputRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => event.key === "Escape" && onClose();
@@ -52,14 +56,15 @@ export const PromptModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-30 flex items-end justify-center sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center backdrop-blur-sm sm:items-center"
       role="dialog"
       aria-modal="true"
+      aria-labelledby={titleId}
     >
       <button
         type="button"
-        className="absolute inset-0 bg-black/30"
-        aria-label="Close modal"
+        className="absolute inset-0 bg-black/40"
+        aria-label={t("chat.promptModal.close")}
         onClick={onClose}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
@@ -68,70 +73,93 @@ export const PromptModal = ({
           }
         }}
       />
-      <div className="relative z-40 w-full rounded-t-2xl bg-white p-4 shadow-xl sm:max-w-lg sm:rounded-2xl">
-        <div className="mb-3 flex items-center justify-between">
-          <h3 className="font-semibold text-lg">{title}</h3>
+      <div className="relative z-40 w-full max-w-md rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl">
+        {/* Header */}
+        <div className="flex items-center justify-between border-gray border-b px-4 py-3">
+          <h3 id={titleId} className="font-semibold text-base text-textDark">
+            {title}
+          </h3>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md px-2 py-1 text-gray-600 hover:bg-gray-100"
-            aria-label="Close"
+            className="rounded-md p-1.5 text-text transition-colors hover:bg-lightGray hover:text-textDark focus:outline-none focus:ring-2 focus:ring-primary"
+            aria-label={t("chat.promptModal.close")}
           >
-            ✕
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
         </div>
 
-        {description ? <p className="mb-3 text-gray-600 text-sm">{description}</p> : null}
+        {/* Content */}
+        <div className="px-4 py-3">
+          {description && <p className="mb-3 text-sm text-textLight">{description}</p>}
 
-        {promptArgs.length > 0 ? (
-          <form className="space-y-3" onSubmit={handleSubmit}>
-            {promptArgs.map(
-              (arg) =>
-                arg.name !== "locale" && (
-                  <label key={arg.name} className="block">
-                    <span className="mb-1 block font-medium text-sm">
-                      {arg.name} {arg.required ? "*" : ""}
+          {promptArgs.length > 0 ? (
+            <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+              {promptArgs.map((arg, index) =>
+                arg.name !== "locale" ? (
+                  <label key={arg.name} className="flex flex-col gap-1">
+                    <span className="font-medium text-sm text-text">
+                      {arg.name} {arg.required && <span className="text-red-500">*</span>}
                     </span>
                     <input
+                      ref={index === 0 ? firstInputRef : undefined}
                       type="text"
                       value={values[arg.name] ?? ""}
                       onChange={(event) =>
                         setValues((prev) => ({ ...prev, [arg.name]: event.target.value }))
                       }
-                      placeholder={arg.required ? "required" : "optional"}
+                      placeholder={
+                        arg.required
+                          ? t("chat.promptModal.required")
+                          : t("chat.promptModal.optional")
+                      }
                       required={arg.required}
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="rounded-md border border-gray bg-white px-3 py-2 text-sm text-textDark transition-colors placeholder:text-textLighter hover:border-textLight focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </label>
-                )
-            )}
-            <div className="flex justify-end gap-2 pt-2">
+                ) : null
+              )}
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="rounded-md border border-gray bg-white px-4 py-2 font-medium text-sm text-text transition-colors hover:bg-lightGray focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                  {t("chat.promptModal.cancel")}
+                </button>
+                <button
+                  type="submit"
+                  className="rounded-md bg-primary px-4 py-2 font-medium text-sm text-white transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                  {t("chat.promptModal.submit")}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="flex justify-end pt-2">
               <button
                 type="button"
-                onClick={onClose}
-                className="rounded-md border px-3 py-2 hover:bg-gray-50"
+                onClick={() => onSubmit({})}
+                className="rounded-md bg-primary px-4 py-2 font-medium text-sm text-white transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
               >
-                {cancelLabel}
-              </button>
-              <button
-                type="submit"
-                className="rounded-md bg-blue-600 px-3 py-2 text-white hover:bg-blue-700"
-              >
-                {submitLabel}
+                {t("chat.promptModal.submit")}
               </button>
             </div>
-          </form>
-        ) : (
-          <div className="flex justify-end pt-2">
-            <button
-              type="button"
-              onClick={() => onSubmit({})}
-              className="rounded-md bg-blue-600 px-3 py-2 text-white hover:bg-blue-700"
-            >
-              {submitLabel}
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
