@@ -44,10 +44,9 @@ export const DetailsPanel = ({
   setSize,
 }: DetailsPanelProps) => {
   return (
-    <div className="max-h-64 overflow-auto border-b border-b-gray px-3 py-2 text-gray-700 text-xs">
-      <div className="mb-2 flex w-full items-center justify-between">
-        <span className="font-semibold">Technical details</span>
-        <div className="flex gap-2">
+    <div className="max-h-64 overflow-auto border-b border-b-gray p-3 text-gray-700 text-xs">
+      <div className="mb-2 flex w-full flex-col gap-2 sm:justify-between">
+        <div className="flex flex-row justify-between gap-2">
           <AvailableModels selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
           <Sizebar setSize={setSize} size={size} />
         </div>

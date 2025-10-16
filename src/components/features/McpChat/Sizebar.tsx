@@ -1,7 +1,8 @@
+// Desktop sizes - on mobile/tablet, the chat will be full-screen responsive
 export const sizeClasses = {
-  sm: { width: "w-[380px]", height: "h-[520px]" },
-  md: { width: "w-[620px]", height: "h-[680px]" },
-  lg: { width: "w-[920px]", height: "h-[680px]" },
+  sm: { width: "lg:w-[420px]", height: "lg:h-[720px]" },
+  md: { width: "lg:w-[620px]", height: "lg:h-[720px]" },
+  lg: { width: "lg:w-[920px]", height: "lg:h-[720px]" },
 } as const;
 
 export type SizeKey = keyof typeof sizeClasses;
@@ -13,7 +14,7 @@ export type SizebarProps = {
 
 export const Sizebar = ({ size, setSize }: SizebarProps) => {
   return (
-    <div className="flex items-center justify-end gap-1 border-b px-2 py-1 text-xs">
+    <div className="hidden items-center gap-2 lg:inline-flex">
       <span className="mr-1 opacity-60">Size:</span>
       {(["sm", "md", "lg"] as SizeKey[]).map((key) => (
         <button

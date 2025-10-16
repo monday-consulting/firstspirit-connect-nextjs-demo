@@ -12,7 +12,7 @@ export const FloatingButton = ({ open, toggleOpen }: FloatingButtonProps) => {
       type="button"
       aria-label="Open chat"
       onClick={toggleOpen}
-      className="fixed right-6 bottom-6 z-40 rounded-full bg-primary p-4 text-white"
+      className="fixed right-4 bottom-4 z-40 rounded-full bg-primary p-3 text-white shadow-lg sm:right-6 sm:bottom-6 sm:p-4"
     >
       {open ? <BiRedo size={iconSize} /> : <BiMessageRounded size={iconSize} />}
     </button>

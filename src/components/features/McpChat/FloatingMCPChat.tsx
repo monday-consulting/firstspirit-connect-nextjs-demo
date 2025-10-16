@@ -103,14 +103,16 @@ const FloatingMCPChat = ({
       <FloatingButton open={open} toggleOpen={() => setOpen((value) => !value)} />
       {open && (
         <div
-          className={`fixed right-6 bottom-24 z-40 overflow-hidden rounded-xl bg-white shadow-2xl ${width}`}
+          className={`fixed inset-x-0 bottom-0 z-40 overflow-hidden bg-white shadow-2xl sm:inset-x-4 sm:bottom-4 sm:rounded-xl md:inset-x-auto md:right-6 md:bottom-20 md:left-auto md:w-[500px] ${width}`}
         >
           <ChatHeader
             toggleDetails={() => setShowDetails((value) => !value)}
             toggleOpen={() => setOpen((value) => !value)}
           />
 
-          <div className={`flex flex-col ${height}`}>
+          <div
+            className={`flex h-[calc(100vh-120px)] flex-col sm:h-[calc(100vh-200px)] md:h-[600px] ${height}`}
+          >
             {showDetails && (
               <DetailsPanel
                 availablePrompts={availablePrompts}
