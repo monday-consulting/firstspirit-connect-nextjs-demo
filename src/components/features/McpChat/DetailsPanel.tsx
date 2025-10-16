@@ -44,13 +44,18 @@ export const DetailsPanel = ({
   setSize,
 }: DetailsPanelProps) => {
   return (
-    <div className="max-h-64 overflow-auto border-b border-b-gray p-3 text-gray-700 text-xs">
-      <div className="mb-2 flex w-full flex-col gap-2 sm:justify-between">
-        <div className="flex flex-row justify-between gap-2">
-          <AvailableModels selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
-          <Sizebar setSize={setSize} size={size} />
-        </div>
+    <div className="flex max-h-80 flex-col gap-3 overflow-auto border-b border-b-gray p-3 text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <AvailableModels selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
+        <Sizebar setSize={setSize} size={size} />
       </div>
+
+      <ConnectionSummary
+        connectedServers={connectedServers}
+        availableTools={availableTools}
+        availableResources={availableResources}
+        availablePrompts={availablePrompts}
+      />
 
       <PromptPreset
         selectedPreset={selectedPreset}
@@ -59,22 +64,12 @@ export const DetailsPanel = ({
         setCustomSystemPrompt={setCustomSystemPrompt}
       />
 
-      {/* Connection summary */}
-      <ConnectionSummary
-        connectedServers={connectedServers}
-        availableTools={availableTools}
-        availableResources={availableResources}
-        availablePrompts={availablePrompts}
-      />
-
-      {/* Quick toggles: Resources */}
       <ResourcesList
         availableResources={availableResources}
         selectedResources={selectedResources}
         setSelectedResources={setSelectedResources}
       />
 
-      {/* Quick toggles: Prompts */}
       <PromptsList
         availablePrompts={availablePrompts}
         selectedPrompts={selectedPrompts}

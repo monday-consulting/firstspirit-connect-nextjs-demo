@@ -23,13 +23,13 @@ export const AvailableModels = ({
   setSelectedModel,
   id = "model-select",
 }: AvailableModelsProps) => (
-  <div className="inline-flex items-center gap-2">
-    <span className="mr-1 opacity-60">Model:</span>
+  <div className="flex items-center gap-2">
+    <label htmlFor={id}>Model:</label>
     <select
       id={id}
       value={selectedModel}
       onChange={(e) => setSelectedModel(e.target.value as ModelId)}
-      className="w-full truncate rounded-md border border-gray-300 px-2 text-sm"
+      className="rounded border border-gray px-2 py-1 text-xs focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
     >
       {MODEL_OPTIONS.map(({ key, value }) => (
         <option key={value} value={value}>

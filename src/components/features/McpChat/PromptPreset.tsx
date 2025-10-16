@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 export const SYSTEM_PROMPT_PRESETS = {
   proactive: "Default MCP-First: Always use MCP features proactively ⚡",
   ultra_aggressive: "Ultra Aggressive: Use EVERY MCP feature for EVERY response 🚨",
@@ -21,12 +23,18 @@ export const PromptPreset = ({
   customSystemPrompt,
   setCustomSystemPrompt,
 }: PromptPresetProps) => {
+  const presetId = useId();
+  const customPromptId = useId();
+
   return (
-    <div className="grid grid-cols-2 gap-2">
-      <div>
-        <div className="mb-1 font-semibold text-[11px]">Preset</div>
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
+        <label htmlFor={presetId} className="font-semibold">
+          Preset
+        </label>
         <select
-          className="w-full rounded border px-2 py-[2px]"
+          id={presetId}
+          className="w-full rounded border border-gray px-2 py-1 text-xs hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           value={selectedPreset}
           onChange={(e) => setSelectedPreset(e.target.value as PresetKey)}
         >
@@ -39,10 +47,13 @@ export const PromptPreset = ({
         </select>
       </div>
       {selectedPreset === "custom" && (
-        <div>
-          <div className="mb-1 font-semibold text-[11px]">Custom System Prompt</div>
+        <div className="flex flex-col gap-1">
+          <label htmlFor={customPromptId} className="font-semibold">
+            Custom System Prompt
+          </label>
           <input
-            className="w-full rounded border px-2 py-[6px]"
+            id={customPromptId}
+            className="w-full rounded border border-gray-300 bg-white px-2 py-1 text-xs placeholder:text-gray-400 hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             placeholder="Custom system prompt…"
             value={customSystemPrompt}
             onChange={(e) => setCustomSystemPrompt(e.target.value)}

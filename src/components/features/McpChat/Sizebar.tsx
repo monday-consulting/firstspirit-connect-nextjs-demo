@@ -14,23 +14,23 @@ export type SizebarProps = {
 
 export const Sizebar = ({ size, setSize }: SizebarProps) => {
   return (
-    <div className="hidden items-center gap-2 lg:inline-flex">
-      <span className="mr-1 opacity-60">Size:</span>
-      {(["sm", "md", "lg"] as SizeKey[]).map((key) => (
-        <button
-          type="button"
-          key={key}
-          onClick={() => setSize(key)}
-          className={`rounded px-2 py-0.5 ring-1 ${
-            size === key
-              ? "bg-blue-400 text-white ring-gray-900"
-              : "bg-white text-gray-700 ring-gray-300 hover:bg-gray-50"
-          }`}
-          aria-pressed={size === key}
-        >
-          {key.toUpperCase()}
-        </button>
-      ))}
+    <div className="hidden items-center gap-2 lg:flex">
+      <span className="text-gray-600">Size:</span>
+      <div className="flex gap-1">
+        {(["sm", "md", "lg"] as SizeKey[]).map((key) => (
+          <button
+            type="button"
+            key={key}
+            onClick={() => setSize(key)}
+            className={`rounded px-2 py-1 font-medium text-xs transition-colors ${
+              size === key ? "bg-blue-500 text-white" : "border border-gray hover:bg-blue-200"
+            }`}
+            aria-pressed={size === key}
+          >
+            {key.toUpperCase()}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

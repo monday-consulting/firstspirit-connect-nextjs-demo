@@ -14,13 +14,16 @@ export const PromptsList = ({
   if (availablePrompts.length === 0) return null;
 
   return (
-    <div className="mt-3">
-      <div className="mb-1 font-semibold text-[11px]">Prompts</div>
-      <div className="max-h-28 space-y-1 overflow-auto rounded border p-2">
+    <div className="flex flex-col gap-1">
+      <div className="font-semibold text-gray-600">Prompts</div>
+      <div className="flex flex-col gap-1 rounded border border-gray p-2">
         {availablePrompts.map((p) => {
           const checked = selectedPrompts.some((x) => x.name === p.name);
           return (
-            <label key={p.name} className="flex items-center gap-2 text-[11px]">
+            <label
+              key={p.name}
+              className="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 hover:bg-gray-50"
+            >
               <input
                 type="checkbox"
                 checked={checked}
@@ -36,9 +39,10 @@ export const PromptsList = ({
                       : prev.filter((x) => x.name !== p.name)
                   )
                 }
+                className="cursor-pointer"
               />
-              <span className="font-mono">{p.name}</span>
-              {p.description && <span className="text-gray-500"> – {p.description}</span>}
+              <span className="font-mono text-gray-900">{p.name}</span>
+              {p.description && <span className="text-gray-500">– {p.description}</span>}
             </label>
           );
         })}
