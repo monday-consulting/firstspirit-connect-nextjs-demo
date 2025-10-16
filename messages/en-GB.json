@@ -30,7 +30,7 @@
   },
   "chat": {
     "headline": "AI Chat",
-    "placeholder": "Type your question...",
+    "placeholder": "Type / for example prompts ...",
     "startingMessage": "Hello! I'll be your personal assistant for SmartLiving."
   }
 }

@@ -18,7 +18,7 @@ export const SuggestedQuestions = ({ onSend }: { onSend: (question: string) => v
           type="button"
           key={question}
           onClick={() => onSend(question)}
-          className="rounded-md px-3 py-1 text-sm hover:bg-lightGray"
+          className="rounded-md px-2 py-1 text-sm hover:bg-lightGray"
           aria-label={`Frage senden: ${question}`}
         >
           {question}

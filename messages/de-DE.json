@@ -30,7 +30,7 @@
   },
   "chat": {
     "headline": "KI-Chat",
-    "placeholder": "Gib deine Frage ein...",
+    "placeholder": "Gib / für Vorschläge ein ...",
     "startingMessage": "Hallo! Ich bin dein persönlicher Assistent für SmartLiving."
   }
 }

@@ -8,14 +8,14 @@ import { useChatEngine } from "@/utils/hooks/useChatEngine";
 import { useInitialPromptSelect } from "@/utils/hooks/useInitialPromptSelect";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
-import { AvailableModels, MODEL_IDS, type ModelId } from "./AvailableModels";
+import { MODEL_IDS, type ModelId } from "./AvailableModels";
 import { ChatConversation } from "./ChatConversation";
 import { ChatHeader } from "./ChatHeader";
 import { DetailsPanel } from "./DetailsPanel";
 import { FloatingButton } from "./FloatingButton";
 import { InputMessage } from "./InputMessage";
 import type { PresetKey } from "./PromptPreset";
-import { Sizebar, type SizeKey, sizeClasses } from "./Sizebar";
+import { type SizeKey, sizeClasses } from "./Sizebar";
 
 export type FloatingMCPChatProps = {
   enabled?: boolean;
@@ -109,12 +109,6 @@ const FloatingMCPChat = ({
             toggleDetails={() => setShowDetails((value) => !value)}
             toggleOpen={() => setOpen((value) => !value)}
           />
-          {showDetails && (
-            <div className="flex w-full justify-between">
-              <AvailableModels selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
-              <Sizebar setSize={setSize} size={size} />
-            </div>
-          )}
 
           <div className={`flex flex-col ${height}`}>
             {showDetails && (
@@ -131,6 +125,10 @@ const FloatingMCPChat = ({
                 setSelectedPreset={setSelectedPreset}
                 customSystemPrompt={customSystemPrompt}
                 setCustomSystemPrompt={setCustomSystemPrompt}
+                selectedModel={selectedModel}
+                setSelectedModel={setSelectedModel}
+                size={size}
+                setSize={setSize}
               />
             )}
 

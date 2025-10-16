@@ -1,8 +1,10 @@
 import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
+import { AvailableModels, type ModelId } from "./AvailableModels";
 import { ConnectionSummary } from "./ConnectionSummary";
 import { type PresetKey, PromptPreset } from "./PromptPreset";
 import { PromptsList } from "./PromptsList";
 import { ResourcesList } from "./ResourcesList";
+import { Sizebar, type SizeKey } from "./Sizebar";
 
 export type DetailsPanelProps = {
   connectedServers: string[];
@@ -17,6 +19,10 @@ export type DetailsPanelProps = {
   setSelectedPreset: React.Dispatch<React.SetStateAction<PresetKey>>;
   customSystemPrompt: string;
   setCustomSystemPrompt: React.Dispatch<React.SetStateAction<string>>;
+  selectedModel: ModelId;
+  setSelectedModel: React.Dispatch<React.SetStateAction<ModelId>>;
+  size: SizeKey;
+  setSize: React.Dispatch<React.SetStateAction<SizeKey>>;
 };
 
 export const DetailsPanel = ({
@@ -32,10 +38,20 @@ export const DetailsPanel = ({
   setSelectedPreset,
   customSystemPrompt,
   setCustomSystemPrompt,
+  selectedModel,
+  setSelectedModel,
+  size,
+  setSize,
 }: DetailsPanelProps) => {
   return (
-    <div className="max-h-64 overflow-auto border-b bg-gray-50 px-3 py-2 text-gray-700 text-xs">
-      <div className="mb-2 font-semibold">Technical details</div>
+    <div className="max-h-64 overflow-auto border-b border-b-gray px-3 py-2 text-gray-700 text-xs">
+      <div className="mb-2 flex w-full items-center justify-between">
+        <span className="font-semibold">Technical details</span>
+        <div className="flex gap-2">
+          <AvailableModels selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
+          <Sizebar setSize={setSize} size={size} />
+        </div>
+      </div>
 
       <PromptPreset
         selectedPreset={selectedPreset}
