@@ -16,7 +16,7 @@ export const ChatResponse = ({ messages }: MessageProps) => {
           <div key={message.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
             <div
               className={`max-w-[80%] rounded-lg p-3 ${
-                isUser ? "bg-blue-500 text-white" : "bg-white text-gray-800"
+                isUser ? "bg-secondary text-white" : "bg-lightGray text-gray-800"
               }`}
             >
               <div className="whitespace-pre-wrap">

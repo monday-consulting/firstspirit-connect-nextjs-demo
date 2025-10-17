@@ -122,7 +122,7 @@ const FloatingMCPChat = ({
         <div
           ref={chatContainerRef}
           tabIndex={-1}
-          className={`fixed inset-x-0 bottom-0 z-40 overflow-hidden bg-white shadow-2xl sm:inset-x-4 sm:bottom-4 sm:rounded-xl md:inset-x-auto md:right-6 md:bottom-20 md:left-auto md:w-[500px] ${width}`}
+          className={`fixed inset-x-0 bottom-0 z-40 overflow-hidden bg-white shadow-2xl sm:inset-x-4 sm:bottom-4 sm:rounded-xl md:inset-x-auto md:right-6 md:bottom-24 md:left-auto md:w-[500px] ${width}`}
         >
           <ChatHeader
             toggleDetails={() => setShowDetails((value) => !value)}

@@ -29,10 +29,16 @@ export type ChatWithToolsOptions = {
 };
 
 export const ChatConversation = ({ messages, loading, messagesEndRef }: ChatConversationProps) => {
+  // If loading, hide the last message if it's from the assistant (the one being generated)
+  const messagesToRender =
+    loading && messages.length > 0 && messages[messages.length - 1].role === "assistant"
+      ? messages.slice(0, -1)
+      : messages;
+
   return (
     <div className="flex-1 space-y-3 overflow-y-auto p-3">
-      {messages.length === 0 && <StartingMessage />}
-      <ChatResponse messages={messages} />
+      {messagesToRender.length === 0 && <StartingMessage />}
+      <ChatResponse messages={messagesToRender} />
       <LoadingMessage loading={loading} />
       <div ref={messagesEndRef} />
     </div>
