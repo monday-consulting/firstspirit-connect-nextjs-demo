@@ -5,12 +5,14 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useAutoSelectResources } from "@/utils/hooks/useAutoSelectResources";
 import { useChatEngine } from "@/utils/hooks/useChatEngine";
+import { useChatIndicator } from "@/utils/hooks/useChatIndicator";
 import { useInitialPromptSelect } from "@/utils/hooks/useInitialPromptSelect";
 import { useMcpInit } from "@/utils/hooks/useMcpInit";
 import { useSystemPrompt } from "@/utils/hooks/useSystemPrompt";
 import { MODEL_IDS, type ModelId } from "./AvailableModels";
 import { ChatConversation } from "./ChatConversation";
 import { ChatHeader } from "./ChatHeader";
+import { ChatIndicator } from "./ChatIndicator";
 import { DetailsPanel } from "./DetailsPanel";
 import { FloatingButton } from "./FloatingButton";
 import { InputMessage } from "./InputMessage";
@@ -48,6 +50,11 @@ const FloatingMCPChat = ({
   const { selectedPreset, customSystemPrompt, setCustomSystemPrompt, setSelectedPreset } =
     useSystemPrompt(defaultPreset, defaultCustomPrompt);
   const { messages, loading, send } = useChatEngine();
+  const { showIndicatorPopup, closeIndicatorPopup, resetIndicatorPopupShown } = useChatIndicator({
+    enabled,
+    inactivityDelay: 5000,
+    isOpen: open,
+  });
 
   useAutoSelectResources(availableResources, pathname, setSelectedResources);
 
@@ -62,7 +69,9 @@ const FloatingMCPChat = ({
     setOpen(false);
     setShowDetails(false);
     setInput("");
-  }, [pathname]);
+    closeIndicatorPopup();
+    resetIndicatorPopupShown();
+  }, [pathname, closeIndicatorPopup, resetIndicatorPopupShown]);
 
   // Close chat with ESC key when focus is inside
   useEffect(() => {
@@ -118,6 +127,9 @@ const FloatingMCPChat = ({
   return (
     <>
       <FloatingButton open={open} toggleOpen={() => setOpen((value) => !value)} />
+      {showIndicatorPopup && !open && (
+        <ChatIndicator onClose={closeIndicatorPopup} onOpenChat={() => setOpen(true)} />
+      )}
       {open && (
         <div
           ref={chatContainerRef}

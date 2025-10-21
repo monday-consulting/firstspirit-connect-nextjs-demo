@@ -67,6 +67,10 @@
       "close": "Close",
       "required": "required",
       "optional": "optional"
+    },
+    "indicator": {
+      "message": "Need help? Start chating with our AI-Assistant.",
+      "openChat": "Open Chat"
     }
   }
 }

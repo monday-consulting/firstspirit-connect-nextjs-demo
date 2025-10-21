@@ -67,6 +67,10 @@
       "close": "Schließen",
       "required": "erforderlich",
       "optional": "optional"
+    },
+    "indicator": {
+      "message": "Brauchen Sie Hilfe? Frag einfach unseren KI-Assistent im Chat.",
+      "openChat": "Chat öffnen"
     }
   }
 }
