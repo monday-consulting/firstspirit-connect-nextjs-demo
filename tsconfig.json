@@ -10,7 +10,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "allowArbitraryExtensions": true,
     "plugins": [
@@ -33,7 +33,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.config.mjs",
-    "netlify/functions/mcpServer/index.mts"
+    "netlify/functions/mcpServer/index.mts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules", "src/lib/gql/generated/**/*.ts", ".next"]
 }

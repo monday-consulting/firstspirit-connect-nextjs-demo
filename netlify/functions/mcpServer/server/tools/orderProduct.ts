@@ -31,6 +31,8 @@ Bitte wähle das passende Produkt basierend auf den gegebenen Benutzerdaten aus 
 - Gesamtpreis
 
 Die Ausgabe soll so aussehen, als wäre es eine echte Bestellung. (Mit CSS & HTML-Formatierung)
+
+Falls noch keine Adresse bekannt ist, denk dir keine fiktive Adresse aus, sondern frag den Nutzer nach seiner Adresse.
       `.trim();
 
       const messageEn = `
@@ -44,6 +46,8 @@ Please select the most suitable product based on the provided user data and gene
 - Total price
 
 The output should look like a real order. (With CSS & HTML formatting)
+
+If no address is known yet, do not make up a fictitious address, but ask the user for their address.
       `.trim();
 
       return {
