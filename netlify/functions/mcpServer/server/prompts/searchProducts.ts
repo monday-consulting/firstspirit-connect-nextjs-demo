@@ -1,18 +1,20 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import { defaultLocale, type Locale } from "@/i18n/config.js";
 
-export const searchProducts = (server: McpServer) => {
+export const searchProducts = (server: McpServer, locale: Locale) => {
+  const isGerman = locale !== defaultLocale;
+
   server.prompt(
-    "search-products",
-    "Searches for products based on user input.",
+    isGerman ? "Produkte suchen" : "Search products",
+    isGerman
+      ? "Sucht nach Produkten basierend auf Benutzereingaben."
+      : "Searches for products based on user input.",
     {
-      product: z.string(),
-      locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
+      product: z.string().describe(isGerman ? "Suchbegriff" : "Search term"),
     },
 
-    async ({ product, locale }) => {
-      const lang = locale ?? "de-DE";
-
+    async ({ product }) => {
       const messageDe = `
 
       Suche nach Produkten, die mit dem folgenden Nutzereingabeparameter übereinstimmen:
@@ -37,7 +39,7 @@ export const searchProducts = (server: McpServer) => {
             role: "assistant",
             content: {
               type: "text",
-              text: lang === "en-GB" ? messageEn : messageDe,
+              text: isGerman ? messageDe : messageEn,
             },
           },
         ],

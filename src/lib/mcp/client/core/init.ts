@@ -10,10 +10,11 @@ export type McpInitResponse = {
 
 /**
  * Initializes MCP client by fetching available capabilities from the server
+ * @param locale - Current locale to filter tools/resources/prompts
  * @returns Promise resolving to MCP initialization response with tools, resources, prompts, and connection status
  */
-export const mcpInit = async (): Promise<McpInitResponse> => {
-  console.log(`[MCP Client] Starting MCP initialization`);
+export const mcpInit = async (locale: string): Promise<McpInitResponse> => {
+  console.log(`[MCP Client] Starting MCP initialization for locale: ${locale}`);
   const startTime = performance.now();
 
   const defaultResponse: McpInitResponse = {
@@ -25,8 +26,11 @@ export const mcpInit = async (): Promise<McpInitResponse> => {
   };
 
   try {
+    const url = new URL("/api/mcp/chat", window.location.origin);
+    url.searchParams.set("locale", locale);
+
     console.log(`[MCP Client] Fetching MCP capabilities from server`);
-    const res = await fetch("/api/mcp/chat", {
+    const res = await fetch(url.toString(), {
       method: "GET",
       headers: { Accept: "application/json" },
     });

@@ -1,19 +1,24 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import z from "zod";
+import { defaultLocale, type Locale } from "@/i18n/config.js";
 
-export const optimizeDescription = (server: McpServer) => {
+export const optimizeDescription = (server: McpServer, locale: Locale) => {
+  const isGerman = locale !== defaultLocale;
+
   server.prompt(
-    "optimize-description",
-    "Optimizes or generates a description for a page or product – tailored to a specific target audience.",
+    isGerman ? "Beschreibung optimieren" : "Optimize description",
+    isGerman
+      ? "Optimiert oder generiert eine Beschreibung für eine Seite oder ein Produkt – zugeschnitten auf eine bestimmte Zielgruppe."
+      : "Optimizes or generates a description for a page or product – tailored to a specific target audience.",
     {
-      uri: z.string(),
-      resourceType: z.string().optional(),
-      audience: z.string(),
-      locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
+      uri: z.string().describe(isGerman ? "Ressourcen-URI" : "Resource URI"),
+      resourceType: z
+        .string()
+        .optional()
+        .describe(isGerman ? "Ressourcentyp" : "Resource type"),
+      audience: z.string().describe(isGerman ? "Zielgruppe" : "Target audience"),
     },
-    async ({ uri, resourceType, audience, locale }) => {
-      const lang = locale ?? "de-DE";
-
+    async ({ uri, resourceType, audience }) => {
       const messageDe = `
       
       Finde die Resource mit folgendem Namen/URI:
@@ -50,7 +55,7 @@ export const optimizeDescription = (server: McpServer) => {
             role: "assistant",
             content: {
               type: "text",
-              text: lang === "en-GB" ? messageEn : messageDe,
+              text: isGerman ? messageDe : messageEn,
             },
           },
         ],

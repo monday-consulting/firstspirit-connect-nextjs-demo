@@ -1,10 +1,12 @@
 "use client";
 
 import type { Prompt, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
+import { useLocale } from "next-intl";
 import { useEffect, useState } from "react";
 import { mcpInit } from "@/lib/mcp/client/core/init";
 
 export const useMcpInit = (enabled: boolean) => {
+  const locale = useLocale();
   const [availableTools, setAvailableTools] = useState<Tool[]>([]);
   const [availableResources, setAvailableResources] = useState<Resource[]>([]);
   const [availablePrompts, setAvailablePrompts] = useState<Prompt[]>([]);
@@ -15,7 +17,7 @@ export const useMcpInit = (enabled: boolean) => {
     if (!enabled) return;
     (async () => {
       try {
-        const data = await mcpInit();
+        const data = await mcpInit(locale);
 
         setAvailableTools(data?.tools ?? []);
         setAvailableResources(data?.resources ?? []);
@@ -29,7 +31,7 @@ export const useMcpInit = (enabled: boolean) => {
         setConnectedServers([]);
       }
     })();
-  }, [enabled]);
+  }, [enabled, locale]);
 
   return {
     availableTools,

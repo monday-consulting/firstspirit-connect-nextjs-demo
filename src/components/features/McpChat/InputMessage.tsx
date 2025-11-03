@@ -170,7 +170,7 @@ export const InputMessage = ({
                   aria-current={index === selectedIndex ? "true" : undefined}
                 >
                   <div className={`font-medium ${index === selectedIndex ? "text-primary" : ""}`}>
-                    /{p.name}
+                    {p.name}
                   </div>
                   <div
                     className={`text-sm ${index === selectedIndex ? "text-primary" : "text-textLight"}`}

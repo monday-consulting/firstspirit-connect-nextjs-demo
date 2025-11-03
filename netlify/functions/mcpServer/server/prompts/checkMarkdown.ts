@@ -1,16 +1,16 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import z from "zod";
+import { defaultLocale, type Locale } from "@/i18n/config.js";
 
-export const checkMarkdown = (server: McpServer) => {
+export const checkMarkdown = (server: McpServer, locale: Locale) => {
+  const isGerman = locale !== defaultLocale;
+
   server.prompt(
-    "check-markdown",
-    "Evaluate markdown content based on the structure.",
-    {
-      locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
-    },
-    async ({ locale }) => {
-      const lang = locale ?? "de-DE";
-
+    isGerman ? "Markdown prüfen" : "Check markdown",
+    isGerman
+      ? "Markdown-Inhalt basierend auf der Struktur bewerten."
+      : "Evaluate markdown content based on the structure.",
+    {},
+    async () => {
       const messageEn = `
       Analyze the following Markdown text only in terms of its structure, not its content or language quality.
 
@@ -43,7 +43,7 @@ export const checkMarkdown = (server: McpServer) => {
             role: "user",
             content: {
               type: "text",
-              text: (lang === "en-GB" ? messageEn : messageDe).trim(),
+              text: (isGerman ? messageDe : messageEn).trim(),
             },
           },
         ],

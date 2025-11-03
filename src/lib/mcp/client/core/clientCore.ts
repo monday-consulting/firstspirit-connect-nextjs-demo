@@ -190,7 +190,7 @@ export const createCore = () => {
     executePrompt,
     executeTool,
 
-    // Available capabilities (returns copies to prevent mutation)
+    // Available capabilities (returns copies to prevent external mutation)
     getAvailableTools: () => tools.slice(),
     getAvailableResources: () => resources.slice(),
     getAvailablePrompts: () => prompts.slice(),

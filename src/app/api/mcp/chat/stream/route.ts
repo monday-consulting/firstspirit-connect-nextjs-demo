@@ -3,41 +3,52 @@ import { createMessage } from "@/lib/mcp/client/core/createMessage";
 import { pickPreset } from "@/lib/mcp/client/core/prompts";
 
 /**
- * Module-scoped singleton for the MCP "core"
+ * Module-scoped map of locale-specific cores
  * This persists only for the lifetime of a warm function instance
  */
-let coreSingleton: Core | null = null;
+const coresByLocale: Map<string, Core> = new Map();
 
 /**
- * Shared promise to de-duplicate concurrent connect attempts
- * Ensures we only perform one connect at a time per instance
+ * Shared promises to de-duplicate concurrent connect attempts per locale
+ * Ensures we only perform one connect at a time per locale
  */
-let connectPromise: Promise<void> | null = null;
+const connectPromises: Map<string, Promise<void>> = new Map();
 
-// Lazily create or return the current core instance
-const getCore = (): Core => {
-  if (coreSingleton === null) {
-    coreSingleton = createCore();
+// Lazily create or return the core instance for a specific locale
+const getCore = (locale: string): Core => {
+  if (!coresByLocale.has(locale)) {
+    coresByLocale.set(locale, createCore());
   }
-  return coreSingleton;
+
+  const core = coresByLocale.get(locale);
+  if (!core) throw new Error(`Failed to create core for locale: ${locale}`);
+
+  return core;
 };
 
-// Ensure the core is connected to the MCP server
-const ensureConnected = async (core: Core) => {
+// Ensure the core is connected to the MCP server with locale parameter
+const ensureConnected = async (core: Core, locale: string) => {
   if (core.isConnected()) return true;
 
-  const url = process.env.MCP_SERVER_URL?.trim();
-  if (!url) throw new Error("MCP_SERVER_URL not set");
+  const baseUrl = process.env.MCP_SERVER_URL?.trim();
+  if (!baseUrl) throw new Error("MCP_SERVER_URL not set");
 
-  if (!connectPromise) {
-    connectPromise = core.connectToMCPServer(url).finally(() => {
+  // Append locale as query parameter to the server URL
+  const url = `${baseUrl}?locale=${encodeURIComponent(locale)}`;
+
+  if (!connectPromises.has(locale)) {
+    const promise = core.connectToMCPServer(url).finally(() => {
       // Always clear the promise so a future reconnect can be attempted
-      connectPromise = null;
+      connectPromises.delete(locale);
     });
+    connectPromises.set(locale, promise);
   }
 
   // Await the shared connection attempt (or the existing in-flight one)
-  await connectPromise;
+  const promise = connectPromises.get(locale);
+  if (promise) {
+    await promise;
+  }
 
   // Report final connection state
   return core.isConnected();
@@ -79,17 +90,18 @@ export async function POST(req: Request) {
         autoLoadAllResources,
         usedUserPrompt,
         selectedModel,
+        locale = "en-GB",
       } = body || {};
 
-      const core = getCore();
-      await ensureConnected(core);
+      const core = getCore(locale);
+      await ensureConnected(core, locale);
 
       // Choose the system prompt: either a user-provided preset or the default from core
       const sysPreset = customSystemPrompt
         ? pickPreset(customSystemPrompt)
         : core.getSystemPrompt();
 
-      // Send initial status
+      // Send initial status (server already filtered by locale)
       await sendEvent("start", {
         availableTools: core.getAvailableTools(),
         availableResources: core.getAvailableResources(),

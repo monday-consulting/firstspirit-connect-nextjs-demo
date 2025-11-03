@@ -1,9 +1,11 @@
+import { useLocale } from "next-intl";
 import { useCallback, useRef, useState } from "react";
 
 import type { Message } from "@/components/features/McpChat/ChatConversation";
 import { type McpChatRequest, postMcpChat, postMcpChatStream } from "@/lib/mcp/client/core/chat";
 
 export const useChatEngine = (initial: Message[] = []) => {
+  const locale = useLocale();
   const [messages, setMessages] = useState<Message[]>(initial);
   const [loading, setLoading] = useState(false);
   const [streaming, setStreaming] = useState(false);
@@ -11,7 +13,10 @@ export const useChatEngine = (initial: Message[] = []) => {
 
   const send = useCallback(
     async (
-      payload: Omit<McpChatRequest, "messages"> & { userInput: string; useStreaming?: boolean }
+      payload: Omit<McpChatRequest, "messages" | "locale"> & {
+        userInput: string;
+        useStreaming?: boolean;
+      }
     ) => {
       if (!payload.userInput.trim() || loading || streaming) return;
 
@@ -66,6 +71,7 @@ export const useChatEngine = (initial: Message[] = []) => {
               autoLoadAllResources: false,
               autoApplyRelevantPrompts: true,
               selectedModel: payload.selectedModel,
+              locale,
             },
             (event) => {
               if (event.event === "chunk" && typeof event.data === "object" && event.data) {
@@ -147,6 +153,7 @@ export const useChatEngine = (initial: Message[] = []) => {
               autoLoadAllResources: false,
               autoApplyRelevantPrompts: true,
               selectedModel: payload.selectedModel,
+              locale,
             },
             abortRef.current.signal
           );
@@ -178,7 +185,7 @@ export const useChatEngine = (initial: Message[] = []) => {
         }
       }
     },
-    [messages, loading, streaming]
+    [messages, loading, streaming, locale]
   );
 
   const abort = useCallback(() => {

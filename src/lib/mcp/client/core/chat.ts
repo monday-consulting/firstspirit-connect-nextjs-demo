@@ -9,6 +9,7 @@ export type McpChatRequest = {
   autoLoadAllResources?: boolean;
   autoApplyRelevantPrompts?: boolean;
   selectedModel?: ModelId;
+  locale: string;
 };
 
 type StreamEvent = {

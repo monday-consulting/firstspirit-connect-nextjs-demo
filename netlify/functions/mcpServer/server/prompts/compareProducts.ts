@@ -1,19 +1,30 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import { defaultLocale, type Locale } from "@/i18n/config.js";
 
-export const compareProducts = (server: McpServer) => {
+export const compareProducts = (server: McpServer, locale: Locale) => {
+  const isGerman = locale !== defaultLocale;
+
   server.prompt(
-    "compare-products",
-    "Compares products based on user input (product names or category).",
+    isGerman ? "Produkte vergleichen" : "Compare products",
+    isGerman
+      ? "Vergleicht Produkte basierend auf Benutzereingaben (Produktnamen oder Kategorie)."
+      : "Compares products based on user input (product names or category).",
     {
-      category: z.string().optional(),
-      firstProduct: z.string().optional(),
-      secondProduct: z.string().optional(),
-      locale: z.union([z.enum(["de-DE", "en-GB"]), z.literal("")]).optional(),
+      category: z
+        .string()
+        .optional()
+        .describe(isGerman ? "Kategorie" : "Category"),
+      firstProduct: z
+        .string()
+        .optional()
+        .describe(isGerman ? "Erstes Produkt" : "First product"),
+      secondProduct: z
+        .string()
+        .optional()
+        .describe(isGerman ? "Zweites Produkt" : "Second product"),
     },
-    async ({ locale, firstProduct, secondProduct, category }) => {
-      const lang = locale ?? "de-DE";
-
+    async ({ firstProduct, secondProduct, category }) => {
       const linesDe: string[] = [];
       const linesEn: string[] = [];
 
@@ -64,7 +75,7 @@ export const compareProducts = (server: McpServer) => {
             role: "assistant",
             content: {
               type: "text",
-              text: lang === "en-GB" ? messageEn : messageDe,
+              text: isGerman ? messageDe : messageEn,
             },
           },
         ],

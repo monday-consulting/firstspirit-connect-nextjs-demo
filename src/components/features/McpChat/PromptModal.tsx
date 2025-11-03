@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 type PromptModalProps = {
   title?: string;
   description?: string;
-  arguments?: { name: string; required?: boolean }[];
+  arguments?: { name: string; description?: string; required?: boolean }[];
   onClose: () => void;
   onSubmit: (values: Record<string, string>) => void | Promise<void>;
 };
@@ -112,7 +112,8 @@ export const PromptModal = ({
                 arg.name !== "locale" ? (
                   <label key={arg.name} className="flex flex-col gap-1">
                     <span className="font-medium text-sm text-text">
-                      {arg.name} {arg.required && <span className="text-red-500">*</span>}
+                      {arg.description || arg.name}{" "}
+                      {arg.required && <span className="text-red-500">*</span>}
                     </span>
                     <input
                       ref={index === 0 ? firstInputRef : undefined}

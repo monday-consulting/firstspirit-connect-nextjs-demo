@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { toFetchResponse, toReqRes } from "fetch-to-node";
-import { locales } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 import { checkMarkdown } from "./server/prompts/checkMarkdown";
 import { compareProducts } from "./server/prompts/compareProducts";
 import { optimizeDescription } from "./server/prompts/optimizeDescription";
@@ -21,10 +21,10 @@ const JSON_RPC_INTERNAL_ERROR_CODE = -32603;
 const ALLOWED_METHODS = ["POST"] as const;
 
 /**
- * Module-scoped singleton MCP server instance
- * Ensures only one server instance exists across function invocations
+ * Module-scoped map of locale-specific MCP server instances
+ * Ensures one server instance per locale exists across function invocations
  */
-let serverSingleton: McpServer | null = null;
+const serversByLocale: Map<string, McpServer> = new Map();
 
 /**
  * Main Netlify serverless function handler for MCP requests
@@ -49,9 +49,14 @@ export default async function handleMcpRequest(req: Request): Promise<Response> 
       return createMethodNotAllowedResponse();
     }
 
+    // Extract locale from URL query params
+    const url = new URL(req.url);
+    const locale = url.searchParams.get("locale") || "en-GB";
+    console.log(`[MCP Server] Request locale: ${locale} [${requestId}]`);
+
     // Process the MCP request through the protocol stack
     console.log(`[MCP Server] Processing MCP request [${requestId}]`);
-    const response = await processMcpRequest(req);
+    const response = await processMcpRequest(req, locale);
     console.log(`[MCP Server] Request completed successfully [${requestId}]`);
     return response;
   } catch (error) {
@@ -75,20 +80,21 @@ function isAllowedMethod(method: string): boolean {
  *
  * This function handles the complete MCP request lifecycle:
  * 1. Converts web Request to Node.js request/response objects
- * 2. Initializes or retrieves the MCP server instance
+ * 2. Initializes or retrieves the MCP server instance for the locale
  * 3. Sets up the streaming transport layer
  * 4. Processes the JSON-RPC request
  * 5. Returns the response
  *
  * @param req - The incoming HTTP request
+ * @param locale - The locale for this request
  * @returns Promise<Response> - The processed MCP response
  */
-async function processMcpRequest(req: Request): Promise<Response> {
+async function processMcpRequest(req: Request, locale: string): Promise<Response> {
   // Convert web Request to Node.js request/response for MCP SDK compatibility
   const { req: nodeRequest, res: nodeResponse } = toReqRes(req);
 
-  // Get or initialize the MCP server instance
-  const server = getOrCreateServer();
+  // Get or initialize the MCP server instance for this locale
+  const server = getOrCreateServer(locale);
 
   // Create streaming transport layer for HTTP-MCP bridge
   const transport = new StreamableHTTPServerTransport({
@@ -163,27 +169,34 @@ function createInternalErrorResponse(error: unknown): Response {
 }
 
 /**
- * Gets the existing MCP server instance or creates a new one
+ * Gets the existing MCP server instance for a locale or creates a new one
  *
- * This function implements the singleton pattern for the MCP server.
- * The server is initialized once and reused across function invocations
- * for better performance and resource management.
+ * This function implements per-locale server instances.
+ * Each locale gets its own server with only the components for that locale,
+ * ensuring clean separation and no duplicate items.
  *
- * @returns McpServer - The MCP server instance
+ * @param locale - The locale to get/create server for
+ * @returns McpServer - The MCP server instance for the locale
  */
-function getOrCreateServer(): McpServer {
-  // Return existing instance if already created
-  if (serverSingleton) {
-    console.log(`[MCP Server] Using existing server instance`);
-    return serverSingleton;
+function getOrCreateServer(locale: string): McpServer {
+  // Validate and normalize locale
+  const validLocale = (locale === "de-DE" ? "de-DE" : "en-GB") as Locale;
+
+  // Return existing instance if already created for this locale
+  const existingServer = serversByLocale.get(validLocale);
+  if (existingServer) {
+    console.log(`[MCP Server] Using existing server instance for locale: ${validLocale}`);
+    return existingServer;
   }
 
-  console.log(`[MCP Server] Creating new server instance - ${SERVER_NAME} v${SERVER_VERSION}`);
+  console.log(
+    `[MCP Server] Creating new server instance for locale: ${validLocale} - ${SERVER_NAME} v${SERVER_VERSION}`
+  );
 
   // Create new MCP server instance with configuration
   const server = new McpServer(
     {
-      name: SERVER_NAME,
+      name: `${SERVER_NAME}-${validLocale}`,
       version: SERVER_VERSION,
     },
     {
@@ -196,51 +209,40 @@ function getOrCreateServer(): McpServer {
     }
   );
 
-  console.log(`[MCP Server] Registering components for ${locales.length} locales`);
-  registerLocaleSpecificComponents(server);
-  registerGlobalComponents(server);
-  console.log(`[MCP Server] Server initialization completed`);
+  console.log(`[MCP Server] Registering components for locale: ${validLocale}`);
+  registerLocaleSpecificComponents(server, validLocale);
+  console.log(`[MCP Server] Server initialization completed for locale: ${validLocale}`);
 
-  serverSingleton = server;
-  return serverSingleton;
+  serversByLocale.set(validLocale, server);
+  return server;
 }
 
 /**
- * Registers locale-specific MCP components (resources and tools)
+ * Registers MCP components for a specific locale (resources, tools, and prompts)
  *
- * For each configured locale, this function registers:
+ * This function registers:
  * - Page and product resources
  * - Content retrieval and manipulation tools
+ * - Localized prompt templates
  *
  * @param server - The MCP server instance to register components on
+ * @param locale - The locale to register components for
  */
-function registerLocaleSpecificComponents(server: McpServer): void {
-  for (const locale of locales) {
-    // Register content
-    PageRoutes(server, locale);
-    ProductRoutes(server, locale);
+function registerLocaleSpecificComponents(server: McpServer, locale: Locale): void {
+  // Register content resources
+  PageRoutes(server, locale);
+  ProductRoutes(server, locale);
 
-    // Register interactive tools
-    getAllResourcesTool(server, locale);
-    getProductsTool(server, locale);
-    getPagesTool(server, locale);
-    orderProductTool(server, locale);
-  }
-}
+  // Register interactive tools
+  getAllResourcesTool(server, locale);
+  getProductsTool(server, locale);
+  getPagesTool(server, locale);
+  orderProductTool(server, locale);
 
-/**
- * Registers global MCP components (prompts)
- *
- * These prompts are available regardless of locale and provide
- * AI assistance for content optimization and analysis tasks.
- *
- * @param server - The MCP server instance to register components on
- */
-function registerGlobalComponents(server: McpServer): void {
   // Register prompt templates
-  checkMarkdown(server);
-  optimizeDescription(server);
-  projectDescription(server);
-  compareProducts(server);
-  searchProducts(server);
+  checkMarkdown(server, locale);
+  optimizeDescription(server, locale);
+  projectDescription(server, locale);
+  compareProducts(server, locale);
+  searchProducts(server, locale);
 }
