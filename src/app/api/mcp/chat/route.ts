@@ -120,6 +120,7 @@ export async function POST(req: Request) {
       usedUserPrompt,
       options: { useResources, autoLoadAllResources },
       selectedModel,
+      locale,
     });
 
     // Return the model response and a snapshot of used + available capabilities

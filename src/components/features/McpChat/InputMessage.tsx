@@ -90,10 +90,73 @@ export const InputMessage = ({
       arguments: argsObj,
     };
 
+    // Generate a descriptive message that includes the actual argument values
+    let userMessage = selectedPrompt.description ?? selectedPrompt.name;
+
+    // Add argument values to make the message more descriptive
+    const argValues = Object.entries(argsObj)
+      .filter(([key]) => key !== "locale") // Exclude locale from display
+      .map(([_key, value]) => value);
+
+    if (argValues.length > 0) {
+      // For "Compare products" prompt with specific products
+      if (
+        selectedPrompt.name.toLowerCase().includes("compare") ||
+        selectedPrompt.name.toLowerCase().includes("vergleichen")
+      ) {
+        const parts: string[] = [];
+
+        if (argsObj.firstProduct && argsObj.secondProduct) {
+          parts.push(
+            `${argsObj.firstProduct} ${t("chat.promptMessage.with")} ${argsObj.secondProduct}`
+          );
+        } else if (argsObj.firstProduct) {
+          parts.push(argsObj.firstProduct);
+        } else if (argsObj.secondProduct) {
+          parts.push(argsObj.secondProduct);
+        }
+
+        if (argsObj.category) {
+          parts.push(`${t("chat.promptMessage.inCategory")} ${argsObj.category}`);
+        }
+
+        if (parts.length > 0) {
+          userMessage = `${selectedPrompt.name}: ${parts.join(" ")}`;
+        }
+      }
+      // For "Search products" or similar prompts
+      else if (
+        selectedPrompt.name.toLowerCase().includes("search") ||
+        selectedPrompt.name.toLowerCase().includes("suchen")
+      ) {
+        if (argsObj.product) {
+          userMessage = `${selectedPrompt.name}: ${argsObj.product}`;
+        }
+      }
+      // For "Optimize description" prompt
+      else if (
+        selectedPrompt.name.toLowerCase().includes("optimize") ||
+        selectedPrompt.name.toLowerCase().includes("optimieren")
+      ) {
+        const parts: string[] = [];
+        if (argsObj.uri) parts.push(argsObj.uri);
+        if (argsObj.audience) {
+          parts.push(`${t("chat.promptMessage.for")} ${argsObj.audience}`);
+        }
+        if (parts.length > 0) {
+          userMessage = `${selectedPrompt.name}: ${parts.join(" ")}`;
+        }
+      }
+      // Generic fallback: append all non-locale arguments
+      else if (argValues.length > 0) {
+        userMessage = `${selectedPrompt.name}: ${argValues.join(", ")}`;
+      }
+    }
+
     setModalOpen(false);
     setSelectedPrompt(null);
 
-    await sendMessage(`${selectedPrompt.description ?? selectedPrompt.name}`, payload);
+    await sendMessage(userMessage, payload);
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (event) => {

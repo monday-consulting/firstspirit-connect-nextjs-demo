@@ -68,6 +68,11 @@
       "required": "required",
       "optional": "optional"
     },
+    "promptMessage": {
+      "with": "with",
+      "inCategory": "in category",
+      "for": "for"
+    },
     "indicator": {
       "message": "Need help? Start chating with our AI-Assistant.",
       "openChat": "Open Chat"

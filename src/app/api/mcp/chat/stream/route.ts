@@ -120,6 +120,7 @@ export async function POST(req: Request) {
         usedUserPrompt,
         options: { useResources, autoLoadAllResources },
         selectedModel,
+        locale,
       });
 
       // Send the complete response as chunks to simulate streaming

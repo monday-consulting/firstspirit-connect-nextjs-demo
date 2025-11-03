@@ -29,6 +29,7 @@ export type CreateMessageProps = {
   options?: ChatWithToolsOptions;
   usedUserPrompt?: Prompt;
   selectedModel?: ModelId;
+  locale?: string;
 };
 
 /**
@@ -43,6 +44,7 @@ export type CreateMessageProps = {
  * @param props.options - Chat options like resource selection and auto-loading
  * @param props.usedUserPrompt - Optional user-selected prompt template to inject
  * @param props.selectedModel - AI model to use (Claude or OpenAI variants)
+ * @param props.locale - User's locale for language-specific responses
  * @returns Promise resolving to response text and usage metadata
  */
 export const createMessage = async ({
@@ -54,6 +56,7 @@ export const createMessage = async ({
   options,
   usedUserPrompt,
   selectedModel,
+  locale,
 }: CreateMessageProps) => {
   const sessionId = Math.random().toString(36).substr(2, 9);
   console.log(
@@ -70,6 +73,7 @@ export const createMessage = async ({
   const system = createSystemPrompt({
     sysPreset,
     tools,
+    locale,
   });
   console.log(`[MCP Client] System prompt created (${system.length} chars) [${sessionId}]`);
 

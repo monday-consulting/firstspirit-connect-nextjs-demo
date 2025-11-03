@@ -1,8 +1,10 @@
 import type { Tool } from "@modelcontextprotocol/sdk/types.js";
+import { LOCALE_TO_LANGUAGE } from "@/i18n/config";
 
 export type CreateSystemPromptProps = {
   sysPreset: string;
   tools: Tool[];
+  locale?: string;
 };
 
 /**
@@ -44,15 +46,22 @@ const renderTools = (tools: Tool[]): string =>
 
 /**
  * Creates a comprehensive system prompt including base preset and MCP capabilities
- * @param props - Configuration object with system preset and tools
- * @returns Complete system prompt string with MCP tool information
+ * @param props - Configuration object with system preset, tools, and locale
+ * @returns Complete system prompt string with MCP tool information and language instruction
  */
-export const createSystemPrompt = ({ sysPreset, tools }: CreateSystemPromptProps): string => {
+export const createSystemPrompt = ({
+  sysPreset,
+  tools,
+  locale,
+}: CreateSystemPromptProps): string => {
   if (!sysPreset || typeof sysPreset !== "string") {
     throw new Error("[MCP Client] System preset must be a non-empty string");
   }
 
-  const header = `${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`;
+  const language = locale ? LOCALE_TO_LANGUAGE[locale] || "English" : "English";
+  const languageInstruction = `🌍 LANGUAGE REQUIREMENT: You MUST respond ONLY in ${language}. All your responses, explanations, and text must be in ${language}, regardless of the language used in tool outputs or resources.`;
+
+  const header = `${languageInstruction}\n\n${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`;
 
   // Build sections only when they have content, then join with blank lines.
   const parts = [header, tools.length ? renderTools(tools) : ""].filter(Boolean);
