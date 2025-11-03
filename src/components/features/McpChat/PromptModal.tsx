@@ -1,10 +1,12 @@
+import type { Resource } from "@modelcontextprotocol/sdk/types.js";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 type PromptModalProps = {
   title?: string;
   description?: string;
   arguments?: { name: string; description?: string; required?: boolean }[];
+  availableResources?: Resource[];
   onClose: () => void;
   onSubmit: (values: Record<string, string>) => void | Promise<void>;
 };
@@ -13,6 +15,7 @@ export const PromptModal = ({
   title,
   description,
   arguments: promptArgs = [],
+  availableResources = [],
   onClose,
   onSubmit,
 }: PromptModalProps) => {
@@ -21,6 +24,34 @@ export const PromptModal = ({
   const [values, setValues] = useState<Record<string, string>>({});
   const locale = useLocale();
   const firstInputRef = useRef<HTMLInputElement>(null);
+
+  // Extract product names from resources for select dropdowns
+  const productOptions = useMemo(() => {
+    const options = availableResources
+      .filter((resource) => resource.uri?.includes("fs://") && resource.name?.includes("Product"))
+      .map((resource) => {
+        // Extract product name from the resource name (e.g., "Product de-DE Produktname" -> "Produktname")
+        const nameParts = resource.name?.split(" ") || [];
+        const productName = nameParts.slice(2).join(" ") || resource.name || "";
+        return {
+          label: productName,
+          value: productName,
+        };
+      })
+      .filter((option) => option.label.trim().length > 0);
+
+    // Remove duplicates based on value (product name)
+    const uniqueOptions = Array.from(
+      new Map(options.map((option) => [option.value, option])).values()
+    );
+
+    return uniqueOptions;
+  }, [availableResources]);
+
+  // Check if an argument should be rendered as a product select
+  const isProductArgument = (argName: string) => {
+    return argName.toLowerCase().includes("product") && !argName.toLowerCase().includes("category");
+  };
 
   // Initial value
   useEffect(() => {
@@ -115,21 +146,44 @@ export const PromptModal = ({
                       {arg.description || arg.name}{" "}
                       {arg.required && <span className="text-red-500">*</span>}
                     </span>
-                    <input
-                      ref={index === 0 ? firstInputRef : undefined}
-                      type="text"
-                      value={values[arg.name] ?? ""}
-                      onChange={(event) =>
-                        setValues((prev) => ({ ...prev, [arg.name]: event.target.value }))
-                      }
-                      placeholder={
-                        arg.required
-                          ? t("chat.promptModal.required")
-                          : t("chat.promptModal.optional")
-                      }
-                      required={arg.required}
-                      className="rounded-md border border-gray bg-white px-3 py-2 text-sm text-textDark transition-colors placeholder:text-textLighter hover:border-textLight focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
+                    {isProductArgument(arg.name) && productOptions.length > 0 ? (
+                      <select
+                        ref={index === 0 ? (firstInputRef as any) : undefined}
+                        value={values[arg.name] ?? ""}
+                        onChange={(event) =>
+                          setValues((prev) => ({ ...prev, [arg.name]: event.target.value }))
+                        }
+                        required={arg.required}
+                        className="rounded-md border border-gray bg-white px-3 py-2 text-sm text-textDark transition-colors hover:border-textLight focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">
+                          {arg.required
+                            ? t("chat.promptModal.required")
+                            : t("chat.promptModal.optional")}
+                        </option>
+                        {productOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        ref={index === 0 ? firstInputRef : undefined}
+                        type="text"
+                        value={values[arg.name] ?? ""}
+                        onChange={(event) =>
+                          setValues((prev) => ({ ...prev, [arg.name]: event.target.value }))
+                        }
+                        placeholder={
+                          arg.required
+                            ? t("chat.promptModal.required")
+                            : t("chat.promptModal.optional")
+                        }
+                        required={arg.required}
+                        className="rounded-md border border-gray bg-white px-3 py-2 text-sm text-textDark transition-colors placeholder:text-textLighter hover:border-textLight focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+                      />
+                    )}
                   </label>
                 ) : null
               )}

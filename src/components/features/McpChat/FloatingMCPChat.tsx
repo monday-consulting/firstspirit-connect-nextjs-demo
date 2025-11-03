@@ -180,6 +180,7 @@ const FloatingMCPChat = ({
               prompts={availablePrompts.filter((prompt) =>
                 selectedPrompts.some((selectedPrompt) => selectedPrompt.name === prompt.name)
               )}
+              availableResources={availableResources}
             />
           </div>
         </div>

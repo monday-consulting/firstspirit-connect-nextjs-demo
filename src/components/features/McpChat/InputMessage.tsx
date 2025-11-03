@@ -1,4 +1,4 @@
-import type { Prompt } from "@modelcontextprotocol/sdk/types.js";
+import type { Prompt, Resource } from "@modelcontextprotocol/sdk/types.js";
 import { useTranslations } from "next-intl";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -13,6 +13,7 @@ export type InputMessageProps = {
   loading: boolean;
   onKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement>;
   prompts?: Prompt[];
+  availableResources?: Resource[];
 };
 
 export const InputMessage = ({
@@ -22,6 +23,7 @@ export const InputMessage = ({
   loading,
   onKeyDown,
   prompts = [],
+  availableResources = [],
 }: InputMessageProps) => {
   const t = useTranslations();
 
@@ -192,6 +194,7 @@ export const InputMessage = ({
           title={selectedPrompt.name}
           description={selectedPrompt.description}
           arguments={selectedPrompt.arguments}
+          availableResources={availableResources}
           onClose={() => setModalOpen(false)}
           onSubmit={handlePromptSubmit}
         />
