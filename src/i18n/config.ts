@@ -10,6 +10,6 @@ export type FsLocale = (typeof fsLocales)[number];
  * Map locale codes to language names for LLM instructions
  */
 export const LOCALE_TO_LANGUAGE: Record<string, string> = {
-  [locales[0]]: "German",
-  [locales[1]]: "English",
+  [locales[0]]: "English",
+  [locales[1]]: "German",
 };
