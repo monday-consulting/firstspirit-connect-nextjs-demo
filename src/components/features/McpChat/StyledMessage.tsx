@@ -1,21 +1,22 @@
-import parse from "html-react-parser";
 import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
 type StyledMessageProps = {
   content: string;
 };
 
 export const StyledMessage = ({ content }: StyledMessageProps) => {
-  if (/<!DOCTYPE|<html|<body|<div|<table|<head/i.test(content)) {
-    const cleaned = content
-      .replace(/<!DOCTYPE[^>]*>/gi, "")
-      .replace(/```html/g, "")
-      .replace(/```/g, "")
-      .replace(/<(html|body|head)(\s[^>]*)?>/gi, "<div>")
-      .replace(/<\/(html|body|head)>/gi, "</div>");
+  // Extract HTML from code fences (fallback for older responses)
+  const extractedContent = content.replace(/```html\s*([\s\S]*?)```/gi, (_match, htmlContent) => {
+    return htmlContent.trim();
+  });
 
-    return <>{parse(cleaned)}</>;
-  }
-
-  return <Markdown>{content}</Markdown>;
+  // Use unified rendering: Markdown with rehype-raw handles both Markdown and HTML
+  // This allows proper rendering of mixed content (Markdown headings + HTML tables + Markdown text)
+  return (
+      <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+        {extractedContent}
+      </Markdown>
+  );
 };
