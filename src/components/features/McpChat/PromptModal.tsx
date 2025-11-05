@@ -1,6 +1,7 @@
 import type { Resource } from "@modelcontextprotocol/sdk/types.js";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { BiChevronDown } from "react-icons/bi";
 
 type PromptModalProps = {
   title?: string;
@@ -50,6 +51,9 @@ export const PromptModal = ({
 
   // Check if an argument should be rendered as a product select
   const isProductArgument = (argName: string) => {
+    const isSearchPrompt = title?.toLowerCase().includes("search") || title?.toLowerCase().includes("suche");
+    if (isSearchPrompt) return false;
+    
     return argName.toLowerCase().includes("product") && !argName.toLowerCase().includes("category");
   };
 
@@ -147,26 +151,33 @@ export const PromptModal = ({
                       {arg.required && <span className="text-red-500">*</span>}
                     </span>
                     {isProductArgument(arg.name) && productOptions.length > 0 ? (
-                      <select
-                        ref={index === 0 ? (firstInputRef as any) : undefined}
-                        value={values[arg.name] ?? ""}
-                        onChange={(event) =>
-                          setValues((prev) => ({ ...prev, [arg.name]: event.target.value }))
-                        }
-                        required={arg.required}
-                        className="rounded-md border border-gray bg-white px-3 py-2 text-sm text-textDark transition-colors hover:border-textLight focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                      >
-                        <option value="">
-                          {arg.required
-                            ? t("chat.promptModal.required")
-                            : t("chat.promptModal.optional")}
-                        </option>
-                        {productOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
+                      <div className="relative">
+                        <select
+                          ref={index === 0 ? (firstInputRef as any) : undefined}
+                          value={values[arg.name] ?? ""}
+                          onChange={(event) =>
+                            setValues((prev) => ({ ...prev, [arg.name]: event.target.value }))
+                          }
+                          required={arg.required}
+                          className="w-full appearance-none rounded-md border border-gray bg-white px-3 py-2 text-sm text-textDark transition-colors hover:border-textLight focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary pr-8" // note: added pr-8
+                        >
+                          <option value="">
+                            {arg.required
+                              ? t("chat.promptModal.required")
+                              : t("chat.promptModal.optional")}
                           </option>
-                        ))}
-                      </select>
+                          {productOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+
+                        <BiChevronDown
+                          className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
+                          size={18}
+                        />
+                      </div>
                     ) : (
                       <input
                         ref={index === 0 ? firstInputRef : undefined}
