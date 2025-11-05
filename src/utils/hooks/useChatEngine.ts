@@ -109,6 +109,7 @@ export const useChatEngine = (initial: Message[] = []) => {
                           toolsUsed: toolsUsed as Message["toolsUsed"],
                           resourcesUsed: resourcesUsed as Message["resourcesUsed"],
                           promptsUsed: promptsUsed as Message["promptsUsed"],
+                          timestamp: new Date(),
                         }
                       : msg
                   )
