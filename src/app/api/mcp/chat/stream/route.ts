@@ -66,11 +66,45 @@ export async function POST(req: Request) {
   const writer = writable.getWriter();
   const encoder = new TextEncoder();
 
-  // Helper to send SSE data
-  const sendEvent = async (event: string, data: unknown) => {
-    const sseData = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
-    await writer.write(encoder.encode(sseData));
-  };
+// Stats for logging
+const stats = {
+  startedAt: Date.now(),
+  firstByteAt: 0,
+  bytesSent: 0,
+  chunksSent: 0,
+};
+
+// sendEvent with logging
+const sendEvent = async (eventName: string, eventData: unknown) => {
+  const frame = `event: ${eventName}\ndata: ${JSON.stringify(eventData)}\n\n`;
+  const bytes = encoder.encode(frame);
+  await writer.write(bytes);
+
+  stats.bytesSent += bytes.byteLength;
+  if (!stats.firstByteAt) {
+    stats.firstByteAt = Date.now();
+    console.log("[SSE] first-byte-sent", {
+      afterMs: stats.firstByteAt - stats.startedAt,
+    });
+  }
+
+  if (eventName === "chunk") {
+    stats.chunksSent++;
+    if (stats.chunksSent % 50 === 0) {
+      console.log("[SSE] progress", {
+        chunksSent: stats.chunksSent,
+        bytesSent: stats.bytesSent,
+        elapsedMs: Date.now() - stats.startedAt,
+      });
+    }
+  } else {
+    console.log("[SSE] event", {
+      event: eventName,
+      bytesSent: stats.bytesSent,
+      elapsedMs: Date.now() - stats.startedAt,
+    });
+  }
+};
 
   // Helper to send error and close
   const sendError = async (error: string) => {
