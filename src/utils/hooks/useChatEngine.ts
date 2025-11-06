@@ -56,7 +56,11 @@ export const useChatEngine = (initial: Message[] = []) => {
           timestamp: new Date(),
         };
 
-        setMessages((prev) => [...prev, assistantMessage]);
+        if (assistantMessage.content === undefined) {
+          setMessages((prev) => [...prev]);
+        } else {
+          setMessages((prev) => [...prev, assistantMessage]);
+        }
 
         try {
           await postMcpChatStream(
@@ -95,7 +99,6 @@ export const useChatEngine = (initial: Message[] = []) => {
                   resourcesUsed: unknown[];
                   promptsUsed: unknown[];
                 };
-
                 toolsUsed = result.toolsUsed || [];
                 resourcesUsed = result.resourcesUsed || [];
                 promptsUsed = result.promptsUsed || [];
@@ -114,6 +117,8 @@ export const useChatEngine = (initial: Message[] = []) => {
                       : msg
                   )
                 );
+
+                console.log("", messages);
               } else if (event.event === "error") {
                 const errorData = event.data as { error: string };
                 setMessages((prev) =>

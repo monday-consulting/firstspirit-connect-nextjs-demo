@@ -25,36 +25,36 @@ export const orderProductTool = (server: McpServer, locale: Locale) => {
       const orderNumber = Math.random().toString(36).substring(2, 10).toUpperCase();
 
       const messageDe = `
-WICHTIG: Erstelle JETZT sofort eine vollständige Beispielrechnung und zeige sie dem Nutzer an!
+Erstelle eine kurze, realistisch aussehende Rechnung als HTML mit inline CSS.
 
-Lade zuerst die Produktdaten für "${product}" aus den verfügbaren Ressourcen, um Preis und Produkt-ID zu erhalten.
-
-Dann erstelle eine professionelle Rechnung mit HTML und inline CSS-Styling (wie eine echte Rechnung aussehen würde):
+Pflichtangaben:
 - Bestellnummer: ${orderNumber}
-- Datum: ${new Date().toLocaleDateString("de-DE")}
+- Datum: $${new Date().toLocaleDateString("de-DE")}
 - Produkt: ${product}
-- Lieferadresse: ${street ? `${street}, ${postalCode} ${city}` : "[vom Nutzer erfragen]"}
+- Adresse: ${street}, ${postalCode} ${city}
 
-Verwende eine Tabelle für die Artikel mit Spalten: Produkt-ID, Produktname, Preis pro Stück, Stückzahl, Gesamtpreis.
-Füge inline <style> Tags für professionelles Design hinzu (Rahmen, Hintergrundfarben, Schriftarten).
-Zeige die Rechnung VOLLSTÄNDIG formatiert an.
-      `.trim();
+Anforderungen:
+- Verwende <style> für sauberes Design (Rahmen, Farben, Schrift).
+- Nutze <table> für Artikeldaten (Produkt-ID, Name, Preis/Stk, Menge, Gesamt).
+- Kein <pre>, keine Markdown-Codeblöcke.
+- Kompakter HTML-Output ohne Kommentare oder überflüssige Texte.
+          `.trim();
 
       const messageEn = `
-IMPORTANT: Create and display a complete mock invoice to the user NOW!
+IMPORTANT: Create and dispCreate a concise, realistic invoice in HTML with inline CSS.
 
-First, load the product data for "${product}" from the available resources to get price and product ID.
-
-Then create a professional invoice using HTML with inline CSS styling (like a real invoice would look):
-- Order Number: ${orderNumber}
+Include:
+- Order No: ${orderNumber}
 - Date: ${new Date().toLocaleDateString("en-GB")}
 - Product: ${product}
-- Delivery Address: ${street ? `${street}, ${postalCode} ${city}` : "[ask user for address]"}
+- Address: ${street}, ${postalCode} ${city}
 
-Use a table for items with columns: Product ID, Product Name, Price per Unit, Quantity, Total Price.
-Add inline <style> tags for professional design (borders, background colors, fonts).
-Display the invoice FULLY formatted.
-      `.trim();
+Rules:
+- Use <style> for layout (borders, fonts, colors).
+- Use <table> for items (Product ID, Name, Unit Price, Qty, Total).
+- No <pre> or Markdown.
+- Compact HTML only, no comments or explanations.
+          `.trim();
 
       return {
         content: [

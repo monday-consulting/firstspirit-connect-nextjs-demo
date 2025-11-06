@@ -195,8 +195,9 @@ export const createMessage = async ({
         tools: mcpTools,
         messages: finalMessages.slice(-5), // Last 5 messages for token efficiency
         temperature: 0,
+        maxOutputTokens: 1000,
         system,
-        stopWhen: stepCountIs(5),
+        stopWhen: stepCountIs(3),
       });
     } else if (selectedModel === MODEL_IDS.GEMINI) {
       result = await generateText({
@@ -204,8 +205,9 @@ export const createMessage = async ({
         tools: mcpTools,
         messages: finalMessages.slice(-5),
         temperature: 0,
+        maxOutputTokens: 1000,
         system,
-        stopWhen: stepCountIs(5),
+        stopWhen: stepCountIs(3),
       });
     } else {
       result = await generateText({
@@ -213,8 +215,9 @@ export const createMessage = async ({
         tools: mcpTools,
         messages: finalMessages.slice(-5),
         temperature: 0,
+        maxOutputTokens: 1000,
         system,
-        stopWhen: stepCountIs(5),
+        stopWhen: stepCountIs(3),
       });
     }
 
@@ -231,6 +234,7 @@ export const createMessage = async ({
       `[MCP Client] Message creation completed [${sessionId}] - Tools used: ${toolsUsed.length}, Response length: ${result.text.length} chars`
     );
     // Return response with usage metadata
+    console.log(`[MCP Client] Token usage: ${JSON.stringify(result.usage)}`);
     return {
       response: result.text,
       toolsUsed,
