@@ -56,7 +56,11 @@ export const useChatEngine = (initial: Message[] = []) => {
           timestamp: new Date(),
         };
 
-        setMessages((prev) => [...prev, assistantMessage]);
+        if (assistantMessage.content === undefined) {
+          setMessages((prev) => [...prev]);
+        } else {
+          setMessages((prev) => [...prev, assistantMessage]);
+        }
 
         try {
           await postMcpChatStream(
@@ -116,7 +120,7 @@ export const useChatEngine = (initial: Message[] = []) => {
                   )
                 );
 
-                console.log("messages after complete:", messages);
+                console.log("", messages);
               } else if (event.event === "error") {
                 const errorData = event.data as { error: string };
                 setMessages((prev) =>
