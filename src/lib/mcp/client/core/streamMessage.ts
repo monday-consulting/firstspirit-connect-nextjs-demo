@@ -170,19 +170,10 @@ export const streamMessage = async ({
 
   // Helper function to continue after tool execution
   // AI SDK v5 doesn't automatically continue after tools, so we manually call the LLM again
-  const continueAfterTools = async (previousMessages: ModelMessage[], userLocale?: string) => {
-    // Add a language reminder to ensure the response is in the correct language
-    const language = userLocale ? LOCALE_TO_LANGUAGE[userLocale] || "English" : "English";
-    const languageReminderMessage: ModelMessage = {
-      role: "user",
-      content: `Remember: Respond in ${language.toUpperCase()} only.`,
-    };
-
-    const messagesWithReminder = [...previousMessages, languageReminderMessage];
-
+  const continueAfterTools = async (previousMessages: ModelMessage[]) => {
     const result = await generateText({
       model,
-      messages: messagesWithReminder,
+      messages: previousMessages,
       temperature: 0,
       system,
     });

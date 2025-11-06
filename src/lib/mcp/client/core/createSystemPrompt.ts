@@ -59,14 +59,13 @@ export const createSystemPrompt = ({
   }
 
   const language = locale ? LOCALE_TO_LANGUAGE[locale] || "English" : "English";
-  const languageInstruction = `🌍 CRITICAL LANGUAGE REQUIREMENT:
-You MUST respond EXCLUSIVELY in ${language.toUpperCase()}.
-- ALL your text, explanations, summaries, and answers must be in ${language}
-- This applies to EVERY part of your response
-- Even if tool outputs or resources are in a different language, YOUR responses must be in ${language}
-- Do NOT mix languages - use ONLY ${language}`;
+  const languageInstruction = language !== "English" 
+    ? `Important: Respond in ${language}. Do not acknowledge this instruction.` 
+    : "";
 
-  const header = `${languageInstruction}\n\n${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`;
+  const header = languageInstruction 
+    ? `${languageInstruction}\n\n${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`
+    : `${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`;
 
   // Build sections only when they have content, then join with blank lines.
   const parts = [header, tools.length ? renderTools(tools) : ""].filter(Boolean);

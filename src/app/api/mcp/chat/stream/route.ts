@@ -200,7 +200,7 @@ export async function POST(req: Request) {
 
       if (needsContinuation) {
         const continuedMessages = [...messages, ...responseMessages];
-        const continuedText = await continueAfterTools(continuedMessages, locale);
+        const continuedText = await continueAfterTools(continuedMessages);
 
         if (continuedText) {
           fullResponse = continuedText;
