@@ -34,12 +34,8 @@ export const useMcpInit = (enabled: boolean) => {
         setError(null);
 
         // If we got empty data and we're in dev mode, retry after a delay
-        if (
-          !data.connected &&
-          process.env.NODE_ENV === "development" &&
-          retryCount < 5
-        ) {
-          const delay = Math.min(1000 * Math.pow(2, retryCount), 5000); // Exponential backoff, max 5s
+        if (!data.connected && process.env.NODE_ENV === "development" && retryCount < 5) {
+          const delay = Math.min(1000 * 2 ** retryCount, 5000); // Exponential backoff, max 5s
           console.log(
             `[MCP Client] Server not ready, retrying in ${delay}ms (attempt ${retryCount + 1}/5)`
           );

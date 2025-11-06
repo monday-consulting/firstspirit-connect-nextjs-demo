@@ -2,22 +2,20 @@ import { createAnthropic } from "@ai-sdk/anthropic";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import type { Prompt, PromptMessage, Resource, Tool } from "@modelcontextprotocol/sdk/types.js";
-import {
-  type CoreMessage,
-  generateText,
-  streamText,
-} from "ai";
+import { type CoreMessage, generateText, type LanguageModel, streamText } from "ai";
 
 // Compatibility type alias
 type ModelMessage = CoreMessage;
+
 import type { ModelId } from "@/components/features/McpChat/AvailableModels";
 import { MODEL_IDS } from "@/components/features/McpChat/AvailableModels";
 import type { ChatWithToolsOptions } from "@/components/features/McpChat/ChatConversation";
+import { LOCALE_TO_LANGUAGE } from "@/i18n/config";
 import { selectResourcesToLoad } from "../utils/selectResourcesToLoad";
 import type { Core } from "./clientCore";
 import { createSystemPrompt, toJSONSafe } from "./createSystemPrompt";
 import { processUsedPrompts } from "./prompts";
-import { getUsedTools, processTools } from "./tools";
+import { processTools } from "./tools";
 
 export type CreateMessageProps = {
   core: Core;
@@ -151,7 +149,7 @@ export const streamMessage = async ({
   );
 
   // Select the appropriate model
-  let model;
+  let model: LanguageModel;
   if (selectedModel === MODEL_IDS.CLAUDE) {
     model = claude(MODEL_IDS.CLAUDE);
   } else if (selectedModel === MODEL_IDS.GEMINI) {
@@ -159,7 +157,7 @@ export const streamMessage = async ({
   } else {
     model = openai.chat(selectedModel);
   }
-  
+
   // Call streamText with tools - they will execute automatically
   // In AI SDK v5, tool execution is automatic when tools have execute functions
   const stream = streamText({
@@ -172,15 +170,24 @@ export const streamMessage = async ({
 
   // Helper function to continue after tool execution
   // AI SDK v5 doesn't automatically continue after tools, so we manually call the LLM again
-  const continueAfterTools = async (previousMessages: ModelMessage[]) => {
+  const continueAfterTools = async (previousMessages: ModelMessage[], userLocale?: string) => {
+    // Add a language reminder to ensure the response is in the correct language
+    const language = userLocale ? LOCALE_TO_LANGUAGE[userLocale] || "English" : "English";
+    const languageReminderMessage: ModelMessage = {
+      role: "user",
+      content: `Remember: Respond in ${language.toUpperCase()} only.`,
+    };
+
+    const messagesWithReminder = [...previousMessages, languageReminderMessage];
+
     const result = await generateText({
       model,
-      messages: previousMessages,
+      messages: messagesWithReminder,
       temperature: 0,
       system,
     });
-    
-    return result.text;
+
+    return result.text || "";
   };
 
   return {

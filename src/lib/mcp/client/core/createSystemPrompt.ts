@@ -59,7 +59,12 @@ export const createSystemPrompt = ({
   }
 
   const language = locale ? LOCALE_TO_LANGUAGE[locale] || "English" : "English";
-  const languageInstruction = `🌍 LANGUAGE REQUIREMENT: You MUST respond ONLY in ${language}. All your responses, explanations, and text must be in ${language}, regardless of the language used in tool outputs or resources.`;
+  const languageInstruction = `🌍 CRITICAL LANGUAGE REQUIREMENT:
+You MUST respond EXCLUSIVELY in ${language.toUpperCase()}.
+- ALL your text, explanations, summaries, and answers must be in ${language}
+- This applies to EVERY part of your response
+- Even if tool outputs or resources are in a different language, YOUR responses must be in ${language}
+- Do NOT mix languages - use ONLY ${language}`;
 
   const header = `${languageInstruction}\n\n${sysPreset}\n\nCURRENTLY AVAILABLE MCP CAPABILITIES:`;
 

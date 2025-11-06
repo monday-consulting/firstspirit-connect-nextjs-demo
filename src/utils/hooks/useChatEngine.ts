@@ -76,11 +76,7 @@ export const useChatEngine = (initial: Message[] = []) => {
                   )
                 );
               }
-            } else if (
-              event.event === "complete" &&
-              typeof event.data === "object" &&
-              event.data
-            ) {
+            } else if (event.event === "complete" && typeof event.data === "object" && event.data) {
               const result = event.data as {
                 response: string;
                 toolsUsed: unknown[];

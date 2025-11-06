@@ -15,8 +15,8 @@ export const StyledMessage = ({ content }: StyledMessageProps) => {
   // Use unified rendering: Markdown with rehype-raw handles both Markdown and HTML
   // This allows proper rendering of mixed content (Markdown headings + HTML tables + Markdown text)
   return (
-      <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-        {extractedContent}
-      </Markdown>
+    <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+      {extractedContent}
+    </Markdown>
   );
 };

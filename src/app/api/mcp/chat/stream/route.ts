@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { type Core, createCore } from "@/lib/mcp/client/core/clientCore";
-import { streamMessage } from "@/lib/mcp/client/core/createMessage";
 import { pickPreset } from "@/lib/mcp/client/core/prompts";
+import { streamMessage } from "@/lib/mcp/client/core/streamMessage";
 
 /**
  * Module-scoped map of locale-specific cores
@@ -152,7 +152,7 @@ export async function POST(req: Request) {
 
       // Stream all chunks as they arrive
       let fullResponse = "";
-      
+
       for await (const part of stream.fullStream) {
         if (part.type === "text-delta") {
           fullResponse += part.text;
@@ -165,10 +165,18 @@ export async function POST(req: Request) {
 
       // Wait for stream completion and handle multi-turn tool execution
       const finalResult = await stream;
-      const text = await finalResult.text;
       const response = await finalResult.response;
       const responseMessages = response.messages;
-      
+
+      // Try to get text, but handle the case where it might be unavailable after tool calls
+      let text = "";
+      try {
+        text = await finalResult.text;
+      } catch {
+        // If text throws (e.g., after tool execution), that's expected
+        // Continue with the tool execution flow
+      }
+
       // Extract tool usage from response messages
       const toolsUsed: Array<{ name: string; input: unknown; output: unknown }> = [];
       for (const msg of responseMessages) {
@@ -184,13 +192,16 @@ export async function POST(req: Request) {
           }
         }
       }
-      
+
       // AI SDK v5 doesn't automatically continue after tool execution
-      // If tools were called but no text was generated, manually continue the conversation
-      if (!fullResponse && !text && toolsUsed.length > 0) {
+      // We need to manually call the LLM again to get the final response
+      // This happens when: tools were called but no text was streamed
+      const needsContinuation = toolsUsed.length > 0 && !fullResponse && !text;
+
+      if (needsContinuation) {
         const continuedMessages = [...messages, ...responseMessages];
-        const continuedText = await continueAfterTools(continuedMessages);
-        
+        const continuedText = await continueAfterTools(continuedMessages, locale);
+
         if (continuedText) {
           fullResponse = continuedText;
           await sendEvent("chunk", {
@@ -199,6 +210,7 @@ export async function POST(req: Request) {
           });
         }
       } else if (!fullResponse && text) {
+        // If no text was streamed but finalResult.text has content, use that
         fullResponse = text;
         await sendEvent("chunk", {
           type: "text",
