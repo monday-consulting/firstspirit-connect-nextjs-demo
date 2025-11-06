@@ -195,6 +195,7 @@ export const createMessage = async ({
         tools: mcpTools,
         messages: finalMessages.slice(-5), // Last 5 messages for token efficiency
         temperature: 0,
+        maxOutputTokens: 500,
         system,
         stopWhen: stepCountIs(5),
       });
@@ -204,6 +205,7 @@ export const createMessage = async ({
         tools: mcpTools,
         messages: finalMessages.slice(-5),
         temperature: 0,
+        maxOutputTokens: 500,
         system,
         stopWhen: stepCountIs(5),
       });
@@ -213,6 +215,7 @@ export const createMessage = async ({
         tools: mcpTools,
         messages: finalMessages.slice(-5),
         temperature: 0,
+        maxOutputTokens: 500,
         system,
         stopWhen: stepCountIs(5),
       });

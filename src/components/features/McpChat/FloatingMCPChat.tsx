@@ -100,11 +100,7 @@ const FloatingMCPChat = ({
         userInput: text,
         useResources: selectedResources.length ? selectedResources : undefined,
         customSystemPrompt:
-          selectedPreset === "custom"
-            ? customSystemPrompt.trim() || undefined
-            : selectedPreset !== "balanced"
-              ? selectedPreset
-              : undefined,
+          selectedPreset === "custom" ? customSystemPrompt.trim() || undefined : selectedPreset,
         usedUserPrompt,
         selectedModel,
       });
