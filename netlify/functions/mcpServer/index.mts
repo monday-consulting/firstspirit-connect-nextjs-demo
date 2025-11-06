@@ -109,7 +109,9 @@ async function processMcpRequest(req: Request, locale: string): Promise<Response
   const method = requestBody?.method || "unknown";
   const id = requestBody?.id || "no-id";
 
-  console.log(`[MCP Server] Processing JSON-RPC call - Method: ${method}, ID: ${id}`);
+  console.log(
+    `[MCP Server] Processing JSON-RPC call - Method: ${method}, ID: ${id}, Request Body: ${JSON.stringify(requestBody)}`
+  );
 
   // Process the JSON-RPC call through the transport layer
   // This routes to appropriate MCP handlers (tools, resources, prompts)
