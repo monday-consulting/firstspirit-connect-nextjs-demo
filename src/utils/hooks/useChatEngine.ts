@@ -89,13 +89,14 @@ export const useChatEngine = (initial: Message[] = []) => {
                 typeof event.data === "object" &&
                 event.data
               ) {
+                console.log("event.data:", event.data);
                 const result = event.data as {
                   response: string;
                   toolsUsed: unknown[];
                   resourcesUsed: unknown[];
                   promptsUsed: unknown[];
                 };
-
+                console.log("result:", result);
                 toolsUsed = result.toolsUsed || [];
                 resourcesUsed = result.resourcesUsed || [];
                 promptsUsed = result.promptsUsed || [];
@@ -114,6 +115,8 @@ export const useChatEngine = (initial: Message[] = []) => {
                       : msg
                   )
                 );
+
+                console.log("messages after complete:", messages);
               } else if (event.event === "error") {
                 const errorData = event.data as { error: string };
                 setMessages((prev) =>
