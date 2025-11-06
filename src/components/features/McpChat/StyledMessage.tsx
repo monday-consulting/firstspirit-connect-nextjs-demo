@@ -1,22 +1,52 @@
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
+import React, { useMemo } from "react";
+import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
+import { defaultSchema } from "hast-util-sanitize";
 
-type StyledMessageProps = {
-  content: string;
+type StyledMessageProps = { content: string };
+
+// Allow <style> and inline style safely
+const sanitizeSchemaWithStyle = {
+  ...defaultSchema,
+  tagNames: [...(defaultSchema.tagNames || []), "style"],
+  attributes: {
+    ...(defaultSchema.attributes || {}),
+    "*": [...(defaultSchema.attributes?.["*"] || []), "className", "style"],
+  },
+} as const;
+
+// Detect real HTML outside of fenced code blocks
+const isHtmlMessage = (message: string): boolean => {
+  const messageWithoutCodeFences = message.replace(/```[\s\S]*?```/g, "");
+  return /<\/?[a-z][\s\S]*>/i.test(messageWithoutCodeFences.trim());
 };
 
 export const StyledMessage = ({ content }: StyledMessageProps) => {
-  // Extract HTML from code fences (fallback for older responses)
-  const extractedContent = content.replace(/```html\s*([\s\S]*?)```/gi, (_match, htmlContent) => {
-    return htmlContent.trim();
-  });
+  // Decide once per render if HTML handling is needed
+  const hasHtml = useMemo<boolean>(() => isHtmlMessage(content), [content]);
 
-  // Use unified rendering: Markdown with rehype-raw handles both Markdown and HTML
-  // This allows proper rendering of mixed content (Markdown headings + HTML tables + Markdown text)
+  // Keep GFM for tables, task lists, and pipes
+  const remarkPluginsList = useMemo(() => [remarkGfm], []);
+
+  // Enable raw HTML + sanitize only when needed
+  const rehypePluginsList = useMemo(
+    () =>
+      hasHtml
+        ? ([ [rehypeRaw], [rehypeSanitize, sanitizeSchemaWithStyle] ] as const)
+        : undefined,
+    [hasHtml]
+  );
+
   return (
-      <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-        {extractedContent}
-      </Markdown>
+    <div className="prose max-w-none">
+      <ReactMarkdown
+        remarkPlugins={remarkPluginsList}
+        rehypePlugins={rehypePluginsList as any}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   );
 };
