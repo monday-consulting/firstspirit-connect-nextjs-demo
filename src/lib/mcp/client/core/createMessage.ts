@@ -18,7 +18,6 @@ import type { Core } from "./clientCore";
 import { createSystemPrompt, toJSONSafe } from "./createSystemPrompt";
 import { processUsedPrompts } from "./prompts";
 import { getUsedTools, processTools } from "./tools";
-import { createMistral, mistral } from "@ai-sdk/mistral";
 
 export type CreateMessageProps = {
   core: Core;
@@ -119,10 +118,6 @@ export const createMessage = async ({
     fetch: timedFetch,
   });
 
-  const mistral = createMistral({ apiKey: process.env.MISTRAL_API_KEY, fetch: timedFetch });
-
-  const mistralClient = mistral(MODEL_IDS.MISTRAL);
-
   let usedPrompt: Prompt[] = [];
   let injectedPromptMessages: ModelMessage[] = [];
 
@@ -188,8 +183,6 @@ export const createMessage = async ({
     `[MCP Client] Final message count: ${finalMessages.length} (chat: ${messages.length}, resources: ${resourceMessages.length}) [${sessionId}]`
   );
 
-
-
   try {
     let result: GenerateTextResult<typeof mcpTools, unknown>;
     console.log(`[MCP Client] Executing AI model: ${selectedModel} [${sessionId}]`);
@@ -214,16 +207,6 @@ export const createMessage = async ({
         system,
         stopWhen: stepCountIs(5),
       });
-    }
-      else if (selectedModel === MODEL_IDS.MISTRAL) {
-        result = await generateText({
-          model: mistralClient,
-          tools: mcpTools,
-          messages: finalMessages.slice(-5),
-          temperature: 0,
-          system,
-          stopWhen: stepCountIs(5),
-        });
     } else {
       result = await generateText({
         model: openai.chat(selectedModel),
