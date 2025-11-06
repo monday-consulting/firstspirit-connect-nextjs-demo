@@ -24,8 +24,6 @@ export const getProductsTool = (server: McpServer, locale: Locale) => {
         `[MCP Server] getProducts completed in ${duration}ms - Found ${endpoints.length} products for locale: ${locale}`
       );
 
-      console.log("TOOLS ENDPOINTS", endpoints.map((p) => `- ${p.name}: ${p.content}`).join("\n"));
-
       return {
         content: [
           {
