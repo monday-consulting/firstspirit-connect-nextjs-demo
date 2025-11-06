@@ -26,7 +26,7 @@ export const mcpInit = async (locale: string): Promise<McpInitResponse> => {
   };
 
   try {
-    const url = new URL("/api/mcp/chat", window.location.origin);
+    const url = new URL("/api/mcp/chat/stream", window.location.origin);
     url.searchParams.set("locale", locale);
 
     console.log(`[MCP Client] Fetching MCP capabilities from server`);
@@ -36,6 +36,14 @@ export const mcpInit = async (locale: string): Promise<McpInitResponse> => {
     });
 
     if (!res.ok) {
+      // In dev mode, 404 is expected during initial server startup
+      if (res.status === 404 && process.env.NODE_ENV === "development") {
+        console.log(
+          "[MCP Client] MCP server not ready yet (404) - this is normal during dev startup. Will return empty capabilities."
+        );
+        return defaultResponse;
+      }
+
       const errorText = await res.text().catch(() => "Unknown error");
       const errorMessage = `[MCP Client] MCP initialization failed: HTTP ${res.status} ${res.statusText} - ${errorText.slice(0, 400)}`;
       console.error(errorMessage);

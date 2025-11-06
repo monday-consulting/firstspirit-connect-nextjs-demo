@@ -1,5 +1,6 @@
+import { NextResponse } from "next/server";
 import { type Core, createCore } from "@/lib/mcp/client/core/clientCore";
-import { createMessage } from "@/lib/mcp/client/core/createMessage";
+import { streamMessage } from "@/lib/mcp/client/core/createMessage";
 import { pickPreset } from "@/lib/mcp/client/core/prompts";
 
 /**
@@ -55,6 +56,33 @@ const ensureConnected = async (core: Core, locale: string) => {
 };
 
 /**
+ * GET handler:
+ * - Ensures connection to the MCP server for the specified locale
+ * - Returns currently available tools/resources/prompts (server filters by locale)
+ */
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const locale = searchParams.get("locale") || "en-GB";
+
+    const core = getCore(locale);
+    await ensureConnected(core, locale);
+
+    return NextResponse.json({
+      tools: core.getAvailableTools(),
+      resources: core.getAvailableResources(),
+      prompts: core.getAvailablePrompts(),
+      connected: core.isConnected(),
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { tools: [], resources: [], prompts: [], connected: false, error: String(error) },
+      { status: 500 }
+    );
+  }
+}
+
+/**
  * POST handler for streaming chat:
  * - Accepts chat payload + options from the client
  * - Ensures connection and constructs a system preset
@@ -108,9 +136,8 @@ export async function POST(req: Request) {
         availablePrompts: core.getAvailablePrompts(),
       });
 
-      // For now, use the regular createMessage and send result in chunks
-      // TODO: Implement proper streaming when AI SDK supports it better
-      const result = await createMessage({
+      // Use real streaming with streamText from AI SDK
+      const { stream, resourcesUsed, promptsUsed, continueAfterTools } = await streamMessage({
         core,
         sysPreset,
         chatMessages: messages,
@@ -123,23 +150,67 @@ export async function POST(req: Request) {
         locale,
       });
 
-      // Send the complete response as chunks to simulate streaming
-      const chunks = result.response.split(" ");
-      for (let i = 0; i < chunks.length; i++) {
-        const chunk = chunks[i] + (i < chunks.length - 1 ? " " : "");
+      // Stream all chunks as they arrive
+      let fullResponse = "";
+      
+      for await (const part of stream.fullStream) {
+        if (part.type === "text-delta") {
+          fullResponse += part.text;
+          await sendEvent("chunk", {
+            type: "text",
+            content: part.text,
+          });
+        }
+      }
+
+      // Wait for stream completion and handle multi-turn tool execution
+      const finalResult = await stream;
+      const text = await finalResult.text;
+      const response = await finalResult.response;
+      const responseMessages = response.messages;
+      
+      // Extract tool usage from response messages
+      const toolsUsed: Array<{ name: string; input: unknown; output: unknown }> = [];
+      for (const msg of responseMessages) {
+        if (msg.role === "assistant" && Array.isArray(msg.content)) {
+          for (const part of msg.content) {
+            if (part.type === "tool-call") {
+              toolsUsed.push({
+                name: part.toolName,
+                input: part.input,
+                output: undefined,
+              });
+            }
+          }
+        }
+      }
+      
+      // AI SDK v5 doesn't automatically continue after tool execution
+      // If tools were called but no text was generated, manually continue the conversation
+      if (!fullResponse && !text && toolsUsed.length > 0) {
+        const continuedMessages = [...messages, ...responseMessages];
+        const continuedText = await continueAfterTools(continuedMessages);
+        
+        if (continuedText) {
+          fullResponse = continuedText;
+          await sendEvent("chunk", {
+            type: "text",
+            content: continuedText,
+          });
+        }
+      } else if (!fullResponse && text) {
+        fullResponse = text;
         await sendEvent("chunk", {
           type: "text",
-          content: chunk,
+          content: text,
         });
-        // Add a small delay to simulate streaming
-        await new Promise((resolve) => setTimeout(resolve, 50));
       }
 
       await sendEvent("complete", {
-        response: result.response,
-        toolsUsed: result.toolsUsed,
-        resourcesUsed: result.resourcesUsed,
-        promptsUsed: result.promptsUsed,
+        response: fullResponse,
+        toolsUsed,
+        resourcesUsed,
+        promptsUsed,
         availableTools: core.getAvailableTools(),
         availableResources: core.getAvailableResources(),
         availablePrompts: core.getAvailablePrompts(),

@@ -18,49 +18,6 @@ type StreamEvent = {
 };
 
 /**
- * Sends a non-streaming chat request to the MCP API
- * @param body - The chat request payload
- * @param signal - Optional AbortSignal for request cancellation
- * @returns Promise resolving to the chat response
- * @throws Error if the request fails or returns non-ok status
- */
-export const postMcpChat = async (body: McpChatRequest, signal?: AbortSignal) => {
-  const requestId = Math.random().toString(36).substr(2, 9);
-  console.log(
-    `[MCP Client] Starting non-streaming chat request [${requestId}] - Model: ${body.selectedModel}`
-  );
-
-  try {
-    const startTime = performance.now();
-    const res = await fetch("/api/mcp/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-      signal,
-    });
-
-    if (!res.ok) {
-      const errorText = await res.text().catch(() => "Unknown error");
-      console.error(
-        `[MCP Client] Chat request failed [${requestId}] - HTTP ${res.status} ${res.statusText}`
-      );
-      throw new Error(
-        `MCP chat request failed: HTTP ${res.status} ${res.statusText} - ${errorText}`
-      );
-    }
-
-    const duration = Math.round(performance.now() - startTime);
-    console.log(`[MCP Client] Chat request completed [${requestId}] in ${duration}ms`);
-    return res.json();
-  } catch (error) {
-    if (error instanceof Error && error.name === "AbortError") {
-      throw new Error("[MCP Client] MCP chat request was cancelled");
-    }
-    throw error;
-  }
-};
-
-/**
  * Sends a streaming chat request to the MCP API and processes server-sent events
  * @param body - The chat request payload
  * @param onEvent - Callback function to handle streaming events

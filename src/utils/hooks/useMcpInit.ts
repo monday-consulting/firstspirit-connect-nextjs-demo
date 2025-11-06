@@ -15,22 +15,55 @@ export const useMcpInit = (enabled: boolean) => {
 
   useEffect(() => {
     if (!enabled) return;
-    (async () => {
+
+    let retryTimeout: NodeJS.Timeout | null = null;
+    let isCancelled = false;
+
+    const initializeMcp = async (retryCount = 0) => {
+      if (isCancelled) return;
+
       try {
         const data = await mcpInit(locale);
+
+        if (isCancelled) return;
 
         setAvailableTools(data?.tools ?? []);
         setAvailableResources(data?.resources ?? []);
         setAvailablePrompts(data?.prompts ?? []);
         setConnectedServers(data?.connected ? ["default"] : []);
+        setError(null);
+
+        // If we got empty data and we're in dev mode, retry after a delay
+        if (
+          !data.connected &&
+          process.env.NODE_ENV === "development" &&
+          retryCount < 5
+        ) {
+          const delay = Math.min(1000 * Math.pow(2, retryCount), 5000); // Exponential backoff, max 5s
+          console.log(
+            `[MCP Client] Server not ready, retrying in ${delay}ms (attempt ${retryCount + 1}/5)`
+          );
+          retryTimeout = setTimeout(() => initializeMcp(retryCount + 1), delay);
+        }
       } catch (error) {
+        if (isCancelled) return;
+
         setError(error instanceof Error ? error : new Error("Unknown error occurred"));
         setAvailableTools([]);
         setAvailableResources([]);
         setAvailablePrompts([]);
         setConnectedServers([]);
       }
-    })();
+    };
+
+    initializeMcp();
+
+    return () => {
+      isCancelled = true;
+      if (retryTimeout) {
+        clearTimeout(retryTimeout);
+      }
+    };
   }, [enabled, locale]);
 
   return {
