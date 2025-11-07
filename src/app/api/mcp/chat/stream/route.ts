@@ -111,6 +111,14 @@ export async function POST(req: Request) {
     await writer.close();
   };
 
+  const startHeartbeat = () => {
+    const intervalId = setInterval(async () => {
+      await sendEvent("hearbeat", { tag: "[MCP]", level: "info", message: "heartbeat" });
+    }, 5000);
+    return () => clearInterval(intervalId);
+  };
+
+  const stopHeartbeat = startHeartbeat();
   // Start processing in the background
   (async () => {
     try {
@@ -156,17 +164,7 @@ export async function POST(req: Request) {
         locale,
       });
 
-      // Send the complete response as chunks to simulate streaming
-      // const chunks = result.response.split(" ");
-      // for (let i = 0; i < chunks.length; i++) {
-      //   const chunk = chunks[i] + (i < chunks.length - 1 ? " " : "");
-      //   await sendEvent("chunk", {
-      //     type: "text",
-      //     content: chunk,
-      //   });
-      //   // Add a small delay to simulate streaming
-      //   await new Promise((resolve) => setTimeout(resolve, 50));
-      // }
+      stopHeartbeat();
 
       await sendEvent("complete", {
         response: result.response,
