@@ -42,9 +42,6 @@ export const useChatEngine = (initial: Message[] = []) => {
         // Create a placeholder assistant message that will be updated as we stream
         const assistantMessageId = (Date.now() + 1).toString();
         let currentContent = "";
-        let toolsUsed: unknown[] = [];
-        let resourcesUsed: unknown[] = [];
-        let promptsUsed: unknown[] = [];
 
         const assistantMessage: Message = {
           id: assistantMessageId,
@@ -95,20 +92,40 @@ export const useChatEngine = (initial: Message[] = []) => {
               ) {
                 const result = event.data as {
                   response: string;
-                  toolsUsed: unknown[];
+                  toolsUsed: any[];
                   resourcesUsed: unknown[];
                   promptsUsed: unknown[];
                 };
-                toolsUsed = result.toolsUsed || [];
-                resourcesUsed = result.resourcesUsed || [];
-                promptsUsed = result.promptsUsed || [];
+
+                let content = result.response;
+
+                // check if order-product tool was used and extract its output as JSON
+                const orderTool = result.toolsUsed?.find(
+                  (t) => typeof t.name === "string" && t.name.startsWith("order-product")
+                );
+
+                if (orderTool?.output?.[0]?.resource?.text) {
+                  try {
+                    // JSON extraction and pretty-printing
+                    const rawJson = orderTool.output[0].resource.text;
+                    const parsed = JSON.parse(rawJson);
+
+                    content = JSON.stringify(parsed, null, 2);
+                  } catch {
+                    console.warn("Error while parsing order-product tool output as JSON.");
+                  }
+                }
+
+                const toolsUsed = result.toolsUsed || [];
+                const resourcesUsed = result.resourcesUsed || [];
+                const promptsUsed = result.promptsUsed || [];
 
                 setMessages((prev) =>
                   prev.map((msg) =>
                     msg.id === assistantMessageId
                       ? {
                           ...msg,
-                          content: result.response,
+                          content, // Paste final content (maybe JSON) here
                           toolsUsed: toolsUsed as Message["toolsUsed"],
                           resourcesUsed: resourcesUsed as Message["resourcesUsed"],
                           promptsUsed: promptsUsed as Message["promptsUsed"],
@@ -117,8 +134,6 @@ export const useChatEngine = (initial: Message[] = []) => {
                       : msg
                   )
                 );
-
-                console.log("", messages);
               } else if (event.event === "error") {
                 const errorData = event.data as { error: string };
                 setMessages((prev) =>

@@ -8,13 +8,12 @@ Rules:
 - Always check relevant MCP tools and resources before answering.
 - Use only the data you fetch. Do not guess or rely on memory.
 - Never show raw JSON or tool output.
-- Use Markdown for tables by default; only for orders/invoices you may output and style tables with plain HTML.
 
 Style:
 - Respond in plain, human language.
 - Be brief: max 5 sentences or 100–120 words.
 - Use Markdown for lists or highlights.
-- Only for orders/invoices: output stylable HTML tables (no code fences, no <pre>).
+- Tables in Markdown by default
 `.trim();
 };
 
@@ -27,7 +26,7 @@ Style:
 - Max 4–5 sentences or 100 words.
 - Bullet points preferred.
 - Convert tool output into readable text, never raw data.
-- Tables in Markdown by default; only for orders/invoices use stylable HTML (not inside code blocks).
+- Tables in Markdown by default
 `.trim(),
 
   aggressive: `
@@ -38,7 +37,7 @@ Style:
 - Max 5 sentences or 120 words.
 - Short lists > long paragraphs.
 - Avoid speculation, avoid raw data.
-- Tables in Markdown; only for orders/invoices use stylable HTML directly.
+- Tables in Markdown
 `.trim(),
 
   balanced: `
@@ -49,7 +48,7 @@ Style:
 - Limit: 4–5 sentences or ~100 words.
 - Simple phrasing, clear structure.
 - No unnecessary detail, no raw data.
-- Tables in Markdown; only for orders/invoices allow stylable HTML tables.
+- Tables in Markdown
 `.trim(),
 
   assistant: `
@@ -59,7 +58,7 @@ Be clear and brief. Use MCP when useful.
 Style:
 - Limit: 3–5 sentences or 100 words.
 - No filler, no repetition.
-- Use Markdown or minimal HTML; only for orders/invoices output stylable HTML tables.
+- Use Markdown or minimal HTML
 `.trim(),
 };
 
