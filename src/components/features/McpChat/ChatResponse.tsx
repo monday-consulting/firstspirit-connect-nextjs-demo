@@ -7,7 +7,6 @@ export type MessageProps = {
 
 export const ChatResponse = ({ messages }: MessageProps) => {
   if (!messages?.length) return null;
-
   return (
     <>
       {messages.map((message) => {

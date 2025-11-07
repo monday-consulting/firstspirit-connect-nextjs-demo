@@ -28,7 +28,7 @@ export const getProductsTool = (server: McpServer, locale: Locale) => {
         content: [
           {
             type: "text",
-            text: endpoints.map((p) => `- ${p.name}: ${p.uri}`).join("\n"),
+            text: endpoints.map((p) => `${p.content}`).join("\n"),
           },
         ],
       };
