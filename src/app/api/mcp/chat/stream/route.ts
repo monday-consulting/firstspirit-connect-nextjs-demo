@@ -113,7 +113,7 @@ export async function POST(req: Request) {
 
   const startHeartbeat = () => {
     const intervalId = setInterval(async () => {
-      await sendEvent("hearbeat", { tag: "[MCP]", level: "info", message: "heartbeat" });
+      await sendEvent("heartbeat", { tag: "[MCP]", level: "info", message: "heartbeat" });
     }, 5000);
     return () => clearInterval(intervalId);
   };
