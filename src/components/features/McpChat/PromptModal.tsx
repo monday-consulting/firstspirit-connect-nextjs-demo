@@ -51,9 +51,10 @@ export const PromptModal = ({
 
   // Check if an argument should be rendered as a product select
   const isProductArgument = (argName: string) => {
-    const isSearchPrompt = title?.toLowerCase().includes("search") || title?.toLowerCase().includes("suche");
+    const isSearchPrompt =
+      title?.toLowerCase().includes("search") || title?.toLowerCase().includes("suche");
     if (isSearchPrompt) return false;
-    
+
     return argName.toLowerCase().includes("product") && !argName.toLowerCase().includes("category");
   };
 
@@ -143,9 +144,10 @@ export const PromptModal = ({
 
           {promptArgs.length > 0 ? (
             <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-              {promptArgs.map((arg, index) =>
-                arg.name !== "locale" ? (
-                  <label key={arg.name} className="flex flex-col gap-1">
+              {promptArgs.map((arg, index) => {
+                const inputId = `prompt-arg-${arg.name}`;
+                return arg.name !== "locale" ? (
+                  <label key={arg.name} htmlFor={inputId} className="flex flex-col gap-1">
                     <span className="font-medium text-sm text-text">
                       {arg.description || arg.name}{" "}
                       {arg.required && <span className="text-red-500">*</span>}
@@ -153,13 +155,14 @@ export const PromptModal = ({
                     {isProductArgument(arg.name) && productOptions.length > 0 ? (
                       <div className="relative">
                         <select
+                          id={inputId}
                           ref={index === 0 ? (firstInputRef as any) : undefined}
                           value={values[arg.name] ?? ""}
                           onChange={(event) =>
                             setValues((prev) => ({ ...prev, [arg.name]: event.target.value }))
                           }
                           required={arg.required}
-                          className="w-full appearance-none rounded-md border border-gray bg-white px-3 py-2 text-sm text-textDark transition-colors hover:border-textLight focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary pr-8" // note: added pr-8
+                          className="w-full appearance-none rounded-md border border-gray bg-white px-3 py-2 pr-8 text-sm text-textDark transition-colors hover:border-textLight focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary" // note: added pr-8
                         >
                           <option value="">
                             {arg.required
@@ -174,12 +177,13 @@ export const PromptModal = ({
                         </select>
 
                         <BiChevronDown
-                          className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
+                          className="-translate-y-1/2 pointer-events-none absolute top-1/2 right-2"
                           size={18}
                         />
                       </div>
                     ) : (
                       <input
+                        id={inputId}
                         ref={index === 0 ? firstInputRef : undefined}
                         type="text"
                         value={values[arg.name] ?? ""}
@@ -196,8 +200,8 @@ export const PromptModal = ({
                       />
                     )}
                   </label>
-                ) : null
-              )}
+                ) : null;
+              })}
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
