@@ -157,16 +157,16 @@ export async function POST(req: Request) {
       });
 
       // Send the complete response as chunks to simulate streaming
-      const chunks = result.response.split(" ");
-      for (let i = 0; i < chunks.length; i++) {
-        const chunk = chunks[i] + (i < chunks.length - 1 ? " " : "");
-        await sendEvent("chunk", {
-          type: "text",
-          content: chunk,
-        });
-        // Add a small delay to simulate streaming
-        await new Promise((resolve) => setTimeout(resolve, 50));
-      }
+      // const chunks = result.response.split(" ");
+      // for (let i = 0; i < chunks.length; i++) {
+      //   const chunk = chunks[i] + (i < chunks.length - 1 ? " " : "");
+      //   await sendEvent("chunk", {
+      //     type: "text",
+      //     content: chunk,
+      //   });
+      //   // Add a small delay to simulate streaming
+      //   await new Promise((resolve) => setTimeout(resolve, 50));
+      // }
 
       await sendEvent("complete", {
         response: result.response,
