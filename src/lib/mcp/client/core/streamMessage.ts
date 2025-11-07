@@ -178,6 +178,8 @@ export const streamMessage = async ({
       system,
     });
 
+    console.log(`[MCP Client] Token usage: ${JSON.stringify(result.usage)}`)
+
     return result.text || "";
   };
 
