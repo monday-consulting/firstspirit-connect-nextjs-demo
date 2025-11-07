@@ -34,8 +34,6 @@ export const orderProductTool = (server: McpServer, locale: Locale) => {
         extractPriceText(String(endpoint?.description ?? "")) ??
         null;
 
-      console.log("priceText extracted:", priceText);
-
       const orderJson = {
         "@context": "https://schema.org",
         "@type": "Order",
