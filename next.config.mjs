@@ -13,6 +13,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "mondaydev-media.e-spirit.cloud",
+      },
+      {
+        protocol: "https",
         hostname: "partnerprod-media.e-spirit.cloud",
       },
       { protocol: "https", hostname: "maps.googleapis.com" },

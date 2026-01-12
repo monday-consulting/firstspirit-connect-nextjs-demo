@@ -23,7 +23,11 @@ const Section = ({ section }: SectionProps) => {
         return (
           <TextImage
             headline={section.data.stHeadline || ""}
-            subheadline={{ content: section.data.stSubheadline }}
+            subheadline={{
+              //@ts-expect-error
+              //TODO: fix type
+              content: section.data.stSubHeadlineTextImage,
+            }}
             text={section.data.stText}
             twoColumn
             layout={(section.data.stLayout?.key as TextImageLayout) || "text-image"}
