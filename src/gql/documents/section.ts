@@ -1,7 +1,7 @@
+import { parseLocale } from "@/i18n/parseLocale";
 import type { Locale } from "next-intl";
 import { client } from "../client";
 import { graphql } from "../generated";
-import { parseLocale } from "@/i18n/parseLocale";
 
 const sectionById = graphql(`
   query sectionById($locale: String!, $id: String!) {

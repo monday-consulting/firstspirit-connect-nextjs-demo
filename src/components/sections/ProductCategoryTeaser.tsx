@@ -1,11 +1,11 @@
 import type { FirstSpiritDataset, Maybe } from "@/gql/generated/graphql";
 import type { LinkData } from "@/types";
+import { getProductDetailLink } from "@/utils/links";
+import { useLocale } from "next-intl";
 import { CategoryProductsList } from "../features/ProductCategoryTeaser/CategoryProductsList";
 import type { ProductTeaserProps } from "../features/ProductCategoryTeaser/ProductTeaser";
 import type { RichTextElementProps } from "../globals/RichTextElement";
 import { Teaser } from "./Teaser";
-import { getProductDetailLink } from "@/utils/links";
-import { useLocale } from "next-intl";
 
 export type ProductCategoryTeaserProps = {
   category: {

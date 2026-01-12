@@ -1,14 +1,14 @@
 {
   "name": "firstspirit-connect-nextjs-demo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "engines": {
     "node": ">= 22.9.0"
   },
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@10.15.1",
   "volta": {
-    "node": "22.15.1",
-    "pnpm": "10.11.0"
+    "node": "22.19.0",
+    "pnpm": "10.15.1"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -21,25 +21,24 @@
     "check:format": "biome format --write ./",
     "check:imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write ./",
     "check:ts": "tsc --noEmit",
-    "check:all": "bun check:imports && bun check:format && bun check:lint && bun check:ts",
+    "check:all": "pnpm check:imports && pnpm check:format && pnpm check:lint && pnpm check:ts",
     "test": "jest",
     "codegen": "graphql-codegen --config codegen.ts",
     "prepare": "husky",
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
-    "@headlessui/react": "2.2.2",
-    "@react-google-maps/api": "2.20.6",
-    "@tanstack/react-query": "5.75.7",
-    "@vis.gl/react-google-maps": "1.5.2",
+    "@headlessui/react": "2.2.7",
+    "@react-google-maps/api": "2.20.7",
+    "@vis.gl/react-google-maps": "1.5.5",
     "graphql": "16.11.0",
-    "graphql-request": "7.1.2",
-    "next": "15.3.2",
-    "next-intl": "4.1.0",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "graphql-request": "7.2.0",
+    "next": "15.5.9",
+    "next-intl": "4.3.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-icons": "5.5.0",
-    "use-intl": "4.1.0"
+    "use-intl": "4.3.6"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
